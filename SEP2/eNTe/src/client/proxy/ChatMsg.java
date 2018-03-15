@@ -23,4 +23,36 @@ public class ChatMsg {
 	public String getContent() {
 		return content;
 	}
+
+	@Override
+	public String toString() {
+		return "ChatMsg [sender=" + sender + ", receiver=" + receiver + ", content=" + content + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChatMsg other = (ChatMsg) obj;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
+		if (receiver == null) {
+			if (other.receiver != null)
+				return false;
+		} else if (!receiver.equals(other.receiver))
+			return false;
+		if (sender == null) {
+			if (other.sender != null)
+				return false;
+		} else if (!sender.equals(other.sender))
+			return false;
+		return true;
+	}
 }

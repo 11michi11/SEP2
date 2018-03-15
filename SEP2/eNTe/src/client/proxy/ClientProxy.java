@@ -1,40 +1,48 @@
 package client.proxy;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import com.google.gson.Gson;
+
 public class ClientProxy {
-	
+
 	private Socket client;
-	private PrintWriter out;
-	private BufferedReader in;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
+	private Gson gson;
+
+	public ClientProxy() {
+		gson = new Gson();
+	}
 
 	public void startConnection(String ip, int port) {
 		try {
-			//System.out.println("Trying to connect..");
+			// System.out.println("Trying to connect..");
 			String message, response;
 			client = new Socket(ip, port);
 			System.out.println("Connected!");
-			out = new PrintWriter(client.getOutputStream(), true);
-			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-			
+			out = new ObjectOutputStream(client.getOutputStream());
+			in = new ObjectInputStream(client.getInputStream());
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public String sendMessage() throws IOException {
-		out.println("dupa");
-		return in.readLine();
+
+	public Message sendMessage(Message msg) throws IOException, ClassNotFoundException {
+		out.writeObject(msg);
+		out.flush();
+		Message response = (Message) in.readObject();
+		System.out.println(response);
+		return response;
 	}
-	
+
 	public void close() {
-		out.close();
 		try {
+			out.close();
 			in.close();
 			client.close();
 		} catch (IOException e) {
