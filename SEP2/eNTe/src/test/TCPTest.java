@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.hamcrest.CoreMatchers.is;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +20,7 @@ import client.proxy.Login;
 import client.proxy.LoginStatus;
 import client.proxy.Message;
 import client.proxy.WelcomingData;
-import server.ServerProxy;
+import server.controller.ServerProxy;
 class TCPTest {
 	
 	private final String IP = "localhost";
@@ -41,7 +43,9 @@ class TCPTest {
 			Message msg = new Message();
 			
 			msg.put("type", "auth");
-			Auth auth = new Auth("login", "pwd");
+			MessageDigest dig = MessageDigest.getInstance("SHA-256");
+			dig.update("pwd".getBytes());
+			Auth auth = new Auth("login", toHex(dig.digest()));
 			msg.put("auth",  auth);
 			
 			Message response = new Message();
@@ -56,10 +60,20 @@ class TCPTest {
 			
 			assertEquals(result, response);
 			System.out.println("Received");
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException | ClassNotFoundException | NoSuchAlgorithmException e) {
 			fail("Exception shoudn't has been thrown");
 			e.printStackTrace();
 		}
+	}
+	
+	private String toHex(byte[] byteData) {
+		StringBuffer hexString = new StringBuffer();
+    	for (int i=0;i<byteData.length;i++) {
+    		String hex=Integer.toHexString(0xff & byteData[i]);
+   	     	if(hex.length()==1) hexString.append('0');
+   	     	hexString.append(hex);
+    	}
+    	return hexString.toString();
 	}
 	
 	@AfterEach
