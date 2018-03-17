@@ -105,37 +105,6 @@ public class ServerProxy {
 			}
 
 		}
-
-		
-
-		// this too
-//		private boolean authenticate(Auth auth) {
-//			try {
-//				MessageDigest dig = MessageDigest.getInstance("SHA-256");
-//				dig.update("pwd".getBytes());
-//				String password = toHex(dig.digest());
-//				System.out.println("O:" + password);
-//				
-//				System.out.println("P:" + auth.pwd);
-//				if (password.equals(auth.pwd))
-//					return true;
-//			} catch (NoSuchAlgorithmException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			return false;
-//		}
-//		
-//		private String toHex(byte[] byteData) {
-//			StringBuffer hexString = new StringBuffer();
-//	    	for (int i=0;i<byteData.length;i++) {
-//	    		String hex=Integer.toHexString(0xff & byteData[i]);
-//	   	     	if(hex.length()==1) hexString.append('0');
-//	   	     	hexString.append(hex);
-//	    	}
-//	    	return hexString.toString();
-//		}
-
 	}
 
 }

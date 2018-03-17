@@ -1,9 +1,8 @@
 package test;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.hamcrest.CoreMatchers.is;
+
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -12,26 +11,23 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.google.gson.Gson;
-
 import client.proxy.Auth;
 import client.proxy.ClientProxy;
 import client.proxy.Login;
 import client.proxy.LoginStatus;
 import client.proxy.Message;
 import client.proxy.WelcomingData;
-import server.controller.ServerProxy;
+import server.controller.ServerController;
 class TCPTest {
 	
 	private final String IP = "localhost";
 	private final int PORT = 7777;
 	private ClientProxy client;
-	private ServerProxy server;
+	private ServerController server;
 	
 	@BeforeEach
 	public void setupServerClient() {
-		server = new ServerProxy();
-		server.start();
+		server = new ServerController();
 		client = new ClientProxy();
 		client.startConnection(IP, PORT);
 	}
@@ -78,7 +74,7 @@ class TCPTest {
 	
 	@AfterEach
 	public void closeServerClient() {
-		server.close();
+		server.closeServer();
 		client.close();
 	}
 

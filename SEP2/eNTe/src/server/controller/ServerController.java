@@ -14,6 +14,11 @@ public class ServerController {
 	public ServerController() {
 		model = new ServerModelManager();
 		server = new ServerProxy(this);
+		server.start();
+	}
+	
+	public void closeServer() {
+		server.close();
 	}
 
 	public Message handleMessage(Message msg) {
