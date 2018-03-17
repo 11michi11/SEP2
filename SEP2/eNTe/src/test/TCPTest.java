@@ -20,7 +20,7 @@ import client.proxy.Login;
 import client.proxy.LoginStatus;
 import client.proxy.Message;
 import client.proxy.WelcomingData;
-import server.ServerProxy;
+import server.controller.ServerProxy;
 class TCPTest {
 	
 	private final String IP = "localhost";
