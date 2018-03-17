@@ -1,9 +1,12 @@
 package server.controller;
 
+import java.util.LinkedList;
+
 import client.proxy.Login;
 import client.proxy.LoginStatus;
 import client.proxy.Message;
 import client.proxy.WelcomingData;
+import model.Post;
 import server.model.ServerModelManager;
 
 public class ServerController {
@@ -44,6 +47,10 @@ public class ServerController {
 		switch (model.authenticate(msg.getAuth())) {
 		case SUCCESS:
 			data = new WelcomingData();
+			Post post = model.getPost();
+			LinkedList<Post> list = new LinkedList<Post>();
+			list.add(post);
+			data.insertPosts(list);
 			login = new Login(LoginStatus.SUCCESS, data);
 			response.put("type", "login");
 			response.put("login", login);
@@ -61,6 +68,6 @@ public class ServerController {
 			response.put("login", login);
 			break;
 		}
-		return msg;
+		return response;
 	}
 }

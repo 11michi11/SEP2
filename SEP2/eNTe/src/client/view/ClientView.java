@@ -1,5 +1,9 @@
 package client.view;
 
-public class ClientView {
+import model.Post;
 
+public interface ClientView {
+
+	public void showPosts(Post[] posts);
+	
 }

@@ -16,13 +16,11 @@ public class ClientProxy {
 
 	public void startConnection(String ip, int port) {
 		try {
-			// System.out.println("Trying to connect..");
-			String message, response;
+			System.out.println("Trying to connect..");
 			client = new Socket(ip, port);
 			System.out.println("Connected!");
 			out = new ObjectOutputStream(client.getOutputStream());
 			in = new ObjectInputStream(client.getInputStream());
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

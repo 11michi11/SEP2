@@ -32,10 +32,10 @@ public class ServerProxy {
 
 	public void start() {
 		// Listening in server in new thread
-		listeningThread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
+//		listeningThread = new Thread(new Runnable() {
+//
+//			@Override
+//			public void run() {
 				try {
 					serverSocket = new ServerSocket(PORT);
 				} catch (IOException e) {
@@ -55,9 +55,9 @@ public class ServerProxy {
 						e.printStackTrace();
 					}
 				}
-			}
-		});
-		listeningThread.start();
+//			}
+//		});
+//		listeningThread.start();
 		System.out.println("Starting Server...");
 
 	}
@@ -91,7 +91,7 @@ public class ServerProxy {
 				ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 
 				Message request = (Message) in.readObject();
-
+				System.out.println(request);
 				Message response = controller.handleMessage(request);
 
 				out.writeObject(response);
@@ -99,7 +99,7 @@ public class ServerProxy {
 
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.exit(1);
+				System.exit(0);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}

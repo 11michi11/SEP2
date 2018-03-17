@@ -10,6 +10,10 @@ import client.proxy.LoginStatus;
 public class UsersList {
 
 	private LinkedList<User> users;
+	
+	public UsersList() {
+		users = new LinkedList<User>();
+	}
 
 	public LoginStatus authenticate(Auth auth) {
 		try {

@@ -8,6 +8,7 @@ import model.Post;
 
 public class WelcomingData implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private Post[] posts;
 	private LinkedList<ChatMsg> unreadMessages;
 	
@@ -47,6 +48,16 @@ public class WelcomingData implements Serializable {
 	@Override
 	public String toString() {
 		return "WelcomingData [posts=" + Arrays.toString(posts) + ", unreadMessages=" + unreadMessages + "]";
+	}
+
+	public void insertPosts(LinkedList<Post> list) {
+		if(list.size() > 10)
+			for(int i = 0;i<=10;i++)
+				posts[i] = list.poll();
+		else 
+			for(int i = 0;i<=list.size();i++)
+				posts[i] = list.poll();
+		
 	}
 	
 }

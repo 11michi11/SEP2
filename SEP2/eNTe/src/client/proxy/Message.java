@@ -27,17 +27,14 @@ public class Message implements Serializable{
 	public Login getLogin() throws NullPointerException, IllegalStateException{
 		if(!data.get("type").equals("login"))
 			throw new IllegalStateException("Message does not contain login information");
-		
-		LoginStatus status = (LoginStatus) data.get("loginStatus");
-		WelcomingData welcomingData = (WelcomingData) data.get("welcomingData");
-		return new Login(status, welcomingData);
+		return (Login) data.get("login");
 	}
 	
 	public Auth getAuth() {
 		if(!data.get("type").equals("auth"))
 			throw new IllegalStateException("Message does not contain login information");
 		Auth auth = (Auth) data.get("auth");
-		return (Auth) data.get("auth");
+		return auth;
 	}
 
 	@Override
@@ -60,6 +57,11 @@ public class Message implements Serializable{
 	@Override
 	public String toString() {
 		return "Message [data=" + data + "]";
+	}
+
+	public void createAuth(Auth auth) {
+		data.put("type", "auth");
+		data.put("auth", auth);
 	}
 	
 	
