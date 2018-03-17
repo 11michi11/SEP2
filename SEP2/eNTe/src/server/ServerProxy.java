@@ -137,11 +137,9 @@ public class ServerProxy {
 				dig.update("pwd".getBytes());
 				String password = toHex(dig.digest());
 				System.out.println("O:" + password);
-				dig.reset();
-				dig.update(auth.pwd.getBytes());
-				String pwd = toHex(dig.digest());
-				System.out.println("P:" + pwd);
-				if (password.equals(pwd))
+				
+				System.out.println("P:" + auth.pwd);
+				if (password.equals(auth.pwd))
 					return true;
 			} catch (NoSuchAlgorithmException e) {
 				// TODO Auto-generated catch block

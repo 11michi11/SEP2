@@ -12,11 +12,7 @@ public class ClientProxy {
 	private Socket client;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-	private Gson gson;
 
-	public ClientProxy() {
-		gson = new Gson();
-	}
 
 	public void startConnection(String ip, int port) {
 		try {
