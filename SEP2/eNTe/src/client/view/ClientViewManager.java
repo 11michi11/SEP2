@@ -31,7 +31,7 @@ public class ClientViewManager extends Application implements ClientView {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/client/view/loginPane.fxml"));
-			// loader.setController(handler);
+			loader.setController(handler);
 			Pane root = (Pane) loader.load();
 			Scene scene = new Scene(root, 1280, 780);
 			// scene.getStylesheets().add(getClass().getResource("client/view/login.css").toExternalForm());
