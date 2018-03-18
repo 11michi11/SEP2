@@ -22,10 +22,15 @@ public class ClientController {
 	private ClientView view;
 
 	public ClientController() {
-		server = new ClientProxy();
-		server.startConnection("localhost", 7777);
-		model = new ClientModelManager();
+		//server = new ClientProxy();
+		//server.startConnection("localhost", 7777);
+		//model = new ClientModelManager();
 		view = new ClientViewManager(this);
+		Thread t = new Thread(() -> {
+			view.startView(); 
+		});
+		t.start();
+
 	}
 
 	public void close() {
@@ -68,7 +73,7 @@ public class ClientController {
 		case SUCCESS:
 			WelcomingData data = login.getData();
 			model.saveData(data);
-			
+
 			Post[] posts = data.getPosts();
 			view.showPosts(posts);
 			break;
@@ -78,7 +83,7 @@ public class ClientController {
 			break;
 		}
 	}
-	
+
 	private String encryptPwd(String pwd) {
 		MessageDigest dig;
 		String encrypted = "";
@@ -92,15 +97,16 @@ public class ClientController {
 		}
 		return encrypted;
 	}
-	
+
 	private String toHex(byte[] byteData) {
 		StringBuffer hexString = new StringBuffer();
-    	for (int i=0;i<byteData.length;i++) {
-    		String hex=Integer.toHexString(0xff & byteData[i]);
-   	     	if(hex.length()==1) hexString.append('0');
-   	     	hexString.append(hex);
-    	}
-    	return hexString.toString();
+		for (int i = 0; i < byteData.length; i++) {
+			String hex = Integer.toHexString(0xff & byteData[i]);
+			if (hex.length() == 1)
+				hexString.append('0');
+			hexString.append(hex);
+		}
+		return hexString.toString();
 	}
 
 }

@@ -15,7 +15,7 @@ public class Main extends Application {
 			loader.setLocation(getClass().getClassLoader().getResource("client/view/loginPane.fxml"));
 			Pane root = (Pane) loader.load();
 			Scene scene = new Scene(root, 1280, 780);
-			scene.getStylesheets().add(getClass().getResource("client/view/login.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("client/view/login.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
