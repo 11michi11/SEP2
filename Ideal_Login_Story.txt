@@ -1,0 +1,58 @@
+percondition: server(controller) calls model manager to load data from database
+-----------------------------------------------------------------------------------------------------
+View needs login panel and you must be able to enter login and pasword and click button login
+
+when login is clicked view manager must call method in controller that someone wnats to login, 
+
+controller creates authentication object and pass it to client proxy
+
+client proxy sends this to server proxy
+
+server proxy passes authentication object to server controller
+
+server controller calls authentication method in model manager
+
+model manager checks the list of users and return login status alongside with usertype
+
+server controller asks model manager for post
+
+model manager gets latest post from model and returns it to controller
+
+
+/*
+model manager asks database adapter for desired login and pasword from database and then manager compares this and returns login status to server controller
+
+server controller does some action according the status 
+
+in this case controller asks model manager for latest post object
+
+model manager accesses database to get info about the latest post and return post object that returns to controller
+*/
+
+
+
+server controller creates login object passes it to server proxy to send it to client proxy
+
+client proxy receives data and passses login object to controller 
+
+client controller calls client model manager to save this login object into client model
+
+client asks model manager to show to main screen this post
+
+
+What is neeeded ?
+
+	- VIEW: button handler for login
+		show method for main screen (latest post)
+
+	- CLIENTCONTROLLER: login method
+
+	- CLIENTMANAGER: methods store and get post
+
+	- SERVERMANAGER: methods authenticate and get post
+
+	- SERVERCONTROLLER: methods handleMessage(passed fromServerProxy), login method
+
+	- ADAPTER: load database data
+
+ 
