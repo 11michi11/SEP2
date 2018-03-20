@@ -28,7 +28,6 @@ public class ClientController {
 		server.startConnection("localhost", 7777);
 		model = new ClientModelManager();
 		view = new ClientViewManager();
-		view.initialize(this);
 		//view.startHandlers();
 		Thread t = new Thread(() -> {
 			view.startView(); 

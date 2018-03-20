@@ -9,13 +9,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class ClientViewHandler {
+public class LoginHandler {
 
 	private ClientController controller;
 	
-	public ClientViewHandler() {
+	public LoginHandler() {
 		controller = ClientController.getInstance();
-		System.out.println("client controller successfull");
 	}
 	
 	@FXML
@@ -31,7 +30,10 @@ public class ClientViewHandler {
 
 	@FXML
 	private Button loginButton;
-	
+	@FXML
+	private Pane root;
+	@FXML
+	private VBox box;
 	
 
 	@FXML
@@ -53,6 +55,14 @@ public class ClientViewHandler {
 				}
 			}
 		});
+	}
+	
+	public void loadPanes(Pane pane) {
+		//TextFlow flow = (TextFlow) pane.getChildren().get(0);
+		System.out.printf("%b%n", root);
+//		box = new VBox();
+//		box.getChildren().add(this.pane);
+		//scroll.getChildrenUnmodifiable().add(box);	
 	}
 	
 	

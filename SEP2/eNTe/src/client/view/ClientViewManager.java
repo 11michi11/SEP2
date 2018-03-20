@@ -16,8 +16,8 @@ import model.Post;
 public class ClientViewManager extends Application implements ClientView {
 
 	private ClientController controller;
-	private ClientViewHandler handler;
-	private ClientMainPaneParentHandler parentHandler;
+	private LoginHandler handler;
+	private ParentMainHandler parentHandler;
 	private FXMLLoader loader;
 	private static Stage stage;
 	
@@ -28,9 +28,9 @@ public class ClientViewManager extends Application implements ClientView {
 	}
 
 	@FXML
-	public void initialize(ClientController controller) {
-		this.controller = controller;
-		this.handler = new ClientViewHandler();
+	public void initialize() {
+		this.controller = ClientController.getInstance();
+		this.handler = new LoginHandler();
 		System.out.println("init controller");
 	}
 
@@ -42,14 +42,14 @@ public class ClientViewManager extends Application implements ClientView {
 	public void start(Stage primaryStage) {
 		try {
 			stage  = primaryStage;
-			loader.setLocation(getClass().getResource("/client/view/loginPane.fxml"));
+			loader = new FXMLLoader(getClass().getResource("/client/view/loginPane.fxml"));
 			loader.setController(handler);
 			Pane root = (Pane) loader.load();
 			Scene scene = new Scene(root, 1280, 780);
 			// scene.getStylesheets().add(getClass().getResource("client/view/login.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-
+			handler.loginFieldInitialize();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,9 +66,11 @@ public class ClientViewManager extends Application implements ClientView {
 		try {
 			loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneParent.fxml"));
 			mainPane = loader.load();
-			Scene menuPane = new Scene(mainPane);
+			parentHandler = new ParentMainHandler();
+			loader.setController(parentHandler);
+			//Scene menuPane = new Scene(mainPane);
 			
-			stage.setScene(menuPane);
+			stage.getScene().setRoot(mainPane);;
 			stage.show();
 			
 			TextFlow textpane = new TextFlow();
@@ -77,8 +79,6 @@ public class ClientViewManager extends Application implements ClientView {
 
 			Pane pane = new Pane();
 			pane.getChildren().add(textpane);
-			parentHandler = new ClientMainPaneParentHandler();
-			loader.setController(parentHandler);
 			parentHandler.loadPanes(pane);
 		} catch (IOException e) {
 			e.printStackTrace();

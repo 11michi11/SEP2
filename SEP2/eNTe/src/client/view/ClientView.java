@@ -7,7 +7,6 @@ public interface ClientView {
 
 	public void showPosts(Post[] posts);
 	public void startView();
-	public void initialize(ClientController controller);
 	public void startHandlers();
 	
 }
