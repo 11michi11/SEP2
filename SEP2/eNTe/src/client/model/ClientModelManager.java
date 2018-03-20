@@ -1,8 +1,11 @@
-package model;
+package client.model;
 
 import java.util.Arrays;
 
 import client.proxy.WelcomingData;
+import model.ClientModel;
+import model.Post;
+import model.PostsList;
 
 public class ClientModelManager implements ClientModel{
 

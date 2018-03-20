@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import client.model.ClientModelManager;
 import client.proxy.Auth;
 import client.proxy.ClientProxy;
 import client.proxy.Login;
@@ -12,7 +13,6 @@ import client.proxy.WelcomingData;
 import client.view.ClientView;
 import client.view.ClientViewManager;
 import model.ClientModel;
-import model.ClientModelManager;
 import model.Post;
 
 public class ClientController {
@@ -22,9 +22,9 @@ public class ClientController {
 	private ClientView view;
 
 	public ClientController() {
-		//server = new ClientProxy();
-		//server.startConnection("localhost", 7777);
-		//model = new ClientModelManager();
+		server = new ClientProxy();
+		server.startConnection("localhost", 7777);
+		model = new ClientModelManager();
 		view = new ClientViewManager(this);
 		Thread t = new Thread(() -> {
 			view.startView(); 
