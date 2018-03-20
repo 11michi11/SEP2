@@ -20,17 +20,25 @@ public class ClientController {
 	private ClientProxy server;
 	private ClientModel model;
 	private ClientView view;
+	private static ClientController instance;
 
 	public ClientController() {
-		//server = new ClientProxy();
-		//server.startConnection("localhost", 7777);
-		//model = new ClientModelManager();
-		view = new ClientViewManager(this);
+		instance = this;
+		server = new ClientProxy();
+		server.startConnection("localhost", 7777);
+		model = new ClientModelManager();
+		view = new ClientViewManager();
+		view.initialize(this);
+		//view.startHandlers();
 		Thread t = new Thread(() -> {
 			view.startView(); 
 		});
 		t.start();
 
+	}
+	
+	public static ClientController getInstance() {
+		return instance;
 	}
 
 	public void close() {
