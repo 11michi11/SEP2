@@ -14,12 +14,14 @@ public class LoginHandler {
 	private ClientController controller;
 	
 	public LoginHandler() {
+		System.out.println("first");
 		controller = ClientController.getInstance();
 	}
 	
 	@FXML
 	public void initialize() {
-		
+		System.out.println("second");
+		loginFieldInitialize();
 	}
 	
 	@FXML

@@ -24,15 +24,16 @@ public class ClientViewManager extends Application implements ClientView {
 	
 
 	public ClientViewManager() {
-		this.loader = new FXMLLoader();
-	}
 
+	}
+/*
 	@FXML
 	public void initialize() {
 		this.controller = ClientController.getInstance();
 		this.handler = new LoginHandler();
 		System.out.println("init controller");
-	}
+		handler.loginFieldInitialize();
+	}*/
 
 	public void startView() {
 		Application.launch(getClass());
@@ -43,14 +44,13 @@ public class ClientViewManager extends Application implements ClientView {
 		try {
 			stage  = primaryStage;
 			loader = new FXMLLoader(getClass().getResource("/client/view/loginPane.fxml"));
-			loader.setController(handler);
 			Pane root = (Pane) loader.load();
 			Scene scene = new Scene(root, 1280, 780);
 			// scene.getStylesheets().add(getClass().getResource("client/view/login.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			handler.loginFieldInitialize();
-		} catch (Exception e) {
+
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -73,13 +73,8 @@ public class ClientViewManager extends Application implements ClientView {
 			stage.getScene().setRoot(mainPane);;
 			stage.show();
 			
-			TextFlow textpane = new TextFlow();
-			textpane.setAccessibleText(posts[0].getContent());
-			textpane.setPrefSize(842, 150);
 
-			Pane pane = new Pane();
-			pane.getChildren().add(textpane);
-			parentHandler.loadPanes(pane);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -28,16 +28,19 @@ public class ClientController {
 		server.startConnection("localhost", 7777);
 		model = new ClientModelManager();
 		view = new ClientViewManager();
+		view.startView();
+/*
 		//view.startHandlers();
 		Thread t = new Thread(() -> {
-			view.startView(); 
+			view.startView();
 		});
 		t.start();
+*/
 
 	}
 	
 	public static ClientController getInstance() {
-		return instance;
+		return instance	;
 	}
 
 	public void close() {
