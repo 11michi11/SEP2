@@ -60,7 +60,7 @@ public class ClientViewManager extends Application implements ClientView {
 	}
 
 	@Override
-	public void showPosts(Post[] posts) {
+	public void showPosts() {
 		Parent mainPane;
 		
 		try {

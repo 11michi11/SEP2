@@ -22,30 +22,31 @@ public class ClientController {
 	private ClientView view;
 	private static ClientController instance;
 
-	public ClientController() {
+	private ClientController() {
 		instance = this;
 		server = new ClientProxy();
 		server.startConnection("localhost", 7777);
 		model = new ClientModelManager();
 		view = new ClientViewManager();
 		view.startView();
-/*
-		//view.startHandlers();
-		Thread t = new Thread(() -> {
-			view.startView();
-		});
-		t.start();
-*/
-
 	}
 	
 	public static ClientController getInstance() {
+		if(instance == null)
+			instance = new ClientController();
 		return instance	;
 	}
 
 	public void close() {
 		server.close();
 	}
+	
+	public Post[] getPosts() {
+		Post[] posts = new Post[1];
+		posts[0] =  model.getPost();
+		return posts;
+	}
+	
 
 	public void login(String login, String pwd) {
 		Auth auth = new Auth(login, encryptPwd(pwd));
@@ -83,9 +84,7 @@ public class ClientController {
 		case SUCCESS:
 			WelcomingData data = login.getData();
 			model.saveData(data);
-
-			Post[] posts = data.getPosts();
-			view.showPosts(posts);
+			view.showPosts();
 			break;
 		case FAILURE_LOGIN:
 			break;
