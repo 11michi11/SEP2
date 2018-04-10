@@ -46,6 +46,7 @@ public class ParentMainHandler {
 	}
 
 	public void loadPanes(Pane pane) {
+		//pane.getStyleClass().add(arg0)
 		box.getChildren().clear();
 		box.getChildren().add(pane);
 
