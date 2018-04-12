@@ -26,14 +26,6 @@ public class ClientViewManager extends Application implements ClientView {
 	public ClientViewManager() {
 
 	}
-/*
-	@FXML
-	public void initialize() {
-		this.controller = ClientController.getInstance();
-		this.handler = new LoginHandler();
-		System.out.println("init controller");
-		handler.loginFieldInitialize();
-	}*/
 
 	public void startView() {
 		Application.launch(getClass());
@@ -53,10 +45,6 @@ public class ClientViewManager extends Application implements ClientView {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void startHandlers() {
-		handler.loginFieldInitialize();
 	}
 
 	@Override
