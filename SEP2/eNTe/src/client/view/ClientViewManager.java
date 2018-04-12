@@ -48,9 +48,10 @@ public class ClientViewManager extends Application implements ClientView {
 	}
 
 	@Override
-	public void showPosts(User user) {
+	public void showPosts(String user) {
 		Parent mainPane;
-		if (user instanceof model.Parent) {
+		switch (user) {
+		case "Parent":
 			try {
 				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneParent.fxml"));
 				mainPane = loader.load();
@@ -62,7 +63,8 @@ public class ClientViewManager extends Application implements ClientView {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else if (user instanceof model.Administrator)
+			break;
+		case "Admin":
 			try {
 				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneAdmin.fxml"));
 				mainPane = loader.load();
@@ -74,7 +76,8 @@ public class ClientViewManager extends Application implements ClientView {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		else if (user instanceof model.Student)
+			break;
+		case "Student":
 			try {
 				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneStudent.fxml"));
 				mainPane = loader.load();
@@ -86,17 +89,20 @@ public class ClientViewManager extends Application implements ClientView {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		else if (user instanceof model.Teacher)
+			break;
+		case "Teacher":
 			try {
 				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneTeacher.fxml"));
 				mainPane = loader.load();
 				parentHandler = new ParentMainHandler();
-				//loader.setController(teacherHandler);
+				// loader.setController(teacherHandler);
 				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 				stage.getScene().setRoot(mainPane);
 				stage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			break;
+		}
 	}
 }

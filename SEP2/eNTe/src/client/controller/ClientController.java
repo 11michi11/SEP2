@@ -90,7 +90,7 @@ public class ClientController {
 		case SUCCESS:
 			WelcomingData data = login.getData();
 			model.saveData(data);
-			view.showPosts();
+			view.showPosts(login.getUserType());
 			break;
 		case FAILURE_LOGIN:
 			break;

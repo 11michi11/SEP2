@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import client.proxy.Auth;
 import client.proxy.LoginStatus;
+import model.Administrator;
 import model.Post;
 import model.PostsList;
 import model.ServerModel;
@@ -55,7 +56,7 @@ public class ServerModelManager implements ServerModel {
 	}
 
 	private LinkedList<User> getUsers() {
-		User user = new User("dupa", "login", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
+		User user = new Administrator("dupa", "login", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
 
 		LinkedList<User> list = new LinkedList<>();
 		list.add(user);

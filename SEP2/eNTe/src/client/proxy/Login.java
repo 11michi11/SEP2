@@ -2,6 +2,8 @@ package client.proxy;
 
 import java.io.Serializable;
 
+import model.User;
+
 public class Login implements Serializable{
 
 	private LoginStatus status;
@@ -42,6 +44,11 @@ public class Login implements Serializable{
 	@Override
 	public String toString() {
 		return "Login [status=" + status + ", data=" + data + "]";
+	}
+
+	public String getUserType() {
+		// TODO Auto-generated method stub
+		return "Admin";
 	}
 
 }

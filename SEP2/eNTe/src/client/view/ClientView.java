@@ -4,7 +4,7 @@ import model.User;
 
 public interface ClientView {
 
-	public void showPosts(User user);
+	public void showPosts(String user);
 	public void startView();
 	
 }
