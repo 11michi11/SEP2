@@ -14,8 +14,8 @@ public class ServerController {
 	private ServerModelManager model;
 	private ServerProxy server;
 
-	public ServerController() {
-		model = new ServerModelManager();
+	public ServerController(ServerModelManager model) {
+		this.model = model;
 		server = new ServerProxy(this);
 		server.start();
 	}
