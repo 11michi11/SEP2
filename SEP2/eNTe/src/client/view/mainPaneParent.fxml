@@ -28,26 +28,26 @@
             </VBox>
          </content>
       </ScrollPane>
-      <VBox layoutX="893.0" layoutY="163.0" prefHeight="528.0" prefWidth="387.0">
+      <VBox layoutX="893.0" layoutY="163.0" prefHeight="528.0" prefWidth="358.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="364.0" styleClass="menuButton" text="child profile" textAlignment="CENTER" textFill="#729eea">
                <font>
-                  <Font name="Comic Sans MS" size="50.0" />
+                  <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="295.0" styleClass="menuButton" text="teachers" textAlignment="CENTER" textFill="#729eea">
+            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="364.0" styleClass="menuButton" text="teachers" textAlignment="CENTER" textFill="#729eea">
                <font>
-                  <Font name="Comic Sans MS" size="50.0" />
+                  <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="78.0" prefWidth="308.0" styleClass="menuButton" text="messages" textAlignment="CENTER" textFill="#729eea">
+            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="364.0" styleClass="menuButton" text="messages" textAlignment="CENTER" textFill="#729eea">
                <font>
-                  <Font name="Comic Sans MS" size="50.0" />
+                  <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="303.0" styleClass="menuButton" text="meetings" textAlignment="CENTER" textFill="#729eea">
+            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="364.0" styleClass="menuButton" text="meetings" textAlignment="CENTER" textFill="#729eea">
                <font>
-                  <Font name="Comic Sans MS" size="50.0" />
+                  <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
          </children>

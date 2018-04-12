@@ -17,31 +17,6 @@
             <Image url="@enteLOGO.png" />
          </image>
       </ImageView>
-      <Button layoutX="911.0" layoutY="312.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="308.0" styleClass="menuButton" stylesheets="@login.css" text="students" textAlignment="CENTER" textFill="#729eea">
-         <font>
-            <Font name="Comic Sans MS" size="50.0" />
-         </font>
-      </Button>
-      <Button layoutX="904.0" layoutY="430.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="308.0" styleClass="menuButton" stylesheets="@login.css" text="teachers" textAlignment="CENTER" textFill="#729eea">
-         <font>
-            <Font name="Comic Sans MS" size="50.0" />
-         </font>
-      </Button>
-      <Button layoutX="868.0" layoutY="200.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="380.0" styleClass="menuButton" stylesheets="@login.css" text="homeworks" textAlignment="CENTER" textFill="#729eea">
-         <font>
-            <Font name="Comic Sans MS" size="50.0" />
-         </font>
-      </Button>
-      <Button layoutX="866.0" layoutY="543.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="discussions" textAlignment="CENTER" textFill="#729eea">
-         <font>
-            <Font name="Comic Sans MS" size="50.0" />
-         </font>
-      </Button>
-      <Button layoutX="904.0" layoutY="647.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="308.0" styleClass="menuButton" stylesheets="@login.css" text="messages" textAlignment="CENTER" textFill="#729eea">
-         <font>
-            <Font name="Comic Sans MS" size="50.0" />
-         </font>
-      </Button>
       <ScrollPane layoutX="15.0" layoutY="166.0" prefHeight="598.0" prefWidth="864.0">
          <content>
             <VBox id="box" prefHeight="883.0" prefWidth="842.0">
@@ -55,9 +30,38 @@
       </ScrollPane>
       <Button layoutX="843.0" layoutY="22.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="432.0" styleClass="menuButton" text="MICHAL" textFill="#729eea">
          <font>
-            <Font name="Comic Sans MS" size="50.0" />
+            <Font name="Gill Sans MT Bold" size="50.0" />
          </font>
       </Button>
       <Line endX="100.0" layoutX="1058.0" layoutY="116.0" startX="-100.0" stroke="#729eea" strokeWidth="2.0" />
+      <VBox layoutX="891.0" layoutY="190.0" prefHeight="571.0" prefWidth="369.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="372.0" styleClass="menuButton" stylesheets="@login.css" text="students" textAlignment="CENTER" textFill="#729eea">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="50.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="372.0" styleClass="menuButton" stylesheets="@login.css" text="teachers" textAlignment="CENTER" textFill="#729eea">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="50.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="discussions" textAlignment="CENTER" textFill="#729eea">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="50.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="homeworks" textAlignment="CENTER" textFill="#729eea">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="50.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="messages" textAlignment="CENTER" textFill="#729eea">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="50.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </Pane>
