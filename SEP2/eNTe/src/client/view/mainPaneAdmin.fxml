@@ -27,9 +27,9 @@
             </VBox>
          </content>
       </ScrollPane>
-      <VBox layoutX="886.0" layoutY="144.0" prefHeight="617.0" prefWidth="380.0" styleClass="menuPane">
+      <VBox layoutX="886.0" layoutY="39.0" prefHeight="722.0" prefWidth="380.0" styleClass="menuPane">
          <children>
-            <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="386.0" styleClass="menuButton" stylesheets="@login.css" text="students" textAlignment="CENTER" textFill="#729eea">
+            <Button mnemonicParsing="false" prefHeight="111.0" prefWidth="380.0" styleClass="menuButton" stylesheets="@login.css" text="students" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Comic Sans MS" size="50.0" />
                </font>
@@ -55,6 +55,11 @@
                </font>
             </Button>
             <Button mnemonicParsing="false" prefHeight="104.0" prefWidth="394.0" styleClass="menuButton" stylesheets="@login.css" text="messages" textAlignment="CENTER" textFill="#729eea">
+               <font>
+                  <Font name="Comic Sans MS" size="50.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="111.0" prefWidth="380.0" styleClass="menuButton" stylesheets="@login.css" text="settings" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Comic Sans MS" size="50.0" />
                </font>

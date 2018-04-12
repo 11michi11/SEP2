@@ -1,5 +1,7 @@
 package client.view;
 
+import com.sun.prism.paint.Color;
+
 import client.controller.ClientController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
