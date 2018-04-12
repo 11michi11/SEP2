@@ -1,7 +1,5 @@
 package client.view;
 
-import com.sun.prism.paint.Color;
-
 import client.controller.ClientController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -10,16 +8,16 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import model.Post;
 
-public class ParentMainHandler {
+public class AdminMainHandler {
 
 	@FXML
 	private VBox box;
 
 	private ClientController controller;
 
-	public ParentMainHandler() {
+	public AdminMainHandler() {
 		controller = ClientController.getInstance();
-		System.out.println("parentMainHandler");
+		System.out.println("adminMainHandler");
 	}
 
 	@FXML
@@ -53,5 +51,6 @@ public class ParentMainHandler {
 		box.getChildren().clear();
 		box.getChildren().add(pane);
 	}
+
 
 }
