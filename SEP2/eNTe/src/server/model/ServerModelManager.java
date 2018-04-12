@@ -5,11 +5,14 @@ import java.util.LinkedList;
 
 import client.proxy.Auth;
 import client.proxy.LoginStatus;
+import model.Administrator;
 import model.Post;
 import model.PostsList;
 import model.ServerModel;
 import model.User;
 import model.UsersList;
+import model.proxy.Auth;
+import model.proxy.LoginStatus;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistance;
 
@@ -55,7 +58,7 @@ public class ServerModelManager implements ServerModel {
 	}
 
 	private LinkedList<User> getUsers() {
-		User user = new User("login", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
+		User user = new Administrator("dupa", "login", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
 
 		LinkedList<User> list = new LinkedList<>();
 		list.add(user);
@@ -63,7 +66,7 @@ public class ServerModelManager implements ServerModel {
 	}
 	
 	private LinkedList<Post> getPosts() { 
-	    Post post = new Post("Title", 
+	    Post post = new Post("Lorem ipsum dolor", 
 	        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " 
 	            + "Proin mattis at dolor sed aliquam. Nulla facilisi. " 
 	            + "Maecenas sodales urna quis risus sollicitudin, " 

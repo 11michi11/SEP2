@@ -5,15 +5,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import client.model.ClientModelManager;
-import client.proxy.Auth;
-import client.proxy.ClientProxy;
-import client.proxy.Login;
-import client.proxy.Message;
-import client.proxy.WelcomingData;
 import client.view.ClientView;
 import client.view.ClientViewManager;
 import model.ClientModel;
 import model.Post;
+import model.proxy.Auth;
+import model.proxy.ClientProxy;
+import model.proxy.Login;
+import model.proxy.Message;
+import model.proxy.WelcomingData;
 
 public class ClientController {
 
@@ -22,18 +22,24 @@ public class ClientController {
 	private ClientView view;
 	private static ClientController instance;
 
-	private ClientController() {
+	private ClientController(ClientModel model, ClientView view) {
 		instance = this;
 		server = new ClientProxy();
 		server.startConnection("localhost", 7777);
-		model = new ClientModelManager();
-		view = new ClientViewManager();
-		view.startView();
+		this.model = model;
+		this.view = view;
+		this.view.startView();
+	}
+	
+	public static ClientController getInstance(ClientModel model, ClientView view) {
+		if(instance == null)
+			instance = new ClientController(model, view);
+		return instance	;
 	}
 	
 	public static ClientController getInstance() {
 		if(instance == null)
-			instance = new ClientController();
+			throw new IllegalStateException("There is no instance");
 		return instance	;
 	}
 
@@ -84,7 +90,7 @@ public class ClientController {
 		case SUCCESS:
 			WelcomingData data = login.getData();
 			model.saveData(data);
-			view.showPosts();
+			view.showPosts(login.getUserType());
 			break;
 		case FAILURE_LOGIN:
 			break;

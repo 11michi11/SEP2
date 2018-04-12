@@ -2,11 +2,11 @@ package server.controller;
 
 import java.util.LinkedList;
 
-import client.proxy.Login;
-import client.proxy.LoginStatus;
-import client.proxy.Message;
-import client.proxy.WelcomingData;
 import model.Post;
+import model.proxy.Login;
+import model.proxy.LoginStatus;
+import model.proxy.Message;
+import model.proxy.WelcomingData;
 import server.model.ServerModelManager;
 
 public class ServerController {
@@ -14,8 +14,8 @@ public class ServerController {
 	private ServerModelManager model;
 	private ServerProxy server;
 
-	public ServerController() {
-		model = new ServerModelManager();
+	public ServerController(ServerModelManager model) {
+		this.model = model;
 		server = new ServerProxy(this);
 		server.start();
 	}

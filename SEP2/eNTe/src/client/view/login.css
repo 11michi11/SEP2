@@ -9,9 +9,26 @@ Button:hoover{
 
 .menuButton{
 	-fx-background-color: white;
+	-fx-font-family: "Gill Sans MT";
+	-fx-font-weight: bold;
+	-fx-font-size: 50px;
+	-fx-fill: #729eea;
 }
 
 .textPane{
-	-fx-text-fill: red;
+	-fx-background-color: #c1c1c1;
+}
+#title{
+	-fx-font-size: 30px;
+	-fx-font-family: "Gill Sans MT";
+	-fx-font-weight: bold;
+	-fx-fill: #09195e;
+		
+}
+
+#content{
+	-fx-font-family: "Gill Sans MT";
+	-fx-font-size: 18px;
+	-fx-fill: #233689;
 }
 

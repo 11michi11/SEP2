@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import client.proxy.Message;
+import model.proxy.Message;
 
 public class ServerProxy {
 

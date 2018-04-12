@@ -12,37 +12,33 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import model.Post;
+import model.User;
 
 public class ClientViewManager extends Application implements ClientView {
 
 	private ClientController controller;
 	private LoginHandler handler;
 	private ParentMainHandler parentHandler;
+	private AdminMainHandler adminHandler;
 	private FXMLLoader loader;
 	private static Stage stage;
-	
-	
 
 	public ClientViewManager() {
 
 	}
-/*
-	@FXML
-	public void initialize() {
-		this.controller = ClientController.getInstance();
-		this.handler = new LoginHandler();
-		System.out.println("init controller");
-		handler.loginFieldInitialize();
-	}*/
 
 	public void startView() {
 		Application.launch(getClass());
+	}
+	
+	public static Stage getStage() {
+		return stage;
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			stage  = primaryStage;
+			stage = primaryStage;
 			loader = new FXMLLoader(getClass().getResource("/client/view/loginPane.fxml"));
 			Pane root = (Pane) loader.load();
 			Scene scene = new Scene(root, 1280, 780);
@@ -55,29 +51,62 @@ public class ClientViewManager extends Application implements ClientView {
 		}
 	}
 
-	public void startHandlers() {
-		handler.loginFieldInitialize();
-	}
-
 	@Override
-	public void showPosts() {
+	public void showPosts(String user) {
 		Parent mainPane;
-		
-		try {
-			loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneParent.fxml"));
-			mainPane = loader.load();
-			parentHandler = new ParentMainHandler();
-			loader.setController(parentHandler);
-			//Scene menuPane = new Scene(mainPane);
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-			stage.getScene().setRoot(mainPane);;
-			stage.show();
-			
-
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		switch (user) {
+		case "Parent":
+			try {
+				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneParent.fxml"));
+				mainPane = loader.load();
+				parentHandler = new ParentMainHandler();
+				loader.setController(parentHandler);
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+				stage.getScene().setRoot(mainPane);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "Admin":
+			try {
+				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneAdmin.fxml"));
+				mainPane = loader.load();
+				parentHandler = new ParentMainHandler();
+				loader.setController(adminHandler);
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+				stage.getScene().setRoot(mainPane);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "Student":
+			try {
+				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneStudent.fxml"));
+				mainPane = loader.load();
+				parentHandler = new ParentMainHandler();
+				// loader.setController(studentHandler);
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+				stage.getScene().setRoot(mainPane);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "Teacher":
+			try {
+				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneTeacher.fxml"));
+				mainPane = loader.load();
+				parentHandler = new ParentMainHandler();
+				// loader.setController(teacherHandler);
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+				stage.getScene().setRoot(mainPane);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
 		}
 	}
-
 }

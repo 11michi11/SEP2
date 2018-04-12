@@ -1,4 +1,4 @@
-package client.proxy;
+package model.proxy;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

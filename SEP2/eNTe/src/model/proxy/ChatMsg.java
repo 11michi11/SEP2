@@ -1,4 +1,4 @@
-package client.proxy;
+package model.proxy;
 
 public class ChatMsg {
 
