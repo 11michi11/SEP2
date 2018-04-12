@@ -1,4 +1,4 @@
-package client.proxy;
+package model.proxy;
 
 import java.io.Serializable;
 import java.util.Arrays;

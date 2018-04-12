@@ -5,15 +5,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import client.model.ClientModelManager;
-import client.proxy.Auth;
-import client.proxy.ClientProxy;
-import client.proxy.Login;
-import client.proxy.Message;
-import client.proxy.WelcomingData;
 import client.view.ClientView;
 import client.view.ClientViewManager;
 import model.ClientModel;
 import model.Post;
+import model.proxy.Auth;
+import model.proxy.ClientProxy;
+import model.proxy.Login;
+import model.proxy.Message;
+import model.proxy.WelcomingData;
 
 public class ClientController {
 

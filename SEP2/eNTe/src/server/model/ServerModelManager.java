@@ -3,13 +3,13 @@ package server.model;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import client.proxy.Auth;
-import client.proxy.LoginStatus;
 import model.Post;
 import model.PostsList;
 import model.ServerModel;
 import model.User;
 import model.UsersList;
+import model.proxy.Auth;
+import model.proxy.LoginStatus;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistance;
 
