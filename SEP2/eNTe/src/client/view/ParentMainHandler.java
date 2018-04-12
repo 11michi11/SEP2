@@ -30,16 +30,18 @@ public class ParentMainHandler {
 		Post[] posts = controller.getPosts();
 
 		Text title = new Text(posts[0].getTitle());
+		title.setId("title");
 		Text content = new Text(posts[0].getContent());
+		content.setId("content");
 		Text separator = new Text("\n");
 
 		TextFlow textFlow = new TextFlow(title, separator,  content);
 		textFlow.setAccessibleText(posts[0].getContent());
-		textFlow.setPrefSize(842, 150);
+		textFlow.setPrefSize(842, 200);
 		
 		Pane pane = new Pane();
 		pane.getChildren().add(textFlow);
-		pane.getStyleClass().add("text-pane");
+		pane.getStyleClass().add("textPane");
 		loadPanes(pane);
 
 	}
