@@ -69,7 +69,7 @@ public class ClientViewManager extends Application implements ClientView {
 			parentHandler = new ParentMainHandler();
 			loader.setController(parentHandler);
 			//Scene menuPane = new Scene(mainPane);
-			
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);;
 			stage.show();
 			

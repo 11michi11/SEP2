@@ -2,3 +2,7 @@
 Button:hoover{
 	-fx-background-color: grey;
 }
+
+.text-pane{
+	-fx-background-color: grey;
+}
