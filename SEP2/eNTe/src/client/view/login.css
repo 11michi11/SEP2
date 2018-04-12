@@ -9,6 +9,10 @@ Button:hoover{
 
 .menuButton{
 	-fx-background-color: white;
+	-fx-font-family: "Gill Sans MT";
+	-fx-font-weight: bold;
+	-fx-font-size: 50px;
+	-fx-fill: #729eea;
 }
 
 .textPane{
