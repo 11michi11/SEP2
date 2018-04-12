@@ -30,6 +30,10 @@ public class ClientViewManager extends Application implements ClientView {
 	public void startView() {
 		Application.launch(getClass());
 	}
+	
+	public static Stage getStage() {
+		return stage;
+	}
 
 	@Override
 	public void start(Stage primaryStage) {

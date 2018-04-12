@@ -1,12 +1,18 @@
 package client.view;
 
+import java.io.IOException;
+
 import client.controller.ClientController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 import model.Post;
 
 public class AdminMainHandler {
@@ -15,9 +21,11 @@ public class AdminMainHandler {
 	private VBox box;
 
 	private ClientController controller;
+	private Stage stage; 
 
 	public AdminMainHandler() {
 		controller = ClientController.getInstance();
+		stage = ClientViewManager.getStage();
 		System.out.println("adminMainHandler");
 	}
 
@@ -34,7 +42,7 @@ public class AdminMainHandler {
 		content.setId("content");
 		Text separator = new Text("\n");
 
-		TextFlow textFlow = new TextFlow(title, separator,  content);
+		TextFlow textFlow = new TextFlow(title, separator, content);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(posts[0].getContent());
 		textFlow.setPrefWidth(842);
@@ -58,6 +66,34 @@ public class AdminMainHandler {
 		box.getChildren().clear();
 		box.getChildren().add(pane);
 	}
+	
+	public void userList() {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/userList.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+//PUT THIS TO ANOTHER CLASS	
+//	public void loadCreateUserPane() {
+//		Parent mainPane;
+//		try {
+//			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createUser.fxml"));
+//			mainPane = loader.load();
+//			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+//			stage.getScene().setRoot(mainPane);
+//			stage.show();
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//}
 
 
 }
