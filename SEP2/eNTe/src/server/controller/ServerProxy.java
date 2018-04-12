@@ -5,17 +5,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import client.proxy.Auth;
-import client.proxy.Login;
-import client.proxy.LoginStatus;
 import client.proxy.Message;
-import client.proxy.WelcomingData;
 
 public class ServerProxy {
 
