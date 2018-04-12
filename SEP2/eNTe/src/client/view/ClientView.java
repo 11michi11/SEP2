@@ -4,6 +4,5 @@ public interface ClientView {
 
 	public void showPosts();
 	public void startView();
-	public void startHandlers();
 	
 }

@@ -12,18 +12,18 @@ import javafx.scene.layout.VBox;
 public class LoginHandler {
 
 	private ClientController controller;
-	
+
 	public LoginHandler() {
 		System.out.println("first");
 		controller = ClientController.getInstance();
 	}
-	
+
 	@FXML
 	public void initialize() {
 		System.out.println("second");
 		loginFieldInitialize();
 	}
-	
+
 	@FXML
 	private TextField loginField;
 
@@ -36,7 +36,6 @@ public class LoginHandler {
 	private Pane root;
 	@FXML
 	private VBox box;
-	
 
 	@FXML
 	private void loginHandler() {
@@ -45,28 +44,17 @@ public class LoginHandler {
 		controller.login(name, password);
 	}
 
-	public void loginFieldInitialize() {
+	private void loginFieldInitialize() {
 		loginField.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue,
 					Boolean newPropertyValue) {
-				if (newPropertyValue) {
-					System.out.println("");
-				} else {
-					System.out.println("username");
+				if (loginField.getText().equals("username")) {
+					loginField.setText("");
+				} else if (loginField.getText().equals("")) {
+					loginField.setText("username");
 				}
 			}
 		});
 	}
-	
-	public void loadPanes(Pane pane) {
-		//TextFlow flow = (TextFlow) pane.getChildren().get(0);
-		System.out.printf("%b%n", root);
-//		box = new VBox();
-//		box.getChildren().add(this.pane);
-		//scroll.getChildrenUnmodifiable().add(box);	
-	}
-	
-	
-	
 }
