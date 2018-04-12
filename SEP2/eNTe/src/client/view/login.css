@@ -2,3 +2,16 @@
 Button:hoover{
 	-fx-background-color: grey;
 }
+
+.menuPane{
+	-fx-background-color: white;
+}
+
+.menuButton{
+	-fx-background-color: white;
+}
+
+.textPane{
+	-fx-text-fill: red;
+}
+

@@ -1,5 +1,7 @@
 package client.view;
 
+import com.sun.prism.paint.Color;
+
 import client.controller.ClientController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -29,6 +31,9 @@ public class ParentMainHandler {
 
 		Text title = new Text(posts[0].getTitle());
 		Text content = new Text(posts[0].getContent());
+		title.getStyleClass().add("textPane");
+		content.getStyleClass().add("textPane");
+		
 
 		TextFlow textFlow = new TextFlow(title, content);
 		textFlow.setAccessibleText(posts[0].getContent());
