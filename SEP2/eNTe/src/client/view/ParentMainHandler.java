@@ -31,28 +31,22 @@ public class ParentMainHandler {
 
 		Text title = new Text(posts[0].getTitle());
 		Text content = new Text(posts[0].getContent());
-		title.getStyleClass().add("textPane");
-		content.getStyleClass().add("textPane");
-		
+		Text separator = new Text("\n");
 
-		TextFlow textFlow = new TextFlow(title, content);
+		TextFlow textFlow = new TextFlow(title, separator,  content);
 		textFlow.setAccessibleText(posts[0].getContent());
 		textFlow.setPrefSize(842, 150);
 		
 		Pane pane = new Pane();
 		pane.getChildren().add(textFlow);
+		pane.getStyleClass().add("text-pane");
 		loadPanes(pane);
 
 	}
 
 	public void loadPanes(Pane pane) {
-		//pane.getStyleClass().add(arg0)
 		box.getChildren().clear();
 		box.getChildren().add(pane);
-
-		// scrollPane.getChildrenUnmodifiable().add(box);
-
-		System.out.println(box.getChildren() + "!@#");
 	}
 
 }
