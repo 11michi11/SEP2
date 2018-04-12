@@ -21,9 +21,7 @@
          <content>
             <VBox id="box" fx:id="box" prefHeight="883.0" prefWidth="842.0">
                <children>
-                  <TextFlow prefHeight="200.0" prefWidth="200.0" styleClass="text" stylesheets="@login.css" />
-                  <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" />
-                  <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: bbb8b8;" />
+                  
                </children>
             </VBox>
          </content>

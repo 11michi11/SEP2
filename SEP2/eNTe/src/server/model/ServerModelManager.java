@@ -63,7 +63,7 @@ public class ServerModelManager implements ServerModel {
 	}
 	
 	private LinkedList<Post> getPosts() { 
-	    Post post = new Post("Title", 
+	    Post post = new Post("Lorem ipsum dolor", 
 	        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " 
 	            + "Proin mattis at dolor sed aliquam. Nulla facilisi. " 
 	            + "Maecenas sodales urna quis risus sollicitudin, " 

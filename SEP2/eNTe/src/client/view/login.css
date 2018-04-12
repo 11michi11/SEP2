@@ -20,7 +20,8 @@ Button:hoover{
 }
 #title{
 	-fx-font-size: 30px;
-	-fx-font-family: "Gill Sans MT", bold;
+	-fx-font-family: "Gill Sans MT";
+	-fx-font-weight: bold;
 	-fx-fill: #09195e;
 		
 }
