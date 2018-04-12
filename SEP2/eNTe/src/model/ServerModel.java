@@ -1,7 +1,7 @@
 package model;
 
-import client.proxy.Auth;
-import client.proxy.LoginStatus;
+import model.proxy.Auth;
+import model.proxy.LoginStatus;
 
 public interface ServerModel {
 

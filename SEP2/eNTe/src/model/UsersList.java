@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import client.proxy.Auth;
-import client.proxy.LoginStatus;
+import model.proxy.Auth;
+import model.proxy.LoginStatus;
 
 public class UsersList {
 

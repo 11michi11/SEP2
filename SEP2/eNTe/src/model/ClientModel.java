@@ -1,6 +1,6 @@
 package model;
 
-import client.proxy.WelcomingData;
+import model.proxy.WelcomingData;
 
 public interface ClientModel {
 
