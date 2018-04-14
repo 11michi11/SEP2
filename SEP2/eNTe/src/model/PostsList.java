@@ -12,7 +12,7 @@ public class PostsList {
 	}
 	
 	public Post getNextPost() {
-		return posts.peek();
+		return posts.removeFirst();
 	}
 
 	public void add(Post post) {

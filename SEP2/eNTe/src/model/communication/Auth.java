@@ -1,4 +1,4 @@
-package model.proxy;
+package model.communication;
 
 import java.io.Serializable;
 

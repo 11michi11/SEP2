@@ -5,7 +5,7 @@ import java.util.Arrays;
 import model.ClientModel;
 import model.Post;
 import model.PostsList;
-import model.proxy.WelcomingData;
+import model.communication.WelcomingData;
 
 public class ClientModelManager implements ClientModel{
 
