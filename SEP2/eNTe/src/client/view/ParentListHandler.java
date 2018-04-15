@@ -36,9 +36,7 @@ public class ParentListHandler {
 
 	@FXML
 	public void initialize() {
-		String[][] parents = controller.getParentsForView();
-		for (String[] p : parents)
-			parentsList.getItems().add(Arrays.asList(p));
+		parentsList.setItems(controller.getParentsForView());
 
 	}
 

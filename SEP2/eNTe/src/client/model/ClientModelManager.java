@@ -1,9 +1,11 @@
 package client.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import client.controller.ClientController;
 import model.ClientModel;
+import model.Parent;
 import model.Post;
 import model.PostsList;
 import model.User;
@@ -73,6 +75,11 @@ public class ClientModelManager implements ClientModel {
 		Auth auth = new Auth(login, pwd);
 		Message response = server.login(auth);
 		controller.handleMessage(response);
+	}
+
+	@Override
+	public ArrayList<Parent> getParents() {
+		return users.getParents();
 	}
 
 }

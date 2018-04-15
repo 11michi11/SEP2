@@ -3,6 +3,8 @@ package client.controller;
 import java.util.ArrayList;
 
 import client.view.ClientView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Administrator;
 import model.Class;
 import model.ClientModel;
@@ -24,6 +26,7 @@ public class ClientController {
 	private ClientController(ClientModel model, ClientView view) {
 		instance = this;
 		this.model = model;
+		model.setController(this);
 		this.view = view;
 		this.view.startView();
 	}
@@ -77,26 +80,26 @@ public class ClientController {
 		}
 	}
 
-	public void addTeacher(String name, String surname, String email, String password, Boolean admin) {
+	public void addTeacher(String name, String email, String password, Boolean admin) {
 		User user;
 		if (admin)
-			user = new Administrator(name + " " + surname, email, password);
+			user = new Administrator(name, email, password);
 		else
-			user = new Teacher(name + " " + surname, email, password);
+			user = new Teacher(name, email, password);
 
 		model.addOrUpdateUser(user);
 	}
 
-	public void addStudent(String name, String surname, String email, String password, Class classs,
+	public void addStudent(String name, String email, String password, Class classs,
 			ArrayList<Parent> parents) {
-		Student student = new Student(name + " " + surname, email, password, classs, parents);
+		Student student = new Student(name, email, password, classs, parents);
 		model.addOrUpdateUser(student);
 		for (Parent p : parents)
 			model.addOrUpdateUser(p);
 	}
 
-	public void addParent(String name, String surname, String email, String password, ArrayList<Student> children) {
-		Parent parent = new Parent(name + " " + surname, email, password, children);
+	public void addParent(String name, String email, String password, ArrayList<Student> children) {
+		Parent parent = new Parent(name, email, password, children);
 		model.addOrUpdateUser(parent);
 	}
 	
@@ -104,13 +107,11 @@ public class ClientController {
 		model.deleteUser(id);
 	}
 
-	public void addParent(String name, String email, String password) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public String[][] getParentsForView() {
-		String[][] parents = {{"Michal Pompa", "pompa@polska.pl", "Luke Pompa", "false"}};
+	public ObservableList<Parent> getParentsForView() {
+		ObservableList<Parent> parents = FXCollections.observableArrayList();
+		parents.addAll(model.getParents());
+		Parent p = new Parent("name", "email", "pwd", new ArrayList<Student>());
+		parents.add(p);
 		return parents;
 	}
 

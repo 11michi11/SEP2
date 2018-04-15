@@ -2,28 +2,30 @@ package model;
 
 import java.util.UUID;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class User {
 
-	private String login;
-	private String pwd;
-	private String name;
+	private SimpleStringProperty login;
+	private SimpleStringProperty pwd;
+	private SimpleStringProperty name;
 	private String id;
 
 	public User(String name, String login, String pwd) {
-		this.name=name;
-		this.login = login;
-		this.pwd = pwd;
+		this.name = new SimpleStringProperty(name);
+		this.login = new SimpleStringProperty(login);
+		this.pwd = new SimpleStringProperty(pwd);
 		id = UUID.randomUUID().toString();
 	}
 
 	public String getLogin() {
-		return login;
+		return login.get();
 	}
 
 	public String getPwd() {
-		return pwd;
+		return pwd.get();
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -59,7 +61,10 @@ public class User {
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "User [login=" + login + ", pwd=" + pwd + ", name=" + name + ", id=" + id + "]";
+	}
 
 }
