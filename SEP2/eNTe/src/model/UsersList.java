@@ -10,7 +10,7 @@ import model.communication.LoginStatus;
 public class UsersList {
 
 	private LinkedList<User> users;
-	
+
 	public UsersList() {
 		users = new LinkedList<User>();
 	}
@@ -33,18 +33,17 @@ public class UsersList {
 	}
 
 	public void add(User user) {
-		if(!contains(user))
-			users.add(user);
+		users.add(user);
 	}
-	
+
 	public void add(List<User> list) {
-		for(User e :list)
+		for (User e : list)
 			users.add(e);
 	}
-	
+
 	public boolean contains(User user) {
-		for(User u : users)
-			if(u.equals(user))
+		for (User u : users)
+			if (u.equals(user))
 				return true;
 		return false;
 	}

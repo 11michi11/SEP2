@@ -9,5 +9,6 @@ public interface ClientModel {
 	public void saveData(WelcomingData data);
 	public void addUser(User user);
 	public void deleteUser(User user);
+	public void login(String login, String pwd);
 	
 }

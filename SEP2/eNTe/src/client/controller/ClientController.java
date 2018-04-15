@@ -1,36 +1,28 @@
 package client.controller;
 
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import client.view.ClientView;
 import model.Administrator;
+import model.Class;
 import model.ClientModel;
 import model.Parent;
 import model.Post;
 import model.Student;
 import model.Teacher;
 import model.User;
-import model.Class;
-import model.communication.Auth;
-import model.communication.ClientProxy;
 import model.communication.Login;
 import model.communication.Message;
 import model.communication.WelcomingData;
 
 public class ClientController {
 
-	private ClientProxy server;
 	private ClientModel model;
 	private ClientView view;
 	private static ClientController instance;
 
 	private ClientController(ClientModel model, ClientView view) {
 		instance = this;
-		server = new ClientProxy();
-		server.startConnection("localhost", 7777);
 		this.model = model;
 		this.view = view;
 		this.view.startView();
@@ -48,10 +40,6 @@ public class ClientController {
 		return instance;
 	}
 
-	public void close() {
-		server.close();
-	}
-
 	public Post[] getPosts() {
 		Post[] posts = new Post[1];
 		posts[0] = model.getPost();
@@ -59,20 +47,10 @@ public class ClientController {
 	}
 
 	public void login(String login, String pwd) {
-		Auth auth = new Auth(login, encryptPwd(pwd));
-		Message msg = new Message(), response;
-
-		msg.createAuth(auth);
-
-		try {
-			response = server.sendMessage(msg);
-			handleMessage(response);
-		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-		}
+		model.login(login, pwd);
 	}
 
-	private void handleMessage(Message msg) {
+	public void handleMessage(Message msg) {
 		switch (msg.getType()) {
 		case Login:
 			handleLogin(msg);
@@ -99,46 +77,22 @@ public class ClientController {
 		}
 	}
 
-	private String encryptPwd(String pwd) {
-		MessageDigest dig;
-		String encrypted = "";
-		try {
-			dig = MessageDigest.getInstance("SHA-256");
-			dig.update("pwd".getBytes());
-			encrypted = toHex(dig.digest());
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		return encrypted;
-	}
-
-	private String toHex(byte[] byteData) {
-		StringBuffer hexString = new StringBuffer();
-		for (int i = 0; i < byteData.length; i++) {
-			String hex = Integer.toHexString(0xff & byteData[i]);
-			if (hex.length() == 1)
-				hexString.append('0');
-			hexString.append(hex);
-		}
-		return hexString.toString();
-	}
-
 	public void addTeacher(String name, String surname, String email, String password, Boolean admin) {
 		User user;
-		if (admin) {
+		if (admin)
 			user = new Administrator(name + " " + surname, email, password);
-		} else {
+		else
 			user = new Teacher(name + " " + surname, email, password);
-		}
+
 		model.addUser(user);
 	}
 
-	public void addStudent(String name, String surname, String email, String password, Class classs, ArrayList<Parent> parents) {
+	public void addStudent(String name, String surname, String email, String password, Class classs,
+			ArrayList<Parent> parents) {
 		Student student = new Student(name + " " + surname, email, password, classs, parents);
 		model.addUser(student);
-		for(Parent p : parents)
+		for (Parent p : parents)
 			model.addUser(p);
-		server.addUser(student);
 	}
 
 	public void addParent(String name, String surname, String email, String password, ArrayList<Student> children) {

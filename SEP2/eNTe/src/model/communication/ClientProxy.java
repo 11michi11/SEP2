@@ -45,10 +45,9 @@ public class ClientProxy {
 		}
 	}
 
-	public boolean addUser(User user) {
-		ManageUser manageUser = new ManageUser(ManageUser.ADD, user);
-		Message msg = new Message();
-		msg.createMangeUser(manageUser);
+	public boolean manageUser(String action, User user) {
+		ManageUser manageUser = new ManageUser(action, user);
+		Message msg = Message.createMangeUser(manageUser);
 		try {
 			Message response = sendMessage(msg);
 		} catch (ClassNotFoundException | IOException e) {
