@@ -4,16 +4,14 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import client.model.ClientModelManager;
 import client.view.ClientView;
-import client.view.ClientViewManager;
 import model.ClientModel;
 import model.Post;
-import model.proxy.Auth;
-import model.proxy.ClientProxy;
-import model.proxy.Login;
-import model.proxy.Message;
-import model.proxy.WelcomingData;
+import model.communication.Auth;
+import model.communication.ClientProxy;
+import model.communication.Login;
+import model.communication.Message;
+import model.communication.WelcomingData;
 
 public class ClientController {
 
@@ -30,29 +28,28 @@ public class ClientController {
 		this.view = view;
 		this.view.startView();
 	}
-	
+
 	public static ClientController getInstance(ClientModel model, ClientView view) {
-		if(instance == null)
+		if (instance == null)
 			instance = new ClientController(model, view);
-		return instance	;
+		return instance;
 	}
-	
+
 	public static ClientController getInstance() {
-		if(instance == null)
+		if (instance == null)
 			throw new IllegalStateException("There is no instance");
-		return instance	;
+		return instance;
 	}
 
 	public void close() {
 		server.close();
 	}
-	
+
 	public Post[] getPosts() {
 		Post[] posts = new Post[1];
-		posts[0] =  model.getPost();
+		posts[0] = model.getPost();
 		return posts;
 	}
-	
 
 	public void login(String login, String pwd) {
 		Auth auth = new Auth(login, encryptPwd(pwd));
@@ -63,21 +60,17 @@ public class ClientController {
 		try {
 			response = server.sendMessage(msg);
 			handleMessage(response);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private void handleMessage(Message msg) {
 		switch (msg.getType()) {
-		case "login":
+		case Login:
 			handleLogin(msg);
 			break;
-		case "fail":
+		case Fail:
 		default:
 			System.out.println("Error!!!");
 			break;
@@ -107,7 +100,6 @@ public class ClientController {
 			dig.update("pwd".getBytes());
 			encrypted = toHex(dig.digest());
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return encrypted;

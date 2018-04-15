@@ -3,10 +3,11 @@ package server.controller;
 import java.util.LinkedList;
 
 import model.Post;
-import model.proxy.Login;
-import model.proxy.LoginStatus;
-import model.proxy.Message;
-import model.proxy.WelcomingData;
+import model.communication.Login;
+import model.communication.LoginStatus;
+import model.communication.Message;
+import model.communication.Message.Type;
+import model.communication.WelcomingData;
 import server.model.ServerModelManager;
 
 public class ServerController {
@@ -28,12 +29,12 @@ public class ServerController {
 		Message response;
 
 		switch (msg.getType()) {
-		case "auth":
+		case Auth:
 			response = handleAuthentication(msg);
 			break;
 		default:
 			response = new Message();
-			response.put("type", "FAIL");
+			response.put(Type.Type,Type.Fail);
 			break;
 		}
 		return response;
@@ -52,22 +53,17 @@ public class ServerController {
 			list.add(post);
 			data.insertPosts(list);
 			login = new Login(LoginStatus.SUCCESS, data);
-			response.put("type", "login");
-			response.put("login", login);
 			break;
 		case FAILURE_LOGIN:
 			data = new WelcomingData();
-			new Login(LoginStatus.FAILURE_LOGIN, data);
-			response.put("type", "login");
-			response.put("login", login);
+			login = new Login(LoginStatus.FAILURE_LOGIN, data);
 			break;
 		case FAILURE_PWD:
 			data = new WelcomingData();
-			new Login(LoginStatus.FAILURE_PWD, data);
-			response.put("type", "login");
-			response.put("login", login);
+			login = new Login(LoginStatus.FAILURE_PWD, data);
 			break;
 		}
+		response.createLogin(login);
 		return response;
 	}
 }

@@ -1,4 +1,4 @@
-package model.proxy;
+package model.communication;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -51,12 +51,13 @@ public class WelcomingData implements Serializable {
 	}
 
 	public void insertPosts(LinkedList<Post> list) {
-		if(list.size() > 10)
+		int size = list.size();
+		if(list.size() > 10) //load only 10 first posts
 			for(int i = 0;i<=10;i++)
-				posts[i] = list.poll();
+				posts[i] = list.get(i);
 		else 
-			for(int i = 0;i<=list.size();i++)
-				posts[i] = list.poll();
+			for(int i = 0;i<size;i++)
+				posts[i] = list.get(i);
 		
 	}
 	
