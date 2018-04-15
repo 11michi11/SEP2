@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.UserListHandler">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.ParentListHandler">
    <children>
       <ImageView fitHeight="182.0" fitWidth="209.0" layoutX="22.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -22,22 +22,19 @@
             <Font name="Gill Sans MT Bold" size="60.0" />
          </font>
       </Label>
-      <TableView layoutX="35.0" layoutY="188.0" prefHeight="544.0" prefWidth="846.0">
+      <TableView fx:id="parentsList" layoutX="35.0" layoutY="188.0" prefHeight="544.0" prefWidth="846.0">
         <columns>
-          <TableColumn prefWidth="467.1999931335449" />
-          <TableColumn prefWidth="683.199951171875" />
+          <TableColumn fx:id="nameColumn" prefWidth="220.0" text="name and surname" />
+          <TableColumn fx:id="emailColumn" prefWidth="240.0" text="email" />
+            <TableColumn fx:id="childrenColumn" prefWidth="240.0" text="children" />
+            <TableColumn fx:id="selectedColumn" prefWidth="154.39996337890625" text="selected" />
         </columns>
       </TableView>
       <VBox layoutX="885.0" layoutY="185.0" prefHeight="563.0" prefWidth="387.0">
          <children>
-            <Button fx:id="createUser" mnemonicParsing="false" onAction="#loadCreateUserPane" prefHeight="94.0" prefWidth="387.0" styleClass="menuButton" stylesheets="@login.css" text="create parent" textFill="#729eea">
+            <Button fx:id="createParent" mnemonicParsing="false" onAction="#createParent" prefHeight="94.0" prefWidth="387.0" styleClass="menuButton" stylesheets="@login.css" text="create parent" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
-               </font>
-            </Button>
-            <Button fx:id="deleteUser" mnemonicParsing="false" prefHeight="94.0" prefWidth="340.0" styleClass="menuButton" stylesheets="@login.css" text="delete user" textFill="#729eea">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="35.0" />
                </font>
             </Button>
          </children>

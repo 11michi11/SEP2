@@ -104,4 +104,14 @@ public class ClientController {
 		model.deleteUser(id);
 	}
 
+	public void addParent(String name, String email, String password) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String[][] getParentsForView() {
+		String[][] parents = {{"Michal Pompa", "pompa@polska.pl", "Luke Pompa", "false"}};
+		return parents;
+	}
+
 }

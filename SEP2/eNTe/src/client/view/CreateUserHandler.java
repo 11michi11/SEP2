@@ -32,7 +32,7 @@ public class CreateUserHandler {
 	@FXML
 	private Button parentSelector, saveButton;
 	@FXML
-	private TextField name, surname, email, password;
+	private TextField name, email, password;
 	private CheckBox adminBox;
 	private ClientController controller;
 	private Stage stage;
@@ -91,7 +91,6 @@ public class CreateUserHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void save() {
