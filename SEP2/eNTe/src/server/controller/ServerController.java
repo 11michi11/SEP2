@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import model.Post;
 import model.communication.Login;
 import model.communication.LoginStatus;
+import model.communication.ManageUser;
 import model.communication.Message;
-import model.communication.Message.Type;
 import model.communication.WelcomingData;
 import server.model.ServerModelManager;
 
@@ -20,7 +20,7 @@ public class ServerController {
 		server = new ServerProxy(this);
 		server.start();
 	}
-	
+
 	public void closeServer() {
 		server.close();
 	}
@@ -32,17 +32,42 @@ public class ServerController {
 		case Auth:
 			response = handleAuthentication(msg);
 			break;
+		case ManageUser:
+			ManageUser manageUser = msg.getManageUser();
+			response = handleManageUser(manageUser);
+			break;
 		default:
-			response = new Message();
-			response.put(Type.Type,Type.Fail);
+			response = Message.createFail();
 			break;
 		}
 		return response;
 
 	}
 
+	private Message handleManageUser(ManageUser manageUser) {
+		Message response = null;
+		switch (manageUser.getAction()) {
+		case ManageUser.ADD:
+			model.addUser(manageUser.getUser());
+			response = Message.createSuccessfulResponse();
+			break;
+		case ManageUser.EDIT:
+			model.editUser(manageUser.getUser());
+			response = Message.createSuccessfulResponse();
+			break;
+		case ManageUser.DELETE:
+			model.deleteUser(manageUser.getUser());
+			response = Message.createSuccessfulResponse();
+			break;
+		default:
+			response = Message.createFail();
+			break;
+		}
+
+		return response;
+	}
+
 	private Message handleAuthentication(Message msg) {
-		Message response = new Message();
 		WelcomingData data = null;
 		Login login = null;
 		switch (model.authenticate(msg.getAuth())) {
@@ -63,7 +88,6 @@ public class ServerController {
 			login = new Login(LoginStatus.FAILURE_PWD, data);
 			break;
 		}
-		response.createLogin(login);
-		return response;
+		return Message.createLogin(login);
 	}
 }

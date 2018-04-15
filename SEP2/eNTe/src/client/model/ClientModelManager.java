@@ -1,6 +1,5 @@
 package client.model;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import client.controller.ClientController;
@@ -54,29 +53,26 @@ public class ClientModelManager implements ClientModel {
 	}
 
 	@Override
-	public void addUser(User user) {
+	public void addOrUpdateUser(User user) {
 		if (!users.contains(user)) {
 			users.add(user);
 			server.manageUser(ManageUser.ADD, user);
+		}else {
+			users.updateUser(user);
 		}
 	}
 
 	@Override
-	public void deleteUser(User user) {
-		users.delete(user);
-		server.manageUser(ManageUser.DELETE, user);
+	public void deleteUser(String id) {		
+		server.manageUser(ManageUser.DELETE, users.getUserById(id));
+		users.delete(id);
 	}
 
 	@Override
 	public void login(String login, String pwd) {
 		Auth auth = new Auth(login, pwd);
-		Message msg = Message.createAuth(auth), response;
-		try {
-			response = server.sendMessage(msg);
-			controller.handleMessage(response);
-		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-		}
+		Message response = server.login(auth);
+		controller.handleMessage(response);
 	}
 
 }

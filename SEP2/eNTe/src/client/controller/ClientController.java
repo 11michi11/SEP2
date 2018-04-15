@@ -84,24 +84,24 @@ public class ClientController {
 		else
 			user = new Teacher(name + " " + surname, email, password);
 
-		model.addUser(user);
+		model.addOrUpdateUser(user);
 	}
 
 	public void addStudent(String name, String surname, String email, String password, Class classs,
 			ArrayList<Parent> parents) {
 		Student student = new Student(name + " " + surname, email, password, classs, parents);
-		model.addUser(student);
+		model.addOrUpdateUser(student);
 		for (Parent p : parents)
-			model.addUser(p);
+			model.addOrUpdateUser(p);
 	}
 
 	public void addParent(String name, String surname, String email, String password, ArrayList<Student> children) {
 		Parent parent = new Parent(name + " " + surname, email, password, children);
-		model.addUser(parent);
+		model.addOrUpdateUser(parent);
 	}
-
-	public void deleteUser(User user) {
-		model.deleteUser(user);
+	
+	public void deleteUser(String id) {
+		model.deleteUser(id);
 	}
 
 }

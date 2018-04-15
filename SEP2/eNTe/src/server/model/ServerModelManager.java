@@ -26,7 +26,6 @@ public class ServerModelManager implements ServerModel {
 		try {
 			db = new DBPersistance();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		restoreState();
@@ -48,7 +47,6 @@ public class ServerModelManager implements ServerModel {
 //			posts.add(db.getPosts());
 //			users.add(db.getUsers());
 //		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 		users.add(getUsers());
@@ -80,6 +78,21 @@ public class ServerModelManager implements ServerModel {
 	    LinkedList<Post> list = new LinkedList<>(); 
 	    list.add(post); 
 	    return list; 
-	  } 
+	  }
+
+	public void addUser(User user) {
+		users.add(user);
+		db.addUser(user);
+	}
+
+	public void editUser(User user) {
+		users.updateUser(user);
+		db.updateUser(user);
+	}
+
+	public void deleteUser(User user) {
+		users.delete(user.getId());
+		db.deleteUser(user.getId());
+	} 
 
 }

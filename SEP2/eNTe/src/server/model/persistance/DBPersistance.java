@@ -58,6 +58,24 @@ public class DBPersistance implements DBAdapter{
 		return list;
 	}
 
+	@Override
+	public void addUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteUser(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 }

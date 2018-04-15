@@ -31,6 +31,11 @@ public class UsersList {
 		return users.stream().filter(u -> u.getLogin().equals(login)).findFirst()
 				.orElseThrow(NoSuchElementException::new);
 	}
+	
+	public User getUserById(String id) {
+		return users.stream().filter(u -> u.getId().equals(id)).findFirst()
+				.orElseThrow(NoSuchElementException::new);
+	}
 
 	public void add(User user) {
 		users.add(user);
@@ -48,8 +53,14 @@ public class UsersList {
 		return false;
 	}
 
-	public void delete(User user) {
-		users.remove(user);
+	public void delete(String id) {
+		users.remove(getUserById(id));
+	}
+
+	public void updateUser(User user) {
+		for(User u : users)
+			if(u.equals(u))
+				u = user;
 	}
 
 }

@@ -10,5 +10,8 @@ public interface DBAdapter {
 
 	public LinkedList<Post> getPosts() throws SQLException;
 	public LinkedList<User> getUsers() throws SQLException;
+	public void addUser(User user);
+	public void updateUser(User user);
+	public void deleteUser(String string);
 	 
 }

@@ -9,7 +9,7 @@ public class Message implements Serializable{
 	private Map<Type, Object> data;
 	
 	public enum Type{
-		Type, Login, Auth, ManageUser, NoType, Fail
+		Type, Login, Auth, ManageUser, NoType, Fail, Success
 	}
 	
 	public Message() {
@@ -88,6 +88,18 @@ public class Message implements Serializable{
 		Message msg = new Message();
 		msg.data.put(Type.Type, Type.ManageUser);
 		msg.data.put(Type.ManageUser, manageUser);
+		return msg;
+	}
+	
+	public static Message createFail() {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.Fail);
+		return msg;
+	}
+	
+	public static Message createSuccessfulResponse() {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.Success);
 		return msg;
 	}
 	

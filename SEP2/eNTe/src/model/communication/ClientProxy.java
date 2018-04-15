@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import model.User;
-import model.communication.Message.Type;
 
 public class ClientProxy {
 
@@ -45,8 +44,8 @@ public class ClientProxy {
 		}
 	}
 
-	public boolean manageUser(String action, User user) {
-		ManageUser manageUser = new ManageUser(action, user);
+	public boolean manageUser(String action, User id) {
+		ManageUser manageUser = new ManageUser(action, id);
 		Message msg = Message.createMangeUser(manageUser);
 		try {
 			Message response = sendMessage(msg);
@@ -55,6 +54,16 @@ public class ClientProxy {
 			return false;
 		}
 		return true;
+	}
+	
+	public Message login(Auth auth) {
+		Message msg = Message.createAuth(auth), response = null;
+		try {
+			response = sendMessage(msg);
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return response;
 	}
 
 }
