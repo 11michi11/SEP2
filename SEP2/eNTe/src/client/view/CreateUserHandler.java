@@ -66,6 +66,7 @@ public class CreateUserHandler {
 		}
 
 	}
+
 	public void teacherChoose() {
 		if (teacherBox.isSelected()) {
 			System.out.println(userLabel);
@@ -77,11 +78,11 @@ public class CreateUserHandler {
 			textBox.getChildren().add(adminBox);
 		}
 	}
-	
+
 	public void parentSelected() {
 		Parent mainPane;
 		try {
-			//FXMLLoader loader = new FXMLLoader();
+			// FXMLLoader loader = new FXMLLoader();
 			mainPane = FXMLLoader.load(getClass().getResource("/client/view/parentList.fxml"));
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
@@ -91,19 +92,19 @@ public class CreateUserHandler {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void save() {
-		if(studentBox.isSelected())
-		controller.addStudent(name.getText(), email.getText(), password.getText());
-		
-		else if(teacherBox.isSelected()) {
-		controller.addTeacher(name.getText(), email.getText(), password.getText(), adminBox.isSelected());
+		if (studentBox.isSelected())
+			controller.addStudent(name.getText(), surname.getText(), email.getText(), password.getText(), null, null);
+		else if (teacherBox.isSelected()) {
+			controller.addTeacher(name.getText(), surname.getText(), email.getText(), password.getText(),
+					adminBox.isSelected());
 		}
 	}
-	
+
 	public void delete() {
-		//here will be some choiceBox.isSelected() if yes it call method deleteUser()
-		//controller.deleteUser();
+		// here will be some choiceBox.isSelected() if yes it call method deleteUser()
+		// controller.deleteUser();
 	}
 
 }

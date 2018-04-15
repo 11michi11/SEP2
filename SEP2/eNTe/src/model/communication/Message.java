@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.communication.Message.Type;
-
 public class Message implements Serializable{
 	
 	private Map<Type, Object> data;
@@ -72,14 +70,25 @@ public class Message implements Serializable{
 		return "Message [data=" + data + "]";
 	}
 
-	public void createAuth(Auth auth) {
-		data.put(Type.Type, Type.Auth);
-		data.put(Type.Auth, auth);
+	public static Message createAuth(Auth auth) {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.Auth);
+		msg.data.put(Type.Auth, auth);
+		return msg;
 	}
 
-	public void createLogin(Login login) {
-		data.put(Type.Type, Type.Login);
-		data.put(Type.Login, login);
+	public static Message createLogin(Login login) {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.Login);
+		msg.data.put(Type.Login, login);
+		return msg;
+	}
+	
+	public static Message createMangeUser(ManageUser manageUser) {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.ManageUser);
+		msg.data.put(Type.ManageUser, manageUser);
+		return msg;
 	}
 	
 	
