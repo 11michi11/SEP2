@@ -2,8 +2,6 @@ package model.communication;
 
 import java.io.Serializable;
 
-import model.User;
-
 public class Login implements Serializable{
 
 	private LoginStatus status;
