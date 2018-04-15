@@ -82,6 +82,11 @@ public class Message implements Serializable{
 		data.put(Type.Login, login);
 	}
 	
+	public void createMangeUser(ManageUser manageUser) {
+		data.put(Type.Type, Type.ManageUser);
+		data.put(Type.ManageUser, manageUser);
+	}
+	
 	
 
 }

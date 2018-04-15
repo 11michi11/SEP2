@@ -1,5 +1,6 @@
 package model;
 
-public class Class {
-
+//TO DO, class not finished
+public enum Class {
+	Zero, One, Two,
 }

@@ -5,14 +5,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import com.google.gson.Gson;
+import model.User;
+import model.communication.Message.Type;
 
 public class ClientProxy {
 
 	private Socket client;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-
 
 	public void startConnection(String ip, int port) {
 		try {
@@ -40,9 +40,22 @@ public class ClientProxy {
 			in.close();
 			client.close();
 		} catch (IOException e) {
-			System.out.println("Could not close clien connection");
+			System.out.println("Could not close client connection");
 			e.printStackTrace();
 		}
+	}
+
+	public boolean addUser(User user) {
+		ManageUser manageUser = new ManageUser(ManageUser.ADD, user);
+		Message msg = new Message();
+		msg.createMangeUser(manageUser);
+		try {
+			Message response = sendMessage(msg);
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 }

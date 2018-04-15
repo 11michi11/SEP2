@@ -3,10 +3,17 @@ package client.controller;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import client.view.ClientView;
+import model.Administrator;
 import model.ClientModel;
+import model.Parent;
 import model.Post;
+import model.Student;
+import model.Teacher;
+import model.User;
+import model.Class;
 import model.communication.Auth;
 import model.communication.ClientProxy;
 import model.communication.Login;
@@ -116,18 +123,31 @@ public class ClientController {
 		return hexString.toString();
 	}
 
-	public void addTeacher(String name, String surname, String email, String password,Boolean admin) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void addStudent(String name, String surname, String email, String password) {
-		// TODO Auto-generated method stub
-		
+	public void addTeacher(String name, String surname, String email, String password, Boolean admin) {
+		User user;
+		if (admin) {
+			user = new Administrator(name + " " + surname, email, password);
+		} else {
+			user = new Teacher(name + " " + surname, email, password);
+		}
+		model.addUser(user);
 	}
 
-	public void deleteUser(Boolean user) {
-		// TODO Auto-generated method stub
-		
+	public void addStudent(String name, String surname, String email, String password, Class classs, ArrayList<Parent> parents) {
+		Student student = new Student(name + " " + surname, email, password, classs, parents);
+		model.addUser(student);
+		for(Parent p : parents)
+			model.addUser(p);
+		server.addUser(student);
+	}
+
+	public void addParent(String name, String surname, String email, String password, ArrayList<Student> children) {
+		Parent parent = new Parent(name + " " + surname, email, password, children);
+		model.addUser(parent);
+	}
+
+	public void deleteUser(User user) {
+		model.deleteUser(user);
 	}
 
 }

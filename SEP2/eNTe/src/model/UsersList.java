@@ -33,12 +33,24 @@ public class UsersList {
 	}
 
 	public void add(User user) {
-		users.add(user);
+		if(!contains(user))
+			users.add(user);
 	}
 	
 	public void add(List<User> list) {
 		for(User e :list)
 			users.add(e);
+	}
+	
+	public boolean contains(User user) {
+		for(User u : users)
+			if(u.equals(user))
+				return true;
+		return false;
+	}
+
+	public void delete(User user) {
+		users.remove(user);
 	}
 
 }
