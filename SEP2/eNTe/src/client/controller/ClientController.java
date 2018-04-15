@@ -77,26 +77,26 @@ public class ClientController {
 		}
 	}
 
-	public void addTeacher(String name, String surname, String email, String password, Boolean admin) {
+	public void addTeacher(String name, String email, String password, Boolean admin) {
 		User user;
 		if (admin)
-			user = new Administrator(name + " " + surname, email, password);
+			user = new Administrator(name, email, password);
 		else
-			user = new Teacher(name + " " + surname, email, password);
+			user = new Teacher(name, email, password);
 
 		model.addOrUpdateUser(user);
 	}
 
-	public void addStudent(String name, String surname, String email, String password, Class classs,
+	public void addStudent(String name, String email, String password, Class classs,
 			ArrayList<Parent> parents) {
-		Student student = new Student(name + " " + surname, email, password, classs, parents);
+		Student student = new Student(name, email, password, classs, parents);
 		model.addOrUpdateUser(student);
 		for (Parent p : parents)
 			model.addOrUpdateUser(p);
 	}
 
-	public void addParent(String name, String surname, String email, String password, ArrayList<Student> children) {
-		Parent parent = new Parent(name + " " + surname, email, password, children);
+	public void addParent(String name, String email, String password, ArrayList<Student> children) {
+		Parent parent = new Parent(name, email, password, children);
 		model.addOrUpdateUser(parent);
 	}
 	
