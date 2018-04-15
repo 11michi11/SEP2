@@ -124,4 +124,18 @@ public class ClientController {
 		return hexString.toString();
 	}
 
+	public void addTeacher(String name, String surname, String email, String password,Boolean admin) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void addStudent(String name, String surname, String email, String password) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deleteUser(Boolean user) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

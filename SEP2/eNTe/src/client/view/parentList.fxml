@@ -17,27 +17,22 @@
             <Image url="@enteLOGO.png" />
          </image>
       </ImageView>
-      <Label layoutX="461.0" layoutY="63.0" text="users list" textFill="#729eea">
+      <Label layoutX="461.0" layoutY="63.0" text="parent list" textFill="#729eea">
          <font>
             <Font name="Gill Sans MT Bold" size="60.0" />
          </font>
       </Label>
-      <TableView layoutX="35.0" layoutY="188.0" prefHeight="544.0" prefWidth="884.0">
+      <TableView layoutX="35.0" layoutY="188.0" prefHeight="544.0" prefWidth="846.0">
         <columns>
           <TableColumn prefWidth="467.1999931335449" />
           <TableColumn prefWidth="683.199951171875" />
         </columns>
       </TableView>
-      <VBox layoutX="935.0" layoutY="185.0" prefHeight="563.0" prefWidth="334.0">
+      <VBox layoutX="885.0" layoutY="185.0" prefHeight="563.0" prefWidth="387.0">
          <children>
-            <Button fx:id="createUser" mnemonicParsing="false" onAction="#loadCreateUserPane" prefHeight="94.0" prefWidth="335.0" styleClass="menuButton" stylesheets="@login.css" text="create user" textFill="#729eea">
+            <Button fx:id="createUser" mnemonicParsing="false" onAction="#loadCreateUserPane" prefHeight="94.0" prefWidth="387.0" styleClass="menuButton" stylesheets="@login.css" text="create parent" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
-               </font>
-            </Button>
-            <Button fx:id="editUser" mnemonicParsing="false" prefHeight="94.0" prefWidth="331.0" styleClass="menuButton" stylesheets="@login.css" text="edit user" textFill="#729eea">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="35.0" />
                </font>
             </Button>
             <Button fx:id="deleteUser" mnemonicParsing="false" prefHeight="94.0" prefWidth="340.0" styleClass="menuButton" stylesheets="@login.css" text="delete user" textFill="#729eea">

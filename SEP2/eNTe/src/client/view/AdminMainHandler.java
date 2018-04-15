@@ -80,20 +80,7 @@ public class AdminMainHandler {
 			e.printStackTrace();
 		}
 	}
-//PUT THIS TO ANOTHER CLASS	
-//	public void loadCreateUserPane() {
-//		Parent mainPane;
-//		try {
-//			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createUser.fxml"));
-//			mainPane = loader.load();
-//			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-//			stage.getScene().setRoot(mainPane);
-//			stage.show();
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//}
+
 
 
 }
