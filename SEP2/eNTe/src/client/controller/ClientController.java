@@ -116,11 +116,11 @@ public class ClientController {
 		return hexString.toString();
 	}
 
-	public void addTeacher(String name, String surname, String email, String password,Boolean admin) {
+	public void addTeacher(String name, String email, String password,Boolean admin) {
 		// TODO Auto-generated method stub
 		
 	}
-	public void addStudent(String name, String surname, String email, String password) {
+	public void addStudent(String name, String email, String password) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -128,6 +128,16 @@ public class ClientController {
 	public void deleteUser(Boolean user) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void addParent(String name, String email, String password) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String[][] getParentsForView() {
+		String[][] parents = {{"Michal Pompa", "pompa@polska.pl", "Luke Pompa", "false"}};
+		return parents;
 	}
 
 }

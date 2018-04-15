@@ -32,7 +32,7 @@ public class CreateUserHandler {
 	@FXML
 	private Button parentSelector, saveButton;
 	@FXML
-	private TextField name, surname, email, password;
+	private TextField name, email, password;
 	private CheckBox adminBox;
 	private ClientController controller;
 	private Stage stage;
@@ -90,15 +90,14 @@ public class CreateUserHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 	
 	public void save() {
 		if(studentBox.isSelected())
-		controller.addStudent(name.getText(), surname.getText(), email.getText(), password.getText());
+		controller.addStudent(name.getText(), email.getText(), password.getText());
 		
 		else if(teacherBox.isSelected()) {
-		controller.addTeacher(name.getText(), surname.getText(), email.getText(), password.getText(), adminBox.isSelected());
+		controller.addTeacher(name.getText(), email.getText(), password.getText(), adminBox.isSelected());
 		}
 	}
 	
