@@ -2,28 +2,38 @@ package client.view;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import client.controller.ClientController;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import model.Student;
 
 public class ParentListHandler {
 
 	@FXML
-	private TableView parentsList;
+	private TableView<ParentDT> parentsList;
 	@FXML
-	private TableColumn nameColumn;
+	private TableColumn<ParentDT, String> nameColumn;
 	@FXML
-	private TableColumn emailColumn;
+	private TableColumn<ParentDT, String> emailColumn;
 	@FXML
-	private TableColumn childrenColumn;
+	private TableColumn<ParentDT, String> childrenColumn;
 	@FXML
-	private TableColumn selectedColumn;
+	private TableColumn<ParentDT, CheckBox> selectedColumn;
 	private ClientController controller;
 	private Stage stage;
 	private ArrayList<String[]> parentsInfo;
@@ -36,11 +46,41 @@ public class ParentListHandler {
 
 	@FXML
 	public void initialize() {
-		parentsList.setItems(controller.getParentsForView());
+		nameColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("name"));
+		emailColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("login"));
+		childrenColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("childrenNames"));
+		
+		selectedColumn.setCellValueFactory(
+				new Callback<CellDataFeatures<ParentDT, CheckBox>, ObservableValue<CheckBox>>() {
 
+					@Override
+					public ObservableValue<CheckBox> call(CellDataFeatures<ParentDT, CheckBox> arg0) {
+						CheckBox checkBox = new CheckBox();
+						ParentDT parent = arg0.getValue();
+						
+						checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+							public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue,
+									Boolean newValue) {
+								parent.setSelected(newValue);
+							}
+						});
+
+						checkBox.selectedProperty().setValue(Boolean.FALSE);
+
+						return new SimpleObjectProperty<CheckBox>(checkBox);
+					}
+
+				});
+
+		parentsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		parentsList.setEditable(true);
+		parentsList.getColumns().clear();
+		parentsList.getColumns().addAll(nameColumn, emailColumn, childrenColumn, selectedColumn);
+		parentsList.setItems(controller.getParentsForView());
 	}
 
 	private void insertRow(String[] row) {
+		
 	}
 
 	public void createParent() {
@@ -59,7 +99,8 @@ public class ParentListHandler {
 	}
 
 	public void confirm() {
-		parentsInfo.addAll(getSelectedParents());
+		 parentsInfo.addAll(getSelectedParents());
+
 		// open create user fxml
 
 		// Get controller
@@ -68,8 +109,22 @@ public class ParentListHandler {
 	}
 
 	private ArrayList<String[]> getSelectedParents() {
-		// collect information from selected rows in table
-		return null;
+		ArrayList<String[]> parentsInfo = new ArrayList<>();
+		
+		
+		for(ParentDT p : parentsList.getItems()) {
+			if(p.getSelected()) {
+				String[] parent = new String[3];
+				parent[0] = p.getName();
+				parent[1] = p.getLogin();
+				parent[2] = p.getChildrenNames();
+				
+				parentsInfo.add(parent);
+			}
+		}
+		
+		
+		return parentsInfo;
 	}
 
 	public void passParent(String[] parentInfo) {

@@ -3,6 +3,7 @@ package client.controller;
 import java.util.ArrayList;
 
 import client.view.ClientView;
+import client.view.ParentDT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Administrator;
@@ -107,11 +108,17 @@ public class ClientController {
 		model.deleteUser(id);
 	}
 
-	public ObservableList<Parent> getParentsForView() {
-		ObservableList<Parent> parents = FXCollections.observableArrayList();
-		parents.addAll(model.getParents());
-		Parent p = new Parent("name", "email", "pwd", new ArrayList<Student>());
-		parents.add(p);
+	public ObservableList<ParentDT> getParentsForView() {
+		ObservableList<ParentDT> parents = FXCollections.observableArrayList();
+		//parents.addAll(model.getParents());
+		ArrayList<Student> children = new ArrayList<Student>();
+		Student student = new Student("StudentName", "login", "pwd", Class.Zero, new ArrayList<Parent>());
+		children.add(student);
+		Parent p1 = new Parent("name", "email", "pwd", children);
+		Parent p2 = new Parent("name", "email", "pwd", children);
+		Parent p3 = new Parent("name", "email", "pwd", children);
+		Parent p4 = new Parent("name", "email", "pwd", children);
+		parents.addAll(new ParentDT(p1), new ParentDT(p2), new ParentDT(p3),new ParentDT(p4));
 		return parents;
 	}
 

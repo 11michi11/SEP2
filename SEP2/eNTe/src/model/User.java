@@ -17,6 +17,10 @@ public class User {
 		this.pwd = new SimpleStringProperty(pwd);
 		id = UUID.randomUUID().toString();
 	}
+	
+	public String getName() {
+		return name.get();
+	}
 
 	public String getLogin() {
 		return login.get();

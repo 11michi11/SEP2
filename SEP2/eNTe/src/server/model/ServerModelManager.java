@@ -29,7 +29,6 @@ public class ServerModelManager implements ServerModel {
 			e.printStackTrace();
 		}
 		restoreState();
-		System.out.println(users.getAll());
 	}
 
 	@Override
