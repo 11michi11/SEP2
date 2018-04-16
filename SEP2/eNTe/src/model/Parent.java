@@ -7,14 +7,14 @@ import javafx.beans.property.SimpleStringProperty;
 public class Parent extends User {
 	private ArrayList<Student> children;
 	private SimpleStringProperty childrenNames;
-	private ArrayList<Class> classs;
+	private ArrayList<Class> classes;
 
 	public Parent(String name, String login, String pwd, Student child) {
 		super(name, login, pwd);
 		this.children = children;
-		classs = new ArrayList<Class>();
+		classes = new ArrayList<Class>();
 		for (Student s : children)
-			classs.add(s.getClasss());
+			classes.add(s.getClasss());
 		
 		String names = "";
 		for(Student s : children)
