@@ -17,9 +17,9 @@
             <Image url="@enteLOGO.png" />
          </image>
       </ImageView>
-      <Label layoutX="461.0" layoutY="63.0" text="users list" textFill="#729eea">
+      <Label layoutX="461.0" layoutY="63.0" styleClass="labelMain" stylesheets="@login.css" text="users list" textFill="#729eea">
          <font>
-            <Font name="Gill Sans MT Bold" size="60.0" />
+            <Font name="Gill Sans MT Bold" size="50.0" />
          </font>
       </Label>
       <TableView layoutX="35.0" layoutY="188.0" prefHeight="544.0" prefWidth="884.0">

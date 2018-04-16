@@ -15,7 +15,7 @@ public class CreateParentHandler {
 	private ClientController controller;
 	private Stage stage;
 	@FXML
-	private TextField name, email, password;
+	private TextField name, email;
 	@FXML
 	private ImageView ente;
 	private Parent mainPane;
@@ -37,7 +37,7 @@ public class CreateParentHandler {
 
 	public void save() {
 		ParentListHandler handler = loader.getController();
-		String[] parentInfo = {name.getText(), email.getText(), password.getText()};
+		String[] parentInfo = {name.getText(), email.getText()};
 		handler.passParent(parentInfo);
 		goBack();
 	}

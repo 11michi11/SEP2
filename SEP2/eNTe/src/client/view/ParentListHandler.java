@@ -9,6 +9,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -51,15 +52,15 @@ public class ParentListHandler {
 		nameColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("name"));
 		emailColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("login"));
 		childrenColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("childrenNames"));
-		
-		selectedColumn.setCellValueFactory(
-				new Callback<CellDataFeatures<ParentDT, CheckBox>, ObservableValue<CheckBox>>() {
+
+		selectedColumn
+				.setCellValueFactory(new Callback<CellDataFeatures<ParentDT, CheckBox>, ObservableValue<CheckBox>>() {
 
 					@Override
 					public ObservableValue<CheckBox> call(CellDataFeatures<ParentDT, CheckBox> arg0) {
 						CheckBox checkBox = new CheckBox();
 						ParentDT parent = arg0.getValue();
-						
+
 						checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 							public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue,
 									Boolean newValue) {
@@ -67,22 +68,19 @@ public class ParentListHandler {
 							}
 						});
 
-						checkBox.selectedProperty().setValue(Boolean.FALSE);
+						checkBox.selectedProperty().setValue(parent.getSelected());
 
 						return new SimpleObjectProperty<CheckBox>(checkBox);
 					}
 
 				});
-
-		//parentsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		//parentsList.setEditable(true);
 		parentsList.getColumns().clear();
 		parentsList.getColumns().addAll(nameColumn, emailColumn, childrenColumn, selectedColumn);
 		parentsList.setItems(controller.getParentsForView());
 	}
 
 	private void insertRow(String[] row) {
-		
+
 	}
 
 	public void createParent() {
@@ -101,8 +99,8 @@ public class ParentListHandler {
 	}
 
 	public void confirm() {
-		 parentsInfo.addAll(getSelectedParents());
-		 System.out.println(Arrays.deepToString(parentsInfo.toArray()));
+		parentsInfo.addAll(getSelectedParents());
+		System.out.println(Arrays.deepToString(parentsInfo.toArray()));
 		// open create user fxml
 
 		// Get controller
@@ -112,25 +110,25 @@ public class ParentListHandler {
 
 	private ArrayList<String[]> getSelectedParents() {
 		ArrayList<String[]> parentsInfo = new ArrayList<>();
-		
-		
-		for(ParentDT p : parentsList.getItems()) {
-			if(p.getSelected()) {
+
+		for (ParentDT p : parentsList.getItems()) {
+			if (p.getSelected()) {
 				String[] parent = new String[3];
 				parent[0] = p.getName();
 				parent[1] = p.getLogin();
 				parent[2] = p.getChildrenNames();
-				
+
 				parentsInfo.add(parent);
 			}
 		}
-		
-		
+
 		return parentsInfo;
 	}
 
 	public void passParent(String[] parentInfo) {
-		parentsInfo.add(parentInfo);
+		ParentDT parent = new ParentDT(parentInfo[0], parentInfo[1]);
+		parent.setSelected(true);
+		parentsList.getItems().add(0,parent);
 	}
 
 }

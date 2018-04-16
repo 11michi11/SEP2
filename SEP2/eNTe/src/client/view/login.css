@@ -44,5 +44,11 @@ Button:hoover{
 	-fx-font-weight: bold;
 	-fx-fill: #729eea;
 }
+.labelMain {
+	-fx-font-family: "Gill Sans MT";
+	-fx-font-weight: bold;
+	-fx-font-size: 60px;
+	-fx-fill: #729eea;
+}
 
 

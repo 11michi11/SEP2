@@ -17,7 +17,7 @@
             <Image url="@enteLOGO.png" />
          </image>
       </ImageView>
-      <Label fx:id="userLabel" layoutX="528.0" layoutY="86.0" text="new parent" textFill="#729eea">
+      <Label fx:id="userLabel" layoutX="528.0" layoutY="86.0" styleClass="labelMain" stylesheets="@login.css" text="new parent" textFill="#729eea">
          <font>
             <Font name="Gill Sans MT Bold" size="50.0" />
          </font>
@@ -43,17 +43,9 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="password" opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="password">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="30.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </TextField>
          </children>
       </VBox>
-      <Button fx:id="saveButton" layoutX="613.0" layoutY="521.0" mnemonicParsing="false" onAction="#save" text="save" textFill="#729eea">
+      <Button fx:id="saveButton" layoutX="613.0" layoutY="459.0" mnemonicParsing="false" onAction="#save" text="save" textFill="#729eea">
          <font>
             <Font name="Gill Sans MT Bold" size="30.0" />
          </font>
