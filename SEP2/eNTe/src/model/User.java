@@ -6,28 +6,28 @@ import javafx.beans.property.SimpleStringProperty;
 
 public abstract class User {
 
-	private SimpleStringProperty login;
-	private SimpleStringProperty pwd;
-	private SimpleStringProperty name;
+	private String login;
+	private String pwd;
+	private String name;
 	private String id;
 
 	public User(String name, String login, String pwd) {
-		this.name = new SimpleStringProperty(name);
-		this.login = new SimpleStringProperty(login);
-		this.pwd = new SimpleStringProperty(pwd);
+		this.name = name;
+		this.login = login;
+		this.pwd = pwd;
 		id = UUID.randomUUID().toString();
 	}
 	
 	public String getName() {
-		return name.get();
+		return name;
 	}
 
 	public String getLogin() {
-		return login.get();
+		return login;
 	}
 
 	public String getPwd() {
-		return pwd.get();
+		return pwd;
 	}
 
 	public String getId() {

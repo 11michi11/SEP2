@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Parent extends User {
 	private ArrayList<Student> children;
-	private SimpleStringProperty childrenNames;
+	private String childrenNames;
 	private ArrayList<Class> classes;
 
 	public Parent(String name, String login, String pwd, ArrayList<Student> children) {
@@ -15,28 +15,26 @@ public class Parent extends User {
 		classes = new ArrayList<Class>();
 		for (Student s : children)
 			classes.add(s.getClasss());
-		
-		String names = "";
-		for(Student s : children)
-			names += s.getName() + ", ";
-		
-		childrenNames = new SimpleStringProperty(names);
+
+		childrenNames = "";
+		for (Student s : children)
+			childrenNames += s.getName() + ", ";
 	}
-	
+
 	public String getChildrenNames() {
-		return childrenNames.get();
+		return childrenNames;
 	}
-	public void addChild(Student child)
-	{
+
+	public void addChild(Student child) {
 		children.add(child);
 		classes.add(child.getClasss());
 	}
-	public void removeChild(Student child)
-	{
+
+	public void removeChild(Student child) {
 		children.remove(child);
 	}
-	public ArrayList<Student> getChildren()
-	{
+
+	public ArrayList<Student> getChildren() {
 		return children;
 	}
 }

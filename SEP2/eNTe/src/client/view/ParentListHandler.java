@@ -2,6 +2,7 @@ package client.view;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import client.controller.ClientController;
 import javafx.beans.property.BooleanProperty;
@@ -42,6 +43,7 @@ public class ParentListHandler {
 		controller = ClientController.getInstance();
 		System.out.println("ParentListHandler");
 		stage = ClientViewManager.getStage();
+		parentsInfo = new ArrayList<>();
 	}
 
 	@FXML
@@ -72,8 +74,8 @@ public class ParentListHandler {
 
 				});
 
-		parentsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		parentsList.setEditable(true);
+		//parentsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		//parentsList.setEditable(true);
 		parentsList.getColumns().clear();
 		parentsList.getColumns().addAll(nameColumn, emailColumn, childrenColumn, selectedColumn);
 		parentsList.setItems(controller.getParentsForView());
@@ -100,7 +102,7 @@ public class ParentListHandler {
 
 	public void confirm() {
 		 parentsInfo.addAll(getSelectedParents());
-
+		 System.out.println(Arrays.deepToString(parentsInfo.toArray()));
 		// open create user fxml
 
 		// Get controller
