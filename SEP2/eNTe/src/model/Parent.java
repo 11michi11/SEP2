@@ -9,7 +9,7 @@ public class Parent extends User {
 	private SimpleStringProperty childrenNames;
 	private ArrayList<Class> classes;
 
-	public Parent(String name, String login, String pwd, Student child) {
+	public Parent(String name, String login, String pwd, ArrayList<Student> children) {
 		super(name, login, pwd);
 		this.children = children;
 		classes = new ArrayList<Class>();

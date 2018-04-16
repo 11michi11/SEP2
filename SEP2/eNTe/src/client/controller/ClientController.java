@@ -93,10 +93,18 @@ public class ClientController {
 
 	public void addStudent(String name, String email, String password, Class classs,
 			ArrayList<Parent> parents) {
-		Student student = new Student(name, email, password, classs, parents);
+		Student student = new Student(name, email, password, classs, extractParentsIDs(parents));
+		
 		model.addOrUpdateUser(student);
 		for (Parent p : parents)
 			model.addOrUpdateUser(p);
+	}
+	
+	private ArrayList<String> extractParentsIDs(ArrayList<Parent> parents) {
+		ArrayList<String> ids = new ArrayList<String>();
+		for(Parent p : parents)
+			ids.add(p.getId());
+		return ids;
 	}
 
 	public void addParent(String name, String email, String password, ArrayList<Student> children) {
@@ -112,7 +120,7 @@ public class ClientController {
 		ObservableList<ParentDT> parents = FXCollections.observableArrayList();
 		//parents.addAll(model.getParents());
 		ArrayList<Student> children = new ArrayList<Student>();
-		Student student = new Student("StudentName", "login", "pwd", Class.Zero, new ArrayList<Parent>());
+		Student student = new Student("StudentName", "login", "pwd", Class.First, new ArrayList<String>());
 		children.add(student);
 		Parent p1 = new Parent("name", "email", "pwd", children);
 		Parent p2 = new Parent("name", "email", "pwd", children);
