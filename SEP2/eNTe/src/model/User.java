@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class User {
+public abstract class User {
 
 	private SimpleStringProperty login;
 	private SimpleStringProperty pwd;

@@ -5,15 +5,25 @@ import java.util.ArrayList;
 public class Student extends User {
 	private String historyOfActivity;
 	private Class classs;
-	private ArrayList<Parent> parents;
 
-	public Student(String name, String login, String pwd, Class classs, ArrayList<Parent> parents) {
+	public Student(String name, String login, String pwd, Class classs) {
 		super(name, login, pwd);
 		this.classs = classs;
-		this.parents = parents;
 		historyOfActivity = null;
 	}
-
+	
+	public void addHistoryOfActivity(String text)
+	{
+		historyOfActivity+=text+"\n";
+	}
+	public String getHistoryOfActivity()
+	{
+		return historyOfActivity;
+	}
+	public void setClasss(Class classs)
+	{
+		this.classs=classs;
+	}
 	public Class getClasss() {
 		return classs;
 	}

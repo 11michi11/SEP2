@@ -9,7 +9,7 @@ public class Parent extends User {
 	private SimpleStringProperty childrenNames;
 	private ArrayList<Class> classs;
 
-	public Parent(String name, String login, String pwd, ArrayList<Student> children) {
+	public Parent(String name, String login, String pwd, Student child) {
 		super(name, login, pwd);
 		this.children = children;
 		classs = new ArrayList<Class>();
@@ -25,5 +25,18 @@ public class Parent extends User {
 	
 	public String getChildrenNames() {
 		return childrenNames.get();
+	}
+	public void addChild(Student child)
+	{
+		children.add(child);
+		classes.add(child.getClasss());
+	}
+	public void removeChild(Student child)
+	{
+		children.remove(child);
+	}
+	public ArrayList<Student> getChildren()
+	{
+		return children;
 	}
 }
