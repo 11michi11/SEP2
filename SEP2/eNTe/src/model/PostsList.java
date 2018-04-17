@@ -14,6 +14,10 @@ public class PostsList {
 	public Post getNextPost() {
 		return posts.removeFirst();
 	}
+	
+	public Post getPost() {
+		return posts.getFirst();
+	}
 
 	public void add(Post post) {
 		posts.add(post);

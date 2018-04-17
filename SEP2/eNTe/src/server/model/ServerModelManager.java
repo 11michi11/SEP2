@@ -13,7 +13,6 @@ import model.communication.Auth;
 import model.communication.LoginStatus;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistance;
-import server.model.persistance.DBAdapter;
 
 public class ServerModelManager implements ServerModel {
 
@@ -34,7 +33,7 @@ public class ServerModelManager implements ServerModel {
 
 	@Override
 	public Post getPost() {
-		return posts.getNextPost();
+		return posts.getPost();
 	}
 
 	@Override
