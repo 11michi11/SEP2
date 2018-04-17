@@ -1,18 +1,17 @@
-package model.proxy;
+package model.communication;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import com.google.gson.Gson;
+import model.User;
 
 public class ClientProxy {
 
 	private Socket client;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-
 
 	public void startConnection(String ip, int port) {
 		try {
@@ -40,9 +39,31 @@ public class ClientProxy {
 			in.close();
 			client.close();
 		} catch (IOException e) {
-			System.out.println("Could not close clien connection");
+			System.out.println("Could not close client connection");
 			e.printStackTrace();
 		}
+	}
+
+	public boolean manageUser(String action, User id) {
+		ManageUser manageUser = new ManageUser(action, id);
+		Message msg = Message.createMangeUser(manageUser);
+		try {
+			Message response = sendMessage(msg);
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	public Message login(Auth auth) {
+		Message msg = Message.createAuth(auth), response = null;
+		try {
+			response = sendMessage(msg);
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return response;
 	}
 
 }

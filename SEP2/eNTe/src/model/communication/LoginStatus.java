@@ -1,4 +1,4 @@
-package model.proxy;
+package model.communication;
 
 public enum LoginStatus {
 

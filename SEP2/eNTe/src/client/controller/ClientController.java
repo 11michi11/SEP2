@@ -1,83 +1,65 @@
 package client.controller;
 
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
-import client.model.ClientModelManager;
 import client.view.ClientView;
-import client.view.ClientViewManager;
+import client.view.ParentDT;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.Administrator;
+import model.Class;
 import model.ClientModel;
+import model.Parent;
 import model.Post;
-import model.proxy.Auth;
-import model.proxy.ClientProxy;
-import model.proxy.Login;
-import model.proxy.Message;
-import model.proxy.WelcomingData;
+import model.Student;
+import model.Teacher;
+import model.User;
+import model.communication.Login;
+import model.communication.Message;
+import model.communication.WelcomingData;
 
 public class ClientController {
 
-	private ClientProxy server;
 	private ClientModel model;
 	private ClientView view;
 	private static ClientController instance;
 
 	private ClientController(ClientModel model, ClientView view) {
 		instance = this;
-		server = new ClientProxy();
-		server.startConnection("localhost", 7777);
 		this.model = model;
+		model.setController(this);
 		this.view = view;
 		this.view.startView();
 	}
-	
+
 	public static ClientController getInstance(ClientModel model, ClientView view) {
-		if(instance == null)
+		if (instance == null)
 			instance = new ClientController(model, view);
-		return instance	;
-	}
-	
-	public static ClientController getInstance() {
-		if(instance == null)
-			throw new IllegalStateException("There is no instance");
-		return instance	;
+		return instance;
 	}
 
-	public void close() {
-		server.close();
+	public static ClientController getInstance() {
+		if (instance == null)
+			throw new IllegalStateException("There is no instance");
+		return instance;
 	}
-	
+
 	public Post[] getPosts() {
 		Post[] posts = new Post[1];
-		posts[0] =  model.getPost();
+		posts[0] = model.getPost();
 		return posts;
 	}
-	
 
 	public void login(String login, String pwd) {
-		Auth auth = new Auth(login, encryptPwd(pwd));
-		Message msg = new Message(), response;
-
-		msg.createAuth(auth);
-
-		try {
-			response = server.sendMessage(msg);
-			handleMessage(response);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		model.login(login, pwd);
 	}
 
-	private void handleMessage(Message msg) {
+	public void handleMessage(Message msg) {
 		switch (msg.getType()) {
-		case "login":
+		case Login:
 			handleLogin(msg);
 			break;
-		case "fail":
+		case Fail:
 		default:
 			System.out.println("Error!!!");
 			break;
@@ -99,29 +81,53 @@ public class ClientController {
 		}
 	}
 
-	private String encryptPwd(String pwd) {
-		MessageDigest dig;
-		String encrypted = "";
-		try {
-			dig = MessageDigest.getInstance("SHA-256");
-			dig.update("pwd".getBytes());
-			encrypted = toHex(dig.digest());
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return encrypted;
+	public void addTeacher(String name, String email, String password, Boolean admin) {
+		User user;
+		if (admin)
+			user = new Administrator(name, email, password);
+		else
+			user = new Teacher(name, email, password);
+
+		model.addOrUpdateUser(user);
 	}
 
-	private String toHex(byte[] byteData) {
-		StringBuffer hexString = new StringBuffer();
-		for (int i = 0; i < byteData.length; i++) {
-			String hex = Integer.toHexString(0xff & byteData[i]);
-			if (hex.length() == 1)
-				hexString.append('0');
-			hexString.append(hex);
-		}
-		return hexString.toString();
+	public void addStudent(String name, String email, String password, Class classs,
+			ArrayList<Parent> parents) {
+		Student student = new Student(name, email, password, classs, extractParentsIDs(parents));
+		
+		model.addOrUpdateUser(student);
+		for (Parent p : parents)
+			model.addOrUpdateUser(p);
+	}
+	
+	private ArrayList<String> extractParentsIDs(ArrayList<Parent> parents) {
+		ArrayList<String> ids = new ArrayList<String>();
+		for(Parent p : parents)
+			ids.add(p.getId());
+		return ids;
+	}
+
+	public void addParent(String name, String email, String password, ArrayList<Student> children) {
+		Parent parent = new Parent(name, email, password, children);
+		model.addOrUpdateUser(parent);
+	}
+	
+	public void deleteUser(String id) {
+		model.deleteUser(id);
+	}
+
+	public ObservableList<ParentDT> getParentsForView() {
+		ObservableList<ParentDT> parents = FXCollections.observableArrayList();
+		//parents.addAll(model.getParents());
+		ArrayList<Student> children = new ArrayList<Student>();
+		Student student = new Student("StudentName", "login", "pwd", Class.First, new ArrayList<String>());
+		children.add(student);
+		Parent p1 = new Parent("name", "email", "pwd", children);
+		Parent p2 = new Parent("name", "email", "pwd", children);
+		Parent p3 = new Parent("name", "email", "pwd", children);
+		Parent p4 = new Parent("name", "email", "pwd", children);
+		parents.addAll(new ParentDT(p1), new ParentDT(p2), new ParentDT(p3),new ParentDT(p4));
+		return parents;
 	}
 
 }

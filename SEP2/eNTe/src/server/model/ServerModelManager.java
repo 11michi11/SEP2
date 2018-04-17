@@ -3,16 +3,15 @@ package server.model;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import client.proxy.Auth;
-import client.proxy.LoginStatus;
 import model.Administrator;
 import model.Post;
 import model.PostsList;
 import model.ServerModel;
 import model.User;
 import model.UsersList;
-import model.proxy.Auth;
-import model.proxy.LoginStatus;
+import model.communication.Auth;
+import model.communication.LoginStatus;
+import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistance;
 import server.model.persistance.DBAdapter;
 
@@ -28,7 +27,6 @@ public class ServerModelManager implements ServerModel {
 		try {
 			db = new DBAdapter();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		restoreState();
@@ -50,7 +48,6 @@ public class ServerModelManager implements ServerModel {
 //			posts.add(db.getPosts());
 //			users.add(db.getUsers());
 //		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 		users.add(getUsers());
@@ -82,6 +79,21 @@ public class ServerModelManager implements ServerModel {
 	    LinkedList<Post> list = new LinkedList<>(); 
 	    list.add(post); 
 	    return list; 
-	  } 
+	  }
+
+	public void addUser(User user) {
+		users.add(user);
+		db.addUser(user);
+	}
+
+	public void editUser(User user) {
+		users.updateUser(user);
+		db.updateUser(user);
+	}
+
+	public void deleteUser(User user) {
+		users.delete(user.getId());
+		db.deleteUser(user.getId());
+	} 
 
 }

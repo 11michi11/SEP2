@@ -2,8 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,35 +13,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.CreateUserHandler">
    <children>
       <ImageView fitHeight="182.0" fitWidth="209.0" layoutX="22.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@enteLOGO.png" />
          </image>
       </ImageView>
-      <Label layoutX="504.0" layoutY="44.0" text="new user" textFill="#729eea">
+      <Label fx:id="userLabel" layoutX="528.0" layoutY="56.0" styleClass="labelMain" stylesheets="@login.css" text="new user" textFill="#729eea">
          <font>
             <Font name="Gill Sans MT Bold" size="50.0" />
          </font>
       </Label>
-      <HBox layoutX="373.0" layoutY="114.0" prefHeight="90.0" prefWidth="680.0">
+      <HBox fx:id="choiceBox" layoutX="425.0" layoutY="112.0" prefHeight="66.0" prefWidth="680.0">
          <children>
-            <CheckBox mnemonicParsing="false" prefHeight="78.0" prefWidth="179.0" text="student" textFill="#729eea">
+            <RadioButton fx:id="studentBox" mnemonicParsing="false" onAction="#studentChoose" prefHeight="65.0" prefWidth="158.0" text="student" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="25.0" />
                </font>
-            </CheckBox>
-            <CheckBox mnemonicParsing="false" prefHeight="78.0" prefWidth="198.0" text="teacher" textFill="#729eea">
+            </RadioButton>
+            <RadioButton fx:id="teacherBox" mnemonicParsing="false" onAction="#teacherChoose" prefHeight="65.0" prefWidth="158.0" text="teacher" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="25.0" />
                </font>
-            </CheckBox>
+            </RadioButton>
          </children>
       </HBox>
-      <VBox layoutX="372.0" layoutY="212.0" prefHeight="490.0" prefWidth="474.0">
+      <VBox fx:id="textBox" layoutX="427.0" layoutY="182.0" prefHeight="415.0" prefWidth="474.0">
          <children>
-            <TextField opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="name">
+            <TextField fx:id="name" opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="name and surname">
                <font>
                   <Font name="Gill Sans MT Bold" size="30.0" />
                </font>
@@ -51,7 +52,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </TextField>
-            <TextField opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="surname">
+            <TextField fx:id="email" opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="e-mail">
                <font>
                   <Font name="Gill Sans MT Bold" size="30.0" />
                </font>
@@ -59,7 +60,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </TextField>
-            <TextField opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="e-mail">
+            <TextField fx:id="password" opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="password">
                <font>
                   <Font name="Gill Sans MT Bold" size="30.0" />
                </font>
@@ -67,17 +68,19 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </TextField>
-            <TextField opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="password">
+            <ChoiceBox fx:id="classSelector" prefHeight="62.0" prefWidth="474.0">
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </ChoiceBox>
+            <Button fx:id="parentSelector" mnemonicParsing="false" onAction="#parentSelected" prefHeight="60.0" prefWidth="474.0" style="-fx-background-color: white;" stylesheets="@login.css" text="add or create parent" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="30.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </TextField>
+            </Button>
          </children>
       </VBox>
-      <Button layoutX="747.0" layoutY="554.0" mnemonicParsing="false" text="save" textFill="#729eea">
+      <Button fx:id="saveButton" layoutX="613.0" layoutY="597.0" mnemonicParsing="false" text="save" textFill="#729eea">
          <font>
             <Font name="Gill Sans MT Bold" size="30.0" />
          </font>
