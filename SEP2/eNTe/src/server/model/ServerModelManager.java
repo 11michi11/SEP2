@@ -13,20 +13,20 @@ import model.User;
 import model.UsersList;
 import model.proxy.Auth;
 import model.proxy.LoginStatus;
-import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistance;
+import server.model.persistance.DBAdapter;
 
 public class ServerModelManager implements ServerModel {
 
 	private PostsList posts;
 	private UsersList users;
-	private DBAdapter db;
+	private DBPersistance db;
 
 	public ServerModelManager() {
 		posts = new PostsList();
 		users = new UsersList();
 		try {
-			db = new DBPersistance();
+			db = new DBAdapter();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
