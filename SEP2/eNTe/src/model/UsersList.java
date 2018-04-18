@@ -52,7 +52,7 @@ public class UsersList {
 
 	public boolean contains(User user) {
 		for (User u : users)
-			if (u.equals(user))
+			if (u.getId().equals(user.getId()))
 				return true;
 		return false;
 	}
@@ -63,8 +63,11 @@ public class UsersList {
 
 	public void updateUser(User user) {
 		for(User u : users)
-			if(u.equals(u))
-				u = user;
+			if(u.getId().equals(user.getId())) {
+				users.remove(u);
+				users.add(user);
+			}
+				
 	}
 
 	public ArrayList<Parent> getParents() {

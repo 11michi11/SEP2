@@ -11,7 +11,6 @@ import model.PostsList;
 import model.User;
 import model.UsersList;
 import model.communication.Auth;
-import model.communication.ClientProxy;
 import model.communication.ManageUser;
 import model.communication.Message;
 import model.communication.WelcomingData;
@@ -80,6 +79,10 @@ public class ClientModelManager implements ClientModel {
 	@Override
 	public ArrayList<Parent> getParents() {
 		return users.getParents();
+	}
+	
+	public User getUserById(String id) {
+		return users.getUserById(id);
 	}
 
 }
