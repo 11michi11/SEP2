@@ -19,7 +19,7 @@ public class Auth implements Serializable{
 		String encrypted = "";
 		try {
 			dig = MessageDigest.getInstance("SHA-256");
-			dig.update("pwd".getBytes());
+			dig.update(pwd.getBytes());
 			encrypted = toHex(dig.digest());
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
