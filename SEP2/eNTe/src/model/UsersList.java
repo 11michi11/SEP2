@@ -70,8 +70,7 @@ public class UsersList {
 			if(u.getId().equals(user.getId())) {
 				users.remove(u);
 				users.add(user);
-			}
-				
+			}	
 	}
 
 	public ArrayList<Parent> getParents() {

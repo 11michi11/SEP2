@@ -33,7 +33,7 @@ public class ServerModelManager implements ServerModel {
 
 	@Override
 	public Post getPost() {
-		return posts.getPost();
+		return posts.getFirstPost();
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class ServerModelManager implements ServerModel {
 //			e.printStackTrace();
 //		}
 		users.add(getUsers());
-		posts.add(getPosts());
+		posts.addAll(getPosts());
 	}
 
 	private LinkedList<User> getUsers() {

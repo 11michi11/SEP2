@@ -50,7 +50,7 @@ public class ClientModelManager implements ClientModel {
 
 	@Override
 	public void saveData(WelcomingData data) {
-		posts.add(Arrays.asList(data.getPosts()));
+		posts.addAll(Arrays.asList(data.getPosts()));
 	}
 
 	@Override

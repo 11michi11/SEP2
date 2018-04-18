@@ -20,7 +20,7 @@ public class Student extends User implements Serializable{
 	
 	private void initializeStudent(Class classs, ArrayList<String> parentsIDs) {
 		this.classs = classs;
-		historyOfActivity = null;
+		historyOfActivity = "";
 		this.parentsIDs = parentsIDs;
 	}
 		
