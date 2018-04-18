@@ -1,9 +1,15 @@
 package model;
 
-public class Administrator extends User {
+import java.io.Serializable;
+
+public class Administrator extends User implements Serializable {
 
 	public Administrator(String name, String login, String pwd) {
 		super(name, login, pwd);
+	}
+	
+	public Administrator(String name, String login, String pwd, String id) {
+		super(name, login, pwd, id);
 	}
 
 	@Override

@@ -1,16 +1,24 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import javafx.beans.property.SimpleStringProperty;
-
-public class Parent extends User {
+public class Parent extends User implements Serializable {
 	private ArrayList<Student> children;
 	private String childrenNames;
 	private ArrayList<Class> classes;
 
 	public Parent(String name, String login, String pwd, ArrayList<Student> children) {
 		super(name, login, pwd);
+		initializeChildren(children);
+	}
+	
+	public Parent(String name, String login, String pwd, ArrayList<Student> children, String id) {
+		super(name, login, pwd, id);
+		initializeChildren(children);
+	}
+
+	private void initializeChildren(ArrayList<Student> children) {
 		this.children = children;
 		classes = new ArrayList<Class>();
 		for (Student s : children)

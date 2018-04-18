@@ -1,8 +1,10 @@
 package model.communication;
 
+import java.io.Serializable;
+
 import model.User;
 
-public class ManageUser {
+public class ManageUser implements Serializable{
 	
 	private String action;
 	private User user;
