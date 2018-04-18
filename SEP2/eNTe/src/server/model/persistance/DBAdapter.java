@@ -50,12 +50,30 @@ public class DBAdapter implements DBPersistance{
 			String username = (String) e[1];
 			String password = (String) e[2];
 			String name = (String) e[3]; //name added coz user need it and there was comile error
- 			list.add(new User(name, username, password));
+ 			//list.add(new User(name, username, password));
 		}
 		
 //		User user = new User("login", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
 		
 		return list;
+	}
+
+	@Override
+	public void addUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteUser(String id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

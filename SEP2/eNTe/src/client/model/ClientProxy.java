@@ -1,4 +1,4 @@
-package model.communication;
+package client.model;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -6,6 +6,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import model.User;
+import model.communication.Auth;
+import model.communication.ManageUser;
+import model.communication.Message;
 
 public class ClientProxy {
 
@@ -55,7 +58,7 @@ public class ClientProxy {
 		}
 		return true;
 	}
-	
+
 	public Message login(Auth auth) {
 		Message msg = Message.createAuth(auth), response = null;
 		try {

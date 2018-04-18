@@ -1,10 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-import javafx.beans.property.SimpleStringProperty;
-
-public abstract class User {
+public abstract class User  implements Serializable{
 
 	private String login;
 	private String pwd;
@@ -16,6 +15,13 @@ public abstract class User {
 		this.login = login;
 		this.pwd = pwd;
 		id = UUID.randomUUID().toString();
+	}
+	
+	public User(String name, String login, String pwd, String id) {
+		this.name = name;
+		this.login = login;
+		this.pwd = pwd;
+		this.id = id;
 	}
 	
 	public String getName() {
