@@ -3,6 +3,7 @@ package client.view;
 import java.io.IOException;
 
 import client.controller.ClientController;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,7 +30,7 @@ public class CreateUserHandler {
 	@FXML
 	private Label userLabel;
 	@FXML
-	private ChoiceBox<Class> classSelector;
+	private ChoiceBox<String> classSelector;
 	@FXML
 	private Button parentSelector, saveButton;
 	@FXML
@@ -45,6 +46,7 @@ public class CreateUserHandler {
 		adminBox = new CheckBox();
 		adminBox.setText("admin");
 		adminBox.setId("adminText");
+		
 	}
 
 	@FXML
@@ -52,6 +54,8 @@ public class CreateUserHandler {
 		final ToggleGroup group = new ToggleGroup();
 		studentBox.setToggleGroup(group);
 		teacherBox.setToggleGroup(group);
+		classSelector.setItems(FXCollections.observableArrayList(Class.getClasses()));
+		
 	}
 
 	public void studentChoose() {
@@ -93,6 +97,7 @@ public class CreateUserHandler {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public void save() {
 		if (studentBox.isSelected())
