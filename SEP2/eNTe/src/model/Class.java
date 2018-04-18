@@ -1,6 +1,17 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 //TO DO, class not finished
 public enum Class {
 	 First, Second, Third, Fourth, Fith, Sixth, Seventh, Eigth;
+	
+	public static List<String> getClasses() {
+		return Stream.of(Class.values()).map(Enum::name).collect(Collectors.toList());
+	}
 }
+
+
