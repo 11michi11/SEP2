@@ -16,6 +16,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Class;
 
 public class CreateUserHandler {
 
@@ -28,7 +29,7 @@ public class CreateUserHandler {
 	@FXML
 	private Label userLabel;
 	@FXML
-	private ChoiceBox classSelector;
+	private ChoiceBox<Class> classSelector;
 	@FXML
 	private Button parentSelector, saveButton;
 	@FXML

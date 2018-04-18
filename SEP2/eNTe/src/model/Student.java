@@ -43,5 +43,9 @@ public class Student extends User implements Serializable{
 	public void addParentId(String id) {
 		parentsIDs.add(id);
 	}
+	
+	public ArrayList<String> getParentsIDs(){
+		return parentsIDs;
+	}
 
 }

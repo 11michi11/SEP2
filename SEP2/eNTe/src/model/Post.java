@@ -8,7 +8,6 @@ public class Post implements Serializable{
 	private String content;
 	
 	public Post(String title, String content) {
-		super();
 		this.title = title;
 		this.content = content;
 	}
