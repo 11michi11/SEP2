@@ -42,34 +42,11 @@ public abstract class User  implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (login == null) {
-			if (other.login != null)
-				return false;
-		} else if (!login.equals(other.login))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (pwd == null) {
-			if (other.pwd != null)
-				return false;
-		} else if (!pwd.equals(other.pwd))
-			return false;
-		return true;
+		if(obj instanceof User) {
+			User other = (User)obj;
+			return id.equals(other.id) && login.equals(other.login) && name.equals(name) && pwd.equals(pwd);
+		}
+		return false;
 	}
 
 	@Override
