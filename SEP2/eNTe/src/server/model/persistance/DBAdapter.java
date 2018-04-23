@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import model.Administrator;
+import model.Family;
 import model.Parent;
 import model.Post;
 import model.Student;
 import model.Teacher;
 import model.User;
+import model.UsersList;
 import utility.persistence.MyDatabase;
 
 public class DBAdapter implements DBPersistance {
@@ -45,33 +47,18 @@ public class DBAdapter implements DBPersistance {
 
 	@Override
 	public LinkedList<User> getUsers() throws SQLException {
-		LinkedList<User> list = new LinkedList<>();
-
-		String sql = "SELECT e.id, e.username, e.pwd, e.active, e.name, p.child, s.class FROM enteUser e, parent p, student s where e.id=p.id OR e.id=s.i";
-		ArrayList<Object[]> resultSet = db.query(sql);
-		for (Object[] e : resultSet) {
-			String id = (String) e[0];
-			String username = (String) e[1]; // e-mail as well
-			String password = (String) e[2];
-			boolean active = (boolean) e[3];
-			String name = (String) e[4]; // name added coz user need it and there was comile error
-			switch (id.charAt(0)) {
-			case 'A':
-				list.add(new Administrator(username, username, password));
-				break;
-			case 'T':
-				list.add(new Teacher(name, username, password));
-			case 'P':
-				String child = (String) e[5];
-				// list.add(new Parent(name, username, password, children));
-			}
-			// list.add(new User(name, username, password));
-		}
-
-		// User user = new User("login",
-		// "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
-
-		return list;
+		LinkedList<User> users = new LinkedList<>();
+		
+		LinkedList<Administrator> admins = getAdmins();
+		LinkedList<Teacher> teachers = getTeachers();
+		LinkedList<Student> students = getStudents();
+		LinkedList<Parent> parents = getParents();
+		
+		users.addAll(admins);
+		users.addAll(teachers);
+		users.addAll(students);
+		users.addAll(parents);
+		return users;
 	}
 
 	@Override
@@ -96,13 +83,13 @@ public class DBAdapter implements DBPersistance {
 
 		LinkedList<Administrator> list = new LinkedList<>();
 
-		String sql = "SELECT * FROM enteUser WHERE id LIKE 'A%'";
+		String sql = "SELECT * FROM enteUser WHERE type ='admin'";
 		ArrayList<Object[]> resultSet = db.query(sql);
 		for (Object[] e : resultSet) {
 			String id = (String) e[0];
 			String username = (String) e[1]; // e-mail as well
 			String password = (String) e[2];
-			boolean active = (boolean) e[3];
+			boolean changePassword = (boolean) e[3];
 			String name = (String) e[4]; // name added coz user need it and there was comile error
 
 			list.add(new Administrator(name, username, password)); // what with ID's and if it's active
@@ -114,17 +101,17 @@ public class DBAdapter implements DBPersistance {
 	private LinkedList<Teacher> getTeachers() throws SQLException {
 		LinkedList<Teacher> list = new LinkedList<>();
 
-		String sql = "SELECT * FROM enteUser WHERE id LIKE 'T%'";
+		String sql = "SELECT * FROM enteUser WHERE type ='teacher'";
 		ArrayList<Object[]> resultSet = db.query(sql);
 		for (Object[] e : resultSet) {
 			String id = (String) e[0];
 			String username = (String) e[1]; // e-mail as well
 			String password = (String) e[2];
-			boolean active = (boolean) e[3];
+			boolean changePassword = (boolean) e[3];
 			String name = (String) e[4]; // name added coz user need it and there was comile error
 
 			list.add(new Teacher(name, username, password)); // what with ID's and if it's active
-																	// ?????????????????????????????????????/
+																// ?????????????????????????????????????/
 		}
 		return list;
 	}
@@ -138,15 +125,53 @@ public class DBAdapter implements DBPersistance {
 			String id = (String) e[0];
 			String username = (String) e[1]; // e-mail as well
 			String password = (String) e[2];
-			boolean active = (boolean) e[3];
+			boolean changePassword = (boolean) e[3];
 			String name = (String) e[4]; // name added coz user need it and there was comile error
-			int studentClass = (int) e[5];
-			list.add(new Student(name, username, password, null, null)); // what with ID's and if it's active
-																	// ?????????????????????????????????????/
+			model.Class studentClass = (model.Class) e[5];
+			list.add(new Student(name, username, password, id, studentClass, new Family()));
 		}
-		return list;	}
+		return list;
+	}
 
-	private LinkedList<Parent> getParents() {
+	private LinkedList<Parent> getParents() throws SQLException {
+		LinkedList<Parent> list = new LinkedList<>();
+
+		String sql = "SELECT * FROM enteUser WHERE type ='parent'";
+		ArrayList<Object[]> resultSet = db.query(sql);
+		for (Object[] e : resultSet) {
+			String id = (String) e[0];
+			String username = (String) e[1]; // e-mail as well
+			String password = (String) e[2];
+			boolean changePassword = (boolean) e[3];
+			String name = (String) e[4]; // name added coz user need it and there was comile error
+			list.add(new Parent(name, username, password, new Family(), id));
+			}
+		return list;
+	}
+
+	private LinkedList<Family> getFamilies(UsersList familyMembers) throws SQLException {
+		LinkedList<Family> list = new LinkedList<>();
+		String lastFamilyID = "";
+		
+		String sql = "SELECT * FROM family ORDER BY familyid";
+		ArrayList<Object[]> resultSet = db.query(sql);
+		for (int i = 0; i < resultSet.size(); i++) {
+			if (i == 0) {
+				lastFamilyID = null;
+			}
+			else
+			{
+				lastFamilyID = (String) resultSet.get(i-1)[0];
+			}
+			String familyID = (String) resultSet.get(i)[0];
+			String memberID = (String) resultSet.get(i)[1];
+			if (!lastFamilyID.equals(familyID))
+			{
+				Family family = new Family();
+				familyMembers.getUserById(memberID);
+			}
+		}
+
 		return null;
 	}
 
