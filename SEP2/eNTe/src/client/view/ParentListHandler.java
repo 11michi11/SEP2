@@ -75,9 +75,6 @@ public class ParentListHandler {
 		parentsList.setItems(controller.getParentsForView());
 	}
 
-	private void insertRow(String[] row) {
-
-	}
 
 	public void createParent() {
 		Parent mainPane;
@@ -97,6 +94,18 @@ public class ParentListHandler {
 	public void confirm() {
 		parentsInfo.addAll(getSelectedParents());
 		System.out.println(Arrays.deepToString(parentsInfo.toArray()));
+		
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createUser.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		// open create user fxml
 
 		// Get controller

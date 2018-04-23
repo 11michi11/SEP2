@@ -75,8 +75,10 @@ public class ClientController {
 			view.showPosts(login.getUserType());
 			break;
 		case FAILURE_LOGIN:
+			view.showMessage("Wrong user name, try again.");
 			break;
 		case FAILURE_PWD:
+			view.showMessage("Wrong user password, try again.");
 			break;
 		}
 	}
