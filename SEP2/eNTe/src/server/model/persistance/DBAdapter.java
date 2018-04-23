@@ -62,9 +62,34 @@ public class DBAdapter implements DBPersistance {
 	}
 
 	@Override
-	public void addUser(User user) {
-		// TODO Auto-generated method stub
-
+	public void addUser(User user) throws SQLException {
+		String sql = "INSERT INTO ";
+		switch (user.getClass().getName())
+		{
+			case "Student":
+				Student student = (Student) user;
+				sql += "student ('";
+				sql += student.getId()+"','";
+				//sql += student.getFamilyID ?????;
+				sql += student.getClasss()+"')";
+				db.update(sql);
+				break;
+				
+			case "Parent":
+				
+				break;
+				
+			default: break;
+		}
+		
+		sql = "INSERT INTO enteuser ('";
+		sql += user.getId() + "','";
+		sql += user.getLogin() + "','";
+		sql += user.getPwd() + "',";
+		//sql += user.getChangedPassword() + ",'";
+		sql += user.getName() + "',')";
+		sql += user.getClass().getName().toLowerCase()+"')";			//column for type of user
+		db.update(sql);
 	}
 
 	@Override
