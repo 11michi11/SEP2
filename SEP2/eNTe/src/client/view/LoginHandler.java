@@ -11,19 +11,6 @@ import javafx.scene.layout.VBox;
 
 public class LoginHandler {
 
-	private ClientController controller;
-
-	public LoginHandler() {
-		System.out.println("first");
-		controller = ClientController.getInstance();
-	}
-
-	@FXML
-	public void initialize() {
-		System.out.println("second");
-		loginFieldInitialize();
-	}
-
 	@FXML
 	private TextField loginField;
 
@@ -36,6 +23,19 @@ public class LoginHandler {
 	private Pane root;
 	@FXML
 	private VBox box;
+
+	private ClientController controller;
+
+	public LoginHandler() {
+		System.out.println("first");
+		controller = ClientController.getInstance();
+	}
+
+	@FXML
+	public void initialize() {
+		System.out.println("second");
+		loginFieldInitialize();
+	}
 
 	@FXML
 	private void loginHandler() {
