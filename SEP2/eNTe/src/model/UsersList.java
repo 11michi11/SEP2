@@ -58,7 +58,11 @@ public class UsersList {
 	}
 
 	public void delete(String id) {
-		users.remove(getUserById(id));
+		try {
+			users.remove(getUserById(id));			
+		}catch(NoSuchElementException e) {
+			//if user not found, do nothing
+		}
 	}
 
 	public void updateUser(User user) {
@@ -66,8 +70,7 @@ public class UsersList {
 			if(u.getId().equals(user.getId())) {
 				users.remove(u);
 				users.add(user);
-			}
-				
+			}	
 	}
 
 	public ArrayList<Parent> getParents() {

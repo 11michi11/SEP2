@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.input.EOFException;
+
 import model.communication.Message;
 
 public class ServerProxy {

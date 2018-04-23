@@ -29,7 +29,22 @@ class StudentTest {
 	
 		assertEquals(Class.First, student.getClasss());
 		assertEquals(parentsIDs, student.getParentsIDs());
+	}
 	
+	@Test
+	void testClsses() {
+		Student student = new Student("name", "login", "pwd", Class.First, new ArrayList<String>());
+		assertEquals(Class.First, student.getClasss());
+
+		student.setClasss(Class.Second);
+		assertEquals(Class.Second, student.getClasss());
+	}
+	
+	@Test
+	void testHistoryOfActivity() {
+		Student student = new Student("name", "login", "pwd", Class.First, new ArrayList<String>());
+		student.addHistoryOfActivity("history");
+		assertEquals("history\n", student.getHistoryOfActivity());
 	}
 	
 }
