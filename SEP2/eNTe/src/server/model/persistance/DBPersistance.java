@@ -14,7 +14,7 @@ public interface DBPersistance {
 
 	public LinkedList<Post> getPosts() throws SQLException;
 	public LinkedList<User> getUsers() throws SQLException;
-	public void addUser(User user);
+	public void addUser(User user) throws SQLException;
 	public void updateUser(User user);
 	public void deleteUser(String id);
 	 
