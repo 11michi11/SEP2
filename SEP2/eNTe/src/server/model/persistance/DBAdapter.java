@@ -153,7 +153,8 @@ public class DBAdapter implements DBPersistance {
 			boolean changePassword = (boolean) e[3];
 			String name = (String) e[4]; // name added coz user need it and there was comile error
 			model.Class studentClass = (model.Class) e[5];
-			list.add(new Student(name, username, password, id, studentClass, new Family()));
+			//list.add(new Student(name, username, password, id, studentClass, new Family()));
+			list.add(new Student(name, username, password, id, studentClass, new ArrayList<String>()));
 		}
 		return list;
 	}
@@ -169,7 +170,8 @@ public class DBAdapter implements DBPersistance {
 			String password = (String) e[2];
 			boolean changePassword = (boolean) e[3];
 			String name = (String) e[4]; // name added coz user need it and there was comile error
-			list.add(new Parent(name, username, password, new Family(), id));
+			//list.add(new Parent(name, username, password, new Family(), id));
+			list.add(new Parent(name, username, password, new ArrayList<Student>(), id));
 			}
 		return list;
 	}
