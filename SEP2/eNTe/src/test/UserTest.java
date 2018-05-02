@@ -1,14 +1,14 @@
 package test;
 
 
-import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.UUID;
-
-import org.junit.jupiter.api.Test;
-
 import model.Teacher;
 import model.User;
+import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
+
+import static junit.framework.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserTest {
 
