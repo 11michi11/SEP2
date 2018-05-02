@@ -1,6 +1,8 @@
 package client.view;
 
+import java.awt.*;
 import java.io.IOException;
+import java.util.Scanner;
 
 import client.controller.ClientController;
 import javafx.fxml.FXML;
@@ -61,6 +63,7 @@ public class AdminMainHandler {
 
 	}
 
+
 	public void loadPanes(Pane pane) {
 		box.getChildren().clear();
 		box.getChildren().add(pane);
@@ -80,6 +83,21 @@ public class AdminMainHandler {
 		}
 	}
 
+	public void postCreation() {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/postCreation.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	}
 
 
-}
+
+

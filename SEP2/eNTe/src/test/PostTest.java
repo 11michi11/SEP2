@@ -1,10 +1,9 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import model.Post;
 import org.junit.jupiter.api.Test;
 
-import model.Post;
+import static junit.framework.Assert.assertEquals;
 
 class PostTest {
 
