@@ -1,5 +1,7 @@
 package server.controller;
 
+import model.communication.Message;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,10 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.input.EOFException;
-
-import model.communication.Message;
 
 public class ServerProxy {
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="users" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.AdminMainHandler">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.AdminMainHandler">
    <children>
       <ImageView fitHeight="182.0" fitWidth="209.0" layoutX="22.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -26,11 +26,6 @@
       </ScrollPane>
       <VBox layoutX="886.0" layoutY="39.0" prefHeight="722.0" prefWidth="380.0" styleClass="menuPane">
          <children>
-            <Button fx:id="users" mnemonicParsing="false" onAction="#userList" prefHeight="111.0" prefWidth="380.0" styleClass="menuButton" stylesheets="@login.css" text="users" textAlignment="CENTER" textFill="#729eea">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="50.0" />
-               </font>
-            </Button>
             <Button fx:id="homework" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="homeworks" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
@@ -41,7 +36,7 @@
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
-            <Button fx:id="annoucment" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="annoucments" textAlignment="CENTER" textFill="#729eea">
+            <Button fx:id="annoucment" mnemonicParsing="false" onAction="#postCreation" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="posts" textAlignment="CENTER" textFill="#729eea"> 
                <font>
                   <Font name="Gill Sans MT Bold" size="49.0" />
                </font>
@@ -52,6 +47,11 @@
                </font>
             </Button>
             <Button fx:id="message" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="messages" textAlignment="CENTER" textFill="#729eea">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="50.0" />
+               </font>
+            </Button>
+            <Button fx:id="users" mnemonicParsing="false" onAction="#userList" prefHeight="111.0" prefWidth="380.0" styleClass="menuButton" stylesheets="@login.css" text="users" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>

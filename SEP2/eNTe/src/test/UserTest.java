@@ -1,7 +1,7 @@
 package test;
 
 
-import static org.junit.Assert.fail;
+import static junit.framework.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.UUID;
 
