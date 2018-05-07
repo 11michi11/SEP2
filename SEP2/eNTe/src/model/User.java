@@ -8,7 +8,7 @@ public abstract class User  implements Serializable{
 	private String login;
 	private String pwd;
 	private String name;
-	private String id;
+	protected String id;
 
 	public User(String name, String login, String pwd) {
 		this.name = name;

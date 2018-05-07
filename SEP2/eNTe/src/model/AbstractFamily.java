@@ -56,10 +56,10 @@ public abstract class AbstractFamily {
 		boolean isClassRepeated = false;
 		for (Student e : children) {
 			for (Class f : classes) {
-				if (e.getClass().equals(f))
+				if (e.getClasss().equals(f))
 					isClassRepeated = true;
 			}
-			if (isClassRepeated == false)
+			if (!isClassRepeated)
 				classes.add(e.getClasss());
 		}
 		return classes;
