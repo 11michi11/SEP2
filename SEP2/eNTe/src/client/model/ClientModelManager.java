@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import client.controller.ClientController;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import model.ClientModel;
 import model.Parent;
 import model.Post;
@@ -36,6 +38,11 @@ public class ClientModelManager implements ClientModel {
 	
 	public void setController(ClientController controller) {
 		this.controller = controller;
+	}
+
+	@Override
+	public void addPost(String title, String content) {
+		posts.add(new Post(title, content));
 	}
 
 	@Override

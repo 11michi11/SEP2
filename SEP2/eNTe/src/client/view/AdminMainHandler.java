@@ -41,7 +41,7 @@ public class AdminMainHandler {
 		title.setId("title");
 		Text content = new Text(posts[0].getContent());
 		content.setId("content");
-		Text separator = new Text("\n");
+		Text separator = new Text("\n" + "\n");
 
 		TextFlow textFlow = new TextFlow(title, separator, content);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);

@@ -6,6 +6,8 @@ import client.view.ClientView;
 import client.view.ParentDT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import model.Administrator;
 import model.Class;
 import model.ClientModel;
@@ -132,4 +134,7 @@ public class ClientController {
 		return parents;
 	}
 
+	public void addPost(String title, String content) {
+		model.addPost(title, content);
+	}
 }
