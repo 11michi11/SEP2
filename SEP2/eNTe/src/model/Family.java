@@ -2,16 +2,17 @@ package model;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
-public abstract class AbstractFamily {
+public class Family{
 	private String id;
 	private ArrayList<Student> children;
 	private ArrayList<Parent> parents;
 	
-	public AbstractFamily(String id) {
-		this.id=id;
-		children = new ArrayList<>();
-		parents = new ArrayList<>();
+	public Family() {
+		id = UUID.randomUUID().toString();
+		children=new ArrayList<Student>();
+		parents=new ArrayList<Parent>();
 	}
 	public void addChild(Student child) {
 		children.add(child);
@@ -64,5 +65,4 @@ public abstract class AbstractFamily {
 		}
 		return classes;
 	}
-
 }
