@@ -17,7 +17,7 @@
             <Image url="@enteLOGO.png" />
          </image>
       </ImageView>
-      <Button layoutX="862.0" layoutY="25.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="380.0" styleClass="menuButton" stylesheets="@login.css" text="classes" textAlignment="CENTER" textFill="#729eea">
+      <Button layoutX="862.0" layoutY="25.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="380.0" styleClass="menuButton" stylesheets="@login.css" text="classses" textAlignment="CENTER" textFill="#729eea">
          <font>
             <Font name="Comic Sans MS" size="50.0" />
          </font>

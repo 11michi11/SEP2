@@ -5,20 +5,20 @@ import java.util.ArrayList;
 
 public class Student extends User implements Serializable{
 	private String historyOfActivity;
-	private Class classs;
+	private Classs classs;
 	private ArrayList<String> parentsIDs;
 
-	public Student(String name, String login, String pwd, Class classs, ArrayList<String> parentsIDs) {
+	public Student(String name, String login, String pwd, Classs classs, ArrayList<String> parentsIDs) {
 		super(name, login, pwd);
 		initializeStudent(classs, parentsIDs);
 	}
 	
-	public Student(String name, String login, String pwd, String id, Class classs, ArrayList<String> parentsIDs) {
+	public Student(String name, String login, String pwd, String id, Classs classs, ArrayList<String> parentsIDs) {
 		super(name, login, pwd, id);
 		initializeStudent(classs, parentsIDs);
 	}
 	
-	private void initializeStudent(Class classs, ArrayList<String> parentsIDs) {
+	private void initializeStudent(Classs classs, ArrayList<String> parentsIDs) {
 		this.classs = classs;
 		historyOfActivity = "";
 		this.parentsIDs = parentsIDs;
@@ -32,11 +32,11 @@ public class Student extends User implements Serializable{
 		return historyOfActivity;
 	}
 
-	public void setClasss(Class classs) {
+	public void setClasss(Classs classs) {
 		this.classs = classs;
 	}
 
-	public Class getClasss() {
+	public Classs getClasss() {
 		return classs;
 	}
 
@@ -62,25 +62,25 @@ public class Student extends User implements Serializable{
 //
 //public class Student extends User implements Serializable {
 //	private String historyOfActivity;
-//	private Class classs;
+//	private Classs classs;
 //	//private Family family;
 //
-//	// public Student(String name, String login, String pwd, Class classs, Family
+//	// public Student(String name, String login, String pwd, Classs classs, Family
 //	// family) {
-//	public Student(String name, String login, String pwd, Class classs, ArrayList<String> ids) {
+//	public Student(String name, String login, String pwd, Classs classs, ArrayList<String> ids) {
 //		super(name, login, pwd);
 //		// this.family=family;
 //	}
 //
-//	// public Student(String name, String login, String pwd, String id, Class
+//	// public Student(String name, String login, String pwd, String id, Classs
 //	// classs, Family family) {
-//	public Student(String name, String login, String pwd, String id, Class classs,ArrayList<String> ids) {
+//	public Student(String name, String login, String pwd, String id, Classs classs,ArrayList<String> ids) {
 //		super(name, login, pwd, id);
 //		//this.family = family;
 //		initializeStudent(classs);
 //	}
 //
-//	private void initializeStudent(Class classs) {
+//	private void initializeStudent(Classs classs) {
 //		this.classs = classs;
 //		historyOfActivity = "";
 //	}
@@ -93,11 +93,11 @@ public class Student extends User implements Serializable{
 //		return historyOfActivity;
 //	}
 //
-//	public void setClasss(Class classs) {
+//	public void setClasss(Classs classs) {
 //		this.classs = classs;
 //	}
 //
-//	public Class getClasss() {
+//	public Classs getClasss() {
 //		return classs;
 //	}
 //

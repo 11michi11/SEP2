@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
+import model.Classs;
+import model.Family;
 import org.junit.jupiter.api.Test;
 
 import model.Parent;
@@ -15,38 +17,30 @@ class ParentTest {
 	@Test
 	void testConstrustors() {
 		ArrayList<Student> children = new ArrayList<>();
-		Student child1 = new Student("child1", "login", "pwd", model.Class.First, new ArrayList<String>());
-		Student child2 = new Student("child2", "login", "pwd", model.Class.First, new ArrayList<String>());
-		Student child3 = new Student("child3", "login", "pwd", model.Class.First, new ArrayList<String>());
+		Student child1 = new Student("child1", "login", "pwd", Classs.First, new ArrayList<>());
+		Student child2 = new Student("child2", "login", "pwd", Classs.First, new ArrayList<>());
+		Student child3 = new Student("child3", "login", "pwd", Classs.First, new ArrayList<>());
 		children.add(child1);
 		children.add(child2);
 		children.add(child3);
-		Parent parent = new Parent("name", "login", "pwd", children);
+		Parent parent = Parent.builder().name("name").login("email").pwd("pwd").build();
 		assertEquals(children, parent.getChildren());
 	}
 
 	@Test
 	void testGetChildrenNames() {
 		ArrayList<Student> children = new ArrayList<>();
-		Student child1 = new Student("child1", "login", "pwd", model.Class.First, new ArrayList<String>());
-		Student child2 = new Student("child2", "login", "pwd", model.Class.First, new ArrayList<String>());
-		Student child3 = new Student("child3", "login", "pwd", model.Class.First, new ArrayList<String>());
+		Student child1 = new Student("child1", "login", "pwd", Classs.First, new ArrayList<>());
+		Student child2 = new Student("child2", "login", "pwd", Classs.First, new ArrayList<>());
+		Student child3 = new Student("child3", "login", "pwd", Classs.First, new ArrayList<>());
 		children.add(child1);
 		children.add(child2);
 		children.add(child3);
-		Parent parent = new Parent("name", "login", "pwd", children);
+		Family family = new Family("id");
+		family.addChild(child1);
+		family.addChild(child2);
+		family.addChild(child3);
+		Parent parent = Parent.builder().name("name").login("email").pwd("pwd").family(family).build();
 		assertEquals("child1, child2, child3, ", parent.getChildrenNames());
-	}
-
-	@Test
-	void testAddRemoveChild() {
-		Parent parent = new Parent("name", "login", "pwd", new ArrayList<Student>());
-
-		Student child1 = new Student("child1", "login", "pwd", model.Class.First, new ArrayList<String>());
-		parent.addChild(child1);
-		
-		assertEquals(true, parent.getChildren().contains(child1));
-		parent.removeChild(child1);
-		assertEquals(false, parent.getChildren().contains(child1));
 	}
 }

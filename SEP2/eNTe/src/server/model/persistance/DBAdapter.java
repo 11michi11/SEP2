@@ -4,14 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import model.Administrator;
-import model.Family;
-import model.Parent;
-import model.Post;
-import model.Student;
-import model.Teacher;
-import model.User;
-import model.UsersList;
+import model.*;
 import utility.persistence.MyDatabase;
 
 public class DBAdapter implements DBPersistance {
@@ -152,9 +145,9 @@ public class DBAdapter implements DBPersistance {
 			String password = (String) e[2];
 			boolean changePassword = (boolean) e[3];
 			String name = (String) e[4]; // name added coz user need it and there was comile error
-			model.Class studentClass = (model.Class) e[5];
-			//list.add(new Student(name, username, password, id, studentClass, new Family()));
-			list.add(new Student(name, username, password, id, studentClass, new ArrayList<String>()));
+			Classs studentClasss = (Classs) e[5];
+			//list.add(new Student(name, username, password, id, studentClasss, new Family()));
+			list.add(new Student(name, username, password, id, studentClasss, new ArrayList<String>()));
 		}
 		return list;
 	}
@@ -166,12 +159,12 @@ public class DBAdapter implements DBPersistance {
 		ArrayList<Object[]> resultSet = db.query(sql);
 		for (Object[] e : resultSet) {
 			String id = (String) e[0];
-			String username = (String) e[1]; // e-mail as well
+			String login = (String) e[1]; // e-mail as well
 			String password = (String) e[2];
 			boolean changePassword = (boolean) e[3];
 			String name = (String) e[4]; // name added coz user need it and there was comile error
 			//list.add(new Parent(name, username, password, new Family(), id));
-			list.add(new Parent(name, username, password, new ArrayList<Student>(), id));
+			list.add(Parent.builder().name(name).login(login).pwd(password).id(id).build());
 			}
 		return list;
 	}
@@ -194,7 +187,7 @@ public class DBAdapter implements DBPersistance {
 			String memberID = (String) resultSet.get(i)[1];
 			if (!lastFamilyID.equals(familyID))
 			{
-				Family family = new Family();
+				Family family = new Family(familyID);
 				familyMembers.getUserById(memberID);
 			}
 		}

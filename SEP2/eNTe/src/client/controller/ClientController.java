@@ -1,24 +1,16 @@
 package client.controller;
 
-import java.util.ArrayList;
-
 import client.view.ClientView;
 import client.view.ParentDT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import model.Administrator;
-import model.Class;
-import model.ClientModel;
-import model.Parent;
-import model.Post;
-import model.Student;
-import model.Teacher;
-import model.User;
+import model.*;
+import model.Classs;
 import model.communication.Login;
 import model.communication.Message;
 import model.communication.WelcomingData;
+
+import java.util.ArrayList;
 
 public class ClientController {
 
@@ -95,24 +87,21 @@ public class ClientController {
 		model.addOrUpdateUser(user);
 	}
 
-	public void addStudent(String name, String email, String password, Class classs,
-			ArrayList<Parent> parents) {
-		Student student = new Student(name, email, password, classs, extractParentsIDs(parents));
+	public void addStudent(String name, String email, String password, Classs classs) {
+		Student student = new Student(name, email, password, classs, new ArrayList<>());
 		
 		model.addOrUpdateUser(student);
-		for (Parent p : parents)
-			model.addOrUpdateUser(p);
 	}
 	
 	private ArrayList<String> extractParentsIDs(ArrayList<Parent> parents) {
-		ArrayList<String> ids = new ArrayList<String>();
+		ArrayList<String> ids = new ArrayList<>();
 		for(Parent p : parents)
 			ids.add(p.getId());
 		return ids;
 	}
 
-	public void addParent(String name, String email, String password, ArrayList<Student> children) {
-		Parent parent = new Parent(name, email, password, children);
+	public void addParent(String name, String email, String password) {
+		Parent parent =Parent.builder().name(name).login(email).pwd(password).build();
 		model.addOrUpdateUser(parent);
 	}
 	
@@ -122,14 +111,10 @@ public class ClientController {
 
 	public ObservableList<ParentDT> getParentsForView() {
 		ObservableList<ParentDT> parents = FXCollections.observableArrayList();
-		//parents.addAll(model.getParents());
-		ArrayList<Student> children = new ArrayList<Student>();
-		Student student = new Student("StudentName", "login", "pwd", Class.First, new ArrayList<String>());
-		children.add(student);
-		Parent p1 = new Parent("name", "email", "pwd", children);
-		Parent p2 = new Parent("name", "email", "pwd", children);
-		Parent p3 = new Parent("name", "email", "pwd", children);
-		Parent p4 = new Parent("name", "email", "pwd", children);
+		Parent p1 = Parent.builder().name("name").login("email").pwd("pwd").build();
+		Parent p2 = Parent.builder().name("name").login("email").pwd("pwd").build();
+		Parent p3 = Parent.builder().name("name").login("email").pwd("pwd").build();
+		Parent p4 = Parent.builder().name("name").login("email").pwd("pwd").build();
 		parents.addAll(new ParentDT(p1), new ParentDT(p2), new ParentDT(p3),new ParentDT(p4));
 		return parents;
 	}

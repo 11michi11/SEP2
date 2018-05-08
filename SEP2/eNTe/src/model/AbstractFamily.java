@@ -51,18 +51,18 @@ public abstract class AbstractFamily {
 		return parents;
 	}
 
-	public ArrayList<Class> getClasses() {
-		ArrayList<Class> classes = new ArrayList<>();
+	public ArrayList<Classs> getClasses() {
+		ArrayList<Classs> classses = new ArrayList<>();
 		boolean isClassRepeated = false;
 		for (Student e : children) {
-			for (Class f : classes) {
+			for (Classs f : classses) {
 				if (e.getClasss().equals(f))
 					isClassRepeated = true;
 			}
 			if (!isClassRepeated)
-				classes.add(e.getClasss());
+				classses.add(e.getClasss());
 		}
-		return classes;
+		return classses;
 	}
 
 }

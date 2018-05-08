@@ -4,15 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
+import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.Administrator;
-import model.Parent;
-import model.Student;
-import model.Teacher;
-import model.User;
-import model.UsersList;
 import model.communication.Auth;
 import model.communication.LoginStatus;
 
@@ -72,8 +67,8 @@ class UsersListTest {
 	void getAll() {
 		Teacher teacher = new Teacher("name", "login", "pwd");
 		Administrator admin = new Administrator("name", "login", "pwd");
-		Parent parent = new Parent("name", "login", "pwd", new ArrayList<Student>());
-		Student student = new Student("name", "login", "pwd", model.Class.First, null);
+		Parent parent = new Parent("name", "login", "pwd");
+		Student student = new Student("name", "login", "pwd", Classs.First, null);
 		ArrayList<User> list = new ArrayList<>();
 		list.add(teacher);
 		list.add(admin);
