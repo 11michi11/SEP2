@@ -7,14 +7,17 @@ public class Parent extends User implements Serializable {
 	private ArrayList<Student> children;
 	private String childrenNames;
 	private ArrayList<Class> classes;
+	private String familyID;
 
-	public Parent(String name, String login, String pwd, ArrayList<Student> children) {
+	public Parent(String name, String login, String pwd, ArrayList<Student> children, String familyID) {
 		super(name, login, pwd);
+		this.familyID=familyID;
 		initializeChildren(children);
 	}
 	
-	public Parent(String name, String login, String pwd, ArrayList<Student> children, String id) {
+	public Parent(String name, String login, String pwd, ArrayList<Student> children, String id, String familyID) {
 		super(name, login, pwd, id);
+		this.familyID=familyID;
 		initializeChildren(children);
 	}
 
@@ -44,6 +47,10 @@ public class Parent extends User implements Serializable {
 
 	public ArrayList<Student> getChildren() {
 		return children;
+	}
+	
+	public String getFamilyID() {
+		return familyID;
 	}
 }
 

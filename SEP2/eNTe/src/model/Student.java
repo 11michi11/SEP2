@@ -6,22 +6,21 @@ import java.util.ArrayList;
 public class Student extends User implements Serializable{
 	private String historyOfActivity;
 	private Class classs;
-	private ArrayList<String> parentsIDs;
+	private String familyID;
 
-	public Student(String name, String login, String pwd, Class classs, ArrayList<String> parentsIDs) {
+	public Student(String name, String login, String pwd, Class classs, String familyID) {
 		super(name, login, pwd);
-		initializeStudent(classs, parentsIDs);
+		initializeStudent(classs, familyID);
 	}
 	
-	public Student(String name, String login, String pwd, String id, Class classs, ArrayList<String> parentsIDs) {
+	public Student(String name, String login, String pwd, String id, Class classs, String familyID) {
 		super(name, login, pwd, id);
-		initializeStudent(classs, parentsIDs);
+		initializeStudent(classs, familyID);
 	}
 	
-	private void initializeStudent(Class classs, ArrayList<String> parentsIDs) {
+	private void initializeStudent(Class classs, String familyID) {
 		this.classs = classs;
 		historyOfActivity = "";
-		this.parentsIDs = parentsIDs;
 	}
 		
 	public void addHistoryOfActivity(String text) {
@@ -32,22 +31,18 @@ public class Student extends User implements Serializable{
 		return historyOfActivity;
 	}
 
-	public void setClasss(Class classs) {
+	public void setClasss(Class classs, String familyID) {
 		this.classs = classs;
+		this.familyID=familyID;
 	}
 
 	public Class getClasss() {
 		return classs;
 	}
-
-	public void addParentId(String id) {
-		parentsIDs.add(id);
-	}
 	
-	public ArrayList<String> getParentsIDs(){
-		return parentsIDs;
+	public String getFamilyID() {
+		return familyID;
 	}
-
 }
 
 
