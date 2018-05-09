@@ -3,20 +3,18 @@ package client.view;
 import javafx.beans.property.SimpleStringProperty;
 import model.Family;
 
-public class FamilyDT {
+public class FamilyDT implements TableDataType {
 
-	private SimpleStringProperty familyName;
+    private SimpleStringProperty familyName;
 
-	
-	public FamilyDT(Family family) {
-		this.familyName = new SimpleStringProperty();
+    public FamilyDT(Family family) {
+        this.familyName = new SimpleStringProperty(family.getMembersNames());
+    }
 
-	}
-
-	public SimpleStringProperty getFamilyName() {
-		return familyName;
-	}
-
+    @Override
+    public SimpleStringProperty getName() {
+        return familyName;
+    }
 
 
 }

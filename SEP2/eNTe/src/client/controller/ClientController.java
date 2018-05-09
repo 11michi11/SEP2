@@ -126,4 +126,8 @@ public class ClientController {
     public void addPost(String title, String content) {
         model.addPost(title, content);
     }
+
+    public ArrayList<Family> getFamilies() {
+        return model.getAllFamilies();
+    }
 }

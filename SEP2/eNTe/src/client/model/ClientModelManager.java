@@ -6,12 +6,7 @@ import java.util.Arrays;
 import client.controller.ClientController;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import model.ClientModel;
-import model.Parent;
-import model.Post;
-import model.PostsList;
-import model.User;
-import model.UsersList;
+import model.*;
 import model.communication.Auth;
 import model.communication.ManageUser;
 import model.communication.Message;
@@ -22,6 +17,7 @@ public class ClientModelManager implements ClientModel {
 	private ClientProxy server;
 	private PostsList posts;
 	private UsersList users;
+	private FamiliesList families;
 	private ClientController controller;
 	
 
@@ -43,6 +39,11 @@ public class ClientModelManager implements ClientModel {
 	@Override
 	public void addPost(String title, String content) {
 		posts.add(new Post(title, content));
+	}
+
+	@Override
+	public ArrayList<Family> getAllFamilies() {
+		return families.getAll();
 	}
 
 	@Override
