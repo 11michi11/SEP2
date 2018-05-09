@@ -69,10 +69,10 @@ public class AdminMainHandler {
 		box.getChildren().add(pane);
 	}
 	
-	public void userList() {
+	public void familyList() {
 		Parent mainPane;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/userList.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/familyList.fxml"));
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
