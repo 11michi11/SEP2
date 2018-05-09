@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -18,7 +17,7 @@ public class UsersList {
 
 	public LoginStatus authenticate(Auth auth) {
 		try {
-			User user = getUserByLogin(auth.login);
+			User user = getUserByLogin(auth.email);
 			if (user.getPwd().equals(auth.pwd))
 				return LoginStatus.SUCCESS;
 			else
@@ -30,7 +29,7 @@ public class UsersList {
 
 	public User getUserByLogin(String login) {
 		for(User u : users)
-			if(u.getLogin().equals(login))
+			if(u.getEmail().equals(login))
 				return u;
 			
 		throw new NoSuchElementException();

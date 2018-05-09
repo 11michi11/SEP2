@@ -7,21 +7,21 @@ import model.Parent;
 public class ParentDT {
 	
 
-	private SimpleStringProperty login;
+	private SimpleStringProperty email;
 	private SimpleStringProperty childrenNames;
 	private SimpleStringProperty name;
 	private SimpleBooleanProperty selected;
 	
 	public ParentDT(Parent parent) {
 		this.name = new SimpleStringProperty(parent.getName());
-		this.login = new SimpleStringProperty(parent.getLogin());
+		this.email = new SimpleStringProperty(parent.getEmail());
 		this.childrenNames = new SimpleStringProperty(parent.getChildrenNames());
 		this.selected = new SimpleBooleanProperty(false);
 	}
 	
-	public ParentDT(String name, String login) {
+	public ParentDT(String name, String email) {
 		this.name = new SimpleStringProperty(name);
-		this.login = new SimpleStringProperty(login);
+		this.email = new SimpleStringProperty(email);
 		this.childrenNames = new SimpleStringProperty("");
 		this.selected = new SimpleBooleanProperty(false);
 	}
@@ -31,8 +31,8 @@ public class ParentDT {
 		return name.get();
 	}
 
-	public String getLogin() {
-		return login.get();
+	public String getEmail() {
+		return email.get();
 	}
 
 	public String getChildrenNames() {

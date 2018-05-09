@@ -101,7 +101,7 @@ public class CreateUserHandler {
 
 	public void save() {
 		if (studentBox.isSelected())
-			controller.addStudent(name.getText(), email.getText(), password.getText(), null);
+			controller.addStudent(name.getText(), email.getText(), Classs.First, null);
 		else if (teacherBox.isSelected()) {
 			controller.addTeacher(name.getText(), email.getText(), password.getText(),
 					adminBox.isSelected());

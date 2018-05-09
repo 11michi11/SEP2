@@ -13,7 +13,7 @@ class StudentTest {
 	
 	@Test
 	void testClsses() {
-		Student student = Student.builder().name("child1").login("login").pwd("pwd").classs(Classs.First).build();
+		Student student = Student.builder().name("child1").login("email").classs(Classs.First).pwd("pwd").build();
 		assertEquals(Classs.First, student.getClasss());
 
 		student.setClasss(Classs.Second);
@@ -22,7 +22,7 @@ class StudentTest {
 	
 	@Test
 	void testHistoryOfActivity() {
-		Student student = Student.builder().name("child1").login("login").pwd("pwd").classs(Classs.First).build();
+		Student student = Student.builder().name("child1").login("email").classs(Classs.First).pwd("pwd").build();
 		student.addHistoryOfActivity("history");
 		assertEquals("history\n", student.getHistoryOfActivity());
 	}

@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class Administrator extends User implements Serializable {
 
-	public Administrator(String name, String login, String pwd) {
-		super(name, login, pwd);
+	public Administrator(String name, String email, String pwd) {
+		super(name, email, pwd);
 	}
 	
-	public Administrator(String name, String login, String pwd, String id) {
-		super(name, login, pwd, id);
+	public Administrator(String name, String email, String pwd, String id) {
+		super(name, email, pwd, id);
 	}
 
 	@Override

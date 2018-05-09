@@ -4,7 +4,7 @@ public enum LoginStatus {
 
 	SUCCESS("Success"),
 	FAILURE_PWD("Wrong password"),
-	FAILURE_LOGIN("Wrong login, user not found");
+	FAILURE_LOGIN("Wrong email, user not found");
 	
 	private String msg;
 

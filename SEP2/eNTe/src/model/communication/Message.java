@@ -30,7 +30,7 @@ public class Message implements Serializable{
 	
 	public Login getLogin() throws NullPointerException, IllegalStateException{
 		if(!data.get(Type.Type).equals(Type.Login))
-			throw new IllegalStateException("Message does not contain login information");
+			throw new IllegalStateException("Message does not contain email information");
 		return (Login) data.get(Type.Login);
 	}
 	

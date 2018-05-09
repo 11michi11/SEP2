@@ -77,7 +77,7 @@ public class DBAdapter implements DBPersistance {
 
         sql = "INSERT INTO enteuser ('";
         sql += user.getId() + "','";
-        sql += user.getLogin() + "','";
+        sql += user.getEmail() + "','";
         sql += user.getPwd() + "',";
         //sql += user.getChangedPassword() + ",'";
         sql += user.getName() + "',')";
@@ -147,9 +147,9 @@ public class DBAdapter implements DBPersistance {
             String name = (String) e[4]; // name added coz user need it and there was comile error
             Classs studentClasss = (Classs) e[5];
             //Matej, since now, you can create Students and Parents with builder. Example below
-            list.add(Student.builder().name(name).login(login).pwd(password).classs(studentClasss).id(id).build());
+            list.add(Student.builder().name(name).login(login).classs(studentClasss).id(id).pwd(password).build());
             //After .classs() you can choose: build(), id(), history...
-            //list.add(Student.builder().name(name).login(login).pwd(password).classs(studentClasss).build());
+            //list.add(Student.builder().name(name).email(email).pwd(password).classs(studentClasss).build());
         }
         return list;
     }
@@ -166,7 +166,7 @@ public class DBAdapter implements DBPersistance {
             boolean changePassword = (boolean) e[3];
             String name = (String) e[4]; // name added coz user need it and there was comile error
             //list.add(new Parent(name, username, password, new Family(), id));
-            list.add(Parent.builder().name(name).login(login).pwd(password).id(id).build());
+            list.add(Parent.builder().name(name).email(login).pwd(password).id(id).build());
         }
         return list;
     }

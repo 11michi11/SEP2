@@ -36,6 +36,6 @@
             <Glow />
          </effect>
       </TextField>
-      <Button id="loginButton" layoutX="615.0" layoutY="604.0" mnemonicParsing="false" onAction="#loginHandler" opacity="0.49" prefHeight="25.0" prefWidth="73.0" text="login" />
+      <Button id="loginButton" layoutX="615.0" layoutY="604.0" mnemonicParsing="false" onAction="#loginHandler" opacity="0.49" prefHeight="25.0" prefWidth="73.0" text="email" />
    </children>
 </Pane>
