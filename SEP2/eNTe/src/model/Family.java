@@ -11,8 +11,8 @@ public class Family{
 	
 	public Family() {
 		id = UUID.randomUUID().toString();
-		children=new ArrayList<Student>();
-		parents=new ArrayList<Parent>();
+		children= new ArrayList<>();
+		parents= new ArrayList<>();
 	}
 	public void addChild(Student child) {
 		children.add(child);
@@ -52,17 +52,16 @@ public class Family{
 		return parents;
 	}
 
-	public ArrayList<Class> getClasses() {
-		ArrayList<Class> classes = new ArrayList<>();
-		boolean isClassRepeated = false;
+	public ArrayList<Classs> getClasses() {
+		ArrayList<Classs> classes = new ArrayList<>();
 		for (Student e : children) {
-			for (Class f : classes) {
-				if (e.getClass().equals(f))
-					isClassRepeated = true;
-			}
-			if (isClassRepeated == false)
+		    if(classes.contains(e.getClasss()))
 				classes.add(e.getClasss());
 		}
 		return classes;
+	}
+
+    public String getId() {
+        return id;
 	}
 }
