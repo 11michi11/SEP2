@@ -96,6 +96,32 @@ public class AdminMainHandler {
 			e.printStackTrace();
 		}
 	}
+	public void homeworkCreation() {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/homeworkCreation.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void discussionCreation() {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/discussionCreation.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	}
 
 

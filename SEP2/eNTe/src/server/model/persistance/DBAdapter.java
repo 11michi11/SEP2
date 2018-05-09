@@ -194,7 +194,7 @@ public class DBAdapter implements DBPersistance {
 			String memberID = (String) resultSet.get(i)[1];
 			if (!lastFamilyID.equals(familyID))
 			{
-				Family family = new Family();
+				Family family = new Family("");
 				familyMembers.getUserById(memberID);
 			}
 		}

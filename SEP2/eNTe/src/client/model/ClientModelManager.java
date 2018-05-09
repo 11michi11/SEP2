@@ -47,7 +47,7 @@ public class ClientModelManager implements ClientModel {
 
 	@Override
 	public Post getPost() {
-		return posts.getNextPost();
+		return posts.getFirstPost();
 	}
 
 	@Override

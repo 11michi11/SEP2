@@ -6,8 +6,14 @@ import java.util.NoSuchElementException;
 public class Family extends AbstractFamily {
 	
 
-	public Family(String id) {
+	private String familyName;
+	
+	public Family(String id, String familyName) {
 		super(id);
+	}
+	
+	public String getFamilyName() {
+		return familyName;
 	}
 
 	

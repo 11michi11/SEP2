@@ -14,6 +14,13 @@ Button:hoover{
 	-fx-font-size: 50px;
 	-fx-fill: #729eea;
 }
+.menuButtonSmall{
+	-fx-background-color: white;
+	-fx-font-family: "Gill Sans MT";
+	-fx-font-weight: bold;
+	-fx-font-size: 40px;
+	-fx-fill: #729eea;
+}
 
 .textPane{
 	/*-fx-background-color: #c1c1c1;*/
