@@ -45,30 +45,20 @@ public class ParentListHandler {
 
 	@FXML
 	public void initialize() {
-		nameColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("name"));
-		emailColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("login"));
-		childrenColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("childrenNames"));
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		emailColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
+		childrenColumn.setCellValueFactory(new PropertyValueFactory<>("childrenNames"));
 
 		selectedColumn
-				.setCellValueFactory(new Callback<CellDataFeatures<ParentDT, CheckBox>, ObservableValue<CheckBox>>() {
+				.setCellValueFactory(arg0 -> {
+					CheckBox checkBox = new CheckBox();
+					ParentDT parent = arg0.getValue();
 
-					@Override
-					public ObservableValue<CheckBox> call(CellDataFeatures<ParentDT, CheckBox> arg0) {
-						CheckBox checkBox = new CheckBox();
-						ParentDT parent = arg0.getValue();
+					checkBox.selectedProperty().addListener((ov, oldValue, newValue) -> parent.setSelected(newValue));
 
-						checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-							public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue,
-									Boolean newValue) {
-								parent.setSelected(newValue);
-							}
-						});
+					checkBox.selectedProperty().setValue(parent.getSelected());
 
-						checkBox.selectedProperty().setValue(parent.getSelected());
-
-						return new SimpleObjectProperty<CheckBox>(checkBox);
-					}
-
+					return new SimpleObjectProperty<>(checkBox);
 				});
 		parentsList.getColumns().clear();
 		parentsList.getColumns().addAll(nameColumn, emailColumn, childrenColumn, selectedColumn);

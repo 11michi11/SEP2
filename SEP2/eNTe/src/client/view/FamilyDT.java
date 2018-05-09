@@ -1,19 +1,16 @@
 package client.view;
 
-import javafx.beans.property.SimpleStringProperty;
 import model.Family;
 
-public class FamilyDT implements TableDataType {
+public class FamilyDT extends TableDataType {
 
-    private SimpleStringProperty familyName;
-
-    public FamilyDT(Family family) {
-        this.familyName = new SimpleStringProperty(family.getMembersNames());
+    FamilyDT(Family family) {
+        this.name = family.getMembersNames();
     }
 
     @Override
-    public SimpleStringProperty getName() {
-        return familyName;
+    public String getName() {
+        return name;
     }
 
 

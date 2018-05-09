@@ -1,20 +1,25 @@
 package client.view;
 
-import javafx.beans.property.SimpleStringProperty;
+public abstract class TableDataType {
 
-public interface TableDataType {
+    protected String name;
+    protected String email;
+    String className;
+    String type;
 
-    default SimpleStringProperty getName() {
-        return new SimpleStringProperty("");
+    String getName() {
+        return "";
     }
 
-    default SimpleStringProperty getEmail() {
-        return new SimpleStringProperty("");
+    String getEmail() {
+        return "";
     }
 
-    default SimpleStringProperty getClassName() {
-        return new SimpleStringProperty("");
+    String getClassName() {
+        return "";
     }
 
-    default SimpleStringProperty getType() {return new SimpleStringProperty("");}
+    String getType() {
+        return "";
+    }
 }
