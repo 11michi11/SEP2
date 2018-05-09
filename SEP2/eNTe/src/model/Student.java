@@ -3,6 +3,11 @@ package model;
 import java.io.Serializable;
 
 public class Student extends User implements Serializable{
+	@Override
+	public String toString() {
+		return "Student [historyOfActivity=" + historyOfActivity + ", classs=" + classs + ", family=" + family + "]";
+	}
+
 	private String historyOfActivity;
 	private Classs classs;
 	private Family family;
@@ -53,6 +58,7 @@ public class Student extends User implements Serializable{
 	public static StudentNeedName builder(){
 		return new Builder();
 	}
+
 
 	public static final class Builder implements StudentNeedName, StudentNeedPwd, StudentNeedLogin, StudentNeedClasss, StudentCanBeBuild {
 		protected String id;

@@ -43,30 +43,30 @@ public class FamilyListHandler {
 			}
 		});
 		
-		name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<FamilyDT,String>, ObservableValue<String>>() {
-			@Override
-			public ObservableValue<String> call(CellDataFeatures<FamilyDT, String> param) {
-				return param.getValue().getValue().getName();
-			}
-		});
-		email.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<FamilyDT,String>, ObservableValue<String>>() {
-			@Override
-			public ObservableValue<String> call(CellDataFeatures<FamilyDT, String> param) {
-				return param.getValue().getValue().getEmail();
-			}
-		});
-		className.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<FamilyDT,String>, ObservableValue<String>>() {
-			@Override
-			public ObservableValue<String> call(CellDataFeatures<FamilyDT, String> param) {
-				return param.getValue().getValue().getClassName();
-			}
-		});
-		userType.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<FamilyDT,String>, ObservableValue<String>>() {
-			@Override
-			public ObservableValue<String> call(CellDataFeatures<FamilyDT, String> param) {
-				return param.getValue().getValue().getUserType();
-			}
-		});
+//		name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<FamilyDT,String>, ObservableValue<String>>() {
+//			@Override
+//			public ObservableValue<String> call(CellDataFeatures<FamilyDT, String> param) {
+//				return param.getValue().getValue().getName();
+//			}
+//		});
+//		email.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<FamilyDT,String>, ObservableValue<String>>() {
+//			@Override
+//			public ObservableValue<String> call(CellDataFeatures<FamilyDT, String> param) {
+//				return param.getValue().getValue().getEmail();
+//			}
+//		});
+//		className.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<FamilyDT,String>, ObservableValue<String>>() {
+//			@Override
+//			public ObservableValue<String> call(CellDataFeatures<FamilyDT, String> param) {
+//				return param.getValue().getValue().getClassName();
+//			}
+//		});
+//		userType.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<FamilyDT,String>, ObservableValue<String>>() {
+//			@Override
+//			public ObservableValue<String> call(CellDataFeatures<FamilyDT, String> param) {
+//				return param.getValue().getValue().getUserType();
+//			}
+//		});
 		
 		//familyTable.getColumns().addAll(familyName, name, email, className, userType);
 

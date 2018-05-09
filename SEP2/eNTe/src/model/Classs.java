@@ -7,10 +7,28 @@ import java.util.stream.Stream;
 
 //TO DO, class not finished
 public enum Classs implements Serializable{
-	 First, Second, Third, Fourth, Fifth, Sixth, Seventh, Eigth;
+	 First("First"),
+	 Second("Second"),
+	 Third("Third"),
+	 Fourth("Fourth"),
+	 Fifth("Fifth"),
+	 Sixth("Sixth"),
+	 Seventh("Seventh"),
+	 Eigth("Eigth");
+	 
+	private String name;
+	
+	Classs(String name) {
+		this.name = name;
+	}
+	
 	
 	public static List<String> getClasses() {
 		return Stream.of(Classs.values()).map(Enum::name).collect(Collectors.toList());
+	}
+	
+	public String toString() {
+		return name;
 	}
 }
 
