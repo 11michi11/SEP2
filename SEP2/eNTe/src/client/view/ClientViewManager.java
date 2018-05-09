@@ -1,6 +1,7 @@
 package client.view;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import client.controller.ClientController;
 import javafx.application.Application;
@@ -9,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -116,5 +118,18 @@ public class ClientViewManager extends Application implements ClientView {
 		alert.setContentText(message);
 
 		alert.showAndWait();
+	}
+	
+	public void changePasswordDialog() {
+		
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("Change password");
+		dialog.setHeaderText("Create a new password");
+		dialog.setContentText("Please enter your password:");
+		
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()){
+		    //TO-DO
+		}
 	}
 }

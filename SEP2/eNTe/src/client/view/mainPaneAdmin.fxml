@@ -26,32 +26,32 @@
       </ScrollPane>
       <VBox layoutX="886.0" layoutY="39.0" prefHeight="722.0" prefWidth="380.0" styleClass="menuPane">
          <children>
-            <Button fx:id="homework" mnemonicParsing="false" onAction="#homeworkCreation" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="homeworks" textAlignment="CENTER" textFill="#729eea">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="50.0" />
-               </font>
-            </Button>
-            <Button fx:id="discussion" mnemonicParsing="false" onAction="#discussionCreation" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="discussions" textAlignment="CENTER" textFill="#729eea">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="50.0" />
-               </font>
-            </Button>
-            <Button fx:id="annoucment" mnemonicParsing="false" onAction="#postCreation" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="posts" textAlignment="CENTER" textFill="#729eea"> 
+            <Button fx:id="annoucment" mnemonicParsing="false" onAction="#postCreation" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="post" textAlignment="CENTER" textFill="#729eea"> 
                <font>
                   <Font name="Gill Sans MT Bold" size="49.0" />
                </font>
             </Button>
-            <Button fx:id="meeting" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="meetings" textAlignment="CENTER" textFill="#729eea">
+            <Button fx:id="homework" mnemonicParsing="false" onAction="#homeworkCreation" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="homework" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
-            <Button fx:id="message" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="messages" textAlignment="CENTER" textFill="#729eea">
+            <Button fx:id="discussion" mnemonicParsing="false" onAction="#discussionCreation" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="discussion" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
-            <Button fx:id="users" mnemonicParsing="false" onAction="#userList" prefHeight="111.0" prefWidth="380.0" styleClass="menuButton" stylesheets="@login.css" text="users" textAlignment="CENTER" textFill="#729eea">
+            <Button fx:id="meeting" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="meeting" textAlignment="CENTER" textFill="#729eea">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="50.0" />
+               </font>
+            </Button>
+            <Button fx:id="message" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="message" textAlignment="CENTER" textFill="#729eea">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="50.0" />
+               </font>
+            </Button>
+            <Button fx:id="familyList" mnemonicParsing="false" onAction="#familyList" prefHeight="111.0" prefWidth="380.0" styleClass="menuButton" stylesheets="@login.css" text="family list" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>

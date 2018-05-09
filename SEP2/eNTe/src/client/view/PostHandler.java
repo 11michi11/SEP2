@@ -1,10 +1,15 @@
 package client.view;
 
+import java.io.IOException;
+
 import client.controller.ClientController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -20,13 +25,24 @@ public class PostHandler {
     private Button createPost, editPost;
     @FXML
     private VBox box;
+    @FXML
+	private ImageView ente;
     private ClientController controller;
     private Stage stage;
+    private Parent mainPane;
 
     public PostHandler() {
         controller = ClientController.getInstance();
         stage = ClientViewManager.getStage();
         System.out.println("PostHandler");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneAdmin.fxml"));
+		try {
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
     }
 
     @FXML
@@ -84,4 +100,8 @@ public class PostHandler {
 
         controller.addPost(title.getText(), content.getText());
     }
+    public void goBack() {
+		stage.getScene().setRoot(mainPane);
+		stage.show();
+	}
 }
