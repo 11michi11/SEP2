@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.util.stream.Collectors;
@@ -34,7 +36,6 @@ public class FamilyListHandler {
 
     @FXML
     public void initialize() {
-
         TreeItem<TableDataType> rows = new TreeItem<>();
         controller.getFamilies().forEach(family -> {
             TreeItem<TableDataType> parents = new TreeItem<>(new UserDT("Parents"));
@@ -50,14 +51,12 @@ public class FamilyListHandler {
             rows.getChildren().add(familyRoot);
         });
 
-        familyName.setCellValueFactory(param -> param.getValue().getValue().getName());
-        name.setCellValueFactory(param -> param.getValue().getValue().getName());
-        email.setCellValueFactory(param -> param.getValue().getValue().getEmail());
-        className.setCellValueFactory(param -> param.getValue().getValue().getClassName());
-        userType.setCellValueFactory(param -> param.getValue().getValue().getType());
+        name.setCellValueFactory(new TreeItemPropertyValueFactory<>("name"));
+        email.setCellValueFactory(new TreeItemPropertyValueFactory<>("email"));
+        className.setCellValueFactory(new TreeItemPropertyValueFactory<>("className"));
+        userType.setCellValueFactory(new TreeItemPropertyValueFactory<>("type"));
 
-        familyTable.getColumns().addAll(familyName, name, email, className, userType);
         familyTable.setRoot(rows);
-
+        familyTable.setShowRoot(false);
     }
 }

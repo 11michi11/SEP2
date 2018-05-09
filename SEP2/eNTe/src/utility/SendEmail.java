@@ -14,14 +14,14 @@ public class SendEmail {
     static MimeMessage generateMailMessage;
 
     public static void main(String[] args) {
-        try {
-            generateAndSendEmail("11michi11@gmail.com", "Your account has been hacked","To unlock, go to nearest shop, buy pizza and deliver it to room 195, Kamtjatka." +
-                    "<br>You have time till 19:00 09.05.2018" +
-                    "<br><br>Have a nice day ;)" +
-                    "~H4k3r");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            generateAndSendEmail("11michi11@gmail.com", "Your account has been hacked","To unlock, go to nearest shop, buy pizza and deliver it to room 195, Kamtjatka." +
+//                    "<br>You have time till 19:00 09.05.2018" +
+//                    "<br><br>Have a nice day ;)" +
+//                    "~H4k3r");
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static void generateAndSendEmail(String to,String subject, String emailBody) throws MessagingException {

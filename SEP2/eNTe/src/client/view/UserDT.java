@@ -1,44 +1,36 @@
 package client.view;
 
-import javafx.beans.property.SimpleStringProperty;
-import model.Classs;
-import model.Student;
 import model.User;
 
-public class UserDT implements TableDataType {
+public class UserDT extends TableDataType {
 
-    private SimpleStringProperty name;
-    private SimpleStringProperty email;
-    private SimpleStringProperty className;
-    private SimpleStringProperty type;
-
-    public UserDT(User user, String classs) {
-        this.name = new SimpleStringProperty(user.getName());
-        this.email = new SimpleStringProperty(user.getLogin());
-        this.className = new SimpleStringProperty(classs);
-        this.type = new SimpleStringProperty(user.getClass().getName().substring(5, user.getClass().getName().length() - 5));
+    UserDT(User user, String classs) {
+        this.name = user.getName();
+        this.email = user.getLogin();
+        this.className = classs;
+        this.type = user.getClass().getName().substring(6, user.getClass().getName().length());
     }
 
-    public UserDT(String name) {
-        this.name = new SimpleStringProperty(name);
-        this.email = new SimpleStringProperty("");
-        this.className = new SimpleStringProperty("");
-        this.type = new SimpleStringProperty("");
+    UserDT(String name) {
+        this.name = name;
+        this.email = "";
+        this.className = "";
+        this.type = "";
     }
 
-    public SimpleStringProperty getName() {
+    public String getName() {
         return name;
     }
 
-    public SimpleStringProperty getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public SimpleStringProperty getClassName() {
+    public String getClassName() {
         return className;
     }
 
-    public SimpleStringProperty getType() {
+    public String getType() {
         return type;
     }
 
