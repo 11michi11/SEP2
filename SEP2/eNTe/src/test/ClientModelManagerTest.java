@@ -1,25 +1,20 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import client.model.ClientModelManager;
+import model.*;
+import model.Classs;
+import model.communication.WelcomingData;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import server.controller.ServerMain;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import client.model.ClientModelManager;
-import model.Administrator;
-import model.Class;
-import model.Parent;
-import model.Post;
-import model.Student;
-import model.Teacher;
-import model.communication.WelcomingData;
-import server.controller.ServerMain;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ClientModelManagerTest {
 
@@ -28,9 +23,7 @@ class ClientModelManagerTest {
 	@BeforeAll
 	
 	static void startServer() {
-		Thread t = new Thread(() -> {
-			ServerMain.main(new String[0]);
-		});
+		Thread t = new Thread(() -> ServerMain.main(new String[0]));
 		t.start();
 		System.out.println("Server");
 	}
@@ -55,9 +48,9 @@ class ClientModelManagerTest {
 		Post post2 = new Post("Title2", "Content");
 		Post post3 = new Post("Title3", "Content");
 		WelcomingData data = new WelcomingData();
-		LinkedList<Post> list1 = new LinkedList<Post>();
-		LinkedList<Post> list2 = new LinkedList<Post>();
-		LinkedList<Post> list3 = new LinkedList<Post>();
+		LinkedList<Post> list1 = new LinkedList<>();
+		LinkedList<Post> list2 = new LinkedList<>();
+		LinkedList<Post> list3;
 		list1.add(post1);
 		list1.add(post2);
 		list1.add(post3);
@@ -73,9 +66,9 @@ class ClientModelManagerTest {
 
 	@Test
 	void getParentsTest() {
-		Parent parent1 = new Parent("name1", "login", "pwd", new ArrayList<Student>());
-		Parent parent2 = new Parent("name2", "login", "pwd", new ArrayList<Student>());
-		ArrayList<Parent> list = new ArrayList<Parent>();
+		Parent parent1 = Parent.builder().name("name1").login("email").pwd("pwd").build();
+		Parent parent2 = Parent.builder().name("name2").login("email").pwd("pwd").build();
+		ArrayList<Parent> list = new ArrayList<>();
 		list.add(parent1);
 		list.add(parent2);
 
@@ -85,9 +78,9 @@ class ClientModelManagerTest {
 	}
 	
 	@Test
-	void deleteUserandGetUserByIdTest() {
-		Parent parent = new Parent("name1", "login", "pwd", new ArrayList<Student>());
-		Student student = new Student("name", "login", "pwd", Class.First, new ArrayList<String>());
+	void deleteUserAndGetUserByIdTest() {
+		Parent parent = Parent.builder().name("name").login("email").pwd("pwd").build();
+		Student student = Student.builder().name("name").login("login").pwd("pwd").classs(Classs.First).build();
 		Teacher teacher = new Teacher("name", "login", "pwd");
 		Administrator admin = new Administrator("name", "login", "pwd");
 		
@@ -109,10 +102,10 @@ class ClientModelManagerTest {
 	
 	@Test
 	void updateUserTest() {
-		Parent parent = new Parent("name1", "login", "pwd", new ArrayList<Student>());
+		Parent parent = Parent.builder().name("name").login("email").pwd("pwd").build();
 		model.addOrUpdateUser(parent);
 	
-		parent = new Parent("changed", "login", "pwd", new ArrayList<Student>(), parent.getId());
+		parent = Parent.builder().name("name").login("email").pwd("pwd").build();
 		model.addOrUpdateUser(parent);
 		
 		assertEquals(parent, model.getUserById(parent.getId()));

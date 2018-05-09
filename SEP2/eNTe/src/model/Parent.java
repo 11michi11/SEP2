@@ -2,85 +2,114 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Parent extends User implements Serializable {
-	private ArrayList<Student> children;
-	private String childrenNames;
-	private ArrayList<Class> classes;
 
-	public Parent(String name, String login, String pwd, ArrayList<Student> children) {
-		super(name, login, pwd);
-		initializeChildren(children);
-	}
-	
-	public Parent(String name, String login, String pwd, ArrayList<Student> children, String id) {
-		super(name, login, pwd, id);
-		initializeChildren(children);
-	}
+    private Family family;
 
-	private void initializeChildren(ArrayList<Student> children) {
-		this.children = children;
-		classes = new ArrayList<Class>();
-		for (Student s : children)
-			classes.add(s.getClasss());
+    public Parent(String name, String login, String pwd, Family family) {
+        super(name, login, pwd);
+        this.family = family;
+    }
 
-		childrenNames = "";
-		for (Student s : children)
-			childrenNames += s.getName() + ", ";
-	}
+    public Parent(String name, String login, String pwd, Family family, String id) {
+        super(name, login, pwd, id);
+        this.family = family;
+    }
 
-	public String getChildrenNames() {
-		return childrenNames;
-	}
+    public Parent(String name, String login, String pwd) {
+        super(name, login, pwd);
+    }
 
-	public void addChild(Student child) {
-		children.add(child);
-		classes.add(child.getClasss());
-	}
+    public String getChildrenNames() {
+        if (family != null)
+            return family.getChildren().stream().map(s -> s.getName() + ", ").collect(Collectors.joining());
+        return "";
+    }
 
-	public void removeChild(Student child) {
-		children.remove(child);
-	}
+    public ArrayList<Student> getChildren() {
+        return family.getChildren();
+    }
 
-	public ArrayList<Student> getChildren() {
-		return children;
-	}
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+
+    public static NeedName builder() {
+        return new Builder();
+    }
+
+    public static final class Builder implements NeedName, NeedLogin, NeedPwd, CanBeBuild {
+
+        private String name;
+        private String login;
+        private String pwd;
+        private String id;
+        private Family family;
+
+        @Override
+        public NeedLogin name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        @Override
+        public NeedPwd login(String login) {
+            this.login = login;
+            return this;
+        }
+
+        @Override
+        public CanBeBuild pwd(String pwd) {
+            this.pwd = pwd;
+            return this;
+        }
+
+        @Override
+        public CanBeBuild family(Family family) {
+            this.family = family;
+            return this;
+        }
+
+        @Override
+        public CanBeBuild id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        @Override
+        public Parent build() {
+            Parent parent = new Parent(this.name, this.login, this.pwd);
+            parent.family = this.family;
+            parent.id = this.id;
+
+            return parent;
+        }
+    }
+
+    public interface NeedName {
+        public NeedLogin name(String name);
+    }
+
+    public interface NeedLogin {
+        public NeedPwd login(String login);
+    }
+
+    public interface NeedPwd {
+        public CanBeBuild pwd(String pwd);
+    }
+
+    public interface CanBeBuild {
+        public Parent build();
+
+        public CanBeBuild family(Family family);
+
+        public CanBeBuild id(String id);
+    }
+
 }
-
-
-//New version
-
-//package model;
-//
-//import java.io.Serializable;
-//import java.util.ArrayList;
-//
-//public class Parent extends User implements Serializable {
-//
-//	private ArrayList<Class> classes;
-//	// private Family family;
-//
-//	// public Parent(String name, String login, String pwd, Family family) {
-//	public Parent(String name, String login, String pwd, ArrayList<Student> list) {
-//		super(name, login, pwd);
-//		// this.family=family;
-//	}
-//
-//	// public Parent(String name, String login, String pwd, Family family, String
-//	// id) {
-//	public Parent(String name, String login, String pwd,  ArrayList<Student> list, String id) {
-//		super(name, login, pwd, id);
-//		// this.family=family;
-//	}
-//
-//	public String getChildrenNames() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	public Object getChildren() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="182.0" fitWidth="209.0" layoutX="22.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@enteLOGO.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="862.0" layoutY="25.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="380.0" styleClass="menuButton" stylesheets="@login.css" text="classses" textAlignment="CENTER" textFill="#729eea">
+         <font>
+            <Font name="Comic Sans MS" size="50.0" />
+         </font>
+      </Button>
+      <ScrollPane layoutX="15.0" layoutY="166.0" prefHeight="598.0" prefWidth="864.0">
+         <content>
+            <VBox prefHeight="883.0" prefWidth="842.0">
+               <children>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: bbb8b8;">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="203.0" prefWidth="281.0" text="1.V" textFill="#729eea">
+                           <font>
+                              <Font name="Comic Sans MS" size="89.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="203.0" prefWidth="281.0" text="2.V" textFill="#729eea">
+                           <font>
+                              <Font name="Comic Sans MS" size="89.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </TextFlow>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="203.0" prefWidth="281.0" text="3.V" textFill="#729eea">
+                           <font>
+                              <Font name="Comic Sans MS" size="89.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="203.0" prefWidth="281.0" text="4.V" textFill="#729eea">
+                           <font>
+                              <Font name="Comic Sans MS" size="89.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </TextFlow>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: bbb8b8;">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="203.0" prefWidth="281.0" text="5.V" textFill="#729eea">
+                           <font>
+                              <Font name="Comic Sans MS" size="89.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="203.0" prefWidth="281.0" text="6.V" textFill="#729eea">
+                           <font>
+                              <Font name="Comic Sans MS" size="89.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </TextFlow>
+                  <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" text="done by..." textFill="#729eea">
+                     <font>
+                        <Font name="Comic Sans MS" size="22.0" />
+                     </font>
+                  </Button>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: bbb8b8;">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="203.0" prefWidth="281.0" text="1.V" textFill="#729eea">
+                           <font>
+                              <Font name="Comic Sans MS" size="89.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="203.0" prefWidth="281.0" text="2.V" textFill="#729eea">
+                           <font>
+                              <Font name="Comic Sans MS" size="89.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </TextFlow>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <Line endX="100.0" layoutX="1058.0" layoutY="116.0" startX="-100.0" stroke="#729eea" strokeWidth="2.0" />
+   </children>
+</Pane>
