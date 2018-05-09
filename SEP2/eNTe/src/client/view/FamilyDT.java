@@ -12,7 +12,7 @@ public class FamilyDT {
 	private SimpleStringProperty userType;
 
 	public FamilyDT(Family family) {
-		this.familyName = new SimpleStringProperty(family.getFamilyName());
+		this.familyName = new SimpleStringProperty();
 		this.name = new SimpleStringProperty();
 		this.email = new SimpleStringProperty();
 		this.className = new SimpleStringProperty();

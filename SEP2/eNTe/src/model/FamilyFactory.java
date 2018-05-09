@@ -11,7 +11,7 @@ public class FamilyFactory {
 	public static Family createFamily(String id, String familyName) {
 		Family item=families.get(id);
 		if(item==null) {
-			item=new Family(id, familyName);
+			item=new Family();
 			families.put(id, item);
 		}
 		return item;	
