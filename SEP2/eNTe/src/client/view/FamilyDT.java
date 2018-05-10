@@ -4,6 +4,8 @@ import model.Family;
 
 public class FamilyDT extends TableDataType {
 
+	Family family;
+	
     FamilyDT(Family family) {
         this.name = family.getMembersNames();
     }

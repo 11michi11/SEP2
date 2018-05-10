@@ -121,4 +121,9 @@ public class ClientController {
         parents.addAll(new ParentDT(p1), new ParentDT(p2), new ParentDT(p3), new ParentDT(p4));
         return parents;
     }
+
+	public void deleteFamily(Family family) {
+		model.deleteFamily(family);
+		
+	}
 }

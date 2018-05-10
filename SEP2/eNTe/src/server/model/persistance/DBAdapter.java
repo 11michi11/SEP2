@@ -21,55 +21,103 @@ public class DBAdapter implements DBPersistance {
         db = new MyDatabase(DRIVER, URL, USER, PASSWORD);
     }
 
-    @Override
-    public LinkedList<Post> getPosts() throws SQLException {
-        LinkedList<Post> list = new LinkedList<>();
+	@Override
+	public LinkedList<Post> getPosts(UsersList users) throws SQLException {
+		LinkedList<Post> list = new LinkedList<>();
 
-        String sql = "SELECT * FROM Post WHERE id=1";
-        ArrayList<Object[]> resultSet = db.query(sql);
-        for (Object[] e : resultSet) {
-            int id = (int) e[0];
-            String title = (String) e[1];
-            String content = (String) e[2];
-            String author = (String) e[3];
-            // String date = (String) e[4];
-            list.add(new Post(title, content)); // maybe it's needed to add fields(author,date) to Post class
-        }
-        return list;
-    }
+		String sql = "SELECT * FROM Post";
+		ArrayList<Object[]> resultSet = db.query(sql);
+		for (Object[] e : resultSet) {
+			String id = (String) e[0];
+			String title = (String) e[1];
+			String content = (String) e[2];
+			String authorID = (String) e[3];
+			User author = users.getUserById(authorID);
+			//Post post = new Post(title, content);
+			//author.makePost(post);
+			// String date = (String) e[4];
+			//list.add(new Post(title, content)); // maybe it's needed to add fields(author,date) to Post class
+		}
+		return list;
+	}
 
     @Override
     public LinkedList<User> getUsers() throws SQLException {
         LinkedList<User> users = new LinkedList<>();
 
-        LinkedList<Administrator> admins = getAdmins();
-        LinkedList<Teacher> teachers = getTeachers();
-        LinkedList<Student> students = getStudents();
-        LinkedList<Parent> parents = getParents();
+	@Override
+	public void addUser(User user) throws SQLException {
+		String sql = "INSERT INTO ";
+		
+		switch (user.getClass().getSimpleName())
+		{
+			case "Student":
+				Student student = (Student) user;
+				sql += "student ('";
+				sql += student.getId()+"','";
+				//sql += student.getFamilyID ?????;
+				sql += student.getClasss()+"')";
+				db.update(sql);
+				break;
+				
+			case "Parent":
+				
+				break;
+				
+			default: break;
+		}
+		
+		sql = "INSERT INTO enteuser ('";
+		sql += user.getId() + "','";
+		sql += user.getLogin() + "','";
+		sql += user.getPwd() + "',";
+		//sql += user.getChangedPassword() + ",'";
+		sql += user.getName() + "',')";
+		sql += user.getClass().getSimpleName().toLowerCase()+"')";			//column for type of user
+		db.update(sql);
+	}
 
-        users.addAll(admins);
-        users.addAll(teachers);
-        users.addAll(students);
-        users.addAll(parents);
-        return users;
-    }
+	@Override
+	public void updateUser(User user) throws SQLException {
+		ArrayList<String> sqlList = new ArrayList<>();
+		String sql = "";
+		String usertype = user.getClass().getSimpleName().toLowerCase();
+		sql += "UPDATE enteuser SET"; 
+		sql += "username='"+user.getLogin()+"',";
+		sql += "pwd='"+user.getPwd()+"',";
+		//sql += "changepassword="+user.isChangedPassword()+",";
+		sql += "name='"+user.getName()+"',";
+		sql += "type='"+usertype+"'";
+		sql += "WHERE id='"+user.getId()+"'";
+		sqlList.add(sql);
+		switch (usertype) {
+			case "student":
+				Student student = (Student) user;
+				sql = "UPDATE student SET class='"+student.getClasss()+"'";
+				sql += "WHERE id='"+student.getId()+"'";
+				sqlList.add(sql);
+				//sql = "UPDATE family SET familyid='"+student.getFamily().getID+"',";
+				sql += "type='"+usertype+"'";
+				sql += "WHERE familymemberid='"+user.getId()+"'";
+				sqlList.add(sql);
+				break;
+			case "parent":
+				Parent parent = (Parent) user;
+				//sql = "UPDATE family SET familyid='"+parent.getFamily().getID+"',";
+				sql += "type='"+usertype+"'";
+				sql += "WHERE familymemberid='"+user.getId()+"'";
+				sqlList.add(sql);
+				break;
+			default:break;
+		}
+		db.updateAll(sqlList);
+	}
 
-    @Override
-    public void addUser(User user) throws SQLException {
-        String sql = "INSERT INTO ";
-        switch (user.getClass().getName()) {
-            case "Student":
-                Student student = (Student) user;
-                sql += "student ('";
-                sql += student.getId() + "','";
-                //sql += student.getFamilyID ?????;
-                sql += student.getClasss() + "')";
-                db.update(sql);
-                break;
-
-            case "Parent":
-
-                break;
+	@Override
+	public void deleteUser(String id) throws SQLException {
+		String sql = "DELETE FROM enteuser WHERE id='"+id+"'";
+		db.update(sql);
+	}
 
             default:
                 break;
@@ -85,114 +133,153 @@ public class DBAdapter implements DBPersistance {
         db.update(sql);
     }
 
-    @Override
-    public void updateUser(User user) {
-        // TODO Auto-generated method stub
+		String sql = "SELECT * FROM enteUser WHERE usertype ='Administrator'";
+		ArrayList<Object[]> resultSet = db.query(sql);
+		for (Object[] e : resultSet) {
+			String id = (String) e[0];
+			String login = (String) e[2];
+			String pwd = (String) e[3];
+			String name = (String) e[4];
+			boolean changePassword = (boolean) e[5];
 
-    }
+			//list.add(new Administrator(name, username, password, id)); 
+		}
+		return list;
+	}
 
     @Override
     public void deleteUser(String id) {
         // TODO Auto-generated method stub
 
-    }
+		String sql = "SELECT * FROM enteUser WHERE usertype ='Teacher'";
+		ArrayList<Object[]> resultSet = db.query(sql);
+		for (Object[] e : resultSet) {
+			String id = (String) e[0];
+			String login = (String) e[2];
+			String pwd = (String) e[3];
+			String name = (String) e[4];
+			boolean changePassword = (boolean) e[5];
 
-    private LinkedList<Administrator> getAdmins() throws SQLException {
+			//list.add(new Teacher(name, username, password, id));
+		}
+		return list;
+	}
 
-        LinkedList<Administrator> list = new LinkedList<>();
+	private LinkedList<Student> getStudents(LinkedList<Family> families) throws SQLException {
+		LinkedList<Student> list = new LinkedList<>();
 
-        String sql = "SELECT * FROM enteUser WHERE type ='admin'";
-        ArrayList<Object[]> resultSet = db.query(sql);
-        for (Object[] e : resultSet) {
-            String id = (String) e[0];
-            String username = (String) e[1]; // e-mail as well
-            String password = (String) e[2];
-            boolean changePassword = (boolean) e[3];
-            String name = (String) e[4]; // name added coz user need it and there was comile error
+		String sql = "SELECT e.id, e.login, e.pwd, e.name, e.changePassword, s.familyid, s.class FROM enteuser e, student s WHERE e.id=s.studentid";
+		ArrayList<Object[]> resultSet = db.query(sql);
+		for (Object[] e : resultSet) {
+			String id = (String) e[0];
+			String login = (String) e[1];
+			String pwd = (String) e[2];
+			String name = (String) e[3];
+			boolean changePassword = (boolean) e[4];
+			String familyID = (String) e[5];
+			model.Class studentClass = (model.Class) e[6];
+//			Student student = new Student(blablabla);
+//			student.setFamily(families.getFamilyById());
+//			families.getFamilyById().addChild(student);
+//			list.add(student);
+		}
+		return list;
+	}
 
-            list.add(new Administrator(name, username, password)); // what with ID's and if it's active
-            // ?????????????????????????????????????/
-        }
-        return list;
-    }
+	private LinkedList<Parent> getParents(LinkedList<Family> families) throws SQLException {
+		LinkedList<Parent> list = new LinkedList<>();
 
-    private LinkedList<Teacher> getTeachers() throws SQLException {
-        LinkedList<Teacher> list = new LinkedList<>();
+		String sql = "SELECT * FROM enteUser WHERE usertype ='Parent'";
+		ArrayList<Object[]> resultSet = db.query(sql);
+		for (Object[] e : resultSet) {
+			String id = (String) e[0];
+			String login = (String) e[2];
+			String pwd = (String) e[3];
+			String name = (String) e[4];
+			boolean changePassword = (boolean) e[5];
+//			Parent parent = new Parent(blablabla);
+//			parent.setFamily(families.getFamilyById());
+			families.getFamilyById().addParent(parent);
+			list.add(new Parent(name, username, password, null, id));
+		}
+		return list;
+	}
+	
+	private LinkedList<Family> getFamilies() throws SQLException {
+		LinkedList<Family> list = new LinkedList<>();
+		String lastFamilyID = "";
+		Family lastFamily = new Family();
+		String sql = "SELECT * FROM family ORDER BY familyid";
+		ArrayList<Object[]> resultSet = db.query(sql);
+		for (Object[] e : resultSet) {
+			String familyID = (String) e[0];
+//			list.add(new Family(familyID));
+		}
 
-        String sql = "SELECT * FROM enteUser WHERE type ='teacher'";
-        ArrayList<Object[]> resultSet = db.query(sql);
-        for (Object[] e : resultSet) {
-            String id = (String) e[0];
-            String username = (String) e[1]; // e-mail as well
-            String password = (String) e[2];
-            boolean changePassword = (boolean) e[3];
-            String name = (String) e[4]; // name added coz user need it and there was comile error
+		return list;
+	}
 
-            list.add(new Teacher(name, username, password)); // what with ID's and if it's active
-            // ?????????????????????????????????????/
-        }
-        return list;
-    }
+	/*private LinkedList<Family> getFamilies(UsersList familyMembers) throws SQLException {
+		LinkedList<Family> list = new LinkedList<>();
+		String lastFamilyID = "";
+		Family lastFamily = new Family();
+		String sql = "SELECT * FROM family ORDER BY familyid";
+		ArrayList<Object[]> resultSet = db.query(sql);
+		for (int i = 0; i < resultSet.size(); i++) {
+			if (i>0)
+			{
+				lastFamilyID = (String) resultSet.get(i-1)[0];
+			}
+			String familyID = (String) resultSet.get(i)[0];
+			String memberID = (String) resultSet.get(i)[1];
+			String usertype = (String) resultSet.get(i)[2];
+			if (!lastFamilyID.equals(familyID))
+			{
+				//lastFamily = new Family(id);
+				//shouldnt be in family class stored also ID ???, I would need constructor with given parameter ID
+				
+			}
+			switch (usertype) {
+			case "student":
+				lastFamily.addChild((Student) familyMembers.getUserById(memberID));
+				break;
 
-    private LinkedList<Student> getStudents() throws SQLException {
-        LinkedList<Student> list = new LinkedList<>();
+			case "parent":
+				lastFamily.addParent((Parent) familyMembers.getUserById(memberID));
+				break;
+			default:
+				break;
+			}
+			list.add(lastFamily);
+		}
 
-        String sql = "SELECT e.id, e.username, e.pwd, e.active, e.name, s.class FROM enteUser e, student s WHERE e.id=s.id";
-        ArrayList<Object[]> resultSet = db.query(sql);
-        for (Object[] e : resultSet) {
-            String id = (String) e[0];
-            String login = (String) e[1]; // e-mail as well
-            String password = (String) e[2];
-            boolean changePassword = (boolean) e[3];
-            String name = (String) e[4]; // name added coz user need it and there was comile error
-            Classs studentClasss = (Classs) e[5];
-            //Matej, since now, you can create Students and Parents with builder. Example below
-            list.add(Student.builder().name(name).login(login).classs(studentClasss).id(id).pwd(password).build());
-            //After .classs() you can choose: build(), id(), history...
-            //list.add(Student.builder().name(name).email(email).pwd(password).classs(studentClasss).build());
-        }
-        return list;
-    }
+		return list;
+	}*/
 
-    private LinkedList<Parent> getParents() throws SQLException {
-        LinkedList<Parent> list = new LinkedList<>();
+	@Override
+	public void addFamily(Family family) throws SQLException {
+		String sql = "";
+		ArrayList<String> sqlList = new ArrayList<>();
+		ArrayList<User> list = new ArrayList<>();
+		list.addAll(family.getChildren());
+		list.addAll(family.getParents());
+		for (User e:list)
+		{
+			sql = "INSERT INTO family ('";
+			//sql += family.getID()+"','";
+			sql += e.getId()+"')";
+			sqlList.add(sql);
+		}
+		db.updateAll(sqlList);
+	}
 
-        String sql = "SELECT * FROM enteUser WHERE type ='parent'";
-        ArrayList<Object[]> resultSet = db.query(sql);
-        for (Object[] e : resultSet) {
-            String id = (String) e[0];
-            String login = (String) e[1]; // e-mail as well
-            String password = (String) e[2];
-            boolean changePassword = (boolean) e[3];
-            String name = (String) e[4]; // name added coz user need it and there was comile error
-            //list.add(new Parent(name, username, password, new Family(), id));
-            list.add(Parent.builder().name(name).email(login).pwd(password).id(id).build());
-        }
-        return list;
-    }
-
-    private LinkedList<Family> getFamilies(UsersList familyMembers) throws SQLException {
-        LinkedList<Family> list = new LinkedList<>();
-        String lastFamilyID = "";
-
-        String sql = "SELECT * FROM family ORDER BY familyid";
-        ArrayList<Object[]> resultSet = db.query(sql);
-        for (int i = 0; i < resultSet.size(); i++) {
-            if (i == 0) {
-                lastFamilyID = null;
-            } else {
-                lastFamilyID = (String) resultSet.get(i - 1)[0];
-            }
-            String familyID = (String) resultSet.get(i)[0];
-            String memberID = (String) resultSet.get(i)[1];
-            //Don't forget to check for null, when you set null
-            if (lastFamilyID != null && !lastFamilyID.equals(familyID)) {
-                Family family = new Family();
-                familyMembers.getUserById(memberID);
-            }
-        }
-
-        return null;
-    }
+	@Override
+	public void deleteFamily(Family family) throws SQLException {
+		String sql = "";
+		if(family.getChildren()!=null && family.getParents()!=null) {
+//			sql = "DELETE FROM family WHERE familyid='"+family.getID()+"'";			
+		}
+		db.update(sql);
+	}
 
 }
