@@ -82,6 +82,19 @@ public class AdminMainHandler {
 			e.printStackTrace();
 		}
 	}
+	public void teacherList() {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/teacherList.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void postCreation() {
 		Parent mainPane;

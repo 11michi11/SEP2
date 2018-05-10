@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -88,10 +89,17 @@ public class ServerProxy {
 				while (!client.isClosed()) {
 					Message request = (Message) in.readObject();
 					System.out.println(request);
-					Message response = controller.handleMessage(request);
+					Message response;
+					try {
+						response = controller.handleMessage(request);
+						out.writeObject(response);
+						System.out.println("Send");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
-					out.writeObject(response);
-					System.out.println("Send");
+					
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

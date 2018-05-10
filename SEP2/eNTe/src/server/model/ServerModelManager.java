@@ -90,12 +90,12 @@ public class ServerModelManager implements ServerModel {
 		}
 	}
 
-	public void editUser(User user) {
+	public void editUser(User user) throws SQLException {
 		users.updateUser(user);
 		db.updateUser(user);
 	}
 
-	public void deleteUser(User user) {
+	public void deleteUser(User user) throws SQLException {
 		users.delete(user.getId());
 		db.deleteUser(user.getId());
 	} 

@@ -2,6 +2,7 @@ package client.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import client.controller.ClientController;
 import javafx.scene.control.TextArea;
@@ -104,6 +105,11 @@ public class ClientModelManager implements ClientModel {
 	public void deleteFamily(Family family) {
 	//TO DO
 		
+	}
+
+	@Override
+	public List<Teacher> getTeachers() {
+		return users.getAllTeachers();
 	}
 
 }
