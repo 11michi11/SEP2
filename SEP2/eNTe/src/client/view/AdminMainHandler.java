@@ -1,6 +1,8 @@
 package client.view;
 
+import java.awt.*;
 import java.io.IOException;
+import java.util.Scanner;
 
 import client.controller.ClientController;
 import javafx.fxml.FXML;
@@ -39,7 +41,7 @@ public class AdminMainHandler {
 		title.setId("title");
 		Text content = new Text(posts[0].getContent());
 		content.setId("content");
-		Text separator = new Text("\n");
+		Text separator = new Text("\n" + "\n");
 
 		TextFlow textFlow = new TextFlow(title, separator, content);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
@@ -61,15 +63,16 @@ public class AdminMainHandler {
 
 	}
 
+
 	public void loadPanes(Pane pane) {
 		box.getChildren().clear();
 		box.getChildren().add(pane);
 	}
 	
-	public void userList() {
+	public void familyList() {
 		Parent mainPane;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/userList.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/familyList.fxml"));
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
@@ -80,6 +83,47 @@ public class AdminMainHandler {
 		}
 	}
 
+	public void postCreation() {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/postCreation.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void homeworkCreation() {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/homeworkCreation.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void discussionCreation() {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/discussionCreation.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	}
 
 
-}
+
+

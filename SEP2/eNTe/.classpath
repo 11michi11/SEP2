@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="gson-2.8.2.jar"/>
 	<classpathentry kind="lib" path="postgresql-42.2.1.jar"/>
 	<classpathentry kind="lib" path="MyDatabase.jar"/>
+	<classpathentry kind="lib" path="javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

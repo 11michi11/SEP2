@@ -4,13 +4,11 @@ import java.io.Serializable;
 
 public class Teacher extends User implements Serializable {
 
-	public Teacher(String name, String login, String pwd) {
-		super(name, login, pwd);
+	public Teacher(String name, String email, String pwd) {
+		super(name, email, pwd);
 	}
 	
-	public Teacher(String name, String login, String pwd, String id) {
-		super(name, login, pwd, id);
+	public Teacher(String name, String email, String pwd, String id) {
+		super(name, email, pwd, id);
 	}
-	
-	
 }

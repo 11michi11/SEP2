@@ -5,6 +5,9 @@ import client.view.ClientView;
 import client.view.ClientViewManager;
 import model.ClientModel;
 
+import java.lang.reflect.Member;
+import java.util.function.Function;
+
 public class ClientMain {
 
 

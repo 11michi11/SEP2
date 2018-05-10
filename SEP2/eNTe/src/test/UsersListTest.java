@@ -4,15 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
+import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.Administrator;
-import model.Parent;
-import model.Student;
-import model.Teacher;
-import model.User;
-import model.UsersList;
 import model.communication.Auth;
 import model.communication.LoginStatus;
 
@@ -27,13 +22,13 @@ class UsersListTest {
 	
 	@Test
 	void testAuthenticate() {		
-		Auth auth = new Auth("login", "pwd");
-		Teacher teacher = new Teacher("name", "login", auth.pwd);
+		Auth auth = new Auth("email", "pwd");
+		Teacher teacher = new Teacher("name", "email", auth.pwd);
 		users.add(teacher);
 		
 		assertEquals(LoginStatus.SUCCESS, users.authenticate(auth));
 		
-		auth = new Auth("login", "pass");
+		auth = new Auth("email", "pass");
 		assertEquals(LoginStatus.FAILURE_PWD, users.authenticate(auth));
 
 		auth = new Auth("email", "pass");
@@ -43,15 +38,15 @@ class UsersListTest {
 	
 	@Test
 	void testGetUserByLogin() {
-		Teacher teacher = new Teacher("name", "login", "pwd");
+		Teacher teacher = new Teacher("name", "email", "pwd");
 		users.add(teacher);
 		
-		assertEquals(teacher, users.getUserByLogin("login"));		
+		assertEquals(teacher, users.getUserByLogin("email"));
 	}
 	
 	@Test
 	void testGetUserById() {
-		Teacher teacher = new Teacher("name", "login", "pwd", "id");
+		Teacher teacher = new Teacher("name", "email", "pwd", "id");
 		users.add(teacher);
 		
 		assertEquals(teacher, users.getUserById("id"));
@@ -59,7 +54,7 @@ class UsersListTest {
 	
 	@Test
 	void testAddDeleteContains() {
-		Teacher teacher = new Teacher("name", "login", "pwd", "id");
+		Teacher teacher = new Teacher("name", "email", "pwd", "id");
 		users.add(teacher);
 		
 		assertEquals(true, users.contains(teacher));
@@ -70,10 +65,10 @@ class UsersListTest {
 	
 	@Test
 	void getAll() {
-		Teacher teacher = new Teacher("name", "login", "pwd");
-		Administrator admin = new Administrator("name", "login", "pwd");
-		Parent parent = new Parent("name", "login", "pwd", new ArrayList<Student>());
-		Student student = new Student("name", "login", "pwd", model.Class.First, null);
+		Teacher teacher = new Teacher("name", "email", "pwd");
+		Administrator admin = new Administrator("name", "email", "pwd");
+		Parent parent = new Parent("name", "email", "pwd");
+		Student student = new Student("name", "email", "pwd", Classs.First, null);
 		ArrayList<User> list = new ArrayList<>();
 		list.add(teacher);
 		list.add(admin);

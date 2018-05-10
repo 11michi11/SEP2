@@ -5,9 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Classs;
 import org.junit.jupiter.api.Test;
 
-class ClassTest {
+class ClasssTest {
 
 	@Test
 	void testGetClasses() {
@@ -21,7 +22,7 @@ class ClassTest {
 		list.add("Seventh");
 		list.add("Eigth");
 		
-		assertEquals(list, model.Class.getClasses());
+		assertEquals(list, Classs.getClasses());
 	}
 
 }

@@ -1,20 +1,20 @@
 package test;
 
 
-import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.UUID;
-
-import org.junit.jupiter.api.Test;
-
 import model.Teacher;
 import model.User;
+import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
+
+import static junit.framework.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserTest {
 
 	@Test
 	void userUUIDTest() {
-		User user = new Teacher("name", "login", "pwd");
+		User user = new Teacher("name", "email", "pwd");
 		try{
 		    UUID uuid = UUID.fromString(user.getId());
 		} catch (IllegalArgumentException exception){
@@ -24,28 +24,28 @@ class UserTest {
 	
 	@Test
 	void equalsTest() {
-		User user1 = new Teacher("name", "login", "pwd");
-		User user2 = new Teacher("name", "login", "pwd", user1.getId());
+		User user1 = new Teacher("name", "email", "pwd");
+		User user2 = new Teacher("name", "email", "pwd", user1.getId());
 		assertEquals(true, user1.equals(user2));
 	}
 	
 	@Test
 	void gettersTest() {
-		User user = new Teacher("name", "login", "pwd", "id");
+		User user = new Teacher("name", "email", "pwd", "id");
 		assertEquals("name", user.getName());
-		assertEquals("login", user.getLogin());
+		assertEquals("email", user.getEmail());
 		assertEquals("pwd", user.getPwd());
 		assertEquals("id", user.getId());
 	}
 	
 	@Test
 	void testEquals() {
-		User user1 = new Teacher("name", "login", "pwd");
-		User user2 = new Teacher("name", "login", "pwd", user1.getId());
-		User user1b = new Teacher("name", "login", "pwd");
-		User user3 = new Teacher("name1", "login", "pwd");
+		User user1 = new Teacher("name", "email", "pwd");
+		User user2 = new Teacher("name", "email", "pwd", user1.getId());
+		User user1b = new Teacher("name", "email", "pwd");
+		User user3 = new Teacher("name1", "email", "pwd");
 		User user4 = new Teacher("name", "login1", "pwd");
-		User user5 = new Teacher("name", "login", "pwd1");
+		User user5 = new Teacher("name", "email", "pwd1");
 		
 		assertEquals(true, user1.equals(user2));
 		assertEquals(true, user2.equals(user1));
@@ -59,8 +59,8 @@ class UserTest {
 	
 	@Test
 	void testToString() {
-		User user1 = new Teacher("name", "login", "pwd", "id");
-		assertEquals("User [login=login, pwd=pwd, name=name, id=id]", user1.toString());
+		User user1 = new Teacher("name", "email", "pwd", "id");
+		assertEquals("User [email=email, pwd=pwd, name=name, id=id]", user1.toString());
 	}
 
 }

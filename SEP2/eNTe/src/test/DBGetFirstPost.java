@@ -1,14 +1,14 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import org.junit.Before;
-import org.junit.Test;
 
 import model.Post;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import server.model.persistance.DBPersistance;
 import server.model.persistance.DBAdapter;
 
@@ -16,7 +16,7 @@ public class DBGetFirstPost {
 
 	private DBPersistance adapter;
 	
-	@Before
+	@BeforeEach
 	public void before() throws ClassNotFoundException, SQLException
 	{
 		adapter = new DBAdapter();

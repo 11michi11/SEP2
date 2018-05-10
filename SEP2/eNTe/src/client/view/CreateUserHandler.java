@@ -17,7 +17,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Class;
+import model.Classs;
 
 public class CreateUserHandler {
 
@@ -54,7 +54,7 @@ public class CreateUserHandler {
 		final ToggleGroup group = new ToggleGroup();
 		studentBox.setToggleGroup(group);
 		teacherBox.setToggleGroup(group);
-		classSelector.setItems(FXCollections.observableArrayList(Class.getClasses()));
+		classSelector.setItems(FXCollections.observableArrayList(Classs.getClasses()));
 		
 	}
 
@@ -101,7 +101,7 @@ public class CreateUserHandler {
 
 	public void save() {
 		if (studentBox.isSelected())
-			controller.addStudent(name.getText(), email.getText(), password.getText(), null, null);
+			controller.addStudent(name.getText(), email.getText(), Classs.First, null);
 		else if (teacherBox.isSelected()) {
 			controller.addTeacher(name.getText(), email.getText(), password.getText(),
 					adminBox.isSelected());

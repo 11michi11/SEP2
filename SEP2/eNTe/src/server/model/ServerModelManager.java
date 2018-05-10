@@ -82,7 +82,12 @@ public class ServerModelManager implements ServerModel {
 
 	public void addUser(User user) {
 		users.add(user);
-		db.addUser(user);
+		try {
+			db.addUser(user);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void editUser(User user) {

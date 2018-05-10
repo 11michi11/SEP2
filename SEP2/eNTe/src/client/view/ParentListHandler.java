@@ -6,134 +6,119 @@ import java.util.Arrays;
 
 import client.controller.ClientController;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import client.view.ParentDT;
 
 public class ParentListHandler {
 
-	@FXML
-	private TableView<ParentDT> parentsList;
-	@FXML
-	private TableColumn<ParentDT, String> nameColumn;
-	@FXML
-	private TableColumn<ParentDT, String> emailColumn;
-	@FXML
-	private TableColumn<ParentDT, String> childrenColumn;
-	@FXML
-	private TableColumn<ParentDT, CheckBox> selectedColumn;
-	private ClientController controller;
-	private Stage stage;
-	private ArrayList<String[]> parentsInfo;
+    @FXML
+    private TableView<ParentDT> parentsList;
+    @FXML
+    private TableColumn<ParentDT, String> nameColumn;
+    @FXML
+    private TableColumn<ParentDT, String> emailColumn;
+    @FXML
+    private TableColumn<ParentDT, String> childrenColumn;
+    @FXML
+    private TableColumn<ParentDT, CheckBox> selectedColumn;
+    private ClientController controller;
+    private Stage stage;
+    private ArrayList<String[]> parentsInfo;
 
-	public ParentListHandler() {
-		controller = ClientController.getInstance();
-		System.out.println("ParentListHandler");
-		stage = ClientViewManager.getStage();
-		parentsInfo = new ArrayList<>();
-	}
+    public ParentListHandler() {
+        controller = ClientController.getInstance();
+        System.out.println("ParentListHandler");
+        stage = ClientViewManager.getStage();
+        parentsInfo = new ArrayList<>();
+    }
 
-	@FXML
-	public void initialize() {
-		nameColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("name"));
-		emailColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("login"));
-		childrenColumn.setCellValueFactory(new PropertyValueFactory<ParentDT, String>("childrenNames"));
+    @FXML
+    public void initialize() {
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        childrenColumn.setCellValueFactory(new PropertyValueFactory<>("childrenNames"));
 
-		selectedColumn
-				.setCellValueFactory(new Callback<CellDataFeatures<ParentDT, CheckBox>, ObservableValue<CheckBox>>() {
+        selectedColumn
+                .setCellValueFactory(arg0 -> {
+                    CheckBox checkBox = new CheckBox();
+                    ParentDT parent = arg0.getValue();
 
-					@Override
-					public ObservableValue<CheckBox> call(CellDataFeatures<ParentDT, CheckBox> arg0) {
-						CheckBox checkBox = new CheckBox();
-						ParentDT parent = arg0.getValue();
+                    checkBox.selectedProperty().addListener((ov, oldValue, newValue) -> parent.setSelected(newValue));
 
-						checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-							public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue,
-									Boolean newValue) {
-								parent.setSelected(newValue);
-							}
-						});
+                    checkBox.selectedProperty().setValue(parent.getSelected());
 
-						checkBox.selectedProperty().setValue(parent.getSelected());
-
-						return new SimpleObjectProperty<CheckBox>(checkBox);
-					}
-
-				});
-		parentsList.getColumns().clear();
-		parentsList.getColumns().addAll(nameColumn, emailColumn, childrenColumn, selectedColumn);
-		parentsList.setItems(controller.getParentsForView());
-	}
+                    return new SimpleObjectProperty<>(checkBox);
+                });
+        parentsList.getColumns().clear();
+        parentsList.getColumns().addAll(nameColumn, emailColumn, childrenColumn, selectedColumn);
+        parentsList.setItems(controller.getParentsForView());
+    }
 
 
-	public void createParent() {
-		Parent mainPane;
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createParent.fxml"));
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-			stage.getScene().setRoot(mainPane);
-			stage.show();
+    public void createParent() {
+        Parent mainPane;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createParent.fxml"));
+            mainPane = loader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
-	public void confirm() {
-		parentsInfo.addAll(getSelectedParents());
-		System.out.println(Arrays.deepToString(parentsInfo.toArray()));
-		
-		Parent mainPane;
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createUser.fxml"));
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-			stage.getScene().setRoot(mainPane);
-			stage.show();
+    public void confirm() {
+        parentsInfo.addAll(getSelectedParents());
+        System.out.println(Arrays.deepToString(parentsInfo.toArray()));
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		// open create user fxml
+        Parent mainPane;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createUser.fxml"));
+            mainPane = loader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
 
-		// Get controller
-		// UserListHandler handler = loader.getController();
-		// handler.save
-	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // open create user fxml
 
-	private ArrayList<String[]> getSelectedParents() {
-		ArrayList<String[]> parentsInfo = new ArrayList<>();
+        // Get controller
+        // UserListHandler handler = loader.getController();
+        // handler.save
+    }
 
-		for (ParentDT p : parentsList.getItems()) {
-			if (p.getSelected()) {
-				String[] parent = new String[3];
-				parent[0] = p.getName();
-				parent[1] = p.getLogin();
-				parent[2] = p.getChildrenNames();
+    private ArrayList<String[]> getSelectedParents() {
+        ArrayList<String[]> parentsInfo = new ArrayList<>();
 
-				parentsInfo.add(parent);
-			}
-		}
+        for (ParentDT p : parentsList.getItems()) {
+            if (p.getSelected()) {
+                String[] parent = new String[3];
+                parent[0] = p.getName();
+                parent[1] = p.getEmail();
+                parent[2] = p.getChildrenNames();
 
-		return parentsInfo;
-	}
+                parentsInfo.add(parent);
+            }
+        }
 
-	public void passParent(String[] parentInfo) {
-		ParentDT parent = new ParentDT(parentInfo[0], parentInfo[1]);
-		parent.setSelected(true);
-		parentsList.getItems().add(0,parent);
-	}
+        return parentsInfo;
+    }
+
+    public void passParent(String[] parentInfo) {
+        ParentDT parent = new ParentDT(parentInfo[0], parentInfo[1]);
+        parent.setSelected(true);
+        parentsList.getItems().add(0, parent);
+    }
 
 }

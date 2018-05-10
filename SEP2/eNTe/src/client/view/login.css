@@ -14,22 +14,30 @@ Button:hoover{
 	-fx-font-size: 50px;
 	-fx-fill: #729eea;
 }
+.menuButtonSmall{
+	-fx-background-color: white;
+	-fx-font-family: "Gill Sans MT";
+	-fx-font-weight: bold;
+	-fx-font-size: 40px;
+	-fx-fill: #729eea;
+}
 
 .textPane{
-	-fx-background-color: #c1c1c1;
+	/*-fx-background-color: #c1c1c1;*/
+	-fx-border-color: #8c8c8c;
 }
 #title{
 	-fx-font-size: 30px;
 	-fx-font-family: "Gill Sans MT";
 	-fx-font-weight: bold;
-	-fx-fill: #09195e;
+	/*-fx-fill: #09195e;*/
 		
 }
 
 #content{
 	-fx-font-family: "Gill Sans MT";
 	-fx-font-size: 18px;
-	-fx-fill: #233689;
+	/*-fx-fill: #233689;*/
 }
 .parentButton{
 	-fx-background-color: white;
@@ -59,6 +67,12 @@ Button:hoover{
 	-fx-font-size: 18px;
 	-fx-fill: #729eea;
 	
+}
+
+#loginButton {
+	-fx-border-color: #e0e0e0;
+	-fx-fill: #e0e0e0;
+	-fx-background-color: white;
 }
 
 

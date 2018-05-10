@@ -1,32 +1,25 @@
 package server.model.persistance;
 
+import model.*;
+import utility.persistence.MyDatabase;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import model.Administrator;
-import model.Family;
-import model.Parent;
-import model.Post;
-import model.Student;
-import model.Teacher;
-import model.User;
-import model.UsersList;
-import utility.persistence.MyDatabase;
-
 public class DBAdapter implements DBPersistance {
 
-	private MyDatabase db;
-	private static final String DRIVER = "org.postgresql.Driver";
-	// private static final String URL =
-	// "jdbc:postgresql://localhost:5432/postgres";
-	private static final String URL = "jdbc:postgresql://207.154.237.196:5432/ente";
-	private static final String USER = "ente";
-	private static final String PASSWORD = "ente";
+    private MyDatabase db;
+    private static final String DRIVER = "org.postgresql.Driver";
+    // private static final String URL =
+    // "jdbc:postgresql://localhost:5432/postgres";
+    private static final String URL = "jdbc:postgresql://207.154.237.196:5432/ente";
+    private static final String USER = "ente";
+    private static final String PASSWORD = "ente";
 
-	public DBAdapter() throws ClassNotFoundException, SQLException {
-		db = new MyDatabase(DRIVER, URL, USER, PASSWORD);
-	}
+    public DBAdapter() throws ClassNotFoundException, SQLException {
+        db = new MyDatabase(DRIVER, URL, USER, PASSWORD);
+    }
 
 	@Override
 	public LinkedList<Post> getPosts(UsersList users) throws SQLException {
@@ -48,21 +41,9 @@ public class DBAdapter implements DBPersistance {
 		return list;
 	}
 
-	@Override
-	public LinkedList<User> getUsers() throws SQLException {
-		LinkedList<User> users = new LinkedList<>();
-		
-		LinkedList<Administrator> admins = getAdmins();
-		LinkedList<Teacher> teachers = getTeachers();
-		LinkedList<Student> students = getStudents();
-		LinkedList<Parent> parents = getParents();
-		
-		users.addAll(admins);
-		users.addAll(teachers);
-		users.addAll(students);
-		users.addAll(parents);
-		return users;
-	}
+    @Override
+    public LinkedList<User> getUsers() throws SQLException {
+        LinkedList<User> users = new LinkedList<>();
 
 	@Override
 	public void addUser(User user) throws SQLException {
@@ -138,9 +119,19 @@ public class DBAdapter implements DBPersistance {
 		db.update(sql);
 	}
 
-	private LinkedList<Administrator> getAdmins() throws SQLException {
+            default:
+                break;
+        }
 
-		LinkedList<Administrator> list = new LinkedList<>();
+        sql = "INSERT INTO enteuser ('";
+        sql += user.getId() + "','";
+        sql += user.getEmail() + "','";
+        sql += user.getPwd() + "',";
+        //sql += user.getChangedPassword() + ",'";
+        sql += user.getName() + "',')";
+        sql += user.getClass().getName().toLowerCase() + "')";            //column for type of user
+        db.update(sql);
+    }
 
 		String sql = "SELECT * FROM enteUser WHERE usertype ='Administrator'";
 		ArrayList<Object[]> resultSet = db.query(sql);
@@ -156,8 +147,9 @@ public class DBAdapter implements DBPersistance {
 		return list;
 	}
 
-	private LinkedList<Teacher> getTeachers() throws SQLException {
-		LinkedList<Teacher> list = new LinkedList<>();
+    @Override
+    public void deleteUser(String id) {
+        // TODO Auto-generated method stub
 
 		String sql = "SELECT * FROM enteUser WHERE usertype ='Teacher'";
 		ArrayList<Object[]> resultSet = db.query(sql);
