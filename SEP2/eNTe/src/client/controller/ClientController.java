@@ -38,14 +38,8 @@ public class ClientController {
         return instance;
     }
 
-    public Post[] getPosts() {
-        Post[] posts = new Post[1];
-        posts[0] = model.getPost();
-        return posts;
-    }
-
-    public void login(String login, String pwd) {
-        model.login(login, pwd);
+    public void login(String email, String pwd) {
+        model.login(email, pwd);
     }
 
     public void handleMessage(Message msg) {
@@ -87,40 +81,27 @@ public class ClientController {
         model.addOrUpdateUser(user);
     }
 
-    public void addStudent(String name, String email, String password, Classs classs) {
-        Student student = Student.builder().name(name).login(email).pwd(password).classs(classs).build();
+    public void addStudent(String name, String email, Classs classs, Family family) {
+        Student student = Student.builder().name(name).login(email).classs(classs).family(family).build();
         model.addOrUpdateUser(student);
     }
 
-    public void addStudentWithFamily(String name, String email, String password, Classs classs, Family family) {
-        Student student = Student.builder().name(name).login(email).pwd(password).classs(classs).family(family).build();
-        model.addOrUpdateUser(student);
-    }
-
-    private ArrayList<String> extractParentsIDs(ArrayList<Parent> parents) {
-        ArrayList<String> ids = new ArrayList<>();
-        for (Parent p : parents)
-            ids.add(p.getId());
-        return ids;
-    }
-
-    public void addParent(String name, String email, String password) {
-        Parent parent = Parent.builder().name(name).login(email).pwd(password).build();
+    public void addParent(String name, String email, Family family){
+        Parent parent = Parent.builder().name(name).email(email).family(family).build();
         model.addOrUpdateUser(parent);
     }
 
     public void deleteUser(String id) {
         model.deleteUser(id);
     }
+    public void deleteUser(User user) {
+        model.deleteUser(user);
+    }
 
-    public ObservableList<ParentDT> getParentsForView() {
-        ObservableList<ParentDT> parents = FXCollections.observableArrayList();
-        Parent p1 = Parent.builder().name("name").login("email").pwd("pwd").build();
-        Parent p2 = Parent.builder().name("name").login("email").pwd("pwd").build();
-        Parent p3 = Parent.builder().name("name").login("email").pwd("pwd").build();
-        Parent p4 = Parent.builder().name("name").login("email").pwd("pwd").build();
-        parents.addAll(new ParentDT(p1), new ParentDT(p2), new ParentDT(p3), new ParentDT(p4));
-        return parents;
+    public Post[] getPosts() {
+        Post[] posts = new Post[1];
+        posts[0] = model.getPost();
+        return posts;
     }
 
     public void addPost(String title, String content) {
@@ -129,6 +110,16 @@ public class ClientController {
 
     public ArrayList<Family> getFamilies() {
         return model.getAllFamilies();
+    }
+
+    public ObservableList<ParentDT> getParentsForView() {
+        ObservableList<ParentDT> parents = FXCollections.observableArrayList();
+        Parent p1 = Parent.builder().name("name").email("email").pwd("pwd").build();
+        Parent p2 = Parent.builder().name("name").email("email").pwd("pwd").build();
+        Parent p3 = Parent.builder().name("name").email("email").pwd("pwd").build();
+        Parent p4 = Parent.builder().name("name").email("email").pwd("pwd").build();
+        parents.addAll(new ParentDT(p1), new ParentDT(p2), new ParentDT(p3), new ParentDT(p4));
+        return parents;
     }
 
 	public void deleteFamily(Family family) {

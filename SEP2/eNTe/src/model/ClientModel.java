@@ -9,15 +9,16 @@ import model.communication.WelcomingData;
 
 public interface ClientModel {
 
+	void setController(ClientController controller);
 	void storePost(Post post);
+	void addPost(String title, String content);
 	Post getPost();
 	void saveData(WelcomingData data);
 	void addOrUpdateUser(User user);
 	void deleteUser(String id);
-	void login(String login, String pwd);
+	void deleteUser(User user);
+	void login(String email, String pwd);
 	ArrayList<Parent> getParents();
-	void setController(ClientController controller);
-    void addPost(String title, String content);
-    ArrayList<Family> getAllFamilies();
+	ArrayList<Family> getAllFamilies();
     void deleteFamily(Family family);
 }

@@ -8,18 +8,18 @@ public class Parent extends User implements Serializable {
 
     private Family family;
 
-    public Parent(String name, String login, String pwd, Family family) {
-        super(name, login, pwd);
+    public Parent(String name, String email, String pwd, Family family) {
+        super(name, email, pwd);
         this.family = family;
     }
 
-    public Parent(String name, String login, String pwd, Family family, String id) {
-        super(name, login, pwd, id);
+    public Parent(String name, String email, String pwd, Family family, String id) {
+        super(name, email, pwd, id);
         this.family = family;
     }
 
-    public Parent(String name, String login, String pwd) {
-        super(name, login, pwd);
+    public Parent(String name, String email, String pwd) {
+        super(name, email, pwd);
     }
 
     public String getChildrenNames() {
@@ -44,23 +44,23 @@ public class Parent extends User implements Serializable {
         return new Builder();
     }
 
-    public static final class Builder implements NeedName, NeedLogin, NeedPwd, CanBeBuild {
+    public static final class Builder implements NeedName, NeedEmail, CanBeBuild {
 
         private String name;
-        private String login;
+        private String email;
         private String pwd;
         private String id;
         private Family family;
 
         @Override
-        public NeedLogin name(String name) {
+        public NeedEmail name(String name) {
             this.name = name;
             return this;
         }
 
         @Override
-        public NeedPwd login(String login) {
-            this.login = login;
+        public CanBeBuild email(String email) {
+            this.email = email;
             return this;
         }
 
@@ -84,7 +84,7 @@ public class Parent extends User implements Serializable {
 
         @Override
         public Parent build() {
-            Parent parent = new Parent(this.name, this.login, this.pwd);
+            Parent parent = new Parent(this.name, this.email, this.pwd);
             parent.family = this.family;
             parent.id = this.id;
 
@@ -93,23 +93,21 @@ public class Parent extends User implements Serializable {
     }
 
     public interface NeedName {
-        public NeedLogin name(String name);
+        NeedEmail name(String name);
     }
 
-    public interface NeedLogin {
-        public NeedPwd login(String login);
-    }
-
-    public interface NeedPwd {
-        public CanBeBuild pwd(String pwd);
+    public interface NeedEmail {
+        CanBeBuild email(String email);
     }
 
     public interface CanBeBuild {
-        public Parent build();
+        Parent build();
 
-        public CanBeBuild family(Family family);
+        CanBeBuild pwd(String pwd);
 
-        public CanBeBuild id(String id);
+        CanBeBuild family(Family family);
+
+        CanBeBuild id(String id);
     }
 
 }

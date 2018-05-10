@@ -6,11 +6,11 @@ import java.security.NoSuchAlgorithmException;
 
 public class Auth implements Serializable{
 	
-	public String login;
+	public String email;
 	public String pwd;
 
-	public Auth(String login, String pwd) {
-		this.login = login;
+	public Auth(String email, String pwd) {
+		this.email = email;
 		this.pwd = encryptPwd(pwd);
 	}
 	

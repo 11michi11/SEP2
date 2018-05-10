@@ -8,7 +8,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -21,8 +20,6 @@ public class FamilyListHandler {
 
     @FXML
     private TreeTableView<TableDataType> familyTable;
-    @FXML
-    private TreeTableColumn<TableDataType, String> familyName;
     @FXML
     private TreeTableColumn<TableDataType, String> name;
     @FXML

@@ -79,8 +79,14 @@ public class ClientModelManager implements ClientModel {
 	}
 
 	@Override
-	public void login(String login, String pwd) {
-		Auth auth = new Auth(login, pwd);
+	public void deleteUser(User user) {
+		server.manageUser(ManageUser.DELETE, users.getUserById(user.getId()));
+		users.delete(user.getId());
+	}
+
+	@Override
+	public void login(String email, String pwd) {
+		Auth auth = new Auth(email, pwd);
 		Message response = server.login(auth);
 		controller.handleMessage(response);
 	}

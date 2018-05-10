@@ -17,22 +17,22 @@ class ParentTest {
 	@Test
 	void testConstrustors() {
 		ArrayList<Student> children = new ArrayList<>();
-		Student child1 = Student.builder().name("child1").login("login").pwd("pwd").classs(Classs.First).build();
-		Student child2 = Student.builder().name("child1").login("login").pwd("pwd").classs(Classs.First).build();
-		Student child3 = Student.builder().name("child1").login("login").pwd("pwd").classs(Classs.First).build();
+		Student child1 = Student.builder().name("child1").login("email").classs(Classs.First).pwd("pwd").build();
+		Student child2 = Student.builder().name("child1").login("email").classs(Classs.First).pwd("pwd").build();
+		Student child3 = Student.builder().name("child1").login("email").classs(Classs.First).pwd("pwd").build();
 		children.add(child1);
 		children.add(child2);
 		children.add(child3);
-		Parent parent = Parent.builder().name("name").login("email").pwd("pwd").build();
+		Parent parent = Parent.builder().name("name").email("email").pwd("pwd").build();
 		assertEquals(children, parent.getChildren());
 	}
 
 	@Test
 	void testGetChildrenNames() {
 		ArrayList<Student> children = new ArrayList<>();
-		Student child1 = Student.builder().name("child1").login("login").pwd("pwd").classs(Classs.First).build();
-		Student child2 = Student.builder().name("child1").login("login").pwd("pwd").classs(Classs.First).build();
-		Student child3 = Student.builder().name("child1").login("login").pwd("pwd").classs(Classs.First).build();
+		Student child1 = Student.builder().name("child1").login("email").classs(Classs.First).pwd("pwd").build();
+		Student child2 = Student.builder().name("child1").login("email").classs(Classs.First).pwd("pwd").build();
+		Student child3 = Student.builder().name("child1").login("email").classs(Classs.First).pwd("pwd").build();
 		children.add(child1);
 		children.add(child2);
 		children.add(child3);
@@ -40,7 +40,7 @@ class ParentTest {
 		family.addChild(child1);
 		family.addChild(child2);
 		family.addChild(child3);
-		Parent parent = Parent.builder().name("name").login("email").pwd("pwd").family(family).build();
+		Parent parent = Parent.builder().name("name").email("email").pwd("pwd").family(family).build();
 		assertEquals("child1, child2, child3, ", parent.getChildrenNames());
 	}
 }
