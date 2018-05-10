@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import model.communication.Auth;
 import model.communication.LoginStatus;
@@ -82,6 +83,11 @@ public class UsersList {
 
 	public ArrayList<User> getAll() {
 		return users;
+	}
+
+	public List<Teacher> getAllTeachers() {
+		return users.stream().filter(u -> u instanceof Teacher).map(u -> (Teacher)u).collect(Collectors.toList());				
+				
 	}
 
 }

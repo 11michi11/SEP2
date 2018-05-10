@@ -46,7 +46,7 @@
             </CheckBox>
          </children>
       </VBox>
-      <Button fx:id="saveButton" layoutX="613.0" layoutY="597.0" mnemonicParsing="false" text="save" textFill="#729eea">
+      <Button fx:id="saveButton" layoutX="613.0"  layoutY="597.0" onAction="#save" mnemonicParsing="false" text="save" textFill="#729eea">
          <font>
             <Font name="Gill Sans MT Bold" size="30.0" />
          </font>

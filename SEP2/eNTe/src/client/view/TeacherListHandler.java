@@ -6,11 +6,20 @@ import client.controller.ClientController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class TeacherListHandler {
 	
+	@FXML
+    private TableView<TeacherDT> teacherList;
+    @FXML
+    private TableColumn<TeacherDT, String> nameColumn;
+    @FXML
+    private TableColumn<TeacherDT, String> emailColumn;
 	@FXML
 	private ImageView ente;  
     private ClientController controller;
@@ -31,6 +40,15 @@ public class TeacherListHandler {
  		}
     }
     
+    @FXML
+    public void initialize() {
+    	nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        teacherList.getColumns().clear();
+        teacherList.getColumns().addAll(nameColumn, emailColumn);
+        teacherList.setItems(controller.getTeachersForView());
+    }
+    
     public void createTeacher() {
     	try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createTeacher.fxml"));
@@ -43,6 +61,7 @@ public class TeacherListHandler {
 			e.printStackTrace();
 		}
     }
+    
     
     public void goBack() {
 		stage.getScene().setRoot(mainPane);

@@ -56,7 +56,7 @@
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
-            <Button fx:id="teacherList" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="teacher list" textAlignment="CENTER" textFill="#729eea">
+            <Button fx:id="teacherList" mnemonicParsing="false" onAction="#teacherList" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="teacher list" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
