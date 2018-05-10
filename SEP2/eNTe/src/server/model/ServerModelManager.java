@@ -42,7 +42,7 @@ public class ServerModelManager implements ServerModel {
 	}
 
 	private void restoreState() {
-		//Commented for testing GUI part, when DB sharing problem is resolved - uncomment
+		//Commented for testing GUI part, when DB is ready - uncomment
 //		try {
 //			posts.add(db.getPosts());
 //			users.add(db.getUsers());

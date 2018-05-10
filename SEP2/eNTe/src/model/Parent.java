@@ -8,9 +8,8 @@ public class Parent extends User implements Serializable {
 
     private Family family;
 
-    public Parent(String name, String email, String pwd, Family family) {
-        super(name, email, pwd);
-        this.family = family;
+    public Parent(String name, String email) {
+        super(name, email);
     }
 
     public Parent(String name, String email, String pwd, Family family, String id) {
@@ -84,7 +83,9 @@ public class Parent extends User implements Serializable {
 
         @Override
         public Parent build() {
-            Parent parent = new Parent(this.name, this.email, this.pwd);
+            Parent parent = new Parent(this.name, this.email);
+            if(this.pwd != null)
+                parent.setPwd(pwd);
             parent.family = this.family;
             parent.id = this.id;
 

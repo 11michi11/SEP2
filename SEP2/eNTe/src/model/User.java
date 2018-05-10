@@ -1,5 +1,7 @@
 package model;
 
+import utility.SendEmail;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -17,6 +19,14 @@ public abstract class User implements Serializable{
 		this.pwd = pwd;
 		id = UUID.randomUUID().toString();
 		changePassword = false;
+	}
+
+	public User(String name, String email) {
+		this.name = name;
+		this.email = email;
+		this.pwd = RandomPassword.generatePassword(8);
+		id = UUID.randomUUID().toString();
+		changePassword = true;
 	}
 	
 	public User(String name, String email, String pwd, String id) {
@@ -45,6 +55,7 @@ public abstract class User implements Serializable{
 
 	public void changePassword(){
 		changePassword = true;
+		SendEmail.sendPasswordEmail(email, pwd);
 	}
 
 	public void setChangePassword(boolean changePassword){
@@ -67,5 +78,10 @@ public abstract class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", pwd=" + pwd + ", name=" + name + ", id=" + id + "]";
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+		changePassword = false;
 	}
 }

@@ -20,4 +20,5 @@ public interface ClientModel {
 	void login(String email, String pwd);
 	ArrayList<Parent> getParents();
 	ArrayList<Family> getAllFamilies();
+    void deleteFamily(Family family);
 }

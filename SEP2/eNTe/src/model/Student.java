@@ -3,10 +3,6 @@ package model;
 import java.io.Serializable;
 
 public class Student extends User implements Serializable {
-    @Override
-    public String toString() {
-        return "Student [historyOfActivity=" + historyOfActivity + ", classs=" + classs + ", family=" + family + "]";
-    }
 
     private String historyOfActivity;
     private Classs classs;
@@ -15,8 +11,8 @@ public class Student extends User implements Serializable {
     //Student should be initialized with builder!
     //Student.builder()...
 
-    private Student(String name, String email, String pwd) {
-        super(name, email, pwd);
+    private Student(String name, String email) {
+        super(name, email);
     }
 
     public Student(String name, String email, String pwd, Classs classs, Family family) {
@@ -54,6 +50,12 @@ public class Student extends User implements Serializable {
     public String getFamilyID() {
         return family.getId();
     }
+
+    @Override
+    public String toString() {
+        return "Student [historyOfActivity=" + historyOfActivity + ", classs=" + classs + ", family=" + family + "]";
+    }
+
 
     public static StudentNeedName builder() {
         return new Builder();
@@ -105,7 +107,9 @@ public class Student extends User implements Serializable {
         }
 
         public Student build() {
-            Student student = new Student(name, email, pwd);
+            Student student = new Student(name, email);
+            if(this.pwd != null)
+                student.setPwd(pwd);
             if (this.classs == null)
                 throw new IllegalStateException("Classs must be specified");
             if (this.id != null)

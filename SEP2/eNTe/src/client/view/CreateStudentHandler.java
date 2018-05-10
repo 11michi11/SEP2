@@ -1,31 +1,37 @@
 package client.view;
 
 import java.io.IOException;
+import java.net.PasswordAuthentication;
 
 import client.controller.ClientController;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.Classs;
 import model.Family;
 
-public class CreateParentHandler {
+public class CreateStudentHandler {
 
 	private ClientController controller;
 	private Stage stage;
 	@FXML
 	private TextField name, email;
 	@FXML
+	private ChoiceBox<Classs> classSelector;
+	@FXML
 	private ImageView ente;
 	private Parent mainPane;
 	private FXMLLoader loader;
 	private Family family;
-	
-	public CreateParentHandler() {
+
+	public CreateStudentHandler() {
 		controller = ClientController.getInstance();
-		System.out.println("CreateParentHandler");
+		System.out.println("CreateStudentHandler");
 		stage = ClientViewManager.getStage();
 		loader = new FXMLLoader(getClass().getResource("/client/view/parentList.fxml"));
 		try {
@@ -35,9 +41,15 @@ public class CreateParentHandler {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+	public void initialize() {
+		classSelector.setItems(FXCollections.observableArrayList(Classs.getClasses()));
+	}
 
 	public void save() {
-		controller.addParent(name.getText(), email.getText(), family);
+		
+		controller.addStudent(name.getText(), email.getText(), classSelector.getSelectionModel().getSelectedItem(), family);
 		goBack();
 	}
 
@@ -46,8 +58,7 @@ public class CreateParentHandler {
 		stage.show();
 	}
 	
-	public void setFamily(Family family) {
+	public void setFamily(Family family){
 		this.family = family;
 	}
-
 }
