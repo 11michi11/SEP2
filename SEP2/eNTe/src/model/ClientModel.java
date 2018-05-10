@@ -19,4 +19,5 @@ public interface ClientModel {
 	void setController(ClientController controller);
     void addPost(String title, String content);
     ArrayList<Family> getAllFamilies();
+    void deleteFamily(Family family);
 }

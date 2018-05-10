@@ -94,4 +94,10 @@ public class ClientModelManager implements ClientModel {
 		return users.getUserById(id);
 	}
 
+	@Override
+	public void deleteFamily(Family family) {
+	//TO DO
+		
+	}
+
 }

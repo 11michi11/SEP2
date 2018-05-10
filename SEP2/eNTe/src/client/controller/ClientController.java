@@ -130,4 +130,9 @@ public class ClientController {
     public ArrayList<Family> getFamilies() {
         return model.getAllFamilies();
     }
+
+	public void deleteFamily(Family family) {
+		model.deleteFamily(family);
+		
+	}
 }
