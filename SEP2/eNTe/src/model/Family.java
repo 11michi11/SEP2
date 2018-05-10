@@ -13,6 +13,10 @@ public class Family {
     public Family() {
         id = UUID.randomUUID().toString();
     }
+    
+    public Family(String id) {
+    	this.id = id;
+    }
 
     public void addChild(Student child) {
         children.add(child);
