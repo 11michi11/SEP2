@@ -82,7 +82,7 @@ public class ClientController {
     }
 
     public void addStudent(String name, String email, Classs classs, Family family) {
-        Student student = Student.builder().name(name).login(email).classs(classs).family(family).build();
+        Student student = Student.builder().name(name).email(email).classs(classs).family(family).build();
         model.addOrUpdateUser(student);
     }
 
