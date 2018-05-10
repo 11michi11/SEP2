@@ -54,7 +54,7 @@ public class CreateUserHandler {
 		final ToggleGroup group = new ToggleGroup();
 		studentBox.setToggleGroup(group);
 		teacherBox.setToggleGroup(group);
-		classSelector.setItems(FXCollections.observableArrayList(Classs.getClasses()));
+		classSelector.setItems(FXCollections.observableArrayList(Classs.getClassesInStrings()));
 		
 	}
 

@@ -109,7 +109,4 @@ public class FamilyListHandler {
 		stage.show();
 	}
 
-	public void passStudent(String[] studentInfo) {
-		
-	}
 }
