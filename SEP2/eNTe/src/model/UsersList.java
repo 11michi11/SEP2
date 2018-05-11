@@ -37,6 +37,8 @@ public class UsersList {
 	}
 	
 	public User getUserById(String id) {
+		users.forEach(user -> System.out.println(user.getId()));
+
 		return users.stream().filter(u -> u.getId().equals(id)).findFirst()
 				.orElseThrow(NoSuchElementException::new);
 	}
@@ -86,7 +88,6 @@ public class UsersList {
 	}
 
 	public List<Teacher> getAllTeachers() {
-		System.out.println("users" + users);
 		return users.stream().filter(u -> u instanceof Teacher).map(u -> (Teacher)u).collect(Collectors.toList());				
 				
 	}

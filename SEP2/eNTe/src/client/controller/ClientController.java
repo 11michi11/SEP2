@@ -96,6 +96,7 @@ public class ClientController {
     public void deleteUser(String id) {
         model.deleteUser(id);
     }
+
     public void deleteUser(User user) {
         model.deleteUser(user);
     }
@@ -134,8 +135,9 @@ public class ClientController {
 		Teacher t1 = new Teacher("Pato", "asdfasda");
 		Teacher t2 = new Teacher("Juraj", "dsfdsf");
 		Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
-        teachers.addAll(new TeacherDT(t1), new TeacherDT(t2), new TeacherDT(t3));
-        System.out.println("asdfd"+ model.getTeachers());
+        model.addOrUpdateUser(t1);
+        model.addOrUpdateUser(t2);
+        model.addOrUpdateUser(t3);
         model.getTeachers().stream()
         .map(t -> new TeacherDT(t)).collect(Collectors.toList())
         .forEach(t -> teachers.add(t));
