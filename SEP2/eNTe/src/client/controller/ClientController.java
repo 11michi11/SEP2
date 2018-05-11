@@ -140,13 +140,14 @@ public class ClientController {
         model.deleteFamily(family);
 
     }
-
-    public ObservableList<TeacherDT> getTeachersForView() {
-        ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
-        Teacher t1 = new Teacher("Pato", "asdfasda");
-        Teacher t2 = new Teacher("Juraj", "dsfdsf");
-        Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
-        teachers.addAll(new TeacherDT(t1), new TeacherDT(t2), new TeacherDT(t3));
+	public ObservableList<TeacherDT> getTeachersForView() {
+		ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
+		Teacher t1 = new Teacher("Pato", "asdfasda");
+		Teacher t2 = new Teacher("Juraj", "dsfdsf");
+		Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
+        model.addOrUpdateUser(t1);
+        model.addOrUpdateUser(t2);
+        model.addOrUpdateUser(t3);
         teachers.addAll(model.getTeachers().stream()
                 .map(TeacherDT::new).collect(Collectors.toList()));
         return teachers;

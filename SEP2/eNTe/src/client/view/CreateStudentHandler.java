@@ -53,6 +53,13 @@ public class CreateStudentHandler {
 	}
 
 	public void goBack() {
+		loader = new FXMLLoader(getClass().getResource("/client/view/parentList.fxml"));
+		try {
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		stage.getScene().setRoot(mainPane);
 		stage.show();
 	}

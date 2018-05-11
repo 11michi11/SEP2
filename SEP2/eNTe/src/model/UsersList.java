@@ -39,6 +39,8 @@ public class UsersList {
 	}
 	
 	public User getUserById(String id) {
+		users.forEach(user -> System.out.println(user.getId()));
+
 		return users.stream().filter(u -> u.getId().equals(id)).findFirst()
 				.orElseThrow(NoSuchElementException::new);
 	}

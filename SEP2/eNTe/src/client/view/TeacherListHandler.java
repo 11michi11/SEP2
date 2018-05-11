@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.Teacher;
 
 public class TeacherListHandler {
 	
@@ -61,6 +62,16 @@ public class TeacherListHandler {
 			e.printStackTrace();
 		}
     }
+
+    public void deleteTeacher() {
+    	Teacher teacher = teacherList.getSelectionModel().getSelectedItem().teacher;
+	    System.out.println("teacher:" + teacher);
+    	controller.deleteUser(teacher);
+	    teacherList.getItems().clear();
+	    teacherList.setItems(controller.getTeachersForView());
+
+    }
+
     
     
     public void goBack() {
