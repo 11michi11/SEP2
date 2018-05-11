@@ -86,6 +86,7 @@ public class UsersList {
 	}
 
 	public List<Teacher> getAllTeachers() {
+		System.out.println("users" + users);
 		return users.stream().filter(u -> u instanceof Teacher).map(u -> (Teacher)u).collect(Collectors.toList());				
 				
 	}

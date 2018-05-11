@@ -135,6 +135,7 @@ public class ClientController {
 		Teacher t2 = new Teacher("Juraj", "dsfdsf");
 		Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
         teachers.addAll(new TeacherDT(t1), new TeacherDT(t2), new TeacherDT(t3));
+        System.out.println("asdfd"+ model.getTeachers());
         model.getTeachers().stream()
         .map(t -> new TeacherDT(t)).collect(Collectors.toList())
         .forEach(t -> teachers.add(t));

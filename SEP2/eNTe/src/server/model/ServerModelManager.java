@@ -54,7 +54,7 @@ public class ServerModelManager implements ServerModel {
     }
 
     private LinkedList<User> getUsers() {
-        User user = new Administrator("dupa", "email", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
+        User user = new Administrator("name", "login", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
 
         LinkedList<User> list = new LinkedList<>();
         list.add(user);
