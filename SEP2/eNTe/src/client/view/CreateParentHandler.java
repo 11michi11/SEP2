@@ -32,7 +32,7 @@ public class CreateParentHandler {
 
 	public void save() {
 		controller.addParent(name.getText(), email.getText(), family);
-		loader = new FXMLLoader(getClass().getResource("/client/view/familyList.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
