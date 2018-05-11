@@ -47,12 +47,12 @@ public class CreateStudentHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		controller.addStudent(name.getText(), email.getText(), classSelector.getSelectionModel().getSelectedItem(), family);
+
 		goBack();
 	}
 
 	public void goBack() {
-		loader = new FXMLLoader(getClass().getResource("/client/view/parentList.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());

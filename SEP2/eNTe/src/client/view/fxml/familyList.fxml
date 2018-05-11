@@ -29,7 +29,7 @@
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
-            <Button fx:id="addStudent" mnemonicParsing="false" onAction="#addStudnet" prefHeight="94.0" prefWidth="331.0" styleClass="menuButtonSmall" stylesheets="@../login.css" text="add student" textFill="#729eea">
+            <Button fx:id="addStudent" mnemonicParsing="false" onAction="#addStudent" prefHeight="94.0" prefWidth="331.0" styleClass="menuButtonSmall" stylesheets="@../login.css" text="add student" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="35.0" />
                </font>

@@ -31,6 +31,7 @@ public class FamilyListHandler {
     private ClientController controller;
     private Stage stage;
     private Parent mainPane;
+    private Family family;
 
     public FamilyListHandler() {
         controller = ClientController.getInstance();
@@ -74,13 +75,13 @@ public class FamilyListHandler {
     public void deleteFamily() {
     	Family family = ((FamilyDT) familyTable.getSelectionModel().getSelectedItem().getValue()).family;
     	controller.deleteFamily(family);
-    	
     }
     
-    public void addStudnet() {
+    public void addStudent() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createStudent.fxml"));
 			mainPane = loader.load();
+			((CreateStudentHandler) loader.getController()).setFamily(((FamilyDT) familyTable.getSelectionModel().getSelectedItem().getValue()).family);
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
 			stage.show();
@@ -94,6 +95,7 @@ public class FamilyListHandler {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createParent.fxml"));
 			mainPane = loader.load();
+			((CreateParentHandler) loader.getController()).setFamily(((FamilyDT) familyTable.getSelectionModel().getSelectedItem().getValue()).family);
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
 			stage.show();

@@ -48,6 +48,7 @@ public class TeacherListHandler {
         teacherList.getColumns().clear();
         teacherList.getColumns().addAll(nameColumn, emailColumn);
         teacherList.setItems(controller.getTeachersForView());
+        teacherList.setEditable(true);
     }
     
     public void createTeacher() {
@@ -71,9 +72,22 @@ public class TeacherListHandler {
 	    teacherList.setItems(controller.getTeachersForView());
 
     }
+    public void editTeacher() {
+	    Teacher teacher = teacherList.getSelectionModel().getSelectedItem().teacher;
+	    System.out.println("teacher:" + teacher);
+	    try {
+		    FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createTeacher.fxml"));
+		    mainPane = loader.load();
+		    ((CreateTeacherHandler) loader.getController()).setTeacher(teacher);
+		    mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+		    stage.getScene().setRoot(mainPane);
+		    stage.show();
+	    } catch (IOException e) {
+		    e.printStackTrace();
+	    }
 
-    
-    
+    }
+
     public void goBack() {
 		stage.getScene().setRoot(mainPane);
 		stage.show();

@@ -8,6 +8,7 @@ public class TeacherDT {
 	private SimpleStringProperty name;
 	private SimpleStringProperty email;
 	Teacher teacher;
+
 	public TeacherDT(Teacher teacher) {
 		this.name = new SimpleStringProperty(teacher.getName());
 		this.email = new SimpleStringProperty(teacher.getEmail());

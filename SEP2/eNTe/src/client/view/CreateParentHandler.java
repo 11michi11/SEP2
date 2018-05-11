@@ -27,6 +27,11 @@ public class CreateParentHandler {
 		controller = ClientController.getInstance();
 		System.out.println("CreateParentHandler");
 		stage = ClientViewManager.getStage();
+
+	}
+
+	public void save() {
+		controller.addParent(name.getText(), email.getText(), family);
 		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
 		try {
 			mainPane = loader.load();
@@ -34,10 +39,6 @@ public class CreateParentHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void save() {
-		controller.addParent(name.getText(), email.getText(), family);
 		goBack();
 	}
 
