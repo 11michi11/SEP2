@@ -4,7 +4,6 @@ import client.controller.ClientController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
@@ -38,7 +37,7 @@ public class FamilyListHandler {
         controller = ClientController.getInstance();
         System.out.println("FamilyListHandler");
         stage = ClientViewManager.getStage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneAdmin.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
@@ -80,7 +79,7 @@ public class FamilyListHandler {
     
     public void addStudent() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createStudent.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createStudent.fxml"));
 			mainPane = loader.load();
 			((CreateStudentHandler) loader.getController()).setFamily(((FamilyDT) familyTable.getSelectionModel().getSelectedItem().getValue()).family);
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
@@ -94,7 +93,7 @@ public class FamilyListHandler {
     
     public void addParent() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createParent.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createParent.fxml"));
 			mainPane = loader.load();
 			((CreateParentHandler) loader.getController()).setFamily(((FamilyDT) familyTable.getSelectionModel().getSelectedItem().getValue()).family);
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());

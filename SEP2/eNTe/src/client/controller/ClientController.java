@@ -19,12 +19,14 @@ public class ClientController {
     private ClientModel model;
     private ClientView view;
     private static ClientController instance;
+    private User currentUser;
 
     private ClientController(ClientModel model, ClientView view) {
         instance = this;
         this.model = model;
         model.setController(this);
         this.view = view;
+        view.setController(this);
         this.view.startView();
     }
 
@@ -60,6 +62,10 @@ public class ClientController {
         Login login = msg.getLogin();
         switch (login.getLoginStatus()) {
             case SUCCESS:
+                currentUser = login.getCurrentUser();
+                if(login.changeLogin()){
+                    view.changePasswordDialog();
+                }
                 WelcomingData data = login.getData();
                 model.saveData(data);
                 view.showPosts(login.getUserType());
@@ -71,6 +77,11 @@ public class ClientController {
                 view.showMessage("Wrong user password, try again.");
                 break;
         }
+    }
+
+    public void changePassword(String pwd){
+        currentUser.setPwd(pwd);
+        model.addOrUpdateUser(currentUser);
     }
 
     public void addTeacher(String name, String email, Boolean admin) {

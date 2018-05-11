@@ -24,7 +24,10 @@ public class ClientViewManager extends Application implements ClientView {
 	private static Stage stage;
 
 	public ClientViewManager() {
-
+	}
+	@Override
+	public void setController(ClientController controller) {
+		this.controller = controller;
 	}
 
 	public void startView() {
@@ -39,7 +42,7 @@ public class ClientViewManager extends Application implements ClientView {
 	public void start(Stage primaryStage) {
 		try {
 			stage = primaryStage;
-			loader = new FXMLLoader(getClass().getResource("/client/view/loginPane.fxml"));
+			loader = new FXMLLoader(getClass().getResource("/client/view/fxml/loginPane.fxml"));
 			Pane root = (Pane) loader.load();
 			Scene scene = new Scene(root, 1280, 780);
 			scene.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
@@ -57,7 +60,7 @@ public class ClientViewManager extends Application implements ClientView {
 		switch (user) {
 		case "Parent":
 			try {
-				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneParent.fxml"));
+				loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneParent.fxml"));
 				mainPane = loader.load();
 				parentHandler = new ParentMainHandler();
 				loader.setController(parentHandler);
@@ -70,7 +73,7 @@ public class ClientViewManager extends Application implements ClientView {
 			break;
 		case "Admin":
 			try {
-				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneAdmin.fxml"));
+				loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
 				mainPane = loader.load();
 				parentHandler = new ParentMainHandler();
 				loader.setController(adminHandler);
@@ -83,7 +86,7 @@ public class ClientViewManager extends Application implements ClientView {
 			break;
 		case "Student":
 			try {
-				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneStudent.fxml"));
+				loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneStudent.fxml"));
 				mainPane = loader.load();
 				parentHandler = new ParentMainHandler();
 				// loader.setController(studentHandler);
@@ -96,7 +99,7 @@ public class ClientViewManager extends Application implements ClientView {
 			break;
 		case "Teacher":
 			try {
-				loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneTeacher.fxml"));
+				loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneTeacher.fxml"));
 				mainPane = loader.load();
 				parentHandler = new ParentMainHandler();
 				// loader.setController(teacherHandler);
@@ -111,7 +114,6 @@ public class ClientViewManager extends Application implements ClientView {
 	}
 	
 	public void showMessage(String message) {
-		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information Dialog");
 		alert.setHeaderText(null);
@@ -121,15 +123,12 @@ public class ClientViewManager extends Application implements ClientView {
 	}
 	
 	public void changePasswordDialog() {
-		
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Change password");
 		dialog.setHeaderText("Create a new password");
 		dialog.setContentText("Please enter your password:");
 		
 		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent()){
-		    //TO-DO
-		}
+		result.ifPresent(s -> controller.changePassword(s));
 	}
 }

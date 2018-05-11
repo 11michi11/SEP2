@@ -1,7 +1,6 @@
 package client.view;
 
 import java.io.IOException;
-import java.net.PasswordAuthentication;
 
 import client.controller.ClientController;
 import javafx.collections.FXCollections;
@@ -41,8 +40,7 @@ public class CreateStudentHandler {
 	}
 
 	public void save() {
-		controller.addStudent(name.getText(), email.getText(), classSelector.getSelectionModel().getSelectedItem(), family);
-		loader = new FXMLLoader(getClass().getResource("/client/view/familyList.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());

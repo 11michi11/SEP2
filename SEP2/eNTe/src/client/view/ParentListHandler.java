@@ -64,7 +64,7 @@ public class ParentListHandler {
     public void createParent() {
         Parent mainPane;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createParent.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createParent.fxml"));
             mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);

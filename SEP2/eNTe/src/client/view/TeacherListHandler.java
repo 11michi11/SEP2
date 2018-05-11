@@ -32,7 +32,7 @@ public class TeacherListHandler {
     	 controller = ClientController.getInstance();
          System.out.println("TeacherListHandler");
          stage = ClientViewManager.getStage();
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneAdmin.fxml"));
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
  		try {
  			mainPane = loader.load();
  			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
@@ -53,7 +53,7 @@ public class TeacherListHandler {
     
     public void createTeacher() {
     	try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createTeacher.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createTeacher.fxml"));
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
