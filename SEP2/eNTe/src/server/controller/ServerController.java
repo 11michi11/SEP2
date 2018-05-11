@@ -80,7 +80,7 @@ public class ServerController {
 			LinkedList<Post> list = new LinkedList<>();
 			list.add(post);
 			data.insertPosts(list);
-			status.currentUser.changePassword();
+			//status.currentUser.changePassword(); - for testing changing password
 			login = new Login(LoginStatus.SUCCESS, data, status.currentUser);
 			break;
 		case FAILURE_LOGIN:

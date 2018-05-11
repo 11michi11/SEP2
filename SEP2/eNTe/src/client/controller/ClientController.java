@@ -25,6 +25,7 @@ public class ClientController {
         instance = this;
         this.model = model;
         model.setController(this);
+        initializeModelForTests();
         this.view = view;
         view.setController(this);
         this.view.startView();
@@ -128,11 +129,8 @@ public class ClientController {
 
     public ObservableList<ParentDT> getParentsForView() {
         ObservableList<ParentDT> parents = FXCollections.observableArrayList();
-        Parent p1 = Parent.builder().name("name").email("email").pwd("pwd").build();
-        Parent p2 = Parent.builder().name("name").email("email").pwd("pwd").build();
-        Parent p3 = Parent.builder().name("name").email("email").pwd("pwd").build();
-        Parent p4 = Parent.builder().name("name").email("email").pwd("pwd").build();
-        parents.addAll(new ParentDT(p1), new ParentDT(p2), new ParentDT(p3), new ParentDT(p4));
+        parents.addAll(model.getParents().stream()
+                .map(ParentDT::new).collect(Collectors.toList()));
         return parents;
     }
 
@@ -142,14 +140,26 @@ public class ClientController {
     }
 	public ObservableList<TeacherDT> getTeachersForView() {
 		ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
-		Teacher t1 = new Teacher("Pato", "asdfasda");
-		Teacher t2 = new Teacher("Juraj", "dsfdsf");
-		Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
-        model.addOrUpdateUser(t1);
-        model.addOrUpdateUser(t2);
-        model.addOrUpdateUser(t3);
         teachers.addAll(model.getTeachers().stream()
                 .map(TeacherDT::new).collect(Collectors.toList()));
         return teachers;
+    }
+
+    private void initializeModelForTests(){
+        Teacher t1 = new Teacher("Pato", "asdfasda");
+        Teacher t2 = new Teacher("Juraj", "dsfdsf");
+        Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
+        model.addOrUpdateUser(t1);
+        model.addOrUpdateUser(t2);
+        model.addOrUpdateUser(t3);
+        Parent p1 = Parent.builder().name("name").email("email").pwd("pwd").build();
+        Parent p2 = Parent.builder().name("name").email("email").pwd("pwd").build();
+        Parent p3 = Parent.builder().name("name").email("email").pwd("pwd").build();
+        Parent p4 = Parent.builder().name("name").email("email").pwd("pwd").build();
+        model.addOrUpdateUser(p1);
+        model.addOrUpdateUser(p2);
+        model.addOrUpdateUser(p3);
+        model.addOrUpdateUser(p4);
+
     }
 }
