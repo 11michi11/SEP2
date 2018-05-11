@@ -76,7 +76,7 @@ public class TeacherListHandler {
 	    Teacher teacher = teacherList.getSelectionModel().getSelectedItem().teacher;
 	    System.out.println("teacher:" + teacher);
 	    try {
-		    FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/createTeacher.fxml"));
+		    FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createTeacher.fxml"));
 		    mainPane = loader.load();
 		    ((CreateTeacherHandler) loader.getController()).setTeacher(teacher);
 		    mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());

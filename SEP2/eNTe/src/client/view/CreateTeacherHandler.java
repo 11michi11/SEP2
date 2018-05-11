@@ -34,7 +34,10 @@ public class CreateTeacherHandler {
     }
     
     public void save() {
-    	controller.addTeacher(name.getText(), email.getText(), admin.isSelected());
+    	String id = null;
+    	if(teacher != null)
+    		id = teacher.getId();
+    	controller.addTeacher(name.getText(), email.getText(), admin.isSelected(), id);
     	goBack();
     }
     

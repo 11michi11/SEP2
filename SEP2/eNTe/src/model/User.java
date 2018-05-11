@@ -86,4 +86,7 @@ public abstract class User implements Serializable{
 		return "User [email=" + email + ", pwd=" + pwd + ", name=" + name + ", id=" + id + "]";
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
 }

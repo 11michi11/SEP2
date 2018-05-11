@@ -85,13 +85,14 @@ public class ClientController {
         model.addOrUpdateUser(currentUser);
     }
 
-    public void addTeacher(String name, String email, Boolean admin) {
+    public void addTeacher(String name, String email, Boolean admin, String id) {
         User user;
         if (admin)
             user = new Administrator(name, email);
         else
             user = new Teacher(name, email);
-
+        if(id != null)
+            user.setId(id);
         model.addOrUpdateUser(user);
     }
 
