@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,19 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.CreateStudentHandler">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@email.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.CreateTeacherHandler">
    <children>
       <ImageView fitHeight="182.0" fitWidth="209.0" layoutX="22.0" layoutY="-3.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@enteLOGO.png" />
+            <Image url="@../enteLOGO.png" />
          </image>
       </ImageView>
-      <Label fx:id="userLabel" layoutX="485.0" layoutY="118.0" styleClass="labelMain" stylesheets="@login.css" text="new student" textFill="#729eea">
-         <font>
-            <Font name="Gill Sans MT Bold" size="50.0" />
-         </font>
-      </Label>
-      <VBox fx:id="textBox" layoutX="427.0" layoutY="225.0" prefHeight="305.0" prefWidth="474.0">
+      <VBox fx:id="textBox" layoutX="427.0" layoutY="246.0" prefHeight="291.0" prefWidth="474.0">
          <children>
             <TextField fx:id="name" opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="name and surname">
                <font>
@@ -44,17 +39,22 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </TextField>
-            <ChoiceBox fx:id="classSelector" prefHeight="62.0" prefWidth="474.0">
-               <VBox.margin>
-                  <Insets bottom="15.0" />
-               </VBox.margin>
-            </ChoiceBox>
+            <CheckBox fx:id="admin" mnemonicParsing="false" prefHeight="41.0" prefWidth="138.0" styleClass="menu-item" stylesheets="@../login.css" text="Admin">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="18.0" />
+               </font>
+            </CheckBox>
          </children>
       </VBox>
-      <Button fx:id="saveButton" layoutX="613.0" layoutY="584.0" onAction="#save" mnemonicParsing="false" text="save" textFill="#729eea">
+      <Button fx:id="saveButton" layoutX="613.0"  layoutY="597.0" onAction="#save" mnemonicParsing="false" text="save" textFill="#729eea">
          <font>
             <Font name="Gill Sans MT Bold" size="30.0" />
          </font>
       </Button>
+      <Label fx:id="userLabel" layoutX="506.0" layoutY="129.0" styleClass="labelMain" stylesheets="@email.css" text="new teacher" textFill="#729eea">
+         <font>
+            <Font name="Gill Sans MT Bold" size="50.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

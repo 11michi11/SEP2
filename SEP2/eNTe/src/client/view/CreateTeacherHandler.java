@@ -36,7 +36,7 @@ public class CreateTeacherHandler {
     }
     
     public void goBack() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/TeacherList.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/teacherList.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());

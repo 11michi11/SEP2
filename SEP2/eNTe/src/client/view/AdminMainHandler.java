@@ -1,8 +1,6 @@
 package client.view;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.Scanner;
 
 import client.controller.ClientController;
 import javafx.fxml.FXML;
@@ -72,7 +70,7 @@ public class AdminMainHandler {
 	public void familyList() {
 		Parent mainPane;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/familyList.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
@@ -85,7 +83,7 @@ public class AdminMainHandler {
 	public void teacherList() {
 		Parent mainPane;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/teacherList.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/teacherList.fxml"));
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
@@ -99,7 +97,7 @@ public class AdminMainHandler {
 	public void postCreation() {
 		Parent mainPane;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/postCreation.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/postCreation.fxml"));
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
@@ -112,7 +110,7 @@ public class AdminMainHandler {
 	public void homeworkCreation() {
 		Parent mainPane;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/homeworkCreation.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreation.fxml"));
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
@@ -125,7 +123,7 @@ public class AdminMainHandler {
 	public void discussionCreation() {
 		Parent mainPane;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/discussionCreation.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionCreation.fxml"));
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
