@@ -4,7 +4,7 @@ import model.*;
 import model.communication.Auth;
 import model.communication.LoginStatus;
 import server.model.persistance.DBAdapter;
-import server.model.persistance.DBPersistance;
+import server.model.persistance.DBPersistence;
 
 import java.util.LinkedList;
 
@@ -12,7 +12,7 @@ public class ServerModelManager implements ServerModel {
 
     private PostsList posts;
     private UsersList users;
-    private DBPersistance db;
+    private DBPersistence db;
 
     public ServerModelManager() {
         posts = new PostsList();

@@ -2,14 +2,13 @@ package server.model.persistance;
 
 import client.model.FamiliesList;
 import model.*;
-import org.postgresql.core.SqlCommand;
 import utility.persistence.MyDatabase;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class DBAdapter implements DBPersistance {
+public class DBAdapter implements DBPersistence {
 
     private MyDatabase db;
     private static final String DRIVER = "org.postgresql.Driver";

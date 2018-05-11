@@ -24,7 +24,10 @@ public class ClientViewManager extends Application implements ClientView {
 	private static Stage stage;
 
 	public ClientViewManager() {
-
+	}
+	@Override
+	public void setController(ClientController controller) {
+		this.controller = controller;
 	}
 
 	public void startView() {
@@ -111,7 +114,6 @@ public class ClientViewManager extends Application implements ClientView {
 	}
 	
 	public void showMessage(String message) {
-		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information Dialog");
 		alert.setHeaderText(null);
@@ -121,15 +123,12 @@ public class ClientViewManager extends Application implements ClientView {
 	}
 	
 	public void changePasswordDialog() {
-		
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Change password");
 		dialog.setHeaderText("Create a new password");
 		dialog.setContentText("Please enter your password:");
 		
 		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent()){
-		    //TO-DO
-		}
+		result.ifPresent(s -> controller.changePassword(s));
 	}
 }

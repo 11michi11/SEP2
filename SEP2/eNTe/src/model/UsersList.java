@@ -19,9 +19,11 @@ public class UsersList {
 	public LoginStatus authenticate(Auth auth) {
 		try {
 			User user = getUserByLogin(auth.email);
-			if (user.getPwd().equals(auth.pwd))
-				return LoginStatus.SUCCESS;
-			else
+			if (user.getPwd().equals(auth.pwd)) {
+				LoginStatus status = LoginStatus.SUCCESS;
+				status.currentUser = user;
+				return status;
+			}else
 				return LoginStatus.FAILURE_PWD;
 		} catch (NoSuchElementException e) {
 			return LoginStatus.FAILURE_LOGIN;
