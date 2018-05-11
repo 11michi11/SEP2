@@ -31,7 +31,6 @@ public class FamilyListHandler {
     private ClientController controller;
     private Stage stage;
     private Parent mainPane;
-    private Family family;
 
     public FamilyListHandler() {
         controller = ClientController.getInstance();
@@ -109,5 +108,4 @@ public class FamilyListHandler {
 		stage.getScene().setRoot(mainPane);
 		stage.show();
 	}
-
 }

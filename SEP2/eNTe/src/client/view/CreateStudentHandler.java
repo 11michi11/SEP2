@@ -40,6 +40,7 @@ public class CreateStudentHandler {
 	}
 
 	public void save() {
+		controller.addStudent(name.getText(), email.getText(), classSelector.getValue(), family);
 		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
 		try {
 			mainPane = loader.load();
@@ -47,7 +48,6 @@ public class CreateStudentHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		goBack();
 	}
 

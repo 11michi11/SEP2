@@ -46,7 +46,7 @@ public class TeacherListHandler {
     	nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         teacherList.getColumns().clear();
-        teacherList.getColumns().addAll(nameColumn, emailColumn);
+		teacherList.getColumns().addAll(nameColumn, emailColumn);
         teacherList.setItems(controller.getTeachersForView());
         teacherList.setEditable(true);
     }
