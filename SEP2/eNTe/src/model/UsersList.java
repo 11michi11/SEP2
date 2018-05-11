@@ -13,7 +13,7 @@ public class UsersList {
 	private ArrayList<User> users;
 
 	public UsersList() {
-		users = new ArrayList<User>();
+		users = new ArrayList<>();
 	}
 
 	public LoginStatus authenticate(Auth auth) {
@@ -46,8 +46,7 @@ public class UsersList {
 	}
 
 	public void add(List<User> list) {
-		for (User e : list)
-			users.add(e);
+		users.addAll(list);
 	}
 
 	public boolean contains(User user) {
@@ -86,9 +85,7 @@ public class UsersList {
 	}
 
 	public List<Teacher> getAllTeachers() {
-		System.out.println("users" + users);
-		return users.stream().filter(u -> u instanceof Teacher).map(u -> (Teacher)u).collect(Collectors.toList());				
-				
+		return users.stream().filter(u -> u instanceof Teacher).map(u -> (Teacher)u).collect(Collectors.toList());
 	}
 
 }

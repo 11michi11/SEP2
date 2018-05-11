@@ -88,7 +88,7 @@ public class ClientController {
         model.addOrUpdateUser(student);
     }
 
-    public void addParent(String name, String email, Family family){
+    public void addParent(String name, String email, Family family) {
         Parent parent = Parent.builder().name(name).email(email).family(family).build();
         model.addOrUpdateUser(parent);
     }
@@ -96,6 +96,7 @@ public class ClientController {
     public void deleteUser(String id) {
         model.deleteUser(id);
     }
+
     public void deleteUser(User user) {
         model.deleteUser(user);
     }
@@ -124,21 +125,19 @@ public class ClientController {
         return parents;
     }
 
-	public void deleteFamily(Family family) {
-		model.deleteFamily(family);
-		
-	}
+    public void deleteFamily(Family family) {
+        model.deleteFamily(family);
 
-	public ObservableList<TeacherDT> getTeachersForView() {
-		ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
-		Teacher t1 = new Teacher("Pato", "asdfasda");
-		Teacher t2 = new Teacher("Juraj", "dsfdsf");
-		Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
+    }
+
+    public ObservableList<TeacherDT> getTeachersForView() {
+        ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
+        Teacher t1 = new Teacher("Pato", "asdfasda");
+        Teacher t2 = new Teacher("Juraj", "dsfdsf");
+        Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
         teachers.addAll(new TeacherDT(t1), new TeacherDT(t2), new TeacherDT(t3));
-        System.out.println("asdfd"+ model.getTeachers());
-        model.getTeachers().stream()
-        .map(t -> new TeacherDT(t)).collect(Collectors.toList())
-        .forEach(t -> teachers.add(t));
+        teachers.addAll(model.getTeachers().stream()
+                .map(TeacherDT::new).collect(Collectors.toList()));
         return teachers;
-	}
+    }
 }

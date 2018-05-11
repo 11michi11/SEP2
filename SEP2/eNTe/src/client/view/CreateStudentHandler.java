@@ -33,13 +33,6 @@ public class CreateStudentHandler {
 		controller = ClientController.getInstance();
 		System.out.println("CreateStudentHandler");
 		stage = ClientViewManager.getStage();
-		loader = new FXMLLoader(getClass().getResource("/client/view/parentList.fxml"));
-		try {
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@FXML
@@ -48,7 +41,13 @@ public class CreateStudentHandler {
 	}
 
 	public void save() {
-		
+		loader = new FXMLLoader(getClass().getResource("/client/view/familyList.fxml"));
+		try {
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		controller.addStudent(name.getText(), email.getText(), classSelector.getSelectionModel().getSelectedItem(), family);
 		goBack();
 	}
