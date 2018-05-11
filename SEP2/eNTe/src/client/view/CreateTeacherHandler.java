@@ -28,13 +28,6 @@ public class CreateTeacherHandler {
     	 controller = ClientController.getInstance();
          System.out.println("CreateTeacherHandler");
          stage = ClientViewManager.getStage();
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/TeacherList.fxml"));
- 		try {
- 			mainPane = loader.load();
- 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
- 		} catch (IOException e) {
- 			e.printStackTrace();
- 		}
     }
     
     public void save() {
@@ -43,6 +36,13 @@ public class CreateTeacherHandler {
     }
     
     public void goBack() {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/TeacherList.fxml"));
+		try {
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		stage.getScene().setRoot(mainPane);
 		stage.show();
 	}
