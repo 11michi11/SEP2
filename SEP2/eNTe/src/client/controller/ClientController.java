@@ -88,7 +88,7 @@ public class ClientController {
         model.addOrUpdateUser(student);
     }
 
-    public void addParent(String name, String email, Family family){
+    public void addParent(String name, String email, Family family) {
         Parent parent = Parent.builder().name(name).email(email).family(family).build();
         model.addOrUpdateUser(parent);
     }
@@ -125,11 +125,10 @@ public class ClientController {
         return parents;
     }
 
-	public void deleteFamily(Family family) {
-		model.deleteFamily(family);
-		
-	}
+    public void deleteFamily(Family family) {
+        model.deleteFamily(family);
 
+    }
 	public ObservableList<TeacherDT> getTeachersForView() {
 		ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
 		Teacher t1 = new Teacher("Pato", "asdfasda");
@@ -138,9 +137,8 @@ public class ClientController {
         model.addOrUpdateUser(t1);
         model.addOrUpdateUser(t2);
         model.addOrUpdateUser(t3);
-        model.getTeachers().stream()
-        .map(t -> new TeacherDT(t)).collect(Collectors.toList())
-        .forEach(t -> teachers.add(t));
+        teachers.addAll(model.getTeachers().stream()
+                .map(TeacherDT::new).collect(Collectors.toList()));
         return teachers;
-	}
+    }
 }
