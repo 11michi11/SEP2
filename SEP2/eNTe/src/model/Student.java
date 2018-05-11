@@ -76,7 +76,7 @@ public class Student extends User implements Serializable {
             return this;
         }
 
-        public StudentNeedClasss login(String email) {
+        public StudentNeedClasss email(String email) {
             this.email = email;
             return this;
         }
@@ -126,7 +126,7 @@ public class Student extends User implements Serializable {
     }
 
     public interface StudentNeedEmail {
-        StudentNeedClasss login(String email);
+        StudentNeedClasss email(String email);
     }
 
     public interface StudentNeedClasss {

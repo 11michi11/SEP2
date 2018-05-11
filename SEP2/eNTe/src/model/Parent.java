@@ -35,6 +35,10 @@ public class Parent extends User implements Serializable {
         return family;
     }
 
+    public String getFamilyId() {
+        return family.getId();
+    }
+
     public void setFamily(Family family) {
         this.family = family;
     }

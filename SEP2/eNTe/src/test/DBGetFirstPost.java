@@ -1,5 +1,7 @@
 package test;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.SQLException;
@@ -14,18 +16,19 @@ import server.model.persistance.DBAdapter;
 
 public class DBGetFirstPost {
 
-	private DBPersistance adapter;
-	
-	@BeforeEach
-	public void before() throws ClassNotFoundException, SQLException
-	{
-		adapter = new DBAdapter();
-	}
-	@Test
-	public void testFirstPost() throws SQLException {
-		LinkedList<Post> list = adapter.getPosts();
-		System.out.println(list.getFirst());
-		assertEquals("Lessons cancelled", list.getFirst().getTitle());
-	}
+    private DBPersistance adapter;
+
+    @BeforeEach
+    public void before() throws ClassNotFoundException, SQLException {
+        adapter = new DBAdapter();
+    }
+
+    @Test
+    public void testFirstPost() throws SQLException {
+        fail();
+       // LinkedList<Post> list = adapter.getPosts();
+//        System.out.println(list.getFirst());
+//        assertEquals("Lessons cancelled", list.getFirst().getTitle());
+    }
 
 }

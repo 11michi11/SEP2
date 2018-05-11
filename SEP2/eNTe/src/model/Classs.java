@@ -23,8 +23,12 @@ public enum Classs implements Serializable{
 	}
 	
 	
-	public static List<String> getClasses() {
+	public static List<String> getClassesInStrings() {
 		return Stream.of(Classs.values()).map(Enum::name).collect(Collectors.toList());
+	}
+	
+	public static List<Classs> getClasses() {
+		return Stream.of(Classs.values()).collect(Collectors.toList());
 	}
 	
 	public String toString() {

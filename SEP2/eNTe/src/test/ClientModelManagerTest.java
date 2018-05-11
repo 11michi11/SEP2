@@ -9,10 +9,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.controller.ServerMain;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
+import static junit.framework.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -66,21 +66,22 @@ class ClientModelManagerTest {
 
 	@Test
 	void getParentsTest() {
-		Parent parent1 = Parent.builder().name("name1").email("email").pwd("pwd").build();
-		Parent parent2 = Parent.builder().name("name2").email("email").pwd("pwd").build();
-		ArrayList<Parent> list = new ArrayList<>();
-		list.add(parent1);
-		list.add(parent2);
-
-		model.addOrUpdateUser(parent1);
-		model.addOrUpdateUser(parent2);
-		assertEquals(list, model.getParents());
+		fail();
+//		Parent parent1 = Parent.builder().name("name1").email("email").pwd("pwd").build();
+//		Parent parent2 = Parent.builder().name("name2").email("email").pwd("pwd").build();
+//		ArrayList<Parent> list = new ArrayList<>();
+//		list.add(parent1);
+//		list.add(parent2);
+//
+//		model.addOrUpdateUser(parent1);
+//		model.addOrUpdateUser(parent2);
+//		assertEquals(list, model.getParents());
 	}
 	
 	@Test
 	void deleteUserAndGetUserByIdTest() {
 		Parent parent = Parent.builder().name("name").email("email").pwd("pwd").build();
-		Student student = Student.builder().name("name").login("email").classs(Classs.First).pwd("pwd").build();
+		Student student = Student.builder().name("name").email("email").classs(Classs.First).pwd("pwd").build();
 		Teacher teacher = new Teacher("name", "email", "pwd");
 		Administrator admin = new Administrator("name", "email", "pwd");
 		

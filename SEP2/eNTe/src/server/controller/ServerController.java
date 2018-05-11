@@ -1,5 +1,6 @@
 package server.controller;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import model.Post;
@@ -25,7 +26,7 @@ public class ServerController {
 		server.close();
 	}
 
-	public Message handleMessage(Message msg) {
+	public Message handleMessage(Message msg) throws SQLException {
 		Message response;
 
 		switch (msg.getType()) {
@@ -44,7 +45,7 @@ public class ServerController {
 
 	}
 
-	private Message handleManageUser(ManageUser manageUser) {
+	private Message handleManageUser(ManageUser manageUser) throws SQLException {
 		Message response = null;
 		switch (manageUser.getAction()) {
 		case ManageUser.ADD:

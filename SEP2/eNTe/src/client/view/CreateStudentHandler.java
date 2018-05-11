@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.PasswordAuthentication;
 
 import client.controller.ClientController;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.Classs;
+import model.Family;
 
 public class CreateStudentHandler {
 
@@ -19,11 +22,12 @@ public class CreateStudentHandler {
 	@FXML
 	private TextField name, email;
 	@FXML
-	private ChoiceBox classSelector;
+	private ChoiceBox<Classs> classSelector;
 	@FXML
 	private ImageView ente;
 	private Parent mainPane;
 	private FXMLLoader loader;
+	private Family family;
 
 	public CreateStudentHandler() {
 		controller = ClientController.getInstance();
@@ -37,14 +41,15 @@ public class CreateStudentHandler {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+	public void initialize() {
+		classSelector.setItems(FXCollections.observableArrayList(Classs.getClasses()));
+	}
 
 	public void save() {
 		
-		controller.addStudent(name.getText(), email.getText(), classSelector.);
-		FamilyListHandler handler = loader.getController();
-		String[] studentInfo = {name.getText(), email.getText(), classSelector.getTypeSelector()};
-		handler.passStudent(studentInfo);
-
+		controller.addStudent(name.getText(), email.getText(), classSelector.getSelectionModel().getSelectedItem(), family);
 		goBack();
 	}
 
@@ -53,5 +58,7 @@ public class CreateStudentHandler {
 		stage.show();
 	}
 	
-	public void setFamily(){}
+	public void setFamily(Family family){
+		this.family = family;
+	}
 }

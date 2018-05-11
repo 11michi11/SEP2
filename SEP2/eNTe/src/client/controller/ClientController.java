@@ -2,6 +2,7 @@ package client.controller;
 
 import client.view.ClientView;
 import client.view.ParentDT;
+import client.view.TeacherDT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
@@ -11,6 +12,7 @@ import model.communication.Message;
 import model.communication.WelcomingData;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ClientController {
 
@@ -71,18 +73,18 @@ public class ClientController {
         }
     }
 
-    public void addTeacher(String name, String email, String password, Boolean admin) {
+    public void addTeacher(String name, String email, Boolean admin) {
         User user;
         if (admin)
-            user = new Administrator(name, email, password);
+            user = new Administrator(name, email);
         else
-            user = new Teacher(name, email, password);
+            user = new Teacher(name, email);
 
         model.addOrUpdateUser(user);
     }
 
     public void addStudent(String name, String email, Classs classs, Family family) {
-        Student student = Student.builder().name(name).login(email).classs(classs).family(family).build();
+        Student student = Student.builder().name(name).email(email).classs(classs).family(family).build();
         model.addOrUpdateUser(student);
     }
 
@@ -125,5 +127,18 @@ public class ClientController {
 	public void deleteFamily(Family family) {
 		model.deleteFamily(family);
 		
+	}
+
+	public ObservableList<TeacherDT> getTeachersForView() {
+		ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
+		Teacher t1 = new Teacher("Pato", "asdfasda");
+		Teacher t2 = new Teacher("Juraj", "dsfdsf");
+		Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
+        teachers.addAll(new TeacherDT(t1), new TeacherDT(t2), new TeacherDT(t3));
+        System.out.println("asdfd"+ model.getTeachers());
+        model.getTeachers().stream()
+        .map(t -> new TeacherDT(t)).collect(Collectors.toList())
+        .forEach(t -> teachers.add(t));
+        return teachers;
 	}
 }

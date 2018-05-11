@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.Family;
 
 public class CreateParentHandler {
 
@@ -20,7 +21,8 @@ public class CreateParentHandler {
 	private ImageView ente;
 	private Parent mainPane;
 	private FXMLLoader loader;
-
+	private Family family;
+	
 	public CreateParentHandler() {
 		controller = ClientController.getInstance();
 		System.out.println("CreateParentHandler");
@@ -35,15 +37,17 @@ public class CreateParentHandler {
 	}
 
 	public void save() {
-		ParentListHandler handler = loader.getController();
-		String[] parentInfo = {name.getText(), email.getText()};
-		handler.passParent(parentInfo);
+		controller.addParent(name.getText(), email.getText(), family);
 		goBack();
 	}
 
 	public void goBack() {
 		stage.getScene().setRoot(mainPane);
 		stage.show();
+	}
+	
+	public void setFamily(Family family) {
+		this.family = family;
 	}
 
 }

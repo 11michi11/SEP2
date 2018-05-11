@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import client.controller.ClientController;
 import javafx.scene.control.TextArea;
@@ -21,4 +23,5 @@ public interface ClientModel {
 	ArrayList<Parent> getParents();
 	ArrayList<Family> getAllFamilies();
     void deleteFamily(Family family);
+	List<Teacher> getTeachers();
 }
