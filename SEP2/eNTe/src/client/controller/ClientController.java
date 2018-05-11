@@ -86,11 +86,13 @@ public class ClientController {
     public void addStudent(String name, String email, Classs classs, Family family) {
         Student student = Student.builder().name(name).email(email).classs(classs).family(family).build();
         model.addOrUpdateUser(student);
+        family.addChild(student);
     }
 
     public void addParent(String name, String email, Family family) {
         Parent parent = Parent.builder().name(name).email(email).family(family).build();
         model.addOrUpdateUser(parent);
+        family.addParent(parent);
     }
 
     public void deleteUser(String id) {

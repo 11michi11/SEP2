@@ -41,6 +41,7 @@ public class CreateStudentHandler {
 	}
 
 	public void save() {
+		controller.addStudent(name.getText(), email.getText(), classSelector.getSelectionModel().getSelectedItem(), family);
 		loader = new FXMLLoader(getClass().getResource("/client/view/familyList.fxml"));
 		try {
 			mainPane = loader.load();
@@ -48,12 +49,12 @@ public class CreateStudentHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		controller.addStudent(name.getText(), email.getText(), classSelector.getSelectionModel().getSelectedItem(), family);
+
 		goBack();
 	}
 
 	public void goBack() {
-		loader = new FXMLLoader(getClass().getResource("/client/view/parentList.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/client/view/familyList.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
