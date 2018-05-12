@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class DBAdapter implements DBPersistance {
+public class DBAdapter implements DBPersistence {
 
     private MyDatabase db;
     private static final String DRIVER = "org.postgresql.Driver";

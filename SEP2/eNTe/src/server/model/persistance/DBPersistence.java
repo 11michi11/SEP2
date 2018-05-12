@@ -8,7 +8,7 @@ import model.UsersList;
 
 import java.util.LinkedList;
 
-public interface DBPersistance {
+public interface DBPersistence {
 
 	LinkedList<Post> getPosts(UsersList users);
 	LinkedList<User> getUsers(FamiliesList families);

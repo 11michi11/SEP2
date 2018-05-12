@@ -1,15 +1,19 @@
 package model.communication;
 
+import model.User;
+
 import java.io.Serializable;
 
 public class Login implements Serializable{
 
 	private LoginStatus status;
 	private WelcomingData data;
+	private User currentUser;
 
-	public Login(LoginStatus status, WelcomingData data) {
+	public Login(LoginStatus status, WelcomingData data, User currentUser) {
 		this.status = status;
 		this.data = data;
+		this.currentUser = currentUser;
 	}
 
 	public LoginStatus getLoginStatus() {
@@ -49,4 +53,11 @@ public class Login implements Serializable{
 		return "Admin";
 	}
 
+	public boolean changeLogin() {
+		return currentUser.isPasswordChangeNeeded();
+	}
+
+	public User getCurrentUser() {
+		return currentUser;
+	}
 }

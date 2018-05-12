@@ -1,24 +1,18 @@
 package server.model;
 
-import java.sql.SQLException;
-import java.util.LinkedList;
-
-import model.Administrator;
-import model.Post;
-import model.PostsList;
-import model.ServerModel;
-import model.User;
-import model.UsersList;
+import model.*;
 import model.communication.Auth;
 import model.communication.LoginStatus;
 import server.model.persistance.DBAdapter;
-import server.model.persistance.DBPersistance;
+import server.model.persistance.DBPersistence;
+
+import java.util.LinkedList;
 
 public class ServerModelManager implements ServerModel {
 
     private PostsList posts;
     private UsersList users;
-    private DBPersistance db;
+    private DBPersistence db;
 
     public ServerModelManager() {
         posts = new PostsList();
@@ -54,7 +48,7 @@ public class ServerModelManager implements ServerModel {
     }
 
     private LinkedList<User> getUsers() {
-        User user = new Administrator("dupa", "email", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
+        User user = new Administrator("name", "login", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
 
         LinkedList<User> list = new LinkedList<>();
         list.add(user);
@@ -82,7 +76,7 @@ public class ServerModelManager implements ServerModel {
 
     public void addUser(User user) {
         users.add(user);
-        db.addUser(user);
+      //  db.addUser(user);
     }
 
     public void editUser(User user) {

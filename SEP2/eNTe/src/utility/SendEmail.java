@@ -66,7 +66,8 @@ public class SendEmail {
     }
 
     public static void sendPasswordEmail(String email, String pwd) {
-        String body = "This is your temporary password to eNTe system: ";
+        String body = "This is your temporary password to eNTe system: " + pwd + "<br>Please reset it during next login to the system." +
+                "<br>Regards, eNTe";
         try {
             generateAndSendEmail(email, "Change your password", body);
         } catch (MessagingException e) {

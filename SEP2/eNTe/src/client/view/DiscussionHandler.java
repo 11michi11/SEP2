@@ -30,7 +30,7 @@ public class DiscussionHandler {
 		controller = ClientController.getInstance();
 		stage = ClientViewManager.getStage();
 		System.out.println("DiscussionHandler");
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/mainPaneAdmin.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
