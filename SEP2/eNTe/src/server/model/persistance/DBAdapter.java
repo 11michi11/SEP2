@@ -2,7 +2,6 @@ package server.model.persistance;
 
 import client.model.FamiliesList;
 import model.*;
-import org.postgresql.core.SqlCommand;
 import utility.persistence.MyDatabase;
 
 import java.sql.SQLException;
@@ -113,7 +112,7 @@ public class DBAdapter implements DBPersistance {
             sql += "type='" + usertype + "',";
             sql += "email='" + user.getEmail() + "',";
             sql += "pwd='" + user.getPwd() + "',";
-            sql += "changepassword=" + user.isPasswordChangeNeeded() + ",";
+            sql += "changePwdNeeded=" + user.isPasswordChangeNeeded() + ",";
             sql += "name='" + user.getName() + "' ";
             sql += "WHERE id='" + user.getId() + "'";
             sqlList.add(sql);
@@ -161,7 +160,7 @@ public class DBAdapter implements DBPersistance {
                 String email = (String) e[2];
                 String pwd = (String) e[3];
                 String name = (String) e[4];
-                boolean changePassword = (boolean) e[5];
+                boolean changePwdNeeded = (boolean) e[5];
                 list.add(new Administrator(name, email, pwd, id));
             }
         } catch (SQLException e) {
@@ -180,7 +179,7 @@ public class DBAdapter implements DBPersistance {
                 String email = (String) e[2];
                 String pwd = (String) e[3];
                 String name = (String) e[4];
-                boolean changePassword = (boolean) e[5];
+                boolean changePwdNeeded = (boolean) e[5];
                 list.add(new Teacher(name, email, pwd, id));
             }
         } catch (SQLException e) {
@@ -201,7 +200,7 @@ public class DBAdapter implements DBPersistance {
                 String email = (String) e[1];
                 String pwd = (String) e[2];
                 String name = (String) e[3];
-                boolean changePassword = (boolean) e[4];
+                boolean changePwdNeeded = (boolean) e[4];
                 String familyID = (String) e[5];
                 Classs classs = (Classs) e[6];
 //              Student student = Student.builder().name(name).email(email).classs(classs).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
@@ -224,7 +223,7 @@ public class DBAdapter implements DBPersistance {
                 String email = (String) e[2];
                 String pwd = (String) e[3];
                 String name = (String) e[4];
-                boolean changePassword = (boolean) e[5];
+                boolean changePwdNeeded = (boolean) e[5];
                 String familyID = (String) e[5];
 //			Parent parent = Parent.builder().name(name).email(email).id(id).pwd(pwd).family(families.getFamilyById(familyID));
 //			families.getFamilyById(familyID).addParent(parent);
