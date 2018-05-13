@@ -29,5 +29,8 @@ public class FamiliesList {
     public ArrayList<Family> getAll(){
         return families;
     }
+    public void deleteFamily(Family family) {
+        families.remove(family);
+    }
 
 }
