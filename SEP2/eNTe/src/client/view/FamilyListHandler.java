@@ -49,40 +49,29 @@ public class FamilyListHandler {
 
 	@FXML
 	public void initialize() {
-		TreeItem<TableDataType> rows = new TreeItem<>();
-		controller.getFamilies().forEach(family -> {
-			TreeItem<TableDataType> parents = new TreeItem<>(new UserDT("Parents"));
-			parents.getChildren().addAll(family.getParents().stream()
-					.map(parent -> new TreeItem<TableDataType>(new UserDT(parent, ""))).collect(Collectors.toList()));
-
-			TreeItem<TableDataType> children = new TreeItem<>(new UserDT("Students"));
-			children.getChildren().addAll(family.getChildren().stream()
-					.map(child -> new TreeItem<TableDataType>(new UserDT(child, child.getClasss().toString()))).collect(Collectors.toList()));
-
-			TreeItem<TableDataType> familyRoot = new TreeItem<>(new FamilyDT(family));
-			familyRoot.getChildren().addAll(parents, children);
-			rows.getChildren().add(familyRoot);
-		});
 
 		name.setCellValueFactory(new TreeItemPropertyValueFactory<>("name"));
 		email.setCellValueFactory(new TreeItemPropertyValueFactory<>("email"));
 		className.setCellValueFactory(new TreeItemPropertyValueFactory<>("className"));
 
-
-		familyTable.setRoot(rows);
+		familyTable.setRoot(dataForTable());
 		familyTable.setShowRoot(false);
 	}
+
 
 	public void deleteFamily() {
 		Family family = ((FamilyDT) familyTable.getSelectionModel().getSelectedItem().getValue()).family;
 		controller.deleteFamily(family);
+		familyTable.setRoot(dataForTable());
 	}
+
 
 	public void deleteUser() {
 		User user = ((UserDT) familyTable.getSelectionModel().getSelectedItem().getValue()).user;
 		controller.deleteUser(user);
-	}
 
+
+	}
 
 	public void addStudent() {
 		try {
@@ -115,5 +104,36 @@ public class FamilyListHandler {
 	public void goBack() {
 		stage.getScene().setRoot(mainPane);
 		stage.show();
+	}
+
+	public void createFamily() {
+		TreeItem<TableDataType> row = new TreeItem<>();
+		Family family = controller.createFamily();
+		TreeItem<TableDataType> parents = new TreeItem<>(new UserDT("Parents"));
+		TreeItem<TableDataType> children = new TreeItem<>(new UserDT("Students"));
+		TreeItem<TableDataType> familyRoot = new TreeItem<>(new FamilyDT(family));
+		familyRoot.getChildren().addAll(parents, children);
+		row.getChildren().add(familyRoot);
+		familyTable.getRoot().getChildren().add(0,row);
+		familyTable.refresh();
+	}
+
+
+	private TreeItem<TableDataType> dataForTable() {
+		TreeItem<TableDataType> rows = new TreeItem<>();
+		controller.getFamilies().forEach(family -> {
+			TreeItem<TableDataType> parents = new TreeItem<>(new UserDT("Parents"));
+			parents.getChildren().addAll(family.getParents().stream()
+					.map(parent -> new TreeItem<TableDataType>(new UserDT(parent, ""))).collect(Collectors.toList()));
+
+			TreeItem<TableDataType> children = new TreeItem<>(new UserDT("Students"));
+			children.getChildren().addAll(family.getChildren().stream()
+					.map(child -> new TreeItem<TableDataType>(new UserDT(child, child.getClasss().toString()))).collect(Collectors.toList()));
+
+			TreeItem<TableDataType> familyRoot = new TreeItem<>(new FamilyDT(family));
+			familyRoot.getChildren().addAll(parents, children);
+			rows.getChildren().add(familyRoot);
+		});
+		return rows;
 	}
 }

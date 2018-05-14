@@ -24,4 +24,5 @@ public interface ClientModel {
 	ArrayList<Family> getAllFamilies();
     void deleteFamily(Family family);
 	List<Teacher> getTeachers();
+	void addFamily(Family family);
 }

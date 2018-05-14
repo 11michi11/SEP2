@@ -24,7 +24,7 @@
       </Label>
       <VBox layoutX="935.0" layoutY="185.0" prefHeight="563.0" prefWidth="334.0">
          <children>
-            <Button fx:id="createFamily" mnemonicParsing="false" prefHeight="94.0" prefWidth="335.0" styleClass="menuButtonSmall" stylesheets="@../login.css" text="create family" textFill="#729eea">
+            <Button fx:id="createFamily" mnemonicParsing="false" onAction="#createFamily" prefHeight="94.0" prefWidth="335.0" styleClass="menuButtonSmall" stylesheets="@../login.css" text="create family" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>

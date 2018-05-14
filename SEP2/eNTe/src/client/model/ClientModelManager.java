@@ -111,4 +111,9 @@ public class ClientModelManager implements ClientModel {
 		return users.getAllTeachers();
 	}
 
+	@Override
+	public void addFamily(Family family) {
+		families.addFamily(family);
+	}
+
 }

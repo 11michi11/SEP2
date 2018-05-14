@@ -165,4 +165,10 @@ public class ClientController {
         model.addOrUpdateUser(p4);
 
     }
+
+    public Family createFamily() {
+        Family family = new Family();
+        model.addFamily(family);
+        return family;
+    }
 }
