@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import model.RandomPassword;
+import model.Password;
 
-class RandomPasswordTest {
+class PasswordTest {
 
 	@Test
 	void testLength() {
-		assertEquals(10, RandomPassword.generatePassword(10).length());
+		assertEquals(10, Password.generatePassword(10).length());
 	}
 
 }

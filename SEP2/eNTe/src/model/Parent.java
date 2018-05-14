@@ -88,10 +88,11 @@ public class Parent extends User implements Serializable {
         @Override
         public Parent build() {
             Parent parent = new Parent(this.name, this.email);
-            if(this.pwd != null)
+            if (this.pwd != null)
                 parent.setPwd(pwd);
             parent.family = this.family;
-            parent.id = this.id;
+            if (this.id != null)
+                parent.id = this.id;
 
             return parent;
         }

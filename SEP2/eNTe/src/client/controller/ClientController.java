@@ -19,12 +19,15 @@ public class ClientController {
     private ClientModel model;
     private ClientView view;
     private static ClientController instance;
+    private User currentUser;
 
     private ClientController(ClientModel model, ClientView view) {
         instance = this;
         this.model = model;
         model.setController(this);
+        initializeModelForTests();
         this.view = view;
+        view.setController(this);
         this.view.startView();
     }
 
@@ -60,6 +63,10 @@ public class ClientController {
         Login login = msg.getLogin();
         switch (login.getLoginStatus()) {
             case SUCCESS:
+                currentUser = login.getCurrentUser();
+                if(login.changeLogin()){
+                    view.changePasswordDialog();
+                }
                 WelcomingData data = login.getData();
                 model.saveData(data);
                 view.showPosts(login.getUserType());
@@ -73,29 +80,38 @@ public class ClientController {
         }
     }
 
-    public void addTeacher(String name, String email, Boolean admin) {
+    public void changePassword(String pwd){
+        currentUser.setPwd(pwd);
+        model.addOrUpdateUser(currentUser);
+    }
+
+    public void addTeacher(String name, String email, Boolean admin, String id) {
         User user;
         if (admin)
             user = new Administrator(name, email);
         else
             user = new Teacher(name, email);
-
+        if(id != null)
+            user.setId(id);
         model.addOrUpdateUser(user);
     }
 
     public void addStudent(String name, String email, Classs classs, Family family) {
         Student student = Student.builder().name(name).email(email).classs(classs).family(family).build();
         model.addOrUpdateUser(student);
+        family.addChild(student);
     }
 
-    public void addParent(String name, String email, Family family){
+    public void addParent(String name, String email, Family family) {
         Parent parent = Parent.builder().name(name).email(email).family(family).build();
         model.addOrUpdateUser(parent);
+        family.addParent(parent);
     }
 
     public void deleteUser(String id) {
         model.deleteUser(id);
     }
+
     public void deleteUser(User user) {
         model.deleteUser(user);
     }
@@ -116,29 +132,37 @@ public class ClientController {
 
     public ObservableList<ParentDT> getParentsForView() {
         ObservableList<ParentDT> parents = FXCollections.observableArrayList();
+        parents.addAll(model.getParents().stream()
+                .map(ParentDT::new).collect(Collectors.toList()));
+        return parents;
+    }
+
+    public void deleteFamily(Family family) {
+        model.deleteFamily(family);
+
+    }
+	public ObservableList<TeacherDT> getTeachersForView() {
+		ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
+        teachers.addAll(model.getTeachers().stream()
+                .map(TeacherDT::new).collect(Collectors.toList()));
+        return teachers;
+    }
+
+    private void initializeModelForTests(){
+        Teacher t1 = new Teacher("Pato", "asdfasda");
+        Teacher t2 = new Teacher("Juraj", "dsfdsf");
+        Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
+        model.addOrUpdateUser(t1);
+        model.addOrUpdateUser(t2);
+        model.addOrUpdateUser(t3);
         Parent p1 = Parent.builder().name("name").email("email").pwd("pwd").build();
         Parent p2 = Parent.builder().name("name").email("email").pwd("pwd").build();
         Parent p3 = Parent.builder().name("name").email("email").pwd("pwd").build();
         Parent p4 = Parent.builder().name("name").email("email").pwd("pwd").build();
-        parents.addAll(new ParentDT(p1), new ParentDT(p2), new ParentDT(p3), new ParentDT(p4));
-        return parents;
+        model.addOrUpdateUser(p1);
+        model.addOrUpdateUser(p2);
+        model.addOrUpdateUser(p3);
+        model.addOrUpdateUser(p4);
+
     }
-
-	public void deleteFamily(Family family) {
-		model.deleteFamily(family);
-		
-	}
-
-	public ObservableList<TeacherDT> getTeachersForView() {
-		ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
-		Teacher t1 = new Teacher("Pato", "asdfasda");
-		Teacher t2 = new Teacher("Juraj", "dsfdsf");
-		Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
-        teachers.addAll(new TeacherDT(t1), new TeacherDT(t2), new TeacherDT(t3));
-        System.out.println("asdfd"+ model.getTeachers());
-        model.getTeachers().stream()
-        .map(t -> new TeacherDT(t)).collect(Collectors.toList())
-        .forEach(t -> teachers.add(t));
-        return teachers;
-	}
 }

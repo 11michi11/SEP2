@@ -103,8 +103,7 @@ public class ClientModelManager implements ClientModel {
 
 	@Override
 	public void deleteFamily(Family family) {
-	//TO DO
-		
+		families.deleteFamily(family);
 	}
 
 	@Override

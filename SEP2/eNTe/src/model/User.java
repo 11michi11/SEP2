@@ -24,9 +24,11 @@ public abstract class User implements Serializable{
 	public User(String name, String email) {
 		this.name = name;
 		this.email = email;
-		this.pwd = RandomPassword.generatePassword(8);
+		this.pwd = Password.generatePassword(8);
 		id = UUID.randomUUID().toString();
 		changePassword = true;
+		//Uncomment in real system - i don't want spam right now
+		//SendEmail.sendPasswordEmail(email, pwd);
 	}
 	
 	public User(String name, String email, String pwd, String id) {
@@ -75,13 +77,16 @@ public abstract class User implements Serializable{
 		return false;
 	}
 
+	public void setPwd(String pwd) {
+		this.pwd = Password.encryptPwd(pwd);
+		changePassword = false;
+	}
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", pwd=" + pwd + ", name=" + name + ", id=" + id + "]";
 	}
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-		changePassword = false;
+	public void setId(String id) {
+		this.id = id;
 	}
 }

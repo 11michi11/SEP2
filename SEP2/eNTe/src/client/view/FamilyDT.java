@@ -8,6 +8,7 @@ public class FamilyDT extends TableDataType {
 	
     FamilyDT(Family family) {
         this.name = family.getMembersNames();
+        this.family = family;
     }
 
     @Override

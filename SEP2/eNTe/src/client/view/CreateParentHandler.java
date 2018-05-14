@@ -27,17 +27,18 @@ public class CreateParentHandler {
 		controller = ClientController.getInstance();
 		System.out.println("CreateParentHandler");
 		stage = ClientViewManager.getStage();
-		loader = new FXMLLoader(getClass().getResource("/client/view/parentList.fxml"));
+
+	}
+
+	public void save() {
+		controller.addParent(name.getText(), email.getText(), family);
+		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void save() {
-		controller.addParent(name.getText(), email.getText(), family);
 		goBack();
 	}
 

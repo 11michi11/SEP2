@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -13,15 +14,17 @@ public class UsersList {
 	private ArrayList<User> users;
 
 	public UsersList() {
-		users = new ArrayList<User>();
+		users = new ArrayList<>();
 	}
 
 	public LoginStatus authenticate(Auth auth) {
 		try {
 			User user = getUserByLogin(auth.email);
-			if (user.getPwd().equals(auth.pwd))
-				return LoginStatus.SUCCESS;
-			else
+			if (user.getPwd().equals(auth.pwd)) {
+				LoginStatus status = LoginStatus.SUCCESS;
+				status.currentUser = user;
+				return status;
+			}else
 				return LoginStatus.FAILURE_PWD;
 		} catch (NoSuchElementException e) {
 			return LoginStatus.FAILURE_LOGIN;
@@ -37,6 +40,8 @@ public class UsersList {
 	}
 	
 	public User getUserById(String id) {
+		users.forEach(user -> System.out.println(user.getId()));
+
 		return users.stream().filter(u -> u.getId().equals(id)).findFirst()
 				.orElseThrow(NoSuchElementException::new);
 	}
@@ -46,8 +51,7 @@ public class UsersList {
 	}
 
 	public void add(List<User> list) {
-		for (User e : list)
-			users.add(e);
+		users.addAll(list);
 	}
 
 	public boolean contains(User user) {
@@ -66,11 +70,12 @@ public class UsersList {
 	}
 
 	public void updateUser(User user) {
-		for(User u : users)
-			if(u.getId().equals(user.getId())) {
-				users.remove(u);
-				users.add(user);
-			}	
+		for (int i = 0, usersSize = users.size(); i < usersSize; i++) {
+			User u = users.get(i);
+			if (u.getId().equals(user.getId())) {
+				users.set(i, user);
+			}
+		}
 	}
 
 	public ArrayList<Parent> getParents() {
@@ -86,9 +91,7 @@ public class UsersList {
 	}
 
 	public List<Teacher> getAllTeachers() {
-		System.out.println("users" + users);
-		return users.stream().filter(u -> u instanceof Teacher).map(u -> (Teacher)u).collect(Collectors.toList());				
-				
+		return users.stream().filter(u -> u instanceof Teacher).map(u -> (Teacher)u).collect(Collectors.toList());
 	}
 
 }

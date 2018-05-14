@@ -69,24 +69,27 @@ public class ServerController {
 	}
 
 	private Message handleAuthentication(Message msg) {
-		WelcomingData data = null;
+		WelcomingData data;
 		Login login = null;
-		switch (model.authenticate(msg.getAuth())) {
+
+		LoginStatus status = model.authenticate(msg.getAuth());
+		switch (status) {
 		case SUCCESS:
 			data = new WelcomingData();
 			Post post = model.getPost();
-			LinkedList<Post> list = new LinkedList<Post>();
+			LinkedList<Post> list = new LinkedList<>();
 			list.add(post);
 			data.insertPosts(list);
-			login = new Login(LoginStatus.SUCCESS, data);
+			//status.currentUser.changePassword(); - for testing changing password
+			login = new Login(LoginStatus.SUCCESS, data, status.currentUser);
 			break;
 		case FAILURE_LOGIN:
 			data = new WelcomingData();
-			login = new Login(LoginStatus.FAILURE_LOGIN, data);
+			login = new Login(LoginStatus.FAILURE_LOGIN, data, null);
 			break;
 		case FAILURE_PWD:
 			data = new WelcomingData();
-			login = new Login(LoginStatus.FAILURE_PWD, data);
+			login = new Login(LoginStatus.FAILURE_PWD, data, null);
 			break;
 		}
 		return Message.createLogin(login);

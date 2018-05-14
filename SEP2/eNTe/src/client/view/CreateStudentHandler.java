@@ -1,7 +1,6 @@
 package client.view;
 
 import java.io.IOException;
-import java.net.PasswordAuthentication;
 
 import client.controller.ClientController;
 import javafx.collections.FXCollections;
@@ -33,13 +32,6 @@ public class CreateStudentHandler {
 		controller = ClientController.getInstance();
 		System.out.println("CreateStudentHandler");
 		stage = ClientViewManager.getStage();
-		loader = new FXMLLoader(getClass().getResource("/client/view/parentList.fxml"));
-		try {
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@FXML
@@ -48,12 +40,25 @@ public class CreateStudentHandler {
 	}
 
 	public void save() {
-		
-		controller.addStudent(name.getText(), email.getText(), classSelector.getSelectionModel().getSelectedItem(), family);
+		controller.addStudent(name.getText(), email.getText(), classSelector.getValue(), family);
+		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
+		try {
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		goBack();
 	}
 
 	public void goBack() {
+		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
+		try {
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		stage.getScene().setRoot(mainPane);
 		stage.show();
 	}
