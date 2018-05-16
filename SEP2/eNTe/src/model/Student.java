@@ -56,11 +56,9 @@ public class Student extends User implements Serializable {
         return "Student [historyOfActivity=" + historyOfActivity + ", classs=" + classs + ", family=" + family + "]";
     }
 
-
     public static StudentNeedName builder() {
         return new Builder();
     }
-
 
     public static final class Builder implements StudentNeedName, StudentNeedEmail, StudentNeedClasss, StudentCanBeBuild {
         protected String id;

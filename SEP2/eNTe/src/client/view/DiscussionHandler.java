@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.MyDate;
 
 import java.io.IOException;
 
@@ -62,7 +63,7 @@ public class DiscussionHandler {
 		TextField title = (TextField) text.getChildren().get(0);
 		TextArea content = (TextArea) text.getChildren().get(1);
 
-		controller.addPost(title.getText(), content.getText());
+		controller.addPost(title.getText(), content.getText(), controller.getCurrentUserName(), MyDate.now());
 	}
 	public void goBack() {
 		stage.getScene().setRoot(mainPane);

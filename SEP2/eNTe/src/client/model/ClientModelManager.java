@@ -15,105 +15,105 @@ import model.communication.WelcomingData;
 
 public class ClientModelManager implements ClientModel {
 
-	private ClientProxy server;
-	private PostsList posts;
-	private UsersList users;
-	private FamiliesList families;
-	private ClientController controller;
-	
+    private ClientProxy server;
+    private PostsList posts;
+    private UsersList users;
+    private FamiliesList families;
+    private ClientController controller;
 
-	public ClientModelManager() {
-		posts = new PostsList();
-		users = new UsersList();
-		server = new ClientProxy();
-		families = new FamiliesList();
-		server.startConnection("localhost", 7777);
-	}
 
-	public void closeServer() {
-		server.close();
-	}
-	
-	public void setController(ClientController controller) {
-		this.controller = controller;
-	}
+    public ClientModelManager() {
+        posts = new PostsList();
+        users = new UsersList();
+        server = new ClientProxy();
+        families = new FamiliesList();
+        server.startConnection("localhost", 7777);
+    }
 
-	@Override
-	public void addPost(String title, String content) {
-		posts.add(new Post(title, content));
-	}
+    public void closeServer() {
+        server.close();
+    }
 
-	@Override
-	public ArrayList<Family> getAllFamilies() {
-		return families.getAll();
-	}
+    public void setController(ClientController controller) {
+        this.controller = controller;
+    }
 
-	@Override
-	public Post getPost() {
-		return posts.getFirstPost();
-	}
+    @Override
+    public void addPost(String title, String content, String author, MyDate publicationDate) {
+        posts.add(new Post(title, content, author, publicationDate));
+    }
 
-	@Override
-	public void storePost(Post post) {
-		posts.add(post);
-	}
+    @Override
+    public ArrayList<Family> getAllFamilies() {
+        return families.getAll();
+    }
 
-	@Override
-	public void saveData(WelcomingData data) {
-		posts.addAll(Arrays.asList(data.getPosts()));
-	}
+    @Override
+    public Post getPost() {
+        return posts.getFirstPost();
+    }
 
-	@Override
-	public void addOrUpdateUser(User user) {
-		if (!users.contains(user)) {
-			users.add(user);
-			server.manageUser(ManageUser.ADD, user);
-		}else {
-			users.updateUser(user);
-		}
-	}
+    @Override
+    public void storePost(Post post) {
+        posts.add(post);
+    }
 
-	@Override
-	public void deleteUser(String id) {		
-		server.manageUser(ManageUser.DELETE, users.getUserById(id));
-		users.delete(id);
-	}
+    @Override
+    public void saveData(WelcomingData data) {
+        posts.addAll(Arrays.asList(data.getPosts()));
+    }
 
-	@Override
-	public void deleteUser(User user) {
-		server.manageUser(ManageUser.DELETE, users.getUserById(user.getId()));
-		users.delete(user.getId());
-	}
+    @Override
+    public void addOrUpdateUser(User user) {
+        if (!users.contains(user)) {
+            users.add(user);
+            server.manageUser(ManageUser.ADD, user);
+        } else {
+            users.updateUser(user);
+        }
+    }
 
-	@Override
-	public void login(String email, String pwd) {
-		Auth auth = new Auth(email, pwd);
-		Message response = server.login(auth);
-		controller.handleMessage(response);
-	}
+    @Override
+    public void deleteUser(String id) {
+        server.manageUser(ManageUser.DELETE, users.getUserById(id));
+        users.delete(id);
+    }
 
-	@Override
-	public ArrayList<Parent> getParents() {
-		return users.getParents();
-	}
-	
-	public User getUserById(String id) {
-		return users.getUserById(id);
-	}
+    @Override
+    public void deleteUser(User user) {
+        server.manageUser(ManageUser.DELETE, users.getUserById(user.getId()));
+        users.delete(user.getId());
+    }
 
-	@Override
-	public void deleteFamily(Family family) {
-		families.deleteFamily(family);
-	}
+    @Override
+    public void login(String email, String pwd) {
+        Auth auth = new Auth(email, pwd);
+        Message response = server.login(auth);
+        controller.handleMessage(response);
+    }
 
-	@Override
-	public List<Teacher> getTeachers() {
-		return users.getAllTeachers();
-	}
+    @Override
+    public ArrayList<Parent> getParents() {
+        return users.getParents();
+    }
 
-	@Override
-	public void addFamily(Family family) {
-		families.addFamily(family);
-	}
+    public User getUserById(String id) {
+        return users.getUserById(id);
+    }
+
+    @Override
+    public void deleteFamily(Family family) {
+        families.deleteFamily(family);
+    }
+
+    @Override
+    public List<Teacher> getTeachers() {
+        return users.getAllTeachers();
+    }
+
+    @Override
+    public void addFamily(Family family) {
+        families.addFamily(family);
+    }
 
 }

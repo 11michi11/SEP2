@@ -68,7 +68,7 @@ class UsersListTest {
 		Teacher teacher = new Teacher("name", "email", "pwd");
 		Administrator admin = new Administrator("name", "email", "pwd");
 		Parent parent = new Parent("name", "email", "pwd");
-		Student student = new Student("name", "email", "pwd", Classs.First, null);
+		Student student =  Student.builder().name("name").email("email").classs(Classs.First).build();
 		ArrayList<User> list = new ArrayList<>();
 		list.add(teacher);
 		list.add(admin);

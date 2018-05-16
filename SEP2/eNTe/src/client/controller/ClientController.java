@@ -122,8 +122,8 @@ public class ClientController {
         return posts;
     }
 
-    public void addPost(String title, String content) {
-        model.addPost(title, content);
+    public void addPost(String title, String content, String author, MyDate publicationDate) {
+        model.addPost(title, content, author, publicationDate);
     }
 
     public ArrayList<Family> getFamilies() {
@@ -169,5 +169,11 @@ public class ClientController {
     public void createFamily() {
         Family family = new Family();
         model.addFamily(family);
+    }
+
+
+
+    public String getCurrentUserName(){
+        return currentUser.getName();
     }
 }

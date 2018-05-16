@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import model.MyDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,9 +25,10 @@ class PostsListTest {
 	
 	@Test
 	void testGetFirstPost() {
-		Post post1 = new Post("title", "content");
-		Post post2 = new Post("title", "content");
-		Post post3 = new Post("title", "content");
+		MyDate pubDate = MyDate.now();
+		Post post1 = new Post("title", "content", "Author", pubDate);
+		Post post2 = new Post("title", "content", "Author", pubDate);
+		Post post3 = new Post("title", "content", "Author", pubDate);
 		
 		posts.add(post1);
 		posts.add(post2);
@@ -38,7 +40,8 @@ class PostsListTest {
 	
 	@Test
 	void testGetNextPost() {
-		Post post1 = new Post("title", "content");
+		MyDate pubDate = MyDate.now();
+		Post post1 = new Post("title", "content", "Author", pubDate);
 		posts.add(post1);
 		assertEquals(post1, posts.getNextPost());
 		assertThrows(NoSuchElementException.class, () -> posts.getNextPost());
@@ -46,9 +49,10 @@ class PostsListTest {
 	
 	@Test
 	void testAddAll() {
-		Post post1 = new Post("title", "content");
-		Post post2 = new Post("title", "content");
-		Post post3 = new Post("title", "content");
+		MyDate pubDate = MyDate.now();
+		Post post1 = new Post("title", "content", "Author", pubDate);
+		Post post2 = new Post("title", "content", "Author", pubDate);
+		Post post3 = new Post("title", "content", "Author", pubDate);
 		ArrayList<Post> list = new ArrayList<>();
 		list.add(post1);
 		list.add(post2);
