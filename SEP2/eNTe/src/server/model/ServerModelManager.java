@@ -103,7 +103,7 @@ public class ServerModelManager implements ServerModel {
                         + " venenatis eros. Etiam posuere tempus est non maximus."
                         + " Pellentesque diam tortor, fringilla eget cursus pretium,"
                         + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
-                        + " Cras facilisis neque at scelerisque placerat.", "Test", MyDate.now());
+                        + " Cras facilisis neque at scelerisque placerat.", "Test", "Author", MyDate.now());
 
         LinkedList<Post> list = new LinkedList<>();
         list.add(post);

@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class Post implements Serializable {
 
@@ -10,6 +11,13 @@ public class Post implements Serializable {
     private MyDate pubDate;
     private String postId;
 
+    public Post(String title, String content, String author, MyDate pubDate) {
+        this.postId = UUID.randomUUID().toString();;
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.pubDate = pubDate;
+    }
     public Post(String postId, String title, String content, String author, MyDate pubDate) {
         this.postId = postId;
         this.title = title;
