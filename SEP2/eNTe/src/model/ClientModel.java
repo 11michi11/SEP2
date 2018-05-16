@@ -13,7 +13,7 @@ public interface ClientModel {
 
 	void setController(ClientController controller);
 	void storePost(Post post);
-	void addPost(String title, String content);
+	void addPost(String title, String content, String author, MyDate publicationDate);
 	Post getPost();
 	void saveData(WelcomingData data);
 	void addOrUpdateUser(User user);

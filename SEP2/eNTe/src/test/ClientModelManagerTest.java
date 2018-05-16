@@ -2,7 +2,6 @@ package test;
 
 import client.model.ClientModelManager;
 import model.*;
-import model.Classs;
 import model.communication.WelcomingData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,17 +35,19 @@ class ClientModelManagerTest {
 
 	@Test
 	void getAndStorePostTest() {
-		Post post = new Post("Title", "Content");
+		MyDate pubDate = MyDate.now();
+		Post post = new Post("Title", "Content", "Author", pubDate);
 		model.storePost(post);
 
-		assertEquals(new Post("Title", "Content"), model.getPost());
+		assertEquals(new Post("Title", "Content", "Author", pubDate), model.getPost());
 	}
 
 	@Test
 	void saveDataFromWelcomingData() {
-		Post post1 = new Post("Title1", "Content");
-		Post post2 = new Post("Title2", "Content");
-		Post post3 = new Post("Title3", "Content");
+		MyDate pubDate = MyDate.now();
+		Post post1 = new Post("Title1", "Content", "Author", pubDate);
+		Post post2 = new Post("Title2", "Content", "Author", pubDate);
+		Post post3 = new Post("Title3", "Content", "Author", pubDate);
 		WelcomingData data = new WelcomingData();
 		LinkedList<Post> list1 = new LinkedList<>();
 		LinkedList<Post> list2 = new LinkedList<>();
