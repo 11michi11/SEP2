@@ -205,7 +205,7 @@ public class DBAdapter implements DBPersistence {
                 String name = (String) e[3];
                 boolean changePwdNeeded = (boolean) e[4];
                 String familyID = (String) e[5];
-                Classs classs = (Classs) e[6];
+                Classs classs = Classs.valueOf((String) e[6]);
                 Student student = Student.builder().name(name).email(email).classs(classs).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
                 student.setChangePassword(changePwdNeeded);
 			    families.getFamilyById(familyID).addChild(student);

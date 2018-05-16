@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
-public class AdapterTest {
+class AdapterTest {
 
     private DBPersistence adapter;
     private LinkedList<User> users;
@@ -20,6 +20,9 @@ public class AdapterTest {
     @BeforeEach
     void setUp() throws ClassNotFoundException {
         adapter = new DBAdapter();
+        users = new LinkedList<>();
+        families = new FamilyList();
+
         User admin = new Administrator("AdminName","AdminEmail","AdminPwd","AdminId");
         User teacher1 = new Teacher("TeacherName1","TeacherEmail1","TeacherPwd1","TeacherId1");
 
@@ -49,7 +52,9 @@ public class AdapterTest {
     @Test
     void testGetUsers () {
         LinkedList<User> list = adapter.getUsers(families);
-        assertTrue(users.containsAll(list));
+        for (User e:users) {
+            assertTrue(list.contains(e));
+        }
     }
 
 
