@@ -12,6 +12,7 @@ public class MyDate {
     public MyDate(int year, int month, int day) {
         this.set(year, month, day);
     }
+
     public MyDate() {
         Calendar now = GregorianCalendar.getInstance();
         this.year = now.get(Calendar.YEAR);

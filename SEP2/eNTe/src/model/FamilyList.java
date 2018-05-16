@@ -21,4 +21,15 @@ public class FamilyList {
 	public int getSize() {
 		return families.size();
 	}
+	public Family getFamilyById (String familyId) {
+//		return families.get(families.indexOf(familyId));
+		Family family = null;
+		for (Family e:families) {
+			if (e.getId().equals(familyId)) {
+				family = e;
+				break;
+			}
+		}
+		return family;
+	}
 }

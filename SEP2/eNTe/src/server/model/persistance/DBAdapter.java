@@ -1,10 +1,10 @@
 package server.model.persistance;
 
-import client.model.FamiliesList;
 import model.*;
 import utility.persistence.MyDatabase;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -32,10 +32,9 @@ public class DBAdapter implements DBPersistence {
                 String content = (String) e[2];
                 String authorID = (String) e[3];
                 User author = users.getUserById(authorID);
-                //Post post = new Post(title, content);
-                //author.makePost(post);
-                // String date = (String) e[4];
-                //list.add(new Post(title, content)); // maybe it's needed to add fields(author,date) to Post class
+                Timestamp time = (Timestamp) e[4];
+                MyDate date = new MyDate(time.getYear(),time.getMonth()+1,time.getDay());
+                list.add(new Post(postID,title,content,author.getName(),date));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,7 +43,7 @@ public class DBAdapter implements DBPersistence {
     }
 
     @Override
-    public LinkedList<User> getUsers(FamiliesList families) {
+    public LinkedList<User> getUsers(FamilyList families) {
         LinkedList<User> users = new LinkedList<>();
 
         LinkedList<Administrator> admins = getAdmins();
@@ -80,7 +79,7 @@ public class DBAdapter implements DBPersistence {
                     Parent parent = (Parent) user;
                     sql += "parent ('";
                     sql += parent.getId() + "','";
-                    sql += parent.getFamily().getId() + "')";
+                    sql += parent.getFamilyId() + "')";
                     sqlList.add(sql);
                     break;
 
@@ -161,7 +160,9 @@ public class DBAdapter implements DBPersistence {
                 String pwd = (String) e[3];
                 String name = (String) e[4];
                 boolean changePwdNeeded = (boolean) e[5];
-                list.add(new Administrator(name, email, pwd, id));
+                Administrator administrator = new Administrator(name, email, pwd, id);
+                administrator.setChangePassword(changePwdNeeded);
+                list.add(administrator);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -180,7 +181,9 @@ public class DBAdapter implements DBPersistence {
                 String pwd = (String) e[3];
                 String name = (String) e[4];
                 boolean changePwdNeeded = (boolean) e[5];
-                list.add(new Teacher(name, email, pwd, id));
+                Teacher teacher = new Teacher(name, email, pwd, id);
+                teacher.setChangePassword(changePwdNeeded);
+                list.add(teacher);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -188,7 +191,7 @@ public class DBAdapter implements DBPersistence {
         return list;
     }
 
-    private LinkedList<Student> getStudents(FamiliesList families) {
+    private LinkedList<Student> getStudents(FamilyList families) {
         LinkedList<Student> list = new LinkedList<>();
 
         //parameter is of type FamiliesList from client model package, needs to be changed
@@ -203,9 +206,10 @@ public class DBAdapter implements DBPersistence {
                 boolean changePwdNeeded = (boolean) e[4];
                 String familyID = (String) e[5];
                 Classs classs = (Classs) e[6];
-//              Student student = Student.builder().name(name).email(email).classs(classs).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
-//			    families.getFamilyById(familyID).addChild(student);
-//			    list.add(student);
+                Student student = Student.builder().name(name).email(email).classs(classs).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
+                student.setChangePassword(changePwdNeeded);
+			    families.getFamilyById(familyID).addChild(student);
+			    list.add(student);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -213,7 +217,7 @@ public class DBAdapter implements DBPersistence {
         return list;
     }
 
-    private LinkedList<Parent> getParents(FamiliesList families) {
+    private LinkedList<Parent> getParents(FamilyList families) {
         LinkedList<Parent> list = new LinkedList<>();
         try {
             String sql = "SELECT e.id, e.email, e.pwd, e.name, e.changePassword, p.familyid FROM enteuser e, parent p WHERE e.id=p.parentid";
@@ -225,9 +229,10 @@ public class DBAdapter implements DBPersistence {
                 String name = (String) e[4];
                 boolean changePwdNeeded = (boolean) e[5];
                 String familyID = (String) e[5];
-//			Parent parent = Parent.builder().name(name).email(email).id(id).pwd(pwd).family(families.getFamilyById(familyID));
-//			families.getFamilyById(familyID).addParent(parent);
-//			list.add(parent);
+                Parent parent = Parent.builder().name(name).email(email).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
+                parent.setChangePassword(changePwdNeeded);
+                families.getFamilyById(familyID).addParent(parent);
+                list.add(parent);
             }
         } catch (SQLException e) {
             e.printStackTrace();

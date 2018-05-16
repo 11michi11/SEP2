@@ -8,8 +8,10 @@ public class Post implements Serializable {
     private String content;
     private String author;
     private MyDate pubDate;
+    private String postId;
 
-    public Post(String title, String content, String author, MyDate pubDate) {
+    public Post(String postId, String title, String content, String author, MyDate pubDate) {
+        this.postId = postId;
         this.title = title;
         this.content = content;
         this.author = author;
@@ -30,6 +32,10 @@ public class Post implements Serializable {
 
     public MyDate getPubDate() {
         return pubDate;
+    }
+
+    public String getPostId() {
+        return postId;
     }
 
     @Override
