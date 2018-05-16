@@ -166,9 +166,8 @@ public class ClientController {
 
     }
 
-    public Family createFamily() {
+    public void createFamily() {
         Family family = new Family();
         model.addFamily(family);
-        return family;
     }
 }

@@ -107,14 +107,8 @@ public class FamilyListHandler {
 	}
 
 	public void createFamily() {
-		TreeItem<TableDataType> row = new TreeItem<>();
-		Family family = controller.createFamily();
-		TreeItem<TableDataType> parents = new TreeItem<>(new UserDT("Parents"));
-		TreeItem<TableDataType> children = new TreeItem<>(new UserDT("Students"));
-		TreeItem<TableDataType> familyRoot = new TreeItem<>(new FamilyDT(family));
-		familyRoot.getChildren().addAll(parents, children);
-		row.getChildren().add(familyRoot);
-		familyTable.getRoot().getChildren().add(0,row);
+		controller.createFamily();
+		familyTable.setRoot(dataForTable());
 		familyTable.refresh();
 	}
 

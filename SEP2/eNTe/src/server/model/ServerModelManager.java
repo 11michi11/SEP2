@@ -7,16 +7,19 @@ import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class ServerModelManager implements ServerModel {
 
     private PostsList posts;
     private UsersList users;
+    private FamilyList families;
     private DBPersistence db;
 
     public ServerModelManager() {
         posts = new PostsList();
         users = new UsersList();
+        families = new FamilyList();
         try {
             db = new DBAdapter();
         } catch (ClassNotFoundException e) {
@@ -47,6 +50,39 @@ public class ServerModelManager implements ServerModel {
         posts.addAll(getPosts());
     }
 
+    @Override
+    public void addUser(User user) {
+        users.add(user);
+        //  db.addUser(user);
+    }
+
+    @Override
+    public void editUser(User user) {
+        users.updateUser(user);
+        db.updateUser(user);
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        users.delete(user.getId());
+        db.deleteUser(user.getId());
+    }
+
+    @Override
+    public List<Family> getAllFamilies() {
+        return families.getAllFamilies();
+    }
+
+    @Override
+    public void deleteFamily(Family family) {
+        families.deleteFamily(family);
+    }
+
+    @Override
+    public void addFamily(Family family) {
+        families.addFamily(family);
+    }
+
     private LinkedList<User> getUsers() {
         User user = new Administrator("name", "login", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
 
@@ -67,26 +103,11 @@ public class ServerModelManager implements ServerModel {
                         + " venenatis eros. Etiam posuere tempus est non maximus."
                         + " Pellentesque diam tortor, fringilla eget cursus pretium,"
                         + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
-                        + " Cras facilisis neque at scelerisque placerat.");
+                        + " Cras facilisis neque at scelerisque placerat.", "Test");
 
         LinkedList<Post> list = new LinkedList<>();
         list.add(post);
         return list;
-    }
-
-    public void addUser(User user) {
-        users.add(user);
-      //  db.addUser(user);
-    }
-
-    public void editUser(User user) {
-        users.updateUser(user);
-        db.updateUser(user);
-    }
-
-    public void deleteUser(User user) {
-        users.delete(user.getId());
-        db.deleteUser(user.getId());
     }
 
 }

@@ -24,7 +24,7 @@ public class FamiliesList {
     }
 
     public void addFamily(Family family){
-        families.add(family);
+        families.add(0,family);
     }
     public ArrayList<Family> getAll(){
         return families;

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import model.Post;
+import model.ServerModel;
 import model.communication.Login;
 import model.communication.LoginStatus;
 import model.communication.ManageUser;
@@ -13,10 +14,10 @@ import server.model.ServerModelManager;
 
 public class ServerController {
 
-	private ServerModelManager model;
+	private ServerModel model;
 	private ServerProxy server;
 
-	public ServerController(ServerModelManager model) {
+	public ServerController(ServerModel model) {
 		this.model = model;
 		server = new ServerProxy(this);
 		server.start();
