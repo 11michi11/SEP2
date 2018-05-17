@@ -6,6 +6,7 @@ import utility.persistence.MyDatabase;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 
 public class DBAdapter implements DBPersistence {
@@ -32,8 +33,10 @@ public class DBAdapter implements DBPersistence {
                 String content = (String) e[2];
                 String authorID = (String) e[3];
                 User author = users.getUserById(authorID);
-                Timestamp time = (Timestamp) e[4];
-                MyDate date = new MyDate(time.getYear(),time.getMonth()+1,time.getDay());
+                Timestamp timestamp = (Timestamp) e[4];
+                Calendar time = Calendar.getInstance();
+                time.setTime(timestamp);
+                MyDate date = new MyDate(time.get(Calendar.YEAR),time.get(Calendar.MONTH)+1,time.get(Calendar.DAY_OF_MONTH));
                 list.add(new Post(postID,title,content,author.getName(),date));
             }
         } catch (SQLException e) {
