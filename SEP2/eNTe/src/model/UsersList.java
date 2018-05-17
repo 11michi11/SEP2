@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ public class UsersList {
 
 	public LoginStatus authenticate(Auth auth) {
 		try {
-			User user = getUserByLogin(auth.email);
+			User user = getUserByEmail(auth.email);
 			if (user.getPwd().equals(auth.pwd)) {
 				LoginStatus status = LoginStatus.SUCCESS;
 				status.currentUser = user;
@@ -31,9 +30,9 @@ public class UsersList {
 		}
 	}
 
-	public User getUserByLogin(String login) {
+	public User getUserByEmail(String Email) {
 		for(User u : users)
-			if(u.getEmail().equals(login))
+			if(u.getEmail().equals(Email))
 				return u;
 			
 		throw new NoSuchElementException();
@@ -94,4 +93,7 @@ public class UsersList {
 		return users.stream().filter(u -> u instanceof Teacher).map(u -> (Teacher)u).collect(Collectors.toList());
 	}
 
+    public boolean checkIfEmailExist(String email) {
+    	return users.stream().anyMatch(u -> u.getEmail().equals(email));
+	}
 }

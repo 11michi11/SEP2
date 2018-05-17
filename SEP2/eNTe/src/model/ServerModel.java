@@ -7,13 +7,14 @@ import java.util.List;
 
 public interface ServerModel {
 
-	public Post getPost();
-	public LoginStatus authenticate(Auth auth);
-	public void addUser(User user);
-	public void editUser(User user);
-	public void deleteUser(User user);
+	Post getPost();
+	LoginStatus authenticate(Auth auth);
+	void addUser(User user);
+	void editUser(User user);
+	void deleteUser(User user);
 	List<Family> getAllFamilies();
 	void deleteFamily(Family family);
 	void addFamily(Family family);
-	
+    boolean checkIfEmailExist(String email);
+    void changePwdWithEmail(String email, String newPwd);
 }

@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import model.User;
 import model.communication.Auth;
+import model.communication.EmailStatus;
 import model.communication.ManageUser;
 import model.communication.Message;
 
@@ -69,4 +70,22 @@ public class ClientProxy {
 		return response;
 	}
 
+    boolean checkEmailForPwdReset(String email) {
+    	Message msg= Message.createCheckEmail(email), response = null;
+		try {
+			response = sendMessage(msg);
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return response != null && response.getEmailStatus().equals(EmailStatus.EXIST);
+	}
+
+	void changePwdWithEmail(String email, String newPwd) {
+		Message msg = Message.createChangePwdWithEmail(email, newPwd);
+		try {
+			sendMessage(msg);
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 }

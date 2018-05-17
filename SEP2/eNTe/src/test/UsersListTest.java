@@ -41,7 +41,7 @@ class UsersListTest {
 		Teacher teacher = new Teacher("name", "email", "pwd");
 		users.add(teacher);
 		
-		assertEquals(teacher, users.getUserByLogin("email"));
+		assertEquals(teacher, users.getUserByEmail("email"));
 	}
 	
 	@Test

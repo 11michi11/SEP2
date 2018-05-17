@@ -57,7 +57,7 @@ public class ParentListHandler {
                 });
         parentsList.getColumns().clear();
         parentsList.getColumns().addAll(nameColumn, emailColumn, childrenColumn, selectedColumn);
-        parentsList.setItems(controller.getParentsForView());
+    //    parentsList.setItems(controller.getParentsForView());
     }
 
 

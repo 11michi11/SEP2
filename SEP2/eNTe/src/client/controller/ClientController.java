@@ -1,15 +1,14 @@
 package client.controller;
 
 import client.view.ClientView;
-import client.view.ParentDT;
 import client.view.TeacherDT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
-import model.Classs;
 import model.communication.Login;
 import model.communication.Message;
 import model.communication.WelcomingData;
+import utility.SendEmail;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -64,7 +63,7 @@ public class ClientController {
         switch (login.getLoginStatus()) {
             case SUCCESS:
                 currentUser = login.getCurrentUser();
-                if(login.changeLogin()){
+                if (login.changeLogin()) {
                     view.changePasswordDialog();
                 }
                 WelcomingData data = login.getData();
@@ -80,7 +79,7 @@ public class ClientController {
         }
     }
 
-    public void changePassword(String pwd){
+    public void changePassword(String pwd) {
         currentUser.setPwd(pwd);
         model.addOrUpdateUser(currentUser);
     }
@@ -91,7 +90,7 @@ public class ClientController {
             user = new Administrator(name, email);
         else
             user = new Teacher(name, email);
-        if(id != null)
+        if (id != null)
             user.setId(id);
         model.addOrUpdateUser(user);
     }
@@ -130,25 +129,19 @@ public class ClientController {
         return model.getAllFamilies();
     }
 
-    public ObservableList<ParentDT> getParentsForView() {
-        ObservableList<ParentDT> parents = FXCollections.observableArrayList();
-        parents.addAll(model.getParents().stream()
-                .map(ParentDT::new).collect(Collectors.toList()));
-        return parents;
-    }
-
     public void deleteFamily(Family family) {
         model.deleteFamily(family);
 
     }
-	public ObservableList<TeacherDT> getTeachersForView() {
-		ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
+
+    public ObservableList<TeacherDT> getTeachersForView() {
+        ObservableList<TeacherDT> teachers = FXCollections.observableArrayList();
         teachers.addAll(model.getTeachers().stream()
                 .map(TeacherDT::new).collect(Collectors.toList()));
         return teachers;
     }
 
-    private void initializeModelForTests(){
+    private void initializeModelForTests() {
         Teacher t1 = new Teacher("Pato", "asdfasda");
         Teacher t2 = new Teacher("Juraj", "dsfdsf");
         Teacher t3 = new Teacher("Michal Pompa", "KarolIzidro");
@@ -171,9 +164,17 @@ public class ClientController {
         model.addFamily(family);
     }
 
-
-
-    public String getCurrentUserName(){
+    public String getCurrentUserName() {
         return currentUser.getName();
+    }
+
+    public void resetPwd(String email) {
+        if (model.checkEmailForPwdReset(email)) {
+            String newPwd = Password.generateEntePassword();
+            SendEmail.sendPasswordEmail(email, newPwd);
+            model.changePwdWithEmail(email, newPwd);
+        }else{
+            view.showMessage("Entered email does not exist in the system.\nTry again or contact administrator: enteEmailService@gmail.com");
+        }
     }
 }

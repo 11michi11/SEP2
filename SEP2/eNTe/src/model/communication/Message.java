@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Message implements Serializable{
-	
+
 	private Map<Type, Object> data;
-	
+
 	public enum Type{
-		Type, Login, Auth, ManageUser, NoType, Fail, Success
+		Type, Login, Auth, ManageUser, NoType, CheckEmail, EmailStatus, ChangePwd, ManageFamily, Fail, Success
 	}
-	
-	public Message() {
-		data = new HashMap<Type, Object>();
+
+	private Message() {
+		data = new HashMap<>();
 	}
 	
 	public void put(Type key, Object value) {
@@ -23,51 +23,52 @@ public class Message implements Serializable{
 	public Object get(String key) {
 		return data.get(key);
 	}
-	
+
+	public EmailStatus getEmailStatus() {
+		if(!data.get(Type.Type).equals(Type.EmailStatus))
+			throw new IllegalStateException("Message does not contain email information");
+		return (EmailStatus) data.get(Type.EmailStatus);
+	}
+
 	public Type getType() {
 		return (Type) data.getOrDefault(Type.Type, Type.NoType);
 	}
 	
 	public Login getLogin() throws NullPointerException, IllegalStateException{
 		if(!data.get(Type.Type).equals(Type.Login))
-			throw new IllegalStateException("Message does not contain email information");
+			throw new IllegalStateException("Message does not contain login information");
 		return (Login) data.get(Type.Login);
 	}
 	
 	public Auth getAuth() {
 		if(!data.get(Type.Type).equals(Type.Auth))
 			throw new IllegalStateException("Message does not contain authentication information");
-		Auth auth = (Auth) data.get(Type.Auth);
-		return auth;
+		return (Auth) data.get(Type.Auth);
 	}
 	
 	public ManageUser getManageUser() {
 		if(!data.get(Type.Type).equals(Type.ManageUser))
 			throw new IllegalStateException("Message does not contain managing user information");
-		ManageUser manageUser =(ManageUser) data.get(Type.ManageUser);
-		return manageUser;
+		return (ManageUser) data.get(Type.ManageUser);
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Message other = (Message) obj;
-		if (data == null) {
-			if (other.data != null)
-				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		return true;
+	public String getEmail(){
+		if(!data.get(Type.Type).equals(Type.CheckEmail))
+			throw new IllegalStateException("Message does not contain email information");
+		return (String) data.get(Type.CheckEmail);
 	}
 
-	@Override
-	public String toString() {
-		return "Message [data=" + data + "]";
+	public ChangePwd getChangePwd() {
+		if(!data.get(Type.Type).equals(Type.ChangePwd))
+			throw new IllegalStateException("Message does not contain email information");
+		return (ChangePwd) data.get(Type.ChangePwd);
+	}
+
+	public static Message createChangePwdWithEmail(String email, String newPwd) {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.ChangePwd);
+		msg.data.put(Type.ChangePwd, new ChangePwd(email, newPwd));
+		return msg;
 	}
 
 	public static Message createAuth(Auth auth) {
@@ -102,7 +103,41 @@ public class Message implements Serializable{
 		msg.data.put(Type.Type, Type.Success);
 		return msg;
 	}
-	
-	
+
+	public static Message createCheckEmail(String email) {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.CheckEmail);
+		msg.data.put(Type.CheckEmail, email);
+		return msg;
+	}
+
+	public static Message createEmailDoesNotExist() {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.EmailStatus);
+		msg.data.put(Type.EmailStatus, EmailStatus.NOT_EXIST);
+		return msg;
+	}
+
+	public static Message createEmailExist() {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.EmailStatus);
+		msg.data.put(Type.EmailStatus, EmailStatus.EXIST);
+		return msg;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Message message = (Message) o;
+
+		return data != null ? data.equals(message.data) : message.data == null;
+	}
+
+	@Override
+	public String toString() {
+		return "Message [data=" + data + "]";
+	}
 
 }

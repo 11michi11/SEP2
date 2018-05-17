@@ -7,108 +7,98 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.SQLException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-
-import model.communication.Message;
+import java.util.LinkedList;
 
 public class ServerProxy {
 
-	private ServerSocket serverSocket;
-	private final int PORT = 7777;
-	private ExecutorService executor;
-	private Thread listeningThread;
-	private ServerController controller;
+    private ServerSocket serverSocket;
+    private final int PORT = 7777;
+    private LinkedList<Thread> clientThreads;
+    private ServerController controller;
 
-	public ServerProxy(ServerController controller) {
-		executor = Executors.newFixedThreadPool(10);
-		this.controller = controller;
-	}
+    public ServerProxy(ServerController controller) {
+        clientThreads = new LinkedList<>();
+        this.controller = controller;
+    }
 
-	public void start() {
-		// Listening in server in new thread
-		// listeningThread = new Thread(new Runnable() {
-		//
-		// @Override
-		// public void run() {
-		try {
-			serverSocket = new ServerSocket(PORT);
-		} catch (IOException e) {
-			System.out.println("Unable to connect with the given port");
-			System.exit(1);
-		}
-		while (!serverSocket.isClosed()) {
-			if (Thread.interrupted())
-				break;
+    public void start() {
+        System.out.println("Starting Server...");
+        try {
+            serverSocket = new ServerSocket(PORT);
+        } catch (IOException e) {
+            System.out.println("Unable to connect with the given port");
+            System.exit(1);
+        }
+        while (!serverSocket.isClosed()) {
+//            if (Thread.interrupted())
+//                break;
 
-			System.out.println("Waiting for a client...");
-			try {
-				Socket client = serverSocket.accept();
-				executor.submit(new HandleClient(client));
-			} catch (IOException e) {
-				System.out.println("Connection error " + e.getMessage());
-				e.printStackTrace();
-			}
-		}
-		// }
-		// });
-		// listeningThread.start();
-		System.out.println("Starting Server...");
+            System.out.println("Waiting for a client...");
+            try {
+                Socket client = serverSocket.accept();
+                Thread clientThread = new Thread(new HandleClient(client));
+                clientThread.start();
+                clientThreads.add(clientThread);
+            } catch (IOException e) {
+                System.out.println("Connection error " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
 
-	}
+    }
 
-	public void close() {
-		listeningThread.interrupt();
-		executor.shutdown();
-		try {
-			serverSocket.close();
-		} catch (IOException e) {
-			System.out.println("Could not close server");
-			e.printStackTrace();
-		}
-	}
+    public void close() {
+        clientThreads.forEach(Thread::interrupt);
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            System.out.println("Could not close server");
+            e.printStackTrace();
+        }
+    }
 
-	class HandleClient implements Runnable {
+    private class HandleClient implements Runnable {
 
-		private Socket client;
+        private Socket client;
 
-		public HandleClient(Socket client) {
-			this.client = client;
-		}
+        HandleClient(Socket client) {
+            this.client = client;
+        }
 
-		@Override
-		public void run() {
-			String clientIP;
-			try {
-				clientIP = client.getInetAddress().getHostAddress();
-				System.out.println("Welcome " + clientIP);
-				ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
-				ObjectInputStream in = new ObjectInputStream(client.getInputStream());
-				while (!client.isClosed()) {
-					Message request = (Message) in.readObject();
-					System.out.println(request);
-					Message response;
-					try {
-						response = controller.handleMessage(request);
-						out.writeObject(response);
-						System.out.println("Send");
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+        @Override
+        public void run() {
+            String clientIP;
+            Message response, request;
+            ObjectInputStream in = null;
+            ObjectOutputStream out = null;
+            try {
+                clientIP = client.getInetAddress().getHostAddress();
+                System.out.println("Welcome " + clientIP);
+                out = new ObjectOutputStream(client.getOutputStream());
+                in = new ObjectInputStream(client.getInputStream());
+                while (!client.isClosed()) {
+                    if(Thread.interrupted())
+                        throw new InterruptedException();
 
-					
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(0);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-		}
-	}
+                    request = (Message) in.readObject();
+                    System.out.println(request);
+                    response = controller.handleMessage(request);
+                    out.writeObject(response);
+                    System.out.println("Send");
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                //System.exit(0);
+            } catch (InterruptedException e){
+                try {
+                    in.close();
+                    out.close();
+                    client.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+    }
 
 }
