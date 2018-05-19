@@ -83,6 +83,18 @@ public class ServerModelManager implements ServerModel {
         families.addFamily(family);
     }
 
+    @Override
+    public boolean checkIfEmailExist(String email) {
+        return users.checkIfEmailExist(email);
+    }
+
+    @Override
+    public void changePwdWithEmail(String email, String newPwd) {
+        User user = users.getUserByEmail(email);
+        user.setPwd(newPwd);
+        user.changePassword();
+    }
+
     private LinkedList<User> getUsers() {
         User user = new Administrator("name", "login", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
 

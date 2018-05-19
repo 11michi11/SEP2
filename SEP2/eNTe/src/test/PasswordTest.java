@@ -10,7 +10,7 @@ class PasswordTest {
 
 	@Test
 	void testLength() {
-		assertEquals(10, Password.generatePassword(10).length());
+		assertEquals(8, Password.generateEntePassword().length());
 	}
 
 }

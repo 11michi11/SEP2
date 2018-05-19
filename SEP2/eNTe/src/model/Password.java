@@ -8,8 +8,13 @@ public class Password {
 	
 	private static SecureRandom random = new SecureRandom();
 	private static final String dic = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	private static final int ENTE_PWD_LEN = 8;
 
-	public static String generatePassword(int len) {
+	public static String generateEntePassword() {
+		return generatePasswordWithLength(ENTE_PWD_LEN);
+	}
+
+	public static String generatePasswordWithLength(int len) {
 		String result = "";
 		for (int i = 0; i < len; i++) {
 			int index = random.nextInt(dic.length());

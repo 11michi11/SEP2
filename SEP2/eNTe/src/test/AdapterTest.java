@@ -15,7 +15,7 @@ class AdapterTest {
 
     private DBPersistence adapter;
     private LinkedList<User> users;
-    private FamilyList families;
+    private FamilyList families = new FamilyList();
 
     @BeforeEach
     void setUp() throws ClassNotFoundException {
@@ -55,6 +55,10 @@ class AdapterTest {
         for (User e:users) {
             assertTrue(list.contains(e));
         }
+    }
+
+    private void loadUsers(){
+
     }
 
 

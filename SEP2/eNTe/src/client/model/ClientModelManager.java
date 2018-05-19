@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import client.controller.ClientController;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import model.*;
 import model.communication.Auth;
 import model.communication.ManageUser;
@@ -101,6 +99,10 @@ public class ClientModelManager implements ClientModel {
         return users.getUserById(id);
     }
 
+    public User getUserByEmail(String email){
+        return users.getUserByEmail(email);
+    }
+
     @Override
     public void deleteFamily(Family family) {
         families.deleteFamily(family);
@@ -114,6 +116,18 @@ public class ClientModelManager implements ClientModel {
     @Override
     public void addFamily(Family family) {
         families.addFamily(family);
+    }
+
+    @Override
+    public boolean checkEmailForPwdReset(String email) {
+        return server.checkEmailForPwdReset(email);
+    }
+
+    @Override
+    public void changePwdWithEmail(String email, String newPwd) {
+        User user = getUserByEmail(email);
+        user.setPwd(newPwd);
+        server.changePwdWithEmail(email, newPwd);
     }
 
 }
