@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Parent extends User implements Serializable {
@@ -27,7 +28,7 @@ public class Parent extends User implements Serializable {
         return "";
     }
 
-    public ArrayList<Student> getChildren() {
+    public List<Student> getChildren() {
         return family.getChildren();
     }
 

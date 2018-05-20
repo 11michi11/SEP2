@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,7 +27,7 @@ public class Family {
 		children.remove(child);
 	}
 
-	public ArrayList<Student> getChildren() {
+	public List<Student> getChildren() {
 		return children;
 	}
 

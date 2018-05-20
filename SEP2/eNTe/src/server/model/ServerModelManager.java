@@ -96,7 +96,7 @@ public class ServerModelManager implements ServerModel {
     }
 
     private LinkedList<User> getUsers() {
-        User user = new Administrator("name", "login", "a1159e9df3670d549d04524532629f5477ceb7deec9b45e47e8c009506ecb2c8");
+        User user = new Administrator("name", "login", "pwd");
 
         LinkedList<User> list = new LinkedList<>();
         list.add(user);
@@ -115,7 +115,7 @@ public class ServerModelManager implements ServerModel {
                         + " venenatis eros. Etiam posuere tempus est non maximus."
                         + " Pellentesque diam tortor, fringilla eget cursus pretium,"
                         + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
-                        + " Cras facilisis neque at scelerisque placerat.", "Test", "Author", MyDate.now());
+                        + " Cras facilisis neque at scelerisque placerat.",  "Author", MyDate.now());
 
         LinkedList<Post> list = new LinkedList<>();
         list.add(post);
