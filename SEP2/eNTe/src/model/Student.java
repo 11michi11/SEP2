@@ -15,22 +15,6 @@ public class Student extends User implements Serializable {
         super(name, email);
     }
 
-    public Student(String name, String email, String pwd, Classs classs, Family family) {
-        super(name, email, pwd);
-        initializeStudent(classs, family);
-    }
-
-    public Student(String name, String email, String pwd, String id, Classs classs, Family family) {
-        super(name, email, pwd, id);
-        initializeStudent(classs, family);
-    }
-
-    private void initializeStudent(Classs classs, Family family) {
-        this.classs = classs;
-        historyOfActivity = "";
-        this.family = family;
-    }
-
     public void addHistoryOfActivity(String text) {
         historyOfActivity += text + "\n";
     }
