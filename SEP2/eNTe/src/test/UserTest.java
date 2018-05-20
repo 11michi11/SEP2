@@ -1,6 +1,7 @@
 package test;
 
 
+import model.Password;
 import model.Teacher;
 import model.User;
 import org.junit.jupiter.api.Test;
@@ -28,13 +29,13 @@ class UserTest {
 		User user2 = new Teacher("name", "email", "pwd", user1.getId());
 		assertEquals(true, user1.equals(user2));
 	}
-	
+
 	@Test
 	void gettersTest() {
 		User user = new Teacher("name", "email", "pwd", "id");
 		assertEquals("name", user.getName());
 		assertEquals("email", user.getEmail());
-		assertEquals("pwd", user.getPwd());
+		assertEquals(Password.encryptPwd("pwd"), user.getPwd());
 		assertEquals("id", user.getId());
 	}
 	
@@ -60,7 +61,7 @@ class UserTest {
 	@Test
 	void testToString() {
 		User user1 = new Teacher("name", "email", "pwd", "id");
-		assertEquals("User [email=email, pwd=pwd, name=name, id=id]", user1.toString());
+		assertEquals("User [email=email, pwd=" + Password.encryptPwd("pwd") + ", name=name, id=id]", user1.toString());
 	}
 
 }
