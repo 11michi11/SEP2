@@ -1,10 +1,8 @@
 package model.communication;
 
-import model.Password;
+import utility.Password;
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class Auth implements Serializable{
 	

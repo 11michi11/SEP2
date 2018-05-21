@@ -1,5 +1,6 @@
 package model;
 
+import utility.Password;
 import utility.SendEmail;
 
 import java.io.Serializable;

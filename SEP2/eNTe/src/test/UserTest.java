@@ -1,7 +1,7 @@
 package test;
 
 
-import model.Password;
+import utility.Password;
 import model.Teacher;
 import model.User;
 import org.junit.jupiter.api.Test;

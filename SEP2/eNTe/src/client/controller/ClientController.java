@@ -8,6 +8,7 @@ import model.*;
 import model.communication.Login;
 import model.communication.Message;
 import model.communication.WelcomingData;
+import utility.Password;
 import utility.SendEmail;
 
 import java.util.ArrayList;
