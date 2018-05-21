@@ -90,10 +90,10 @@ class StudentTest {
 		} catch (IllegalArgumentException exception) {
 			fail();
 		}
-		assertNotNull(studentNotFinished.getName());
-		assertNotNull(studentNotFinished.getEmail());
-		assertNotNull(studentNotFinished.getClasss());
-		assertEquals("there is no family", studentNotFinished.getFamilyId());
+		assertEquals("child", studentNotFinished.getName());
+		assertEquals("email",studentNotFinished.getEmail());
+		assertEquals(Classs.Eigth,studentNotFinished.getClasss());
+		assertEquals("there is no family", studentNotFinished.getFamilyID());
 		assertNull(studentNotFinished.getHistoryOfActivity());
 	}
 
