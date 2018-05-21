@@ -55,6 +55,7 @@ public class Parent extends User implements Serializable {
         private String pwd;
         private String id;
         private Family family;
+        private boolean encryptPwd;
 
         @Override
         public NeedEmail name(String name) {
@@ -75,6 +76,13 @@ public class Parent extends User implements Serializable {
         }
 
         @Override
+        public CanBeBuild pwdEncrypt(String pwd) {
+            this.pwd = pwd;
+            encryptPwd = true;
+            return this;
+        }
+
+        @Override
         public CanBeBuild family(Family family) {
             this.family = family;
             return this;
@@ -90,7 +98,10 @@ public class Parent extends User implements Serializable {
         public Parent build() {
             Parent parent = new Parent(this.name, this.email);
             if (this.pwd != null)
-                parent.setPwd(pwd);
+                if (encryptPwd)
+                    parent.setPwd(pwd);
+                else
+                    parent.setPwdNoEncrypt(pwd);
             parent.family = this.family;
             if (this.id != null)
                 parent.id = this.id;
@@ -111,6 +122,8 @@ public class Parent extends User implements Serializable {
         Parent build();
 
         CanBeBuild pwd(String pwd);
+
+        CanBeBuild pwdEncrypt(String pwd);
 
         CanBeBuild family(Family family);
 

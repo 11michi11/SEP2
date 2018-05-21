@@ -149,10 +149,10 @@ public class ClientController {
         model.addOrUpdateUser(t1);
         model.addOrUpdateUser(t2);
         model.addOrUpdateUser(t3);
-        Parent p1 = Parent.builder().name("name").email("email").pwd("pwd").build();
-        Parent p2 = Parent.builder().name("name").email("email").pwd("pwd").build();
-        Parent p3 = Parent.builder().name("name").email("email").pwd("pwd").build();
-        Parent p4 = Parent.builder().name("name").email("email").pwd("pwd").build();
+        Parent p1 = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
+        Parent p2 = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
+        Parent p3 = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
+        Parent p4 = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
         model.addOrUpdateUser(p1);
         model.addOrUpdateUser(p2);
         model.addOrUpdateUser(p3);

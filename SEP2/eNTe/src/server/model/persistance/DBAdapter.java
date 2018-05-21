@@ -1,6 +1,7 @@
 package server.model.persistance;
 
 import model.*;
+import org.postgresql.util.PSQLException;
 import utility.persistence.MyDatabase;
 
 import java.sql.SQLException;
@@ -12,13 +13,17 @@ import java.util.LinkedList;
 public class DBAdapter implements DBPersistence {
 
     private MyDatabase db;
-    private static final String DRIVER = "org.postgresql.Driver";
-    private static final String URL = "jdbc:postgresql://207.154.237.196:5432/ente";
-    private static final String USER = "ente";
-    private static final String PASSWORD = "ente";
+//    private static final String DRIVER = "org.postgresql.Driver";
+//    private static final String URL = "jdbc:postgresql://207.154.237.196:5432/ente";
+//    private static final String USER = "ente";
+//    private static final String PASSWORD = "ente";
 
-    public DBAdapter() throws ClassNotFoundException {
-        db = new MyDatabase(DRIVER, URL, USER, PASSWORD);
+    public DBAdapter(String driver, String url, String user, String password) {
+        try {
+            db = new MyDatabase(driver,url,user,password);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -66,12 +71,22 @@ public class DBAdapter implements DBPersistence {
     public void addUser(User user) {
         try {
             ArrayList<String> sqlList = new ArrayList<>();
-            String sql = "INSERT INTO ";
+
+            String sql = "INSERT INTO enteuser VALUES ('";
+            sql += user.getId() + "','";
+            sql += user.getClass().getSimpleName() + "','";
+            sql += user.getEmail() + "','";
+            sql += user.getPwd() + "','";
+            sql += user.getName() + "',";
+            sql += user.isPasswordChangeNeeded() + ")";
+            sqlList.add(sql);
+
+            sql = "INSERT INTO ";
 
             switch (user.getClass().getSimpleName()) {
                 case "Student":
                     Student student = (Student) user;
-                    sql += "student ('";
+                    sql += "student VALUES ('";
                     sql += student.getId() + "','";
                     sql += student.getFamilyID() + "','";
                     sql += student.getClasss() + "')";
@@ -80,7 +95,7 @@ public class DBAdapter implements DBPersistence {
 
                 case "Parent":
                     Parent parent = (Parent) user;
-                    sql += "parent ('";
+                    sql += "parent VALUES ('";
                     sql += parent.getId() + "','";
                     sql += parent.getFamilyId() + "')";
                     sqlList.add(sql);
@@ -89,15 +104,6 @@ public class DBAdapter implements DBPersistence {
                 default:
                     break;
             }
-
-            sql = "INSERT INTO enteuser ('";
-            sql += user.getId() + "','";
-            sql += user.getClass().getSimpleName() + "','";
-            sql += user.getEmail() + "','";
-            sql += user.getPwd() + "','";
-            sql += user.getName() + "',";
-            sql += user.isPasswordChangeNeeded() + ")";
-            sqlList.add(sql);
             db.updateAll(sqlList);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -197,7 +203,6 @@ public class DBAdapter implements DBPersistence {
     private LinkedList<Student> getStudents(FamilyList families) {
         LinkedList<Student> list = new LinkedList<>();
 
-        //parameter is of type FamiliesList from client model package, needs to be changed
         try {
             String sql = "SELECT e.id, e.email, e.pwd, e.name, e.changePassword, s.familyid, s.class FROM enteuser e, student s WHERE e.id=s.studentid";
             ArrayList<Object[]> resultSet = db.query(sql);
@@ -227,10 +232,10 @@ public class DBAdapter implements DBPersistence {
             ArrayList<Object[]> resultSet = db.query(sql);
             for (Object[] e : resultSet) {
                 String id = (String) e[0];
-                String email = (String) e[2];
-                String pwd = (String) e[3];
-                String name = (String) e[4];
-                boolean changePwdNeeded = (boolean) e[5];
+                String email = (String) e[1];
+                String pwd = (String) e[2];
+                String name = (String) e[3];
+                boolean changePwdNeeded = (boolean) e[4];
                 String familyID = (String) e[5];
                 Parent parent = Parent.builder().name(name).email(email).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
                 parent.setChangePassword(changePwdNeeded);
@@ -262,7 +267,7 @@ public class DBAdapter implements DBPersistence {
     @Override
     public void addFamily(Family family) {
         try {
-            String sql = "INSERT INTO family ('";
+            String sql = "INSERT INTO family VALUES ('";
             sql += family.getId() + "')";
 
             db.update(sql);
@@ -284,4 +289,11 @@ public class DBAdapter implements DBPersistence {
         }
     }
 
+    public void executeSQL(String sql) {
+        try {
+            db.query(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

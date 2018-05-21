@@ -82,6 +82,12 @@ public abstract class User implements Serializable{
 		this.pwd = Password.encryptPwd(pwd);
 		changePassword = false;
 	}
+
+	public void setPwdNoEncrypt(String pwd) {
+		this.pwd = pwd;
+		changePassword = false;
+	}
+
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", pwd=" + pwd + ", name=" + name + ", id=" + id + "]";

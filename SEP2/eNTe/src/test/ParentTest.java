@@ -19,8 +19,8 @@ class ParentTest {
 	@Test
 	void testConstructors() {
 		Family f = new Family();
-		Student child1 = Student.builder().name("child1").email("email").classs(Classs.First).pwd("pwd").family(f).build();
-		Parent parent = Parent.builder().name("name").email("email").pwd("pwd").family(f).build();
+		Student child1 = Student.builder().name("child1").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
+		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
 		f.addChild(child1);
 		f.addParent(parent);
 		List<Student> list = new ArrayList<>();
@@ -31,9 +31,9 @@ class ParentTest {
 	@Test
 	void testGetChildrenNames() {
 		ArrayList<Student> children = new ArrayList<>();
-		Student child1 = Student.builder().name("child1").email("email").classs(Classs.First).pwd("pwd").build();
-		Student child2 = Student.builder().name("child2").email("email").classs(Classs.First).pwd("pwd").build();
-		Student child3 = Student.builder().name("child3").email("email").classs(Classs.First).pwd("pwd").build();
+		Student child1 = Student.builder().name("child1").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
+		Student child2 = Student.builder().name("child2").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
+		Student child3 = Student.builder().name("child3").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
 		children.add(child1);
 		children.add(child2);
 		children.add(child3);
@@ -41,7 +41,7 @@ class ParentTest {
 		family.addChild(child1);
 		family.addChild(child2);
 		family.addChild(child3);
-		Parent parent = Parent.builder().name("name").email("email").pwd("pwd").family(family).build();
+		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").family(family).build();
 		assertEquals("child1, child2, child3, ", parent.getChildrenNames());
 	}
 }
