@@ -32,4 +32,13 @@ public class FamilyList {
 		}
 		return family;
 	}
+
+    public void update(Family family) {
+		for (int i = 0, familiesSize = families.size(); i < familiesSize; i++) {
+			Family u = families.get(i);
+			if (u.getId().equals(family.getId())) {
+				families.set(i, family);
+			}
+		}
+	}
 }

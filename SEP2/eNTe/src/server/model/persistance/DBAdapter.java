@@ -1,7 +1,6 @@
 package server.model.persistance;
 
 import model.*;
-import org.postgresql.util.PSQLException;
 import utility.persistence.MyDatabase;
 
 import java.sql.SQLException;
@@ -88,7 +87,7 @@ public class DBAdapter implements DBPersistence {
                     Student student = (Student) user;
                     sql += "student VALUES ('";
                     sql += student.getId() + "','";
-                    sql += student.getFamilyID() + "','";
+                    sql += student.getFamilyId() + "','";
                     sql += student.getClasss() + "')";
                     sqlList.add(sql);
                     break;
@@ -128,7 +127,7 @@ public class DBAdapter implements DBPersistence {
                 case "student":
                     Student student = (Student) user;
                     sql = "UPDATE student SET class='" + student.getClasss() + "',";
-                    sql += "familyid='" + student.getFamilyID() + "'";
+                    sql += "familyid='" + student.getFamilyId() + "'";
                     sql += "WHERE studentid='" + student.getId() + "'";
                     sqlList.add(sql);
                     break;

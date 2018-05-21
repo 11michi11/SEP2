@@ -92,6 +92,11 @@ public class ServerModelManager implements ServerModel {
         user.changePassword();
     }
 
+    @Override
+    public void editFamily(Family family) {
+        families.update(family);
+    }
+
     private LinkedList<User> getUsers() {
         User user = new Administrator("name", "login", "pwd");
 
