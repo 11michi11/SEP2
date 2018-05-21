@@ -23,7 +23,7 @@ class UsersListTest {
 	@Test
 	void testAuthenticate() {		
 		Auth auth = new Auth("email", "pwd");
-		Teacher teacher = new Teacher("name", "email", auth.pwd);
+		Teacher teacher = new Teacher("name", "email", "pwd");
 		users.add(teacher);
 		
 		assertEquals(LoginStatus.SUCCESS, users.authenticate(auth));
@@ -31,7 +31,7 @@ class UsersListTest {
 		auth = new Auth("email", "pass");
 		assertEquals(LoginStatus.FAILURE_PWD, users.authenticate(auth));
 
-		auth = new Auth("email", "pass");
+		auth = new Auth("badLogin", "pass");
 		assertEquals(LoginStatus.FAILURE_LOGIN, users.authenticate(auth));
 		
 	}
@@ -41,7 +41,7 @@ class UsersListTest {
 		Teacher teacher = new Teacher("name", "email", "pwd");
 		users.add(teacher);
 		
-		assertEquals(teacher, users.getUserByLogin("email"));
+		assertEquals(teacher, users.getUserByEmail("email"));
 	}
 	
 	@Test

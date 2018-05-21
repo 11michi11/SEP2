@@ -75,4 +75,10 @@ Button:hoover{
 	-fx-background-color: white;
 }
 
+.resetPwd{
+    -fx-font-family: "Gill Sans MT";
+    -fx-fill: #767676;
+	-fx-background-color: white;
+}
+
 

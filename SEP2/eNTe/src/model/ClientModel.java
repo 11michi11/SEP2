@@ -25,4 +25,6 @@ public interface ClientModel {
     void deleteFamily(Family family);
 	List<Teacher> getTeachers();
 	void addFamily(Family family);
+    boolean checkEmailForPwdReset(String email);
+    void changePwdWithEmail(String email, String newPwd);
 }

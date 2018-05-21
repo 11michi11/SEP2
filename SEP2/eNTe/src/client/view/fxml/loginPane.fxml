@@ -30,5 +30,6 @@
          </effect>
       </TextField>
       <Button id="loginButton" layoutX="615.0" layoutY="604.0" mnemonicParsing="false" onAction="#loginHandler" opacity="0.6" prefHeight="25.0" prefWidth="73.0" text="login" />
+      <Button layoutX="607.0" layoutY="639.0" mnemonicParsing="false" onAction="#resetPwd" styleClass="resetPwd" stylesheets="@../login.css" text="reset password" textFill="#767676" />
    </children>
 </Pane>

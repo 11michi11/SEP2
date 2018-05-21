@@ -16,7 +16,7 @@ public abstract class User implements Serializable{
 	public User(String name, String email, String pwd) {
 		this.name = name;
 		this.email = email;
-		this.pwd = pwd;
+		this.pwd = Password.encryptPwd(pwd);
 		id = UUID.randomUUID().toString();
 		changePassword = false;
 	}
@@ -24,7 +24,7 @@ public abstract class User implements Serializable{
 	public User(String name, String email) {
 		this.name = name;
 		this.email = email;
-		this.pwd = Password.generatePassword(8);
+		this.pwd = Password.generateEntePassword();
 		id = UUID.randomUUID().toString();
 		changePassword = true;
 		//Uncomment in real system - i don't want spam right now
@@ -34,7 +34,7 @@ public abstract class User implements Serializable{
 	public User(String name, String email, String pwd, String id) {
 		this.name = name;
 		this.email = email;
-		this.pwd = pwd;
+		this.pwd = Password.encryptPwd(pwd);
 		this.id = id;
 		changePassword = false;
 	}

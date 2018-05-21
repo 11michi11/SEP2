@@ -62,6 +62,10 @@ class AdapterTest {
 //        }
     }
 
+    private void loadUsers(){
+
+    }
+
 
 //    @Test
 //    void testFirstPost() {
