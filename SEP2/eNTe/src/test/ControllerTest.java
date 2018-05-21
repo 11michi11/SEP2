@@ -19,7 +19,7 @@ public class ControllerTest {
 
 	@Test
 	void addStudent() {
-		Student student = Student.builder().name("child").email("email").classs(Classs.Eigth).pwd("pwd").build();
+		Student student = Student.builder().name("child").email("email").classs(Classs.Eigth).pwdEncrypt("pwd").build();
 
 
 	}

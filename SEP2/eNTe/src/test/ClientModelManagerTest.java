@@ -82,7 +82,7 @@ class ClientModelManagerTest {
 	@Test
 	void deleteUserAndGetUserByIdTest() {
 		Parent parent = Parent.builder().name("name").email("email").pwd("pwd").build();
-		Student student = Student.builder().name("name").email("email").classs(Classs.First).pwd("pwd").build();
+		Student student = Student.builder().name("name").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
 		Teacher teacher = new Teacher("name", "email", "pwd");
 		Administrator admin = new Administrator("name", "email", "pwd");
 		

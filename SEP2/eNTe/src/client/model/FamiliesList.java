@@ -17,9 +17,9 @@ public class FamiliesList {
         family.addParent(Parent.builder().name("Pname2").email("email").pwd("pwd").family(family).build());
         family.addParent(Parent.builder().name("Pname3").email("email").pwd("pwd").family(family).build());
 
-        family.addChild(Student.builder().name("Sname1").email("email").classs(Classs.First).family(family).pwd("pwd").build());
-        family.addChild(Student.builder().name("Sname2").email("email").classs(Classs.First).family(family).pwd("pwd").build());
-        family.addChild(Student.builder().name("Sname3").email("email").classs(Classs.First).family(family).pwd("pwd").build());
+        family.addChild(Student.builder().name("Sname1").email("email").classs(Classs.First).family(family).pwdEncrypt("pwd").build());
+        family.addChild(Student.builder().name("Sname2").email("email").classs(Classs.First).family(family).pwdEncrypt("pwd").build());
+        family.addChild(Student.builder().name("Sname3").email("email").classs(Classs.First).family(family).pwdEncrypt("pwd").build());
         families.add(family);
     }
 

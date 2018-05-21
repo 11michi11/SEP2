@@ -75,7 +75,7 @@ public class Student extends User implements Serializable {
         }
 
         @Override
-        public StudentCanBeBuild pwdEncrypted(String pwd) {
+        public StudentCanBeBuild pwdEncrypt(String pwd) {
             this.pwd = pwd;
             encryptPwd = true;
             return this;
@@ -131,7 +131,7 @@ public class Student extends User implements Serializable {
 
         StudentCanBeBuild pwd(String pwd);
 
-        StudentCanBeBuild pwdEncrypted(String pwd);
+        StudentCanBeBuild pwdEncrypt(String pwd);
 
         StudentCanBeBuild family(Family family);
 
