@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class Family {
+public class Family implements Serializable {
 	private String id;
 	private ArrayList<Student> children = new ArrayList<>();
 	private ArrayList<Parent> parents = new ArrayList<>();
@@ -76,5 +77,20 @@ public class Family {
 
 	public String getId() {
 		return id;
+	}
+
+    public void deleteMember(User user) {
+		if(user instanceof Student)
+			children.remove(user);
+		if(user instanceof  Parent)
+			parents.remove(user);
+    }
+
+	public void clear() {
+		children.forEach(c -> c.setFamily(null));
+		parents.forEach(p -> p.setFamily(null));
+		children.clear();
+		parents.clear();
+		id = "removed";//experimental
 	}
 }

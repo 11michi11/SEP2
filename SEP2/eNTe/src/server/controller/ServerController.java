@@ -35,6 +35,10 @@ public class ServerController {
                 ManageUser manageUser = msg.getManageUser();
                 response = handleManageUser(manageUser);
                 break;
+            case ManageFamily:
+                ManageFamily manageFamily = msg.getManageFamily();
+                response = handleManageFamily(manageFamily);
+                break;
             case CheckEmail:
                 String email = msg.getEmail();
                 response = checkEmail(email);
@@ -50,6 +54,30 @@ public class ServerController {
         }
         return response;
     }
+
+    private Message handleManageFamily(ManageFamily manageFamily) {
+        Message response;
+        switch (manageFamily.getAction()) {
+            case ManageUser.ADD:
+                model.addFamily(manageFamily.getFamily());
+                response = Message.createSuccessfulResponse();
+                break;
+            case ManageUser.EDIT:
+                model.editFamily(manageFamily.getFamily());
+                response = Message.createSuccessfulResponse();
+                break;
+            case ManageUser.DELETE:
+                model.deleteFamily(manageFamily.getFamily());
+                response = Message.createSuccessfulResponse();
+                break;
+            default:
+                response = Message.createFail();
+                break;
+        }
+
+        return response;
+    }
+
 
     private Message checkEmail(String email) {
         return model.checkIfEmailExist(email) ? Message.createEmailExist() : Message.createEmailDoesNotExist();
@@ -74,7 +102,6 @@ public class ServerController {
                 response = Message.createFail();
                 break;
         }
-
         return response;
     }
 

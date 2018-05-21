@@ -6,10 +6,7 @@ import java.util.List;
 
 import client.controller.ClientController;
 import model.*;
-import model.communication.Auth;
-import model.communication.ManageUser;
-import model.communication.Message;
-import model.communication.WelcomingData;
+import model.communication.*;
 
 public class ClientModelManager implements ClientModel {
 
@@ -73,13 +70,17 @@ public class ClientModelManager implements ClientModel {
 
     @Override
     public void deleteUser(String id) {
-        server.manageUser(ManageUser.DELETE, users.getUserById(id));
+        User user = users.getUserById(id);
+        server.manageUser(ManageUser.DELETE, user);
+        if(user instanceof IFamily)
+            ((IFamily) user).getFamily().deleteMember(user);
         users.delete(id);
     }
-
     @Override
     public void deleteUser(User user) {
         server.manageUser(ManageUser.DELETE, users.getUserById(user.getId()));
+        if(user instanceof IFamily)
+            ((IFamily) user).getFamily().deleteMember(user);
         users.delete(user.getId());
     }
 
@@ -99,13 +100,15 @@ public class ClientModelManager implements ClientModel {
         return users.getUserById(id);
     }
 
-    public User getUserByEmail(String email){
+    private User getUserByEmail(String email){
         return users.getUserByEmail(email);
     }
 
     @Override
     public void deleteFamily(Family family) {
+        family.clear();
         families.deleteFamily(family);
+        server.manageFamily(ManageFamily.ADD, family);
     }
 
     @Override
@@ -116,6 +119,7 @@ public class ClientModelManager implements ClientModel {
     @Override
     public void addFamily(Family family) {
         families.addFamily(family);
+        server.manageFamily(ManageFamily.ADD, family);
     }
 
     @Override

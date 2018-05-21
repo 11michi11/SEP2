@@ -19,7 +19,7 @@ class StudentTest {
 		Family f = new Family("id");
 		Student student = Student.builder().name("child1").email("email").classs(Classs.First).pwdEncrypt("pwd").family(f).build();
 		assertEquals(Classs.First, student.getClasss());
-		assertEquals("id", student.getFamilyID());
+		assertEquals("id", student.getFamilyId());
 	}
 
 	@Test
@@ -64,7 +64,7 @@ class StudentTest {
 	void getFamilyIdTest() {
 		Family f = new Family("id");
 		Student student = Student.builder().name("child1").email("email").classs(Classs.First).pwdEncrypt("pwd").family(f).build();
-		assertEquals("id", student.getFamilyID());
+		assertEquals("id", student.getFamilyId());
 
 	}
 
@@ -76,7 +76,7 @@ class StudentTest {
 		assertEquals("child",student.getName());
 		assertEquals("email",student.getEmail());
 		assertEquals(Classs.Eigth,student.getClasss());
-		assertEquals(f.getId(), student.getFamilyID());
+		assertEquals(f.getId(), student.getFamilyId());
 		assertEquals("",student.getHistoryOfActivity());
 		assertEquals("id", student.getId());
 		assertEquals(Password.encryptPwd("pwd"),student.getPwd());
@@ -93,7 +93,7 @@ class StudentTest {
 		assertNotNull(studentNotFinished.getName());
 		assertNotNull(studentNotFinished.getEmail());
 		assertNotNull(studentNotFinished.getClasss());
-		assertEquals("there is no family", studentNotFinished.getFamilyID());
+		assertEquals("there is no family", studentNotFinished.getFamilyId());
 		assertNull(studentNotFinished.getHistoryOfActivity());
 	}
 

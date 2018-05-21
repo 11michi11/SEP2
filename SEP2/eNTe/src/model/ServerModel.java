@@ -17,4 +17,5 @@ public interface ServerModel {
 	void addFamily(Family family);
     boolean checkIfEmailExist(String email);
     void changePwdWithEmail(String email, String newPwd);
+    void editFamily(Family family);
 }

@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Student extends User implements Serializable {
+public class Student extends User implements Serializable, IFamily {
 
     private String historyOfActivity;
     private Classs classs;
@@ -31,8 +31,18 @@ public class Student extends User implements Serializable {
         return classs;
     }
 
-    public String getFamilyID() {
+    public String getFamilyId() {
         return (family != null) ? family.getId() : "there is no family";
+    }
+
+    @Override
+    public Family getFamily(){
+        return family;
+    }
+
+    @Override
+    public void setFamily(Family family){
+        this.family = family;
     }
 
     @Override

@@ -5,11 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import model.Family;
 import model.User;
-import model.communication.Auth;
-import model.communication.EmailStatus;
-import model.communication.ManageUser;
-import model.communication.Message;
+import model.communication.*;
 
 public class ClientProxy {
 
@@ -48,16 +46,14 @@ public class ClientProxy {
 		}
 	}
 
-	public boolean manageUser(String action, User id) {
+	void manageUser(String action, User id) {
 		ManageUser manageUser = new ManageUser(action, id);
 		Message msg = Message.createMangeUser(manageUser);
 		try {
-			Message response = sendMessage(msg);
+			sendMessage(msg);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
-			return false;
 		}
-		return true;
 	}
 
 	public Message login(Auth auth) {
@@ -88,4 +84,14 @@ public class ClientProxy {
 			e.printStackTrace();
 		}
 	}
+
+    public void manageFamily(String action, Family family) {
+		ManageFamily manageFamily = new ManageFamily(action, family);
+		Message msg = Message.createMangeFamily(manageFamily);
+		try {
+			sendMessage(msg);
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+    }
 }

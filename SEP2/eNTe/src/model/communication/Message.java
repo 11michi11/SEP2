@@ -8,7 +8,7 @@ public class Message implements Serializable{
 
 	private Map<Type, Object> data;
 
-	public enum Type{
+    public enum Type{
 		Type, Login, Auth, ManageUser, NoType, CheckEmail, EmailStatus, ChangePwd, ManageFamily, Fail, Success
 	}
 
@@ -52,6 +52,12 @@ public class Message implements Serializable{
 		return (ManageUser) data.get(Type.ManageUser);
 	}
 
+	public ManageFamily getManageFamily() {
+		if(!data.get(Type.Type).equals(Type.ManageFamily))
+			throw new IllegalStateException("Message does not contain managing family information");
+		return (ManageFamily) data.get(Type.ManageFamily);
+	}
+
 	public String getEmail(){
 		if(!data.get(Type.Type).equals(Type.CheckEmail))
 			throw new IllegalStateException("Message does not contain email information");
@@ -89,6 +95,13 @@ public class Message implements Serializable{
 		Message msg = new Message();
 		msg.data.put(Type.Type, Type.ManageUser);
 		msg.data.put(Type.ManageUser, manageUser);
+		return msg;
+	}
+
+	public static Message createMangeFamily(ManageFamily manageFamily) {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.ManageFamily);
+		msg.data.put(Type.ManageFamily, manageFamily);
 		return msg;
 	}
 	
