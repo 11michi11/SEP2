@@ -14,7 +14,9 @@ public class Teacher extends User implements Serializable {
 
 	public Teacher(String name, String email, String pwd, String id) {
 		super(name, email, pwd, id);
+
 	}
+
 
 	public static TeacherNeedName builder() {
 		return new Builder();
@@ -68,7 +70,7 @@ public class Teacher extends User implements Serializable {
 					teacher.setPwd(pwd);
 				else
 					teacher.setPwdNoEncrypt(pwd);
-
+			teacher.id = this.id;
 			return teacher;
 		}
 	}
