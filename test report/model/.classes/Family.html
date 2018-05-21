@@ -1,0 +1,163 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Family</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Family (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Family</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.2%
+  </span>
+  <span class="absValue">
+    (33/ 37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.ArrayList;
+<i>4</i>&nbsp;import java.util.List;
+<i>5</i>&nbsp;import java.util.NoSuchElementException;
+<i>6</i>&nbsp;import java.util.UUID;
+<i>7</i>&nbsp;import java.util.stream.Collectors;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;public class Family {
+<i>10</i>&nbsp;	private String id;
+<b class="fc"><i>11</i>&nbsp;	private ArrayList&lt;Student&gt; children = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>12</i>&nbsp;	private ArrayList&lt;Parent&gt; parents = new ArrayList&lt;&gt;();</b>
+<i>13</i>&nbsp;
+<b class="fc"><i>14</i>&nbsp;	public Family() {</b>
+<b class="fc"><i>15</i>&nbsp;		id = UUID.randomUUID().toString();</b>
+<b class="fc"><i>16</i>&nbsp;	}</b>
+<i>17</i>&nbsp;
+<b class="fc"><i>18</i>&nbsp;	public Family(String id) {</b>
+<b class="fc"><i>19</i>&nbsp;		this.id = id;</b>
+<b class="fc"><i>20</i>&nbsp;	}</b>
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;	public void addChild(Student child) {
+<b class="fc"><i>23</i>&nbsp;		children.add(child);</b>
+<b class="fc"><i>24</i>&nbsp;	}</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;	public void deleteChild(Student child) {
+<b class="fc"><i>27</i>&nbsp;		children.remove(child);</b>
+<b class="fc"><i>28</i>&nbsp;	}</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;	public List&lt;Student&gt; getChildren() {
+<b class="fc"><i>31</i>&nbsp;		return children;</b>
+<i>32</i>&nbsp;	}
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;	public Student getChild(String name) throws NoSuchElementException {
+<b class="fc"><i>35</i>&nbsp;		for (Student e : children)</b>
+<b class="fc"><i>36</i>&nbsp;			if (e.getName().equals(name))</b>
+<b class="fc"><i>37</i>&nbsp;				return e;</b>
+<b class="fc"><i>38</i>&nbsp;		throw new NoSuchElementException(name + &quot;was not found.&quot;);</b>
+<i>39</i>&nbsp;	}
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;	public Parent getParent(String name) throws NoSuchElementException {
+<b class="fc"><i>42</i>&nbsp;		for (Parent e : parents)</b>
+<b class="fc"><i>43</i>&nbsp;			if (e.getName().equals(name))</b>
+<b class="fc"><i>44</i>&nbsp;				return e;</b>
+<b class="nc"><i>45</i>&nbsp;		throw new NoSuchElementException(name + &quot;was not found.&quot;);</b>
+<i>46</i>&nbsp;	}
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;	public String getMembersNames() {
+<b class="fc"><i>49</i>&nbsp;		String parentsNames = parents.stream().map(s -&gt; s.getName() + &quot;, &quot;).collect(Collectors.joining());</b>
+<b class="fc"><i>50</i>&nbsp;		String childrenNames = children.stream().map(s -&gt; s.getName() + &quot;, &quot;).collect(Collectors.joining());</b>
+<b class="fc"><i>51</i>&nbsp;		if (parentsNames.length() + childrenNames.length() &gt; 0)</b>
+<b class="fc"><i>52</i>&nbsp;			return parentsNames + childrenNames.substring(0, childrenNames.length() - 2);</b>
+<b class="nc"><i>53</i>&nbsp;		return &quot;&quot;;</b>
+<i>54</i>&nbsp;	}
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;	public void addParent(Parent parent) {
+<b class="fc"><i>57</i>&nbsp;		parents.add(parent);</b>
+<b class="fc"><i>58</i>&nbsp;	}</b>
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;	public void deleteParent(Parent parent) {
+<b class="fc"><i>61</i>&nbsp;		parents.remove(parent);</b>
+<b class="fc"><i>62</i>&nbsp;	}</b>
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;	public ArrayList&lt;Parent&gt; getParents() {
+<b class="fc"><i>65</i>&nbsp;		return parents;</b>
+<i>66</i>&nbsp;	}
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;	public ArrayList&lt;Classs&gt; getClasses() {
+<b class="fc"><i>69</i>&nbsp;		ArrayList&lt;Classs&gt; classes = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>70</i>&nbsp;		for (Student e : children) {</b>
+<b class="nc"><i>71</i>&nbsp;			if (classes.contains(e.getClasss()))</b>
+<b class="nc"><i>72</i>&nbsp;				classes.add(e.getClasss());</b>
+<i>73</i>&nbsp;		}
+<b class="fc"><i>74</i>&nbsp;		return classes;</b>
+<i>75</i>&nbsp;	}
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;	public String getId() {
+<b class="fc"><i>78</i>&nbsp;		return id;</b>
+<i>79</i>&nbsp;	}
+<i>80</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-05-21 17:50</div>
+</div>
+</body>
+</html>

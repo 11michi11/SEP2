@@ -1,0 +1,118 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FamilyList</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FamilyList (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FamilyList</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86.7%
+  </span>
+  <span class="absValue">
+    (13/ 15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.LinkedList;
+<i>4</i>&nbsp;import java.util.List;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;public class FamilyList {
+<i>7</i>&nbsp;	private LinkedList&lt;Family&gt; families;
+<i>8</i>&nbsp;	
+<b class="fc"><i>9</i>&nbsp;	public FamilyList() {</b>
+<b class="fc"><i>10</i>&nbsp;		families=new LinkedList&lt;&gt;();</b>
+<b class="fc"><i>11</i>&nbsp;	}</b>
+<i>12</i>&nbsp;	public void addFamily(Family family) {
+<b class="fc"><i>13</i>&nbsp;		families.add(family);</b>
+<b class="fc"><i>14</i>&nbsp;	}</b>
+<i>15</i>&nbsp;	public void deleteFamily(Family family) {
+<b class="nc"><i>16</i>&nbsp;		families.remove(family);</b>
+<b class="nc"><i>17</i>&nbsp;	}</b>
+<i>18</i>&nbsp;	public List&lt;Family&gt; getAllFamilies(){
+<b class="fc"><i>19</i>&nbsp;		return families;</b>
+<i>20</i>&nbsp;	}
+<i>21</i>&nbsp;	public int getSize() {
+<b class="fc"><i>22</i>&nbsp;		return families.size();</b>
+<i>23</i>&nbsp;	}
+<i>24</i>&nbsp;	public Family getFamilyById (String familyId) {
+<i>25</i>&nbsp;//		return families.get(families.indexOf(familyId));
+<b class="fc"><i>26</i>&nbsp;		Family family = null;</b>
+<b class="fc"><i>27</i>&nbsp;		for (Family e:families) {</b>
+<b class="fc"><i>28</i>&nbsp;			if (e.getId().equals(familyId)) {</b>
+<b class="fc"><i>29</i>&nbsp;				family = e;</b>
+<b class="fc"><i>30</i>&nbsp;				break;</b>
+<i>31</i>&nbsp;			}
+<i>32</i>&nbsp;		}
+<b class="fc"><i>33</i>&nbsp;		return family;</b>
+<i>34</i>&nbsp;	}
+<i>35</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-05-21 17:50</div>
+</div>
+</body>
+</html>

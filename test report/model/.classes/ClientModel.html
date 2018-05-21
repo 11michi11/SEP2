@@ -1,0 +1,77 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ClientModel</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ClientModel (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ClientModel</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.ArrayList;
+<i>4</i>&nbsp;import java.util.Collection;
+<i>5</i>&nbsp;import java.util.List;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import client.controller.ClientController;
+<i>8</i>&nbsp;import javafx.scene.control.TextArea;
+<i>9</i>&nbsp;import javafx.scene.control.TextField;
+<i>10</i>&nbsp;import model.communication.WelcomingData;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;public interface ClientModel {
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;	void setController(ClientController controller);
+<i>15</i>&nbsp;	void storePost(Post post);
+<i>16</i>&nbsp;	void addPost(String title, String content, String author, MyDate publicationDate);
+<i>17</i>&nbsp;	Post getPost();
+<i>18</i>&nbsp;	void saveData(WelcomingData data);
+<i>19</i>&nbsp;	void addOrUpdateUser(User user);
+<i>20</i>&nbsp;	void deleteUser(String id);
+<i>21</i>&nbsp;	void deleteUser(User user);
+<i>22</i>&nbsp;	void login(String email, String pwd);
+<i>23</i>&nbsp;	ArrayList&lt;Parent&gt; getParents();
+<i>24</i>&nbsp;	ArrayList&lt;Family&gt; getAllFamilies();
+<i>25</i>&nbsp;    void deleteFamily(Family family);
+<i>26</i>&nbsp;	List&lt;Teacher&gt; getTeachers();
+<i>27</i>&nbsp;	void addFamily(Family family);
+<i>28</i>&nbsp;    boolean checkEmailForPwdReset(String email);
+<i>29</i>&nbsp;    void changePwdWithEmail(String email, String newPwd);
+<i>30</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-05-21 17:50</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FamiliesList</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">client.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FamiliesList (client.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FamiliesList</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    68.8%
+  </span>
+  <span class="absValue">
+    (11/ 16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package client.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import model.Classs;
+<i>4</i>&nbsp;import model.Family;
+<i>5</i>&nbsp;import model.Parent;
+<i>6</i>&nbsp;import model.Student;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;public class FamiliesList {
+<i>11</i>&nbsp;
+<b class="fc"><i>12</i>&nbsp;    private ArrayList&lt;Family&gt; families = new ArrayList&lt;&gt;();</b>
+<i>13</i>&nbsp;
+<b class="fc"><i>14</i>&nbsp;    public FamiliesList(){</b>
+<b class="fc"><i>15</i>&nbsp;        Family family = new Family();</b>
+<b class="fc"><i>16</i>&nbsp;        family.addParent(Parent.builder().name(&quot;Pname1&quot;).email(&quot;email&quot;).pwdEncrypt(&quot;pwd&quot;).family(family).build());</b>
+<b class="fc"><i>17</i>&nbsp;        family.addParent(Parent.builder().name(&quot;Pname2&quot;).email(&quot;email&quot;).pwdEncrypt(&quot;pwd&quot;).family(family).build());</b>
+<b class="fc"><i>18</i>&nbsp;        family.addParent(Parent.builder().name(&quot;Pname3&quot;).email(&quot;email&quot;).pwdEncrypt(&quot;pwd&quot;).family(family).build());</b>
+<i>19</i>&nbsp;
+<b class="fc"><i>20</i>&nbsp;        family.addChild(Student.builder().name(&quot;Sname1&quot;).email(&quot;email&quot;).classs(Classs.First).family(family).pwdEncrypt(&quot;pwd&quot;).build());</b>
+<b class="fc"><i>21</i>&nbsp;        family.addChild(Student.builder().name(&quot;Sname2&quot;).email(&quot;email&quot;).classs(Classs.First).family(family).pwdEncrypt(&quot;pwd&quot;).build());</b>
+<b class="fc"><i>22</i>&nbsp;        family.addChild(Student.builder().name(&quot;Sname3&quot;).email(&quot;email&quot;).classs(Classs.First).family(family).pwdEncrypt(&quot;pwd&quot;).build());</b>
+<b class="fc"><i>23</i>&nbsp;        families.add(family);</b>
+<b class="fc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    public void addFamily(Family family){
+<b class="nc"><i>27</i>&nbsp;        families.add(0,family);</b>
+<b class="nc"><i>28</i>&nbsp;    }</b>
+<i>29</i>&nbsp;    public ArrayList&lt;Family&gt; getAll(){
+<b class="nc"><i>30</i>&nbsp;        return families;</b>
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;    public void deleteFamily(Family family) {
+<b class="nc"><i>33</i>&nbsp;        families.remove(family);</b>
+<b class="nc"><i>34</i>&nbsp;    }</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-05-21 17:50</div>
+</div>
+</body>
+</html>

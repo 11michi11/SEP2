@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DiscussionHandler</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">client.view</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DiscussionHandler (client.view)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DiscussionHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package client.view;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import client.controller.ClientController;
+<i>4</i>&nbsp;import javafx.fxml.FXML;
+<i>5</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i>6</i>&nbsp;import javafx.scene.Parent;
+<i>7</i>&nbsp;import javafx.scene.control.Button;
+<i>8</i>&nbsp;import javafx.scene.control.TextArea;
+<i>9</i>&nbsp;import javafx.scene.control.TextField;
+<i>10</i>&nbsp;import javafx.scene.image.ImageView;
+<i>11</i>&nbsp;import javafx.scene.layout.Pane;
+<i>12</i>&nbsp;import javafx.scene.layout.VBox;
+<i>13</i>&nbsp;import javafx.stage.Stage;
+<i>14</i>&nbsp;import model.MyDate;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;import java.io.IOException;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;public class DiscussionHandler {
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;	@FXML
+<i>21</i>&nbsp;	private Button createPost, editPost;
+<i>22</i>&nbsp;	@FXML
+<i>23</i>&nbsp;	private VBox box;
+<i>24</i>&nbsp;	@FXML
+<i>25</i>&nbsp;	private ImageView ente;
+<i>26</i>&nbsp;	private ClientController controller;
+<i>27</i>&nbsp;	private Stage stage;
+<i>28</i>&nbsp;	private Parent mainPane;
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;	public DiscussionHandler() {</b>
+<b class="nc"><i>31</i>&nbsp;		controller = ClientController.getInstance();</b>
+<b class="nc"><i>32</i>&nbsp;		stage = ClientViewManager.getStage();</b>
+<b class="nc"><i>33</i>&nbsp;		System.out.println(&quot;DiscussionHandler&quot;);</b>
+<b class="nc"><i>34</i>&nbsp;		FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/client/view/fxml/mainPaneAdmin.fxml&quot;));</b>
+<i>35</i>&nbsp;		try {
+<b class="nc"><i>36</i>&nbsp;			mainPane = loader.load();</b>
+<b class="nc"><i>37</i>&nbsp;			mainPane.getStylesheets().add(getClass().getResource(&quot;/client/view/login.css&quot;).toExternalForm());</b>
+<b class="nc"><i>38</i>&nbsp;		} catch (IOException e) {</b>
+<b class="nc"><i>39</i>&nbsp;			e.printStackTrace();</b>
+<i>40</i>&nbsp;		}
+<b class="nc"><i>41</i>&nbsp;	}</b>
+<i>42</i>&nbsp;	public void loadPanes(Pane pane) {
+<b class="nc"><i>43</i>&nbsp;		box.getChildren().clear();</b>
+<b class="nc"><i>44</i>&nbsp;		box.getChildren().add(pane);</b>
+<b class="nc"><i>45</i>&nbsp;	}</b>
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;	public void createPost() {
+<b class="nc"><i>48</i>&nbsp;		TextField title = new TextField();</b>
+<b class="nc"><i>49</i>&nbsp;		title.setText(&quot;Title&quot;);</b>
+<b class="nc"><i>50</i>&nbsp;		title.setId(&quot;title&quot;);</b>
+<b class="nc"><i>51</i>&nbsp;		TextArea content = new TextArea();</b>
+<b class="nc"><i>52</i>&nbsp;		content.setText(&quot;Write a content&quot;);</b>
+<b class="nc"><i>53</i>&nbsp;		content.getStyleClass().add(&quot;content&quot;);</b>
+<i>54</i>&nbsp;
+<b class="nc"><i>55</i>&nbsp;		VBox text = new VBox();</b>
+<b class="nc"><i>56</i>&nbsp;		text.getChildren().addAll(title, content);</b>
+<i>57</i>&nbsp;
+<b class="nc"><i>58</i>&nbsp;		box.getChildren().add(0, text);</b>
+<b class="nc"><i>59</i>&nbsp;	}</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;	public void addPost() {
+<b class="nc"><i>62</i>&nbsp;		VBox text = (VBox) box.getChildren().get(0);</b>
+<b class="nc"><i>63</i>&nbsp;		TextField title = (TextField) text.getChildren().get(0);</b>
+<b class="nc"><i>64</i>&nbsp;		TextArea content = (TextArea) text.getChildren().get(1);</b>
+<i>65</i>&nbsp;
+<b class="nc"><i>66</i>&nbsp;		controller.addPost(title.getText(), content.getText(), controller.getCurrentUserName(), MyDate.now());</b>
+<b class="nc"><i>67</i>&nbsp;	}</b>
+<i>68</i>&nbsp;	public void goBack() {
+<b class="nc"><i>69</i>&nbsp;		stage.getScene().setRoot(mainPane);</b>
+<b class="nc"><i>70</i>&nbsp;		stage.show();</b>
+<b class="nc"><i>71</i>&nbsp;	}</b>
+<i>72</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-05-21 17:50</div>
+</div>
+</body>
+</html>
