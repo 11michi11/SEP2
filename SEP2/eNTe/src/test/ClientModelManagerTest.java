@@ -68,8 +68,8 @@ class ClientModelManagerTest {
 	@Test
 	void getParentsTest() {
 		fail();
-//		Parent parent1 = Parent.builder().name("name1").email("email").pwd("pwd").build();
-//		Parent parent2 = Parent.builder().name("name2").email("email").pwd("pwd").build();
+//		Parent parent1 = Parent.builder().name("name1").email("email").pwdEncrypt("pwd").build();
+//		Parent parent2 = Parent.builder().name("name2").email("email").pwdEncrypt("pwd").build();
 //		ArrayList<Parent> list = new ArrayList<>();
 //		list.add(parent1);
 //		list.add(parent2);
@@ -81,7 +81,7 @@ class ClientModelManagerTest {
 	
 	@Test
 	void deleteUserAndGetUserByIdTest() {
-		Parent parent = Parent.builder().name("name").email("email").pwd("pwd").build();
+		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
 		Student student = Student.builder().name("name").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
 		Teacher teacher = new Teacher("name", "email", "pwd");
 		Administrator admin = new Administrator("name", "email", "pwd");
@@ -104,10 +104,10 @@ class ClientModelManagerTest {
 	
 	@Test
 	void updateUserTest() {
-		Parent parent = Parent.builder().name("name").email("email").pwd("pwd").build();
+		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
 		model.addOrUpdateUser(parent);
 	
-		parent = Parent.builder().name("name").email("email").pwd("pwd").build();
+		parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
 		model.addOrUpdateUser(parent);
 		
 		assertEquals(parent, model.getUserById(parent.getId()));
