@@ -1,8 +1,5 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import model.Parent;
 import model.Student;
+import utility.Password;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ParentTest {
 
@@ -44,4 +44,57 @@ class ParentTest {
 		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").family(family).build();
 		assertEquals("child1, child2, child3, ", parent.getChildrenNames());
 	}
+
+	@Test
+	void getChildrenTest() {
+		Student child1 = Student.builder().name("child1").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
+		Family family = new Family();
+		family.addChild(child1);
+		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").family(family).build();
+		assertEquals(family.getChildren(), parent.getChildren());
+	}
+
+	@Test
+	void getFamilyTest() {
+		Family family = new Family();
+		assertNotNull(family);
+	}
+
+	@Test
+	void getFamilyIdTest() {
+		Family family = new Family("id");
+		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").family(family).build();
+		assertEquals("id", parent.getFamilyId());
+	}
+
+	@Test
+	void setFamilyTest() {
+		Family family = new Family();
+		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").family(family).build();
+		assertEquals(family, parent.getFamily());
+	}
+
+	@Test
+	void buildParentTest() {
+		Family family = new Family("id");
+		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").family(family).id("id").build();
+		assertEquals("name", parent.getName());
+		assertEquals("email", parent.getEmail());
+		assertEquals(Password.encryptPwd("pwd"), parent.getPwd());
+		assertEquals(family, parent.getFamily());
+		assertEquals("id", parent.getId());
+
+	}
+
+	@Test
+	void buildParentNotFinished() {
+		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
+		assertEquals("name", parent.getName());
+		assertEquals("email", parent.getEmail());
+		assertEquals(Password.encryptPwd("pwd"), parent.getPwd());
+		assertNull(parent.getFamily());
+
+
+	}
+
 }
