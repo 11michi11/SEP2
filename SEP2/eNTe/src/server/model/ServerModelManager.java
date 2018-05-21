@@ -20,11 +20,8 @@ public class ServerModelManager implements ServerModel {
         posts = new PostsList();
         users = new UsersList();
         families = new FamilyList();
-        try {
-            db = new DBAdapter();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        db = new DBAdapter("org.postgresql.Driver","jdbc:postgresql://207.154.237.196:5432/ente","ente","ente");
+
         restoreState();
     }
 

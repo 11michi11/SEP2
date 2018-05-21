@@ -53,7 +53,7 @@ public class Student extends User implements Serializable {
 
     @Override
     public String toString() {
-        return "Student [historyOfActivity=" + historyOfActivity + ", classs=" + classs + ", family=" + family + "]";
+        return super.toString()+"\nStudent [historyOfActivity=" + historyOfActivity + ", classs=" + classs + ", family=" + family + "]";
     }
 
     public static StudentNeedName builder() {
