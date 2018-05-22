@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 //TO DO, class not finished
-public enum Classs implements Serializable{
+public enum ClassNo implements Serializable{
 	 First("First"),
 	 Second("Second"),
 	 Third("Third"),
@@ -18,17 +18,17 @@ public enum Classs implements Serializable{
 	 
 	private String name;
 	
-	Classs(String name) {
+	ClassNo(String name) {
 		this.name = name;
 	}
 	
 	
 	public static List<String> getClassesInStrings() {
-		return Stream.of(Classs.values()).map(Enum::name).collect(Collectors.toList());
+		return Stream.of(ClassNo.values()).map(Enum::name).collect(Collectors.toList());
 	}
 	
-	public static List<Classs> getClasses() {
-		return Stream.of(Classs.values()).collect(Collectors.toList());
+	public static List<ClassNo> getClasses() {
+		return Stream.of(ClassNo.values()).collect(Collectors.toList());
 	}
 	
 	public String toString() {

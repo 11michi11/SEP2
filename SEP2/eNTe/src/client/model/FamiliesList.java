@@ -1,6 +1,6 @@
 package client.model;
 
-import model.Classs;
+import model.ClassNo;
 import model.Family;
 import model.Parent;
 import model.Student;
@@ -17,9 +17,9 @@ public class FamiliesList {
         family.addParent(Parent.builder().name("Pname2").email("email").pwdEncrypt("pwd").family(family).build());
         family.addParent(Parent.builder().name("Pname3").email("email").pwdEncrypt("pwd").family(family).build());
 
-        family.addChild(Student.builder().name("Sname1").email("email").classs(Classs.First).family(family).pwdEncrypt("pwd").build());
-        family.addChild(Student.builder().name("Sname2").email("email").classs(Classs.First).family(family).pwdEncrypt("pwd").build());
-        family.addChild(Student.builder().name("Sname3").email("email").classs(Classs.First).family(family).pwdEncrypt("pwd").build());
+        family.addChild(Student.builder().name("Sname1").email("email").classs(ClassNo.First).family(family).pwdEncrypt("pwd").build());
+        family.addChild(Student.builder().name("Sname2").email("email").classs(ClassNo.First).family(family).pwdEncrypt("pwd").build());
+        family.addChild(Student.builder().name("Sname3").email("email").classs(ClassNo.First).family(family).pwdEncrypt("pwd").build());
         families.add(family);
     }
 

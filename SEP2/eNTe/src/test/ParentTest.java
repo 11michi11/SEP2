@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.Classs;
+import model.ClassNo;
 import model.Family;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ class ParentTest {
 	@Test
 	void testConstructors() {
 		Family f = new Family();
-		Student child1 = Student.builder().name("child1").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
+		Student child1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
 		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
 		f.addChild(child1);
 		f.addParent(parent);
@@ -31,9 +31,9 @@ class ParentTest {
 	@Test
 	void testGetChildrenNames() {
 		ArrayList<Student> children = new ArrayList<>();
-		Student child1 = Student.builder().name("child1").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
-		Student child2 = Student.builder().name("child2").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
-		Student child3 = Student.builder().name("child3").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
+		Student child1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child2 = Student.builder().name("child2").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child3 = Student.builder().name("child3").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
 		children.add(child1);
 		children.add(child2);
 		children.add(child3);
@@ -47,7 +47,7 @@ class ParentTest {
 
 	@Test
 	void getChildrenTest() {
-		Student child1 = Student.builder().name("child1").email("email").classs(Classs.First).pwdEncrypt("pwd").build();
+		Student child1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
 		Family family = new Family();
 		family.addChild(child1);
 		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").family(family).build();
