@@ -55,6 +55,20 @@ public abstract class User implements Serializable{
 	public String getId() {
 		return id;
 	}
+	
+	public void setPwd(String pwd) {
+		this.pwd = Password.encryptPwd(pwd);
+		changePassword = false;
+	}
+
+	public void setPwdNoEncrypt(String pwd) {
+		this.pwd = pwd;
+		changePassword = false;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public void changePassword(){
 		changePassword = true;
@@ -78,22 +92,10 @@ public abstract class User implements Serializable{
 		return false;
 	}
 
-	public void setPwd(String pwd) {
-		this.pwd = Password.encryptPwd(pwd);
-		changePassword = false;
-	}
-
-	public void setPwdNoEncrypt(String pwd) {
-		this.pwd = pwd;
-		changePassword = false;
-	}
-
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", pwd=" + pwd + ", name=" + name + ", id=" + id + "]";
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 }
