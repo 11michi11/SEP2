@@ -93,7 +93,7 @@ class StudentTest {
 		assertEquals("child", studentNotFinished.getName());
 		assertEquals("email",studentNotFinished.getEmail());
 		assertEquals(Classs.Eigth,studentNotFinished.getClasss());
-		assertEquals("there is no family", studentNotFinished.getFamilyID());
+		assertEquals("there is no family", studentNotFinished.getFamilyId());
 		assertNull(studentNotFinished.getHistoryOfActivity());
 	}
 

@@ -35,7 +35,7 @@ public abstract class User implements Serializable{
 	public User(String name, String email, String pwd, String id) {
 		this.name = name;
 		this.email = email;
-		this.pwd = Password.encryptPwd(pwd);
+		this.pwd = pwd;
 		this.id = id;
 		changePassword = false;
 	}
