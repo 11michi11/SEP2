@@ -5,6 +5,7 @@ import model.*;
 import org.junit.jupiter.api.*;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
+import utility.Password;
 
 import java.util.LinkedList;
 
