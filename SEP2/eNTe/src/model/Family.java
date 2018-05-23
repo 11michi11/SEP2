@@ -69,8 +69,8 @@ public class Family implements Serializable {
 	public ArrayList<ClassNo> getClasses() {
 		ArrayList<ClassNo> classes = new ArrayList<>();
 		for (Student e : children) {
-			if (classes.contains(e.getClasss()))
-				classes.add(e.getClasss());
+			if (classes.contains(e.getClassNo()))
+				classes.add(e.getClassNo());
 		}
 		return classes;
 	}

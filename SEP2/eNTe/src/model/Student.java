@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Student extends User implements Serializable, IFamily {
 
     private String historyOfActivity;
-    private ClassNo classs;
+    private ClassNo classNo;
     private Family family;
 
     //Student should be initialized with builder!
@@ -23,12 +23,12 @@ public class Student extends User implements Serializable, IFamily {
         return historyOfActivity;
     }
 
-    public void setClasss(ClassNo classs) {
-        this.classs = classs;
+    public void setClassNo(ClassNo classNo) {
+        this.classNo = classNo;
     }
 
-    public ClassNo getClasss() {
-        return classs;
+    public ClassNo getClassNo() {
+        return classNo;
     }
 
     public String getFamilyId() {
@@ -47,18 +47,18 @@ public class Student extends User implements Serializable, IFamily {
 
     @Override
     public String toString() {
-        return super.toString()+"\nStudent [historyOfActivity=" + historyOfActivity + ", classs=" + classs + ", family=" + family + "]";
+        return super.toString()+"\nStudent [historyOfActivity=" + historyOfActivity + ", classNo=" + classNo + ", family=" + family + "]";
     }
 
     public static StudentNeedName builder() {
         return new Builder();
     }
 
-    public static final class Builder implements StudentNeedName, StudentNeedEmail, StudentNeedClasss, StudentCanBeBuild {
+    public static final class Builder implements StudentNeedName, StudentNeedEmail, StudentNeedClassNo, StudentCanBeBuild {
         protected String id;
         private String historyOfActivity;
         private String email;
-        private ClassNo classs;
+        private ClassNo classNo;
         private String pwd;
         private Family family;
         private String name;
@@ -69,13 +69,13 @@ public class Student extends User implements Serializable, IFamily {
             return this;
         }
 
-        public StudentNeedClasss email(String email) {
+        public StudentNeedClassNo email(String email) {
             this.email = email;
             return this;
         }
 
         public StudentCanBeBuild classs(ClassNo classs) {
-            this.classs = classs;
+            this.classNo = classs;
             return this;
         }
 
@@ -113,11 +113,11 @@ public class Student extends User implements Serializable, IFamily {
                     student.setPwd(pwd);
                 else
                     student.setPwdNoEncrypt(pwd);
-            if (this.classs == null)
+            if (this.classNo == null)
                 throw new IllegalStateException("Classs must be specified");
             if (this.id != null)
                 student.id = this.id;
-            student.classs = this.classs;
+            student.classNo = this.classNo;
             student.family = family;
             student.historyOfActivity = this.historyOfActivity;
             return student;
@@ -129,10 +129,10 @@ public class Student extends User implements Serializable, IFamily {
     }
 
     public interface StudentNeedEmail {
-        StudentNeedClasss email(String email);
+        StudentNeedClassNo email(String email);
     }
 
-    public interface StudentNeedClasss {
+    public interface StudentNeedClassNo {
         StudentCanBeBuild classs(ClassNo classs);
     }
 
