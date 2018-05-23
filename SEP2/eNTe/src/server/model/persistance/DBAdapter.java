@@ -115,23 +115,23 @@ public class DBAdapter implements DBPersistence {
             ArrayList<String> sqlList = new ArrayList<>();
             String sql = "";
             String usertype = user.getClass().getSimpleName();
-            sql += "UPDATE enteuser SET";
-            sql += "type='" + usertype + "',";
+            sql += "UPDATE enteuser SET ";
+            sql += "usertype='" + usertype + "',";
             sql += "email='" + user.getEmail() + "',";
             sql += "pwd='" + user.getPwd() + "',";
-            sql += "changePwdNeeded=" + user.isPasswordChangeNeeded() + ",";
-            sql += "name='" + user.getName() + "' ";
+            sql += "name='" + user.getName() + "',";
+            sql += "changepassword=" + user.isPasswordChangeNeeded() + " ";
             sql += "WHERE id='" + user.getId() + "'";
             sqlList.add(sql);
             switch (usertype) {
-                case "student":
+                case "Student":
                     Student student = (Student) user;
                     sql = "UPDATE student SET class='" + student.getClassNo() + "',";
                     sql += "familyid='" + student.getFamilyId() + "'";
                     sql += "WHERE studentid='" + student.getId() + "'";
                     sqlList.add(sql);
                     break;
-                case "parent":
+                case "Parent":
                     Parent parent = (Parent) user;
                     sql = "UPDATE parent SET ";
                     sql += "familyid='" + parent.getFamilyId() + "' ";
@@ -290,7 +290,7 @@ public class DBAdapter implements DBPersistence {
 
     public void executeSQL(String sql) {
         try {
-            db.query(sql);
+            db.update(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
