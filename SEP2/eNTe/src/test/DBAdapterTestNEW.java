@@ -181,7 +181,7 @@ class DBAdapterTestNEW {
         assertEquals("StudentEmail1",users.getAll().get(0).getEmail());
         assertEquals("StudentPwd1",users.getAll().get(0).getPwd());
         assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-        assertEquals(Classs.First,((Student) users.getAll().get(0)).getClasss());
+        assertEquals(ClassNo.First,((Student) users.getAll().get(0)).getClasss());
         assertEquals("Student",users.getAll().get(0).getClass().getSimpleName());
         assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
         assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());
@@ -265,7 +265,7 @@ class DBAdapterTestNEW {
     @Test
     void testUpdateStudent() {
         Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
-        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(Classs.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
+        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
         student1.setChangePassword(true);
         f1.addChild((Student) student1);
         adapter.addFamily(f1);
@@ -278,7 +278,7 @@ class DBAdapterTestNEW {
         assertEquals("StudentEmail1",users.getAll().get(0).getEmail());
         assertEquals("StudentPwd1",users.getAll().get(0).getPwd());
         assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-        assertEquals(Classs.First,((Student) users.getAll().get(0)).getClasss());
+        assertEquals(ClassNo.First,((Student) users.getAll().get(0)).getClasss());
         assertEquals("Student",users.getAll().get(0).getClass().getSimpleName());
         assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
         assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());
@@ -288,7 +288,7 @@ class DBAdapterTestNEW {
         loadFamilies();
         assertEquals(2,families.getSize());
 
-        ((Student) users.getAll().get(0)).setClasss(Classs.Second);
+        ((Student) users.getAll().get(0)).setClasss(ClassNo.Second);
         users.getAll().get(0).setChangePassword(false);
         users.getAll().get(0).setPwdNoEncrypt("StudentPwd1NEW");
         ((Student) users.getAll().get(0)).setFamily(f2);
@@ -300,7 +300,7 @@ class DBAdapterTestNEW {
         assertEquals("StudentEmail1",users.getAll().get(0).getEmail());
         assertEquals("StudentPwd1NEW",users.getAll().get(0).getPwd());
         assertFalse(users.getAll().get(0).isPasswordChangeNeeded());
-        assertEquals(Classs.Second,((Student) users.getAll().get(0)).getClasss());
+        assertEquals(ClassNo.Second,((Student) users.getAll().get(0)).getClasss());
         assertEquals("Student",users.getAll().get(0).getClass().getSimpleName());
         assertEquals("bee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
         assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("bee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());
@@ -377,7 +377,7 @@ class DBAdapterTestNEW {
     @Test
     void testDeleteStudent() {
         Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
-        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(Classs.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
+        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
         student1.setChangePassword(true);
         f1.addChild((Student) student1);
         adapter.addFamily(f1);
@@ -459,7 +459,7 @@ class DBAdapterTestNEW {
     @Test
     void testStudentAndTwoParentsAddedAndLoaded() {
         Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
-        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(Classs.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
+        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
         student1.setChangePassword(true);
         f1.addChild((Student) student1);
         User parent1 = Parent.builder().name("ParentName1").email("ParentEmail1").pwd("ParentPwd1").id("adc8ba24-7250-425e-a0c9-00e144bbf75c").family(f1).build();
@@ -504,16 +504,6 @@ class DBAdapterTestNEW {
         assertEquals("Parent",users.getAll().get(2).getClass().getSimpleName());
         assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Parent) users.getUserById("adc8ba24-7250-425e-a0c9-00e144bbf75g")).getFamilyId());
         assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75g",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getParent("ParentName2").getId());
-    }
-
-    //----------B-----------
-    //----------I-----------
-    //----------E-----------
-    @Test
-    void testClassNotFoundExceptionThrownWhenDBAdapterInstantiated() {
-        assertThrows(ClassNotFoundException.class, () -> new DBAdapter("","","",""));
-        //adapter = new DBAdapter("org.postgresql.Driver","jdbc:postgresql://207.154.237.196:5432/ente?currentSchema=test","ente","ente");
-
     }
 
     @AfterEach
