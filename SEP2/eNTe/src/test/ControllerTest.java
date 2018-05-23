@@ -1,6 +1,6 @@
 package test;
 
-import model.Classs;
+import model.ClassNo;
 import model.ClientModel;
 import model.Student;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +19,7 @@ public class ControllerTest {
 
 	@Test
 	void addStudent() {
-		Student student = Student.builder().name("child").email("email").classs(Classs.Eigth).pwdEncrypt("pwd").build();
+		Student student = Student.builder().name("child").email("email").classs(ClassNo.Eigth).pwdEncrypt("pwd").build();
 
 
 	}

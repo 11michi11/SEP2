@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Student extends User implements Serializable, IFamily {
 
     private String historyOfActivity;
-    private Classs classs;
+    private ClassNo classs;
     private Family family;
 
     //Student should be initialized with builder!
@@ -23,11 +23,11 @@ public class Student extends User implements Serializable, IFamily {
         return historyOfActivity;
     }
 
-    public void setClasss(Classs classs) {
+    public void setClasss(ClassNo classs) {
         this.classs = classs;
     }
 
-    public Classs getClasss() {
+    public ClassNo getClasss() {
         return classs;
     }
 
@@ -58,7 +58,7 @@ public class Student extends User implements Serializable, IFamily {
         protected String id;
         private String historyOfActivity;
         private String email;
-        private Classs classs;
+        private ClassNo classs;
         private String pwd;
         private Family family;
         private String name;
@@ -74,7 +74,7 @@ public class Student extends User implements Serializable, IFamily {
             return this;
         }
 
-        public StudentCanBeBuild classs(Classs classs) {
+        public StudentCanBeBuild classs(ClassNo classs) {
             this.classs = classs;
             return this;
         }
@@ -133,7 +133,7 @@ public class Student extends User implements Serializable, IFamily {
     }
 
     public interface StudentNeedClasss {
-        StudentCanBeBuild classs(Classs classs);
+        StudentCanBeBuild classs(ClassNo classs);
     }
 
     public interface StudentCanBeBuild {

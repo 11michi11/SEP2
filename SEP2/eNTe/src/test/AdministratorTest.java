@@ -32,4 +32,20 @@ class AdministratorTets {
 		assertEquals("User [email=email, pwd=" + Password.encryptPwd("pwd") + ", name=name, id=id]", user1.toString());
 	}
 
+	@Test()
+	void builderTest() {
+		Administrator adm = Administrator.builder().name("name").email("email").pwd("pwd").id("id").build();
+		assertEquals("name", adm.getName());
+		assertEquals("email", adm.getEmail());
+		assertEquals("pwd", adm.getPwd());
+		assertEquals("id", adm.getId());
+	}
+
+	@Test
+	void builderNotFinished() {
+		Administrator adm = Administrator.builder().name("name").email("email").build();
+		assertEquals("name", adm.getName());
+		assertEquals("email", adm.getEmail());
+	}
+
 }

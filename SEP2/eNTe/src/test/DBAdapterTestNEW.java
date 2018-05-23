@@ -168,7 +168,7 @@ class DBAdapterTestNEW {
     @Test
     void testOneStudentAddedAndLoaded() {
         Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
-        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(Classs.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
+        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
         student1.setChangePassword(true);
         f1.addChild((Student) student1);
         adapter.addFamily(f1);
