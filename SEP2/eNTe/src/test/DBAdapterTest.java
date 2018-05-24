@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DBAdapterTestNEW {
+class DBAdapterTest {
 
     private static DBPersistence adapter;
     private static UsersList users;
