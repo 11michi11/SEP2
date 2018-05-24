@@ -181,7 +181,7 @@ class DBAdapterTest {
         assertEquals("StudentEmail1",users.getAll().get(0).getEmail());
         assertEquals("StudentPwd1",users.getAll().get(0).getPwd());
         assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-        assertEquals(ClassNo.First,((Student) users.getAll().get(0)).getClasss());
+        assertEquals(ClassNo.First,((Student) users.getAll().get(0)).getClassNo());
         assertEquals("Student",users.getAll().get(0).getClass().getSimpleName());
         assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
         assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());
@@ -278,7 +278,7 @@ class DBAdapterTest {
         assertEquals("StudentEmail1",users.getAll().get(0).getEmail());
         assertEquals("StudentPwd1",users.getAll().get(0).getPwd());
         assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-        assertEquals(ClassNo.First,((Student) users.getAll().get(0)).getClasss());
+        assertEquals(ClassNo.First,((Student) users.getAll().get(0)).getClassNo());
         assertEquals("Student",users.getAll().get(0).getClass().getSimpleName());
         assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
         assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());
@@ -288,7 +288,7 @@ class DBAdapterTest {
         loadFamilies();
         assertEquals(2,families.getSize());
 
-        ((Student) users.getAll().get(0)).setClasss(ClassNo.Second);
+        ((Student) users.getAll().get(0)).setClassNo(ClassNo.Second);
         users.getAll().get(0).setChangePassword(false);
         users.getAll().get(0).setPwdNoEncrypt("StudentPwd1NEW");
         ((Student) users.getAll().get(0)).setFamily(f2);
@@ -300,7 +300,7 @@ class DBAdapterTest {
         assertEquals("StudentEmail1",users.getAll().get(0).getEmail());
         assertEquals("StudentPwd1NEW",users.getAll().get(0).getPwd());
         assertFalse(users.getAll().get(0).isPasswordChangeNeeded());
-        assertEquals(ClassNo.Second,((Student) users.getAll().get(0)).getClasss());
+        assertEquals(ClassNo.Second,((Student) users.getAll().get(0)).getClassNo());
         assertEquals("Student",users.getAll().get(0).getClass().getSimpleName());
         assertEquals("bee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
         assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("bee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());

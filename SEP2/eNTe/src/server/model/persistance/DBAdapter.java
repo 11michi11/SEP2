@@ -88,7 +88,7 @@ public class DBAdapter implements DBPersistence {
                     sql += "student VALUES ('";
                     sql += student.getId() + "','";
                     sql += student.getFamilyId() + "','";
-                    sql += student.getClasss() + "')";
+                    sql += student.getClassNo() + "')";
                     sqlList.add(sql);
                     break;
 
@@ -126,8 +126,8 @@ public class DBAdapter implements DBPersistence {
             switch (usertype) {
                 case "Student":
                     Student student = (Student) user;
-                    sql = "UPDATE student SET class='" + student.getClasss() + "',";
-                    sql += "familyid='" + student.getFamilyId() + "' ";
+                    sql = "UPDATE student SET class='" + student.getClassNo() + "',";
+                    sql += "familyid='" + student.getFamilyId() + "'";
                     sql += "WHERE studentid='" + student.getId() + "'";
                     sqlList.add(sql);
                     break;

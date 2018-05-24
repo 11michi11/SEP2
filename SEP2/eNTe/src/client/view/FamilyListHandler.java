@@ -11,7 +11,6 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Family;
-import model.Student;
 import model.User;
 
 import java.io.IOException;
@@ -122,7 +121,7 @@ public class FamilyListHandler {
 
 			TreeItem<TableDataType> children = new TreeItem<>(new UserDT("Students"));
 			children.getChildren().addAll(family.getChildren().stream()
-					.map(child -> new TreeItem<TableDataType>(new UserDT(child, child.getClasss().toString()))).collect(Collectors.toList()));
+					.map(child -> new TreeItem<TableDataType>(new UserDT(child, child.getClassNo().toString()))).collect(Collectors.toList()));
 
 			TreeItem<TableDataType> familyRoot = new TreeItem<>(new FamilyDT(family));
 			familyRoot.getChildren().addAll(parents, children);
