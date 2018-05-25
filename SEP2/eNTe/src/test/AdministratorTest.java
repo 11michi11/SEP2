@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import model.Administrator;
 import model.User;
 
-class AdministratorTets {
+class AdministratorTest {
 
 	@Test
 	void testConstructors() {
