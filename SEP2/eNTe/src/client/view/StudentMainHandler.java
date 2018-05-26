@@ -52,7 +52,6 @@ public class StudentMainHandler {
 			}
 		});
 	            
-	     
 		
 		TextFlow textFlow = new TextFlow(title, separator, content, separator2, submit);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);

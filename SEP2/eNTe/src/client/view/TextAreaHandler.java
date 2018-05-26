@@ -25,6 +25,13 @@ public class TextAreaHandler {
 		controller = ClientController.getInstance();
 		System.out.println("TextAreaForHomeworkHandler");
 		stage = ClientViewManager.getStage();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneStudent.fxml"));
+		try {
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
