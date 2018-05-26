@@ -49,8 +49,7 @@ public class Login implements Serializable{
 	}
 
 	public String getUserType() {
-		// TODO Auto-generated method stub
-		return "Admin";
+		return currentUser.getClass().getSimpleName();
 	}
 
 	public boolean changeLogin() {

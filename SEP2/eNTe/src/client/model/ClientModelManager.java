@@ -49,6 +49,18 @@ public class ClientModelManager implements ClientModel {
     }
 
     @Override
+    public Homework getHomework() {
+        return null;
+        //to do
+    }
+
+    @Override
+    public Discussion getDiscussion() {
+        return null;
+        //to do
+    }
+
+    @Override
     public void storePost(Post post) {
         posts.add(post);
     }

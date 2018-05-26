@@ -189,7 +189,7 @@ public class DBAdapter implements DBPersistence {
                 String pwd = (String) e[3];
                 String name = (String) e[4];
                 boolean changePwdNeeded = (boolean) e[5];
-                Teacher teacher = new Teacher(name, email, pwd, id);
+                Teacher teacher = Teacher.builder().name(name).email(email).pwd(pwd).id(id).build();
                 teacher.setChangePassword(changePwdNeeded);
                 list.add(teacher);
             }

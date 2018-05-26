@@ -2,12 +2,9 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import client.controller.ClientController;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import model.communication.WelcomingData;
 
 public interface ClientModel {
@@ -16,6 +13,8 @@ public interface ClientModel {
 	void storePost(Post post);
 	void addPost(String title, String content, String author, MyDate publicationDate);
 	Post getPost();
+	Homework getHomework();
+	Discussion getDiscussion();
 	void saveData(WelcomingData data);
 	void addOrUpdateUser(User user);
 	void deleteUser(String id);
