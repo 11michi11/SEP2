@@ -20,6 +20,7 @@ public class ClientViewManager extends Application implements ClientView {
 	private LoginHandler handler;
 	private ParentMainHandler parentHandler;
 	private AdminMainHandler adminHandler;
+	private StudentMainHandler studentHandler;
 	private FXMLLoader loader;
 	private static Stage stage;
 
@@ -71,7 +72,7 @@ public class ClientViewManager extends Application implements ClientView {
 				e.printStackTrace();
 			}
 			break;
-		case "Admin":
+		case "Administrator":
 			try {
 				loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
 				mainPane = loader.load();
@@ -89,7 +90,7 @@ public class ClientViewManager extends Application implements ClientView {
 				loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneStudent.fxml"));
 				mainPane = loader.load();
 				parentHandler = new ParentMainHandler();
-				// loader.setController(studentHandler);
+				loader.setController(studentHandler);
 				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 				stage.getScene().setRoot(mainPane);
 				stage.show();

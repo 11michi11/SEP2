@@ -6,6 +6,7 @@ import model.communication.LoginStatus;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class ServerModelManager implements ServerModel {
         posts = new PostsList();
         users = new UsersList();
         families = new FamilyList();
-        db = new DBAdapter("org.postgresql.Driver","jdbc:postgresql://207.154.237.196:5432/ente","ente","ente");
+        db = new DBAdapter("org.postgresql.Driver", "jdbc:postgresql://207.154.237.196:5432/ente", "ente", "ente");
 
         restoreState();
     }
@@ -99,9 +100,10 @@ public class ServerModelManager implements ServerModel {
 
     private LinkedList<User> getUsers() {
         User user = new Administrator("name", "login", "pwd");
+        User user1 = Student.builder().name("student").email("student").classs(ClassNo.First).pwdEncrypt("pwd").build();
 
         LinkedList<User> list = new LinkedList<>();
-        list.add(user);
+        Collections.addAll(list, user, user1);
         return list;
     }
 
@@ -117,7 +119,7 @@ public class ServerModelManager implements ServerModel {
                         + " venenatis eros. Etiam posuere tempus est non maximus."
                         + " Pellentesque diam tortor, fringilla eget cursus pretium,"
                         + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
-                        + " Cras facilisis neque at scelerisque placerat.",  "Author", MyDate.now());
+                        + " Cras facilisis neque at scelerisque placerat.", "Author", MyDate.now());
 
         LinkedList<Post> list = new LinkedList<>();
         list.add(post);

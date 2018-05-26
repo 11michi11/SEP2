@@ -1,9 +1,6 @@
 package test;
 
-import model.ClassNo;
-import model.Family;
-import model.Parent;
-import model.Student;
+import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -76,11 +73,12 @@ public class FamilyTest {
 		Parent p = Parent.builder().name("parent1").email("email").build();
 		f.addParent(p);
 		assertEquals(p, f.getParent("parent1"));
-		assertThrows(NoSuchElementException.class, () -> f.getChild("p2"));
+		assertThrows(NoSuchElementException.class, () -> f.getParent("p2"));
 	}
 
 	@Test
 	void getMembersNamesTest() {
+		assertEquals("", f.getMembersNames());
 		Student child = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
 		f.addChild(child);
 		assertEquals("child1", f.getMembersNames());
@@ -121,6 +119,32 @@ public class FamilyTest {
 	void getIdTest() {
 		Family family = new Family("id");
 		assertEquals("id", family.getId());
+	}
+
+//	@Test
+//	void deleteMemberTest() {
+//		Student student1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+//		Student student2 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+//		f.addChild(student1);
+//		f.deleteMember(student1);
+//		assertEquals(student2, f.getChildren());
+//
+//	}
+
+	@Test
+	void clearTest() {
+		Student s = Student.builder().name("child").email("email").classs(ClassNo.First).family(f).pwdEncrypt("pwd").build();
+		Parent p = Parent.builder().name("parent").email("email").family(f).build();
+		f.addChild(s);
+		f.addParent(p);
+		assertNotNull(s.getFamily());
+		assertNotNull(p.getFamily());
+		f.clear();
+		assertNull(s.getFamily());
+		assertNull(p.getFamily());
+		assertEquals("removed", f.getId());
+
+
 	}
 
 

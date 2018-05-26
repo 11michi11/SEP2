@@ -122,6 +122,12 @@ public class ClientController {
         return posts;
     }
 
+    public Homework[] getHomework() {
+        Homework[] homework = new Homework[1];
+        homework[0] = model.getHomework();
+        return homework;
+
+    }
     public void addPost(String title, String content, String author, MyDate publicationDate) {
         model.addPost(title, content, author, publicationDate);
     }

@@ -19,17 +19,26 @@ class ParentTest {
 	@Test
 	void testConstructors() {
 		Family f = new Family();
-		Student child1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
-		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
-		f.addChild(child1);
-		f.addParent(parent);
-		List<Student> list = new ArrayList<>();
-		list.add(child1);
-		assertEquals(list,parent.getChildren());
+		Parent p = Parent.builder().name("name").email("email").build();
+		assertEquals("name", p.getName());
+		assertEquals("email", p.getEmail());
+		Parent p1 = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
+		assertEquals("name", p1.getName());
+		assertEquals("email", p1.getEmail());
+		assertEquals(Password.encryptPwd("pwd"), p1.getPwd());
+		Parent p2 = Parent.builder().name("name").email("email").pwdEncrypt("pwd").family(f).id("id").build();
+		assertEquals("name", p2.getName());
+		assertEquals("email", p2.getEmail());
+		assertEquals(Password.encryptPwd("pwd"), p2.getPwd());
+		assertEquals(f,p2.getFamily());
+		assertEquals("id", p2.getId());
+
 	}
 
 	@Test
 	void testGetChildrenNames() {
+		Parent p = Parent.builder().name("name").email("email").build();
+		assertEquals("", p.getChildrenNames());
 		ArrayList<Student> children = new ArrayList<>();
 		Student child1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
 		Student child2 = Student.builder().name("child2").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();

@@ -12,13 +12,13 @@ class AdministratorTest {
 
 	@Test
 	void testConstructors() {
-		Administrator admin = new Administrator("name", "email", "pwd");
+		Administrator admin = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").build();
 		assertEquals("name", admin.getName());
 		assertEquals("email", admin.getEmail());
 		assertEquals(Password.encryptPwd("pwd"), admin.getPwd());
 
 
-		admin = new Administrator("name", "email", "pwd", "id");
+		admin = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").id("id").build();
 		assertEquals("name", admin.getName());
 		assertEquals("email", admin.getEmail());
 		assertEquals(Password.encryptPwd("pwd"), admin.getPwd());
@@ -27,18 +27,26 @@ class AdministratorTest {
 
 	@Test
 	void testToString() {
-		User user1 = new Administrator("name", "email", "pwd", "id");
-
+		User user1 = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").id("id").build();
 		assertEquals("User [email=email, pwd=" + Password.encryptPwd("pwd") + ", name=name, id=id]", user1.toString());
 	}
 
 	@Test()
 	void builderTest() {
+		Administrator adm = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").id("id").build();
+		assertEquals("name", adm.getName());
+		assertEquals("email", adm.getEmail());
+		assertEquals("id", adm.getId());
+		assertEquals(Password.encryptPwd("pwd"), adm.getPwd());
+	}
+
+	@Test()
+	void builderTestPwd() {
 		Administrator adm = Administrator.builder().name("name").email("email").pwd("pwd").id("id").build();
 		assertEquals("name", adm.getName());
 		assertEquals("email", adm.getEmail());
-		assertEquals("pwd", adm.getPwd());
 		assertEquals("id", adm.getId());
+		assertEquals("pwd", adm.getPwd());
 	}
 
 	@Test

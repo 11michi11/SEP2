@@ -25,8 +25,6 @@ public class StudentMainHandler {
 
 	@FXML
 	public void initialize() {
-		System.out.println("second");
-		System.out.println(box);
 
 		Post[] posts = controller.getPosts();
 
