@@ -49,7 +49,7 @@ public class Login implements Serializable{
 	}
 
 	public String getUserType() {
-		return  currentUser.getClass().getSimpleName();
+		return currentUser.getClass().getSimpleName();
 	}
 
 	public boolean changeLogin() {

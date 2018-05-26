@@ -2,6 +2,7 @@ package client.view;
 
 import client.controller.ClientController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -12,7 +13,7 @@ import model.Post;
 
 public class StudentMainHandler {
 	@FXML
-	private VBox box;
+	private VBox VBox;
 
 	private ClientController controller;
 	private Stage stage;
@@ -25,7 +26,7 @@ public class StudentMainHandler {
 
 	@FXML
 	public void initialize() {
-
+		System.out.println(VBox);
 		Post[] posts = controller.getPosts();
 
 		Text title = new Text(posts[0].getTitle());
@@ -33,8 +34,12 @@ public class StudentMainHandler {
 		Text content = new Text(posts[0].getContent());
 		content.setId("content");
 		Text separator = new Text("\n" + "\n");
+		Text separator2 = new Text("\n" + "\n" + " ");
 
-		TextFlow textFlow = new TextFlow(title, separator, content);
+		Button submit = new Button("submit");
+		submit.getStyleClass().add("smallButton");
+
+		TextFlow textFlow = new TextFlow(title, separator, content, separator2, submit);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(posts[0].getContent());
 		textFlow.setPrefWidth(842);
@@ -48,15 +53,14 @@ public class StudentMainHandler {
 				autosize();
 			}
 		};
-		pane.getChildren().add(textFlow);
+		pane.getChildren().addAll(textFlow);
 		pane.getStyleClass().add("textPane");
 		loadPanes(pane);
 
 	}
 
-
 	public void loadPanes(Pane pane) {
-		box.getChildren().clear();
-		box.getChildren().add(pane);
+		VBox.getChildren().clear();
+		VBox.getChildren().add(pane);
 	}
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
 
+
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
@@ -58,7 +59,8 @@ class DBAdapterTest {
 
     @Test
     void testGetPosts() {
-        User teacher1 = new Teacher("TeacherName1","TeacherEmail1","TeacherPwd1","21bfea93-0c98-4490-a7bf-ad7878991bbc");
+        User teacher1 = Teacher.builder().name("TeacherName1").email("TeacherEmail1").pwd("TeacherPwd1").id("21bfea93-0c98-4490-a7bf-ad7878991bbc").build();
+        User teacher2 = Teacher.builder().name("TeacherName2").email("TeacherEmail2").pwd("TeacherPwd2").id("21bfea93-0c98-4490-a7bf-ad7878991bbc").build();
         User teacher2 = new Teacher("TeacherName2","TeacherEmail2","TeacherPwd2","9d5ff8a7-77ba-49ff-ac0d-7b48978987f1");
         teacher1.setChangePassword(false);
         teacher2.setChangePassword(true);
