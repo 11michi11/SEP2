@@ -146,4 +146,10 @@ public class ClientModelManager implements ClientModel {
         server.changePwdWithEmail(email, newPwd);
     }
 
+	@Override
+	public void submitHomework(String text) {
+		// TO DO
+		
+	}
+
 }

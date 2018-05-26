@@ -1,7 +1,13 @@
 package client.view;
 
+import java.io.IOException;
+
 import client.controller.ClientController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -38,7 +44,16 @@ public class StudentMainHandler {
 
 		Button submit = new Button("submit");
 		submit.getStyleClass().add("smallButton");
-
+		
+		submit.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				submit();
+			}
+		});
+	            
+	     
+		
 		TextFlow textFlow = new TextFlow(title, separator, content, separator2, submit);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(posts[0].getContent());
@@ -62,5 +77,19 @@ public class StudentMainHandler {
 	public void loadPanes(Pane pane) {
 		VBox.getChildren().clear();
 		VBox.getChildren().add(pane);
+	}
+	
+	public void submit() {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/textArea.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -184,4 +184,9 @@ public class ClientController {
             view.showMessage("Entered email does not exist in the system.\nTry again or contact administrator: enteEmailService@gmail.com");
         }
     }
+
+	public void submitHomework(String text) {
+		model.submitHomework(text);
+		
+	}
 }
