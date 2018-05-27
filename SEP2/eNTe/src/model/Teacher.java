@@ -70,7 +70,8 @@ public class Teacher extends User implements Serializable {
 					teacher.setPwd(pwd);
 				else
 					teacher.setPwdNoEncrypt(pwd);
-			teacher.id = this.id;
+				if(this.id != null)
+					teacher.id = this.id;
 			return teacher;
 		}
 	}

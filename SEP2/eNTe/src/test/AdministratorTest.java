@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import utility.Password;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import model.Administrator;
 import model.User;
 
-class AdministratorTets {
+class AdministratorTest {
 
 	@Test
 	void testConstructors() {
@@ -46,6 +47,8 @@ class AdministratorTets {
 		Administrator adm = Administrator.builder().name("name").email("email").build();
 		assertEquals("name", adm.getName());
 		assertEquals("email", adm.getEmail());
+		assertNotNull(adm.getId());
+		assertNotNull(adm.getPwd());
 	}
 
 }

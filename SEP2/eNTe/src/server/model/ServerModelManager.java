@@ -98,10 +98,10 @@ public class ServerModelManager implements ServerModel {
     }
 
     private LinkedList<User> getUsers() {
-        User user = new Administrator("name", "login", "pwd");
+        User administrator = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").build();
 
         LinkedList<User> list = new LinkedList<>();
-        list.add(user);
+        list.add(administrator);
         return list;
     }
 
