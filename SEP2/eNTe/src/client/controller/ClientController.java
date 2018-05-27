@@ -126,8 +126,13 @@ public class ClientController {
         Homework[] homework = new Homework[1];
         homework[0] = model.getHomework();
         return homework;
-
     }
+    public Discussion[] getDiscussion() {
+    	Discussion[] discussion = new Discussion[1];
+    	discussion[0] = model.getDiscussion();
+    	return discussion;
+    }
+    
     public void addPost(String title, String content, String author, MyDate publicationDate) {
         model.addPost(title, content, author, publicationDate);
     }
@@ -189,4 +194,10 @@ public class ClientController {
 		model.submitHomework(text);
 		
 	}
+
+	public ArrayList<Post> getAllPosts() {
+		return model.getAllPosts();
+	}
+
+	
 }

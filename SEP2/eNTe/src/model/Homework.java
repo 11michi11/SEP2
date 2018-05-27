@@ -22,6 +22,16 @@ public class Homework extends Post {
     public MyDate getDeadline() {
         return deadline;
     }
+    
+    public String toString() {
+        return "Homework{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                ", pubDate=" + pubDate +
+                ", deadline=" + deadline +
+                '}';
+    }
 
 
 

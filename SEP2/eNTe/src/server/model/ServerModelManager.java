@@ -125,5 +125,43 @@ public class ServerModelManager implements ServerModel {
         list.add(post);
         return list;
     }
+    private LinkedList<Homework> getHomework() {
+    	MyDate submitDate = new MyDate(15, 12, 2018);
+        Homework homework = new Homework("HOMEWORK Lorem ipsum dolor",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                        + "Proin mattis at dolor sed aliquam. Nulla facilisi. "
+                        + "Maecenas sodales urna quis risus sollicitudin, "
+                        + "eget posuere neque aliquet. Nulla lacinia maximus "
+                        + "risus non elementum. Donec egestas sit amet lacus vitae"
+                        + " efficitur. Nulla ac mauris in turpis condimentum tincidunt "
+                        + "sed id metus. Cras vel lectus rutrum, interdum tellus non,"
+                        + " venenatis eros. Etiam posuere tempus est non maximus."
+                        + " Pellentesque diam tortor, fringilla eget cursus pretium,"
+                        + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
+                        + " Cras facilisis neque at scelerisque placerat.", "Author", MyDate.now(), submitDate);
+
+        LinkedList<Homework> list = new LinkedList<>();
+        list.add(homework);
+        return list;
+    }
+    
+    private LinkedList<Discussion> getDiscussion() {
+        Discussion discussion = new Discussion("HOMEWORK Lorem ipsum dolor",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                        + "Proin mattis at dolor sed aliquam. Nulla facilisi. "
+                        + "Maecenas sodales urna quis risus sollicitudin, "
+                        + "eget posuere neque aliquet. Nulla lacinia maximus "
+                        + "risus non elementum. Donec egestas sit amet lacus vitae"
+                        + " efficitur. Nulla ac mauris in turpis condimentum tincidunt "
+                        + "sed id metus. Cras vel lectus rutrum, interdum tellus non,"
+                        + " venenatis eros. Etiam posuere tempus est non maximus."
+                        + " Pellentesque diam tortor, fringilla eget cursus pretium,"
+                        + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
+                        + " Cras facilisis neque at scelerisque placerat.", "Author", MyDate.now());
+
+        LinkedList<Discussion> list = new LinkedList<>();
+        list.add(discussion);
+        return list;
+    }
 
 }

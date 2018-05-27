@@ -28,4 +28,5 @@ public interface ClientModel {
     boolean checkEmailForPwdReset(String email);
     void changePwdWithEmail(String email, String newPwd);
 	void submitHomework(String text);
+	ArrayList<Post> getAllPosts();
 }

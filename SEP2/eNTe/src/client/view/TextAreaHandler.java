@@ -37,13 +37,6 @@ public class TextAreaHandler {
 	
 	public void submit() {
 		controller.submitHomework(text.getText());
-		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneStudent.fxml"));
-		try {
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		goBack();
 	}
 	
