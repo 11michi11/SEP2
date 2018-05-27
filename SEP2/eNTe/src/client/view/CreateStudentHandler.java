@@ -11,7 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import model.Classs;
+import model.ClassNo;
 import model.Family;
 
 public class CreateStudentHandler {
@@ -21,7 +21,7 @@ public class CreateStudentHandler {
 	@FXML
 	private TextField name, email;
 	@FXML
-	private ChoiceBox<Classs> classSelector;
+	private ChoiceBox<ClassNo> classSelector;
 	@FXML
 	private ImageView ente;
 	private Parent mainPane;
@@ -36,7 +36,7 @@ public class CreateStudentHandler {
 	
 	@FXML
 	public void initialize() {
-		classSelector.setItems(FXCollections.observableArrayList(Classs.getClasses()));
+		classSelector.setItems(FXCollections.observableArrayList(ClassNo.getClasses()));
 	}
 
 	public void save() {

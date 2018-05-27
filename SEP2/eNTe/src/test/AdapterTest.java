@@ -28,7 +28,7 @@ class AdapterTest {
         User teacher1 = new Teacher("TeacherName1","TeacherEmail1","TeacherPwd1","190edc14-b80c-484b-aa39-97d1012c1597");
 
         Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
-        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(Classs.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
+        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
         User parent1 = Parent.builder().name("ParentName1").email("ParentEmail1").pwd("ParentPwd1").id("adc8ba24-7250-425e-a0c9-00e144bbf75c").family(f1).build();
         User parent2 = Parent.builder().name("ParentName2").email("ParentEmail2").pwd("ParentPwd2").id("167c1002-d823-4569-a848-f39c8f536130").family(f1).build();
         f1.addChild((Student) student1);
