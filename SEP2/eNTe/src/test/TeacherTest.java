@@ -11,11 +11,12 @@ public class TeacherTest {
 
 	@Test
 	void contructorTest() {
-		Teacher teacher = new Teacher("name", "email", "pwd", "id");
-		assertEquals("name", teacher.getName());
-		assertEquals("email", teacher.getEmail());
-		assertEquals(Password.encryptPwd("pwd"), teacher.getPwd());
-		assertEquals("id", teacher.getId());
+		Teacher t = Teacher.builder().name("name").email("email").pwdEncrypt("pwd").id("id").build();
+		assertEquals("name", t.getName());
+		assertEquals("email", t.getEmail());
+		assertEquals(Password.encryptPwd("pwd"), t.getPwd());
+		assertEquals("id", t.getId());
+
 	}
 
 	@Test

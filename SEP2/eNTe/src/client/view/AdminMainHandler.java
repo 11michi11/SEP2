@@ -61,7 +61,6 @@ public class AdminMainHandler {
 
 	}
 
-
 	public void loadPanes(Pane pane) {
 		box.getChildren().clear();
 		box.getChildren().add(pane);

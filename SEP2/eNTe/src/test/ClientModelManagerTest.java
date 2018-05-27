@@ -83,8 +83,8 @@ class ClientModelManagerTest {
 	void deleteUserAndGetUserByIdTest() {
 		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
 		Student student = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
-		Teacher teacher = new Teacher("name", "email", "pwd");
-		Administrator admin = new Administrator("name", "email", "pwd");
+		Teacher teacher = Teacher.builder().name("name").email("email").pwd("pwd").build();
+		Administrator admin = Administrator.builder().name("name").email("email").pwd("pwd").build();
 		
 		model.addOrUpdateUser(admin);
 		model.addOrUpdateUser(parent);

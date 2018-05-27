@@ -1,7 +1,4 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
-Button:hoover{
-	-fx-background-color: grey;
-}
 
 .menuPane{
 	-fx-background-color: white;
@@ -19,6 +16,12 @@ Button:hoover{
 	-fx-font-family: "Gill Sans MT";
 	-fx-font-weight: bold;
 	-fx-font-size: 40px;
+	-fx-fill: #729eea;
+}
+.smallButton{
+	-fx-font-family: "Gill Sans MT";
+	-fx-font-weight: bold;
+	-fx-font-size: 15px;
 	-fx-fill: #729eea;
 }
 

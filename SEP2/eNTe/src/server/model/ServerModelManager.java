@@ -6,6 +6,7 @@ import model.communication.LoginStatus;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class ServerModelManager implements ServerModel {
         posts = new PostsList();
         users = new UsersList();
         families = new FamilyList();
-        db = new DBAdapter("org.postgresql.Driver","jdbc:postgresql://207.154.237.196:5432/ente","ente","ente");
+        db = new DBAdapter("org.postgresql.Driver", "jdbc:postgresql://207.154.237.196:5432/ente", "ente", "ente");
 
         restoreState();
     }
@@ -98,9 +99,12 @@ public class ServerModelManager implements ServerModel {
     }
 
     private LinkedList<User> getUsers() {
+        User user = new Administrator("name", "login", "pwd");
+        User user1 = Student.builder().name("student").email("student").classs(ClassNo.First).pwdEncrypt("pwd").build();
         User administrator = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").build();
 
         LinkedList<User> list = new LinkedList<>();
+        Collections.addAll(list, user, user1);
         list.add(administrator);
         return list;
     }
@@ -117,10 +121,48 @@ public class ServerModelManager implements ServerModel {
                         + " venenatis eros. Etiam posuere tempus est non maximus."
                         + " Pellentesque diam tortor, fringilla eget cursus pretium,"
                         + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
-                        + " Cras facilisis neque at scelerisque placerat.",  "Author", MyDate.now());
+                        + " Cras facilisis neque at scelerisque placerat.", "Author", MyDate.now());
 
         LinkedList<Post> list = new LinkedList<>();
         list.add(post);
+        return list;
+    }
+    private LinkedList<Homework> getHomework() {
+    	MyDate submitDate = new MyDate(15, 12, 2018);
+        Homework homework = new Homework("HOMEWORK Lorem ipsum dolor",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                        + "Proin mattis at dolor sed aliquam. Nulla facilisi. "
+                        + "Maecenas sodales urna quis risus sollicitudin, "
+                        + "eget posuere neque aliquet. Nulla lacinia maximus "
+                        + "risus non elementum. Donec egestas sit amet lacus vitae"
+                        + " efficitur. Nulla ac mauris in turpis condimentum tincidunt "
+                        + "sed id metus. Cras vel lectus rutrum, interdum tellus non,"
+                        + " venenatis eros. Etiam posuere tempus est non maximus."
+                        + " Pellentesque diam tortor, fringilla eget cursus pretium,"
+                        + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
+                        + " Cras facilisis neque at scelerisque placerat.", "Author", MyDate.now(), submitDate);
+
+        LinkedList<Homework> list = new LinkedList<>();
+        list.add(homework);
+        return list;
+    }
+    
+    private LinkedList<Discussion> getDiscussion() {
+        Discussion discussion = new Discussion("HOMEWORK Lorem ipsum dolor",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                        + "Proin mattis at dolor sed aliquam. Nulla facilisi. "
+                        + "Maecenas sodales urna quis risus sollicitudin, "
+                        + "eget posuere neque aliquet. Nulla lacinia maximus "
+                        + "risus non elementum. Donec egestas sit amet lacus vitae"
+                        + " efficitur. Nulla ac mauris in turpis condimentum tincidunt "
+                        + "sed id metus. Cras vel lectus rutrum, interdum tellus non,"
+                        + " venenatis eros. Etiam posuere tempus est non maximus."
+                        + " Pellentesque diam tortor, fringilla eget cursus pretium,"
+                        + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
+                        + " Cras facilisis neque at scelerisque placerat.", "Author", MyDate.now());
+
+        LinkedList<Discussion> list = new LinkedList<>();
+        list.add(discussion);
         return list;
     }
 

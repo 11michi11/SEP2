@@ -88,7 +88,7 @@ public class DBAdapter implements DBPersistence {
                     sql += "student VALUES ('";
                     sql += student.getId() + "','";
                     sql += student.getFamilyId() + "','";
-                    sql += student.getClasss() + "')";
+                    sql += student.getClassNo() + "')";
                     sqlList.add(sql);
                     break;
 
@@ -115,23 +115,23 @@ public class DBAdapter implements DBPersistence {
             ArrayList<String> sqlList = new ArrayList<>();
             String sql = "";
             String usertype = user.getClass().getSimpleName();
-            sql += "UPDATE enteuser SET";
-            sql += "type='" + usertype + "',";
+            sql += "UPDATE enteuser SET ";
+            sql += "usertype='" + usertype + "',";
             sql += "email='" + user.getEmail() + "',";
             sql += "pwd='" + user.getPwd() + "',";
-            sql += "changePwdNeeded=" + user.isPasswordChangeNeeded() + ",";
-            sql += "name='" + user.getName() + "' ";
+            sql += "name='" + user.getName() + "',";
+            sql += "changepassword=" + user.isPasswordChangeNeeded() + " ";
             sql += "WHERE id='" + user.getId() + "'";
             sqlList.add(sql);
             switch (usertype) {
-                case "student":
+                case "Student":
                     Student student = (Student) user;
-                    sql = "UPDATE student SET class='" + student.getClasss() + "',";
+                    sql = "UPDATE student SET class='" + student.getClassNo() + "',";
                     sql += "familyid='" + student.getFamilyId() + "'";
                     sql += "WHERE studentid='" + student.getId() + "'";
                     sqlList.add(sql);
                     break;
-                case "parent":
+                case "Parent":
                     Parent parent = (Parent) user;
                     sql = "UPDATE parent SET ";
                     sql += "familyid='" + parent.getFamilyId() + "' ";
@@ -189,7 +189,7 @@ public class DBAdapter implements DBPersistence {
                 String pwd = (String) e[3];
                 String name = (String) e[4];
                 boolean changePwdNeeded = (boolean) e[5];
-                Teacher teacher = new Teacher(name, email, pwd, id);
+                Teacher teacher = Teacher.builder().name(name).email(email).pwd(pwd).id(id).build();
                 teacher.setChangePassword(changePwdNeeded);
                 list.add(teacher);
             }
@@ -290,7 +290,7 @@ public class DBAdapter implements DBPersistence {
 
     public void executeSQL(String sql) {
         try {
-            db.query(sql);
+            db.update(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }

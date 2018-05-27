@@ -30,9 +30,9 @@ public class UsersList {
 		}
 	}
 
-	public User getUserByEmail(String Email) {
+	public User getUserByEmail(String email) {
 		for(User u : users)
-			if(u.getEmail().equals(Email))
+			if(u.getEmail().equals(email))
 				return u;
 			
 		throw new NoSuchElementException();
@@ -54,10 +54,11 @@ public class UsersList {
 	}
 
 	public boolean contains(User user) {
-		for (User u : users)
-			if (u.getId().equals(user.getId()))
-				return true;
-		return false;
+//		for (User u : users)
+//			if (u.getId().equals(user.getId()))
+//				return true;
+//		return false;
+		return users.contains(user);
 	}
 
 	public void delete(String id) {
