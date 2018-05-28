@@ -2,21 +2,34 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Homework extends Post {
 
     private MyDate deadline;
-    private boolean submited;
+    private List <ClassNo> classes;
+    private int numberOfStudentsToDeliver;
+    private String extraInfo;
+    //private List <HomeworkReply> replies;
+    //private boolean submited;
     //private ArrayList<Student> homeworkDone;
 
-    public Homework(String title, String content, String author, MyDate pubDate, MyDate deadline) {
-        super(title, content, author, pubDate);
+    public Homework(String title, String content, String author, MyDate deadline, List <ClassNo> classes, int numberOfStudentsToDeliver) {
+        super(title, content, author, new MyDate());
         this.deadline = deadline;
-        this.submited = false;
+        this.classes=classes;
+        this.numberOfStudentsToDeliver=numberOfStudentsToDeliver;
+        extraInfo="";
+        //this.submited = false;
     }
 
-    public Homework(String postId, String title, String content, String author, MyDate pubDate) {
-        super(postId, title, content, author, pubDate);
+    public Homework(String postId, String title, String content, String author, MyDate deadline, List <ClassNo> classes, int numberOfStudentsToDeliver) {
+        super(postId, title, content, author, new MyDate());
+        this.deadline = deadline;
+        this.classes=classes;
+        this.numberOfStudentsToDeliver=numberOfStudentsToDeliver;
+        extraInfo="";
+        //this.submited = false;
     }
 
     public MyDate getDeadline() {
@@ -41,7 +54,7 @@ public class Homework extends Post {
 
         Homework homework = (Homework) o;
 
-        if (submited != homework.submited) return false;
+        //if (submited != homework.submited) return false;
         return deadline != null ? deadline.equals(homework.deadline) : homework.deadline == null;
     }
 }

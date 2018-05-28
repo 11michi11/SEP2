@@ -13,7 +13,7 @@ public class Post implements Serializable {
     protected String postId;
 
     public Post(String title, String content, String author, MyDate pubDate) {
-        this.postId = UUID.randomUUID().toString();;
+        this.postId = UUID.randomUUID().toString();
         this.title = title;
         this.content = content;
         this.author = author;
