@@ -16,6 +16,12 @@ public class Teacher extends User implements Serializable {
         super(name, email, pwd, id);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Teacher)
+            return super.equals(obj);
+        return false;
+    }
 
     public static TeacherNeedName builder() {
         return new Builder();

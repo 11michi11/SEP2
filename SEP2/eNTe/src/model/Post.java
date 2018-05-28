@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Post implements Serializable {
@@ -47,12 +48,17 @@ public class Post implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Post) {
-            Post other = (Post) obj;
-            return content.equals(other.content) && title.equals(other.title);
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Post post = (Post) o;
+
+        if (title != null ? !title.equals(post.title) : post.title != null) return false;
+        if (content != null ? !content.equals(post.content) : post.content != null) return false;
+        if (author != null ? !author.equals(post.author) : post.author != null) return false;
+        if (pubDate != null ? !pubDate.equals(post.pubDate) : post.pubDate != null) return false;
+        return postId != null ? postId.equals(post.postId) : post.postId == null;
     }
 
     public String toString() {

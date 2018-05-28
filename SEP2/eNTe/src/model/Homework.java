@@ -22,7 +22,7 @@ public class Homework extends Post {
     public MyDate getDeadline() {
         return deadline;
     }
-    
+
     public String toString() {
         return "Homework{" +
                 "title='" + title + '\'' +
@@ -33,6 +33,15 @@ public class Homework extends Post {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
+        Homework homework = (Homework) o;
 
+        if (submited != homework.submited) return false;
+        return deadline != null ? deadline.equals(homework.deadline) : homework.deadline == null;
+    }
 }
