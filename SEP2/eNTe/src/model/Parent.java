@@ -40,6 +40,17 @@ public class Parent extends User implements Serializable, IFamily {
         return family.getId();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Parent parent = (Parent) o;
+
+        return family != null ? family.equals(parent.family) : parent.family == null;
+    }
+
     public void setFamily(Family family) {
         this.family = family;
     }

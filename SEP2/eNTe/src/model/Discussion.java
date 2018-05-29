@@ -1,8 +1,5 @@
 package model;
 
-import model.MyDate;
-import model.Post;
-
 public class Discussion extends Post {
 
     public Discussion(String title, String content, String author, MyDate pubDate) {
@@ -11,5 +8,12 @@ public class Discussion extends Post {
 
     public Discussion(String postId, String title, String content, String author, MyDate pubDate) {
         super(postId, title, content, author, pubDate);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Discussion)
+            return super.equals(o);
+        return false;
     }
 }
