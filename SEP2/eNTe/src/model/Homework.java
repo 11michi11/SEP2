@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Homework extends Post {
 
+    public static final String noHomeworkId = "ThereIsNoHomework*******************";
+
     private MyDate deadline;
     private List <ClassNo> classes;
     private int numberOfStudentsToDeliver;

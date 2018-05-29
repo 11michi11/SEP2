@@ -34,11 +34,6 @@ public class ClientModelManager implements ClientModel {
     }
 
     @Override
-    public void addPost(String title, String content, String author, MyDate publicationDate) {
-        posts.add(new Post(title, content, author, publicationDate));
-    }
-
-    @Override
     public ArrayList<Family> getAllFamilies() {
         return families.getAll();
     }
@@ -59,13 +54,14 @@ public class ClientModelManager implements ClientModel {
     }
 
     @Override
-    public void storePost(Post post) {
+    public void addPost(Post post) {
         posts.add(post);
+        server.managePost(ManagePost.ADD, post);
     }
 
     @Override
     public void saveData(WelcomingData data) {
-        posts.addAll(Arrays.asList(data.getPosts()));
+        posts.addAll(data.getPosts());
     }
 
     @Override
@@ -147,14 +143,11 @@ public class ClientModelManager implements ClientModel {
 	@Override
 	public void submitHomework(String text) {
 		// TO DO
-		
 	}
 
 	@Override
 	public ArrayList<Post> getAllPosts() {
 		return posts.getAll();
-		
-		
 	}
 
 }

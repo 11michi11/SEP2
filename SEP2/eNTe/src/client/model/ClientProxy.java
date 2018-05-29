@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import model.Family;
+import model.Post;
 import model.User;
 import model.communication.*;
 
@@ -46,8 +47,8 @@ public class ClientProxy {
 		}
 	}
 
-	void manageUser(String action, User id) {
-		ManageUser manageUser = new ManageUser(action, id);
+	void manageUser(String action, User user) {
+		ManageUser manageUser = new ManageUser(action, user);
 		Message msg = Message.createMangeUser(manageUser);
 		try {
 			sendMessage(msg);
@@ -93,5 +94,16 @@ public class ClientProxy {
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
+    }
+
+    public void managePost(String action, Post post) {
+		ManagePost managePost = new ManagePost(action, post);
+		Message msg = Message.createMangePost(managePost);
+		try {
+			sendMessage(msg);
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+
     }
 }

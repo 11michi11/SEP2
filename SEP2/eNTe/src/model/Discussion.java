@@ -2,6 +2,8 @@ package model;
 
 public class Discussion extends Post {
 
+    public static final String noDiscussionId = "ThereIsNoDiscussion*****************";
+
     public Discussion(String title, String content, String author, MyDate pubDate) {
         super(title, content, author, pubDate);
     }

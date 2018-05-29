@@ -12,6 +12,7 @@ import utility.Password;
 import utility.SendEmail;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClientController {
@@ -134,8 +135,13 @@ public class ClientController {
     }
     
     public void addPost(String title, String content, String author, MyDate publicationDate) {
-        model.addPost(title, content, author, publicationDate);
+        model.addPost(new Post(title, content, author, publicationDate));
     }
+
+    public void addHomework(String title, String content, String author, MyDate pubDate, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver){
+        model.addPost(new Homework(title, content, author, pubDate, deadline, classes, numberOfStudentsToDeliver));
+    }
+
 
     public ArrayList<Family> getFamilies() {
         return model.getAllFamilies();

@@ -9,7 +9,7 @@ public class Message implements Serializable{
 	private Map<Type, Object> data;
 
     public enum Type{
-		Type, Login, Auth, ManageUser, NoType, CheckEmail, EmailStatus, ChangePwd, ManageFamily, Fail, Success
+		Type, Login, Auth, ManageUser, NoType, CheckEmail, EmailStatus, ChangePwd, ManageFamily, Fail, ManagePost, Success
 	}
 
 	private Message() {
@@ -58,6 +58,12 @@ public class Message implements Serializable{
 		return (ManageFamily) data.get(Type.ManageFamily);
 	}
 
+	public ManagePost getManagePost(){
+		if(!data.get(Type.Type).equals(Type.ManagePost))
+			throw new IllegalStateException("Message does not contain managing post information");
+		return (ManagePost) data.get(Type.ManagePost);
+	}
+
 	public String getEmail(){
 		if(!data.get(Type.Type).equals(Type.CheckEmail))
 			throw new IllegalStateException("Message does not contain email information");
@@ -102,6 +108,13 @@ public class Message implements Serializable{
 		Message msg = new Message();
 		msg.data.put(Type.Type, Type.ManageFamily);
 		msg.data.put(Type.ManageFamily, manageFamily);
+		return msg;
+	}
+
+	public static Message createMangePost(ManagePost managePost) {
+		Message msg = new Message();
+		msg.data.put(Type.Type, Type.ManagePost);
+		msg.data.put(Type.ManagePost, managePost);
 		return msg;
 	}
 	

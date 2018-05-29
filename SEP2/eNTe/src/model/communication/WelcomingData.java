@@ -3,62 +3,48 @@ package model.communication;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import model.Post;
 
 public class WelcomingData implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private Post[] posts;
-	private LinkedList<ChatMsg> unreadMessages;
+	private List<Post> posts;
+	private List<ChatMsg> unreadMessages;
 	
 	public WelcomingData() {
-		posts = new Post[10];
-		unreadMessages = new LinkedList<ChatMsg>();
+		posts = new LinkedList<>();
+		unreadMessages = new LinkedList<>();
 	}
 	
-	public Post[] getPosts() {
+	public List<Post> getPosts() {
 		return posts;
 	}
 
-	public LinkedList<ChatMsg> getUnreadMessages(){
+	public List<ChatMsg> getUnreadMessages(){
 		return unreadMessages;
 	}
-	
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		WelcomingData other = (WelcomingData) obj;
-		if (!Arrays.equals(posts, other.posts))
-			return false;
-		if (unreadMessages == null) {
-			if (other.unreadMessages != null)
-				return false;
-		} else if (!unreadMessages.equals(other.unreadMessages))
-			return false;
-		return true;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		WelcomingData that = (WelcomingData) o;
+
+		if (posts != null ? !posts.equals(that.posts) : that.posts != null) return false;
+		return unreadMessages != null ? unreadMessages.equals(that.unreadMessages) : that.unreadMessages == null;
 	}
+
 
 	@Override
 	public String toString() {
-		return "WelcomingData [posts=" + Arrays.toString(posts) + ", unreadMessages=" + unreadMessages + "]";
+		return "WelcomingData [posts=" + posts + ", unreadMessages=" + unreadMessages + "]";
 	}
 
-	public void insertPosts(LinkedList<Post> list) {
-		int size = list.size();
-		if(list.size() > 10) //load only 10 first posts
-			for(int i = 0;i<=10;i++)
-				posts[i] = list.get(i);
-		else 
-			for(int i = 0;i<size;i++)
-				posts[i] = list.get(i);
-		
+	public void insertPosts(List<Post> list) {
+		posts.addAll(list);
 	}
 	
 }
