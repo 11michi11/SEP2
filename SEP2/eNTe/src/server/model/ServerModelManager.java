@@ -115,6 +115,13 @@ public class ServerModelManager implements ServerModel {
         return posts.getAll();
     }
 
+    @Override
+    public void clear() {
+        posts.clear();
+        families.clear();
+        users.clear();
+    }
+
     private LinkedList<User> getUsers() {
         User user1 = Student.builder().name("student").email("student").classs(ClassNo.First).pwdEncrypt("pwd").build();
         User administrator = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").build();

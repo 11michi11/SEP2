@@ -22,4 +22,5 @@ public interface ServerModel {
 	void deletePost(Post post);
 	void editPost(Post post);
 	List<Post> getAllPost();
+	void clear();
 }

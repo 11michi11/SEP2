@@ -135,8 +135,8 @@ public class ClientController {
         model.addPost(new Post(title, content, author, publicationDate));
     }
 
-    public void addHomework(String title, String content, String author, MyDate pubDate, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver){
-        model.addPost(new Homework(title, content, author, pubDate, deadline, classes, numberOfStudentsToDeliver));
+    public void addHomework(String title, String content, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver){
+        model.addPost(new Homework(title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver));
     }
 
 
@@ -202,5 +202,8 @@ public class ClientController {
 		return model.getAllPosts();
 	}
 
-	
+
+    public void deletePost(Post post) {
+        model.deletePost(post);
+    }
 }

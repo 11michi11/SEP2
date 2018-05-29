@@ -1,8 +1,10 @@
 package test;
 
-import client.controller.ClientController;
-import client.model.ClientModelManager;
+import client.model.ClientProxy;
 import model.*;
+import model.communication.ManagePost;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.controller.ServerController;
@@ -11,44 +13,65 @@ import server.model.ServerModelManager;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HomeworkCommunicationTest {
 
+    private static ServerModel serverModel;
+    private static ClientProxy clientProxy;
+    private static ServerController serverController;
+    private Homework homework;
 
-    private ServerModel serverModel;
-    private ServerController serverController;
-    private ClientController clientController;
-    private ClientModelManager clientModel;
+    @BeforeAll
+    static void setUpConnection() {
+        Thread t = new Thread(() -> {
+            serverModel = new ServerModelManager();
+            serverController = new ServerController(serverModel);
+            //while(true){}
+        });
+        t.start();
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        clientProxy = new ClientProxy();
+        clientProxy.startConnection("localhost", 7777);
+    }
 
     @BeforeEach
     void setUp(){
-        new Thread(() -> {
-            serverModel = new ServerModelManager();
-            serverController = new ServerController(serverModel);
-        }).start();
-        clientModel = new ClientModelManager();
-        clientController = ClientController.getInstance(clientModel, new EmptyViewForTests());
-    }
-
-    @Test
-    void addHomeworkTest(){
         MyDate pubDate = MyDate.now(), deadLine = MyDate.now();
         List<ClassNo> classes = new LinkedList<>();
         classes.add(ClassNo.First);
         classes.add(ClassNo.Eigth);
         int numberOfStudentsToDeliver = 0;
-        Homework h = new Homework("id","Title", "Content", "Author", pubDate, deadLine, classes, numberOfStudentsToDeliver);
-
-        clientController.addHomework("Title", "Content", "Author", pubDate,deadLine ,classes ,numberOfStudentsToDeliver);
-        h = (Homework) clientModel.getPost();
-
-        List<Post> list = serverModel.getAllPost();
-        assertTrue(list.contains(h));
+        homework = new Homework("Title", "Content", "Author", pubDate, deadLine, classes, numberOfStudentsToDeliver);
     }
 
+    @AfterEach
+    void tearDown(){
+        serverModel.clear();
+    }
 
+    @Test
+    void addHomeworkTest() {
+        clientProxy.managePost(ManagePost.ADD, homework);
+
+        List<Post> list = serverModel.getAllPost();
+        assertTrue(list.contains(homework));
+    }
+
+    @Test
+    void deleteHomeworkTest(){
+        serverModel.addPost(homework);
+
+        clientProxy.managePost(ManagePost.DELETE, homework);
+
+        List<Post> list = serverModel.getAllPost();
+        assertFalse(list.contains(homework));
+    }
 
 
 }
