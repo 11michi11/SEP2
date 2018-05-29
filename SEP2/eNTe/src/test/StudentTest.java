@@ -3,6 +3,7 @@ package test;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import model.*;
@@ -23,7 +24,29 @@ class StudentTest {
 	}
 
 	@Test
-	void testClsses() {
+	void testEquals() {
+		Family family = new Family("fID");
+		Family family2 = new Family("fID2");
+		User student1 = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(family).build();
+		User student2 = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(family).build();
+		User student3 = Student.builder().name("anotherName").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(family).build();
+		User student4 = Student.builder().name("name").email("anotherEmail").classs(ClassNo.First).pwdEncrypt("pwd").family(family).build();
+		User student5 = Student.builder().name("name").email("Email").classs(ClassNo.Second).pwdEncrypt("pwd").family(family).build();
+		User student6 = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("anotherPwd").family(family).build();
+		User student7 = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(family2).build();
+		User student8 = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(family).build();
+		student8.setChangePassword(true);
+		assertFalse(student1.equals(student2)); //different IDs
+		assertFalse(student1.equals(student3));
+		assertFalse(student1.equals(student4));
+		assertFalse(student1.equals(student5));
+		assertFalse(student1.equals(student6));
+		assertFalse(student1.equals(student7));
+		assertFalse(student1.equals(student8));
+	}
+	
+	@Test
+	void testClasses() {
 		Student student = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
 		assertEquals(ClassNo.First, student.getClassNo());
 

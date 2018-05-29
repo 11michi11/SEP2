@@ -1,6 +1,7 @@
 package test;
 
 
+import model.Administrator;
 import utility.Password;
 import model.Teacher;
 import model.User;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 import static junit.framework.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class UserTest {
 
@@ -25,10 +27,21 @@ class UserTest {
 	
 	@Test
 	void equalsTest() {
-		//UNFINISHED, CREATE ANOTHER TRUE CASE
-		User user1 = Teacher.builder().name("name").email("email").id("id").build();
-		User user2 = Teacher.builder().name("name").email("email").id("id").build();
-		assertEquals(false, user1.equals(user2));
+		User user1 = Teacher.builder().name("name").email("email").id("id").pwd("pwd").build();
+		User user2 = Administrator.builder().name("name").email("email").id("id").pwd("pwd").build();
+		User user3 = Administrator.builder().name("anotherName").email("email").id("id").pwd("pwd").build();
+		User user4 = Administrator.builder().name("name").email("anotherEmail").id("id").pwd("pwd").build();
+		User user5 = Administrator.builder().name("name").email("email").id("anotherId").pwd("pwd").build();
+		User user6 = Administrator.builder().name("name").email("email").id("id").pwd("anotherPwd").build();
+		User user7 = Administrator.builder().name("name").email("email").id("id").pwd("pwd").build();
+		user7.setChangePassword(true);
+
+		assertFalse(user1.equals(user2));
+		assertFalse(user1.equals(user3));
+		assertFalse(user1.equals(user4));
+		assertFalse(user1.equals(user5));
+		assertFalse(user1.equals(user6));
+		assertFalse(user1.equals(user7));
 	}
 
 	@Test

@@ -265,23 +265,11 @@ class DBAdapterTest {
         assertEquals(f1,families.getAllFamilies().get(0));
         assertEquals(student1,users.getAll().get(0));
 
-//        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",users.getAll().get(0).getId());
-//        assertEquals("StudentName1",users.getAll().get(0).getName());
-//        assertEquals("StudentEmail1",users.getAll().get(0).getEmail());
-//        assertEquals("StudentPwd1",users.getAll().get(0).getPwd());
-//        assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-//        assertEquals(ClassNo.First,((Student) users.getAll().get(0)).getClassNo());
-//        assertEquals("Student",users.getAll().get(0).getClass().getSimpleName());
-//        assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
-//        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());
-
         Family f2 = new Family("bee12240-3e76-406e-bf12-0d40488ed3b9");
         f2.addChild((Student) users.getAll().get(0));
         adapter.addFamily(f2);
         loadFamilies();
         assertEquals(2,families.getSize());
-        assertEquals(f1,families.getAllFamilies().get(0));
-        assertEquals(f2,families.getAllFamilies().get(1));
 
         ((Student) users.getAll().get(0)).setClassNo(ClassNo.Second);
         users.getAll().get(0).setChangePassword(false);
@@ -291,21 +279,14 @@ class DBAdapterTest {
         student1.setChangePassword(false);
         student1.setPwdNoEncrypt("StudentPwd1NEW");
         ((Student) student1).setFamily(f2);
+        f1.deleteChild((Student) student1);
 
         adapter.updateUser(users.getAll().get(0));
         loadUsers(families);
         assertEquals(1,users.getAll().size());
         assertEquals(student1,users.getAll().get(0));
-
-//        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",users.getAll().get(0).getId());
-//        assertEquals("StudentName1",users.getAll().get(0).getName());
-//        assertEquals("StudentEmail1",users.getAll().get(0).getEmail());
-//        assertEquals("StudentPwd1NEW",users.getAll().get(0).getPwd());
-//        assertFalse(users.getAll().get(0).isPasswordChangeNeeded());
-//        assertEquals(ClassNo.Second,((Student) users.getAll().get(0)).getClassNo());
-//        assertEquals("Student",users.getAll().get(0).getClass().getSimpleName());
-//        assertEquals("bee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
-//        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("bee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());
+        assertEquals(f1,families.getFamilyById(f1.getId()));
+        assertEquals(f2,families.getFamilyById(f2.getId()));
     }
 
     @Test
@@ -322,22 +303,11 @@ class DBAdapterTest {
         assertEquals(f1,families.getAllFamilies().get(0));
         assertEquals(parent1,users.getAll().get(0));
 
-//        assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75c",users.getAll().get(0).getId());
-//        assertEquals("ParentName1",users.getAll().get(0).getName());
-//        assertEquals("ParentEmail1",users.getAll().get(0).getEmail());
-//        assertEquals("ParentPwd1",users.getAll().get(0).getPwd());
-//        assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-//        assertEquals("Parent",users.getAll().get(0).getClass().getSimpleName());
-//        assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Parent) users.getUserById("adc8ba24-7250-425e-a0c9-00e144bbf75c")).getFamilyId());
-//        assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75c",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getParents().get(0).getId());
-
         Family f2 = new Family("bee12240-3e76-406e-bf12-0d40488ed3b9");
         f2.addParent((Parent) users.getAll().get(0));
         adapter.addFamily(f2);
         loadFamilies();
         assertEquals(2,families.getSize());
-        assertEquals(f1,families.getAllFamilies().get(0));
-        assertEquals(f2,families.getAllFamilies().get(1));
 
         users.getAll().get(0).setChangePassword(false);
         users.getAll().get(0).setPwdNoEncrypt("ParentPwd1NEW");
@@ -345,20 +315,14 @@ class DBAdapterTest {
         parent1.setChangePassword(false);
         parent1.setPwdNoEncrypt("ParentPwd1NEW");
         ((Parent) parent1).setFamily(f2);
+        f1.deleteParent((Parent) parent1);
 
         adapter.updateUser(users.getAll().get(0));
         loadUsers(families);
         assertEquals(1,users.getAll().size());
         assertEquals(parent1,users.getAll().get(0));
-
-//        assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75c",users.getAll().get(0).getId());
-//        assertEquals("ParentName1",users.getAll().get(0).getName());
-//        assertEquals("ParentEmail1",users.getAll().get(0).getEmail());
-//        assertEquals("ParentPwd1NEW",users.getAll().get(0).getPwd());
-//        assertFalse(users.getAll().get(0).isPasswordChangeNeeded());
-//        assertEquals("Parent",users.getAll().get(0).getClass().getSimpleName());
-//        assertEquals("bee12240-3e76-406e-bf12-0d40488ed3b9",((Parent) users.getUserById("adc8ba24-7250-425e-a0c9-00e144bbf75c")).getFamilyId());
-//        assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75c",families.getFamilyById("bee12240-3e76-406e-bf12-0d40488ed3b9").getParents().get(0).getId());
+        assertEquals(f1,families.getFamilyById(f1.getId()));
+        assertEquals(f2,families.getFamilyById(f2.getId()));
     }
 
         //deleting
@@ -396,9 +360,9 @@ class DBAdapterTest {
         f1.addChild((Student) student1);
         adapter.addFamily(f1);
         loadFamilies();
-        assertEquals(f1,families.getAllFamilies().get(0));
         adapter.addUser(student1);
         loadUsers(families);
+        assertEquals(f1,families.getAllFamilies().get(0));
         assertEquals(1,users.getAll().size());
         adapter.deleteUser(users.getUserById(student1.getId()).getId());
         loadUsers(families);
@@ -415,8 +379,8 @@ class DBAdapterTest {
         adapter.addFamily(f1);
         adapter.addUser(parent1);
         loadFamilies();
-        assertEquals(f1,families.getAllFamilies().get(0));
         loadUsers(families);
+        assertEquals(f1,families.getAllFamilies().get(0));
         assertEquals(1,users.getAll().size());
         adapter.deleteUser(users.getUserById(parent1.getId()).getId());
         loadUsers(families);
@@ -454,29 +418,9 @@ class DBAdapterTest {
         assertEquals(3,users.getAll().size());
         //assertions for admin
         assertEquals(admin,users.getAll().get(0));
-
-//        assertEquals("b2c74531-49ea-4efe-9308-59d01f4792cb",users.getAll().get(0).getId());
-//        assertEquals("AdminName",users.getAll().get(0).getName());
-//        assertEquals("AdminEmail",users.getAll().get(0).getEmail());
-//        assertEquals("AdminPwd",users.getAll().get(0).getPwd());
-//        assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-//        assertEquals("Administrator",users.getAll().get(0).getClass().getSimpleName());
         //assertions for teachers
         assertEquals(teacher1,users.getAll().get(1));
         assertEquals(teacher2,users.getAll().get(2));
-
-//        assertEquals("190edc14-b80c-484b-aa39-97d1012c1597",users.getAll().get(1).getId());
-//        assertEquals("190edc14-b80c-484b-aa39-97d1012c2000",users.getAll().get(2).getId());
-//        assertEquals("TeacherName1",users.getAll().get(1).getName());
-//        assertEquals("TeacherName2",users.getAll().get(2).getName());
-//        assertEquals("TeacherEmail1",users.getAll().get(1).getEmail());
-//        assertEquals("TeacherEmail2",users.getAll().get(2).getEmail());
-//        assertEquals("TeacherPwd1",users.getAll().get(1).getPwd());
-//        assertEquals("TeacherPwd2",users.getAll().get(2).getPwd());
-//        assertFalse(users.getAll().get(1).isPasswordChangeNeeded());
-//        assertTrue(users.getAll().get(2).isPasswordChangeNeeded());
-//        assertEquals("Teacher",users.getAll().get(1).getClass().getSimpleName());
-//        assertEquals("Teacher",users.getAll().get(2).getClass().getSimpleName());
     }
     
     @Test
@@ -502,36 +446,12 @@ class DBAdapterTest {
         assertEquals(3,users.getAll().size());
         //assertions for student
         assertEquals(student1,users.getAll().get(0));
-
-//        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",users.getAll().get(0).getId());
-//        assertEquals("StudentName1",users.getAll().get(0).getName());
-//        assertEquals("StudentEmail1",users.getAll().get(0).getEmail());
-//        assertEquals("StudentPwd1",users.getAll().get(0).getPwd());
-//        assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-//        assertEquals("Student",users.getAll().get(0).getClass().getSimpleName());
-//        assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
-//        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());
+        assertEquals(f1.getChildren().get(0),users.getAll().get(0));
         //assertions for parents
         assertEquals(parent1,users.getAll().get(1));
         assertEquals(parent2,users.getAll().get(2));
-
-//        assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75c",users.getAll().get(1).getId());
-//        assertEquals("ParentName1",users.getAll().get(1).getName());
-//        assertEquals("ParentEmail1",users.getAll().get(1).getEmail());
-//        assertEquals("ParentPwd1",users.getAll().get(1).getPwd());
-//        assertTrue(users.getAll().get(1).isPasswordChangeNeeded());
-//        assertEquals("Parent",users.getAll().get(1).getClass().getSimpleName());
-//        assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Parent) users.getUserById("adc8ba24-7250-425e-a0c9-00e144bbf75c")).getFamilyId());
-//        assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75c",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getParent("ParentName1").getId());
-//
-//        assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75g",users.getAll().get(2).getId());
-//        assertEquals("ParentName2",users.getAll().get(2).getName());
-//        assertEquals("ParentEmail2",users.getAll().get(2).getEmail());
-//        assertEquals("ParentPwd2",users.getAll().get(2).getPwd());
-//        assertTrue(users.getAll().get(2).isPasswordChangeNeeded());
-//        assertEquals("Parent",users.getAll().get(2).getClass().getSimpleName());
-//        assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Parent) users.getUserById("adc8ba24-7250-425e-a0c9-00e144bbf75g")).getFamilyId());
-//        assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75g",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getParent("ParentName2").getId());
+        assertEquals(f1.getParent("ParentName1"),parent1);
+        assertEquals(f1.getParent("ParentName2"),parent2);
     }
 
     @AfterEach
