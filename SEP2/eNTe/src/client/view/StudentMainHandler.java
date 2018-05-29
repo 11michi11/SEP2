@@ -46,9 +46,6 @@ public class StudentMainHandler {
 			case "Post":
 				loadPost();
 				break;
-			case "Discussion":
-				loadDiscussion();
-				break;
 			default:
 				break;
 			}
@@ -141,32 +138,5 @@ public class StudentMainHandler {
 		postPane.getStyleClass().add("textPane");
 		loadPanes(postPane);
 	}
-	
-	private void loadDiscussion() {
-		Discussion[] discussion = controller.getDiscussion();
 
-		Text title = new Text(discussion[0].getTitle());
-		title.setId("title");
-		Text content = new Text(discussion[0].getContent());
-		content.setId("content");
-		Text separator = new Text("\n" + "\n");
-
-		TextFlow textFlow = new TextFlow(title, separator, content);
-		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(discussion[0].getContent());
-		textFlow.setPrefWidth(842);
-		
-		Pane pane = new Pane() {
-			@Override
-			protected void layoutChildren() {
-				super.layoutChildren();
-				TextFlow textFlow = (TextFlow) getChildren().get(0);
-				setMinHeight(textFlow.getHeight()+5);
-				autosize();
-			}
-		};
-		pane.getChildren().add(textFlow);
-		pane.getStyleClass().add("textPane");
-		loadPanes(pane);
-	}
 }

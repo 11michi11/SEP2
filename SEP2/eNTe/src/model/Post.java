@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.datatransfer.DataFlavor;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -67,6 +68,11 @@ public class Post implements Serializable {
                 ", content='" + content + '\'' +
                 ", author='" + author + '\'' +
                 ", pubDate=" + pubDate +
+                ", postId=" + postId +
                 '}';
+    }
+
+    public String getId() {
+        return postId;
     }
 }

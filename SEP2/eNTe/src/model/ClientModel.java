@@ -10,11 +10,10 @@ import model.communication.WelcomingData;
 public interface ClientModel {
 
 	void setController(ClientController controller);
-	void storePost(Post post);
-	void addPost(String title, String content, String author, MyDate publicationDate);
+	void addPost(Post post);
 	Post getPost();
 	Homework getHomework();
-	Discussion getDiscussion();
+//	Discussion getDiscussion();
 	void saveData(WelcomingData data);
 	void addOrUpdateUser(User user);
 	void deleteUser(String id);

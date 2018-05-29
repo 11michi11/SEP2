@@ -4,17 +4,11 @@ import java.io.Serializable;
 
 public class Administrator extends User implements Serializable {
 
-    public Administrator(String name, String email, String pwd) {
-        super(name, email, pwd);
-    }
 
-    public Administrator(String name, String email) {
+    private Administrator(String name, String email) {
         super(name, email);
     }
 
-    public Administrator(String name, String email, String pwd, String id) {
-        super(name, email, pwd, id);
-    }
 
     @Override
     public boolean equals(Object obj) {

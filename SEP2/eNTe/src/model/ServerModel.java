@@ -18,4 +18,8 @@ public interface ServerModel {
     boolean checkIfEmailExist(String email);
     void changePwdWithEmail(String email, String newPwd);
     void editFamily(Family family);
+    void addPost(Post post);
+	void deletePost(Post post);
+	void editPost(Post post);
+	List<Post> getAllPost();
 }

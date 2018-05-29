@@ -1,13 +1,10 @@
 package server.controller;
 
-import java.sql.SQLException;
 import java.util.LinkedList;
 
 import model.Post;
 import model.ServerModel;
-import model.User;
 import model.communication.*;
-import server.model.ServerModelManager;
 
 public class ServerController {
 
@@ -39,10 +36,14 @@ public class ServerController {
                 ManageFamily manageFamily = msg.getManageFamily();
                 response = handleManageFamily(manageFamily);
                 break;
+            case ManagePost:
+                ManagePost managePost = msg.getManagePost();
+                response = handleManagePost(managePost);
+                break;
             case CheckEmail:
                 String email = msg.getEmail();
                 response = checkEmail(email);
-				break;
+                break;
             case ChangePwd:
                 ChangePwd change = msg.getChangePwd();
                 model.changePwdWithEmail(change.email, change.newPwd);
@@ -51,6 +52,27 @@ public class ServerController {
             default:
                 response = Message.createFail();
                 break;
+        }
+        return response;
+    }
+
+    private Message handleManagePost(ManagePost managePost) {
+        Message response;
+        switch (managePost.getAction()) {
+            case ManagePost.ADD:
+                model.addPost(managePost.getPost());
+                response = Message.createSuccessfulResponse();
+                break;
+            case ManagePost.DELETE:
+                model.deletePost(managePost.getPost());
+                response = Message.createSuccessfulResponse();
+                break;
+            case ManagePost.EDIT:
+                model.editPost(managePost.getPost());
+                response = Message.createSuccessfulResponse();
+                break;
+            default:
+                response = Message.createFail();
         }
         return response;
     }
@@ -113,10 +135,7 @@ public class ServerController {
         switch (status) {
             case SUCCESS:
                 data = new WelcomingData();
-                Post post = model.getPost();
-                LinkedList<Post> list = new LinkedList<>();
-                list.add(post);
-                data.insertPosts(list);
+                data.insertPosts(model.getAllPost());
                 //status.currentUser.changePassword(); - for testing changing password
                 login = new Login(LoginStatus.SUCCESS, data, status.currentUser);
                 break;

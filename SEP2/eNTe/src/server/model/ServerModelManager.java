@@ -95,13 +95,32 @@ public class ServerModelManager implements ServerModel {
         families.update(family);
     }
 
+    @Override
+    public void addPost(Post post) {
+        posts.add(post);
+    }
+
+    @Override
+    public void deletePost(Post post) {
+        posts.deletePost(post);
+    }
+
+    @Override
+    public void editPost(Post post) {
+        posts.editPost(post);
+    }
+
+    @Override
+    public List<Post> getAllPost() {
+        return posts.getAll();
+    }
+
     private LinkedList<User> getUsers() {
-        User user = new Administrator("name", "login", "pwd");
         User user1 = Student.builder().name("student").email("student").classs(ClassNo.First).pwdEncrypt("pwd").build();
         User administrator = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").build();
 
         LinkedList<User> list = new LinkedList<>();
-        Collections.addAll(list, user, user1);
+        Collections.addAll(list, administrator, user1);
         list.add(administrator);
         return list;
     }
@@ -122,6 +141,7 @@ public class ServerModelManager implements ServerModel {
 
         LinkedList<Post> list = new LinkedList<>();
         list.add(post);
+        list.addAll(getHomework());
         return list;
     }
     private LinkedList<Homework> getHomework() {

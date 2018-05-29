@@ -37,7 +37,7 @@ class ClientModelManagerTest {
 	void getAndStorePostTest() {
 		MyDate pubDate = MyDate.now();
 		Post post = new Post("Title", "Content", "Author", pubDate);
-		model.storePost(post);
+		model.addPost(post);
 
 		assertEquals(new Post("Title", "Content", "Author", pubDate), model.getPost());
 	}
