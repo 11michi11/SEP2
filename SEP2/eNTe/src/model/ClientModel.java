@@ -14,7 +14,7 @@ public interface ClientModel {
 	void addPost(String title, String content, String author, MyDate publicationDate);
 	Post getPost();
 	Homework getHomework();
-	Discussion getDiscussion();
+//	Discussion getDiscussion();
 	void saveData(WelcomingData data);
 	void addOrUpdateUser(User user);
 	void deleteUser(String id);

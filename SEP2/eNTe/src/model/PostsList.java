@@ -39,8 +39,8 @@ public class PostsList {
 		return homeworks.getFirst();
 	}
 
-	public Discussion getFirstDiscussion() {
-		return discussions.getFirst();
-	}
+//	public Discussion getFirstDiscussion() {
+//		return discussions.getFirst();
+//	}
 
 }

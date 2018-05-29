@@ -4,17 +4,10 @@ import java.io.Serializable;
 
 public class Teacher extends User implements Serializable {
 
-    public Teacher(String name, String email, String pwd) {
-        super(name, email, pwd);
-    }
-
-    public Teacher(String name, String email) {
+    private Teacher(String name, String email) {
         super(name, email);
     }
 
-    public Teacher(String name, String email, String pwd, String id) {
-        super(name, email, pwd, id);
-    }
 
     @Override
     public boolean equals(Object obj) {

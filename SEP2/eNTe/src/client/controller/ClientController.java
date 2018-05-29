@@ -85,12 +85,9 @@ public class ClientController {
         model.addOrUpdateUser(currentUser);
     }
 
-    public void addTeacher(String name, String email, Boolean admin, String id) {
+    public void addTeacher(String name, String email, String id) {
         User user;
-        if (admin)
-            user = new Administrator(name, email);
-        else
-            user = new Teacher(name, email);
+            user = Teacher.builder().name(name).email(email).build();
         if (id != null)
             user.setId(id);
         model.addOrUpdateUser(user);
@@ -127,11 +124,11 @@ public class ClientController {
         homework[0] = model.getHomework();
         return homework;
     }
-    public Discussion[] getDiscussion() {
-    	Discussion[] discussion = new Discussion[1];
-    	discussion[0] = model.getDiscussion();
-    	return discussion;
-    }
+//    public Discussion[] getDiscussion() {
+//    	Discussion[] discussion = new Discussion[1];
+//    	discussion[0] = model.getDiscussion();
+//    	return discussion;
+//    }
     
     public void addPost(String title, String content, String author, MyDate publicationDate) {
         model.addPost(title, content, author, publicationDate);

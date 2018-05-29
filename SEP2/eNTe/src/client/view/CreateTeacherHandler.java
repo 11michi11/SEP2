@@ -18,8 +18,6 @@ public class CreateTeacherHandler {
 	private ImageView ente;
 	@FXML
 	private TextField name, email;
-	@FXML
-	private CheckBox admin;
     
     private ClientController controller;
     private Stage stage;
@@ -37,7 +35,7 @@ public class CreateTeacherHandler {
     	String id = null;
     	if(teacher != null)
     		id = teacher.getId();
-    	controller.addTeacher(name.getText(), email.getText(), admin.isSelected(), id);
+    	controller.addTeacher(name.getText(), email.getText(), id);
     	goBack();
     }
     
