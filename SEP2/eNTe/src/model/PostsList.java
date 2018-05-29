@@ -7,6 +7,8 @@ import java.util.List;
 public class PostsList {
 
 	private LinkedList<Post> posts;
+	private LinkedList<Homework> homeworks;
+	private LinkedList<Discussion> discussions;
 
 	public PostsList() {
 		posts = new LinkedList<>();
@@ -31,6 +33,14 @@ public class PostsList {
 
 	public ArrayList<Post> getAll() {
 		return new ArrayList<>(posts);
+	}
+
+	public Homework getFirstHomework() {
+		return homeworks.getFirst();
+	}
+
+	public Discussion getFirstDiscussion() {
+		return discussions.getFirst();
 	}
 
 }

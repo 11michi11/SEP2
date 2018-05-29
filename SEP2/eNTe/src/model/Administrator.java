@@ -17,6 +17,13 @@ public class Administrator extends User implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Administrator)
+            return super.equals(obj);
+        return false;
+    }
+
+    @Override
     public String toString() {
         return super.toString();
     }
@@ -73,7 +80,8 @@ public class Administrator extends User implements Serializable {
                     administrator.setPwd(pwd);
                 else
                     administrator.setPwdNoEncrypt(pwd);
-            administrator.id = this.id;
+                if(this.id != null)
+                    administrator.id = this.id;
             return administrator;
         }
     }
@@ -95,5 +103,5 @@ public class Administrator extends User implements Serializable {
 
         AdminCanBeBuild id(String id);
     }
-    
+
 }

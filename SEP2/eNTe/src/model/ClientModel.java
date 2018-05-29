@@ -27,4 +27,6 @@ public interface ClientModel {
 	void addFamily(Family family);
     boolean checkEmailForPwdReset(String email);
     void changePwdWithEmail(String email, String newPwd);
+	void submitHomework(String text);
+	ArrayList<Post> getAllPosts();
 }

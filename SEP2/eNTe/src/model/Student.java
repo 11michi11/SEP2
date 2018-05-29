@@ -46,6 +46,20 @@ public class Student extends User implements Serializable, IFamily {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Student student = (Student) o;
+
+        if (historyOfActivity != null ? !historyOfActivity.equals(student.historyOfActivity) : student.historyOfActivity != null)
+            return false;
+        if (classNo != student.classNo) return false;
+        return family != null ? family.equals(student.family) : student.family == null;
+    }
+
+    @Override
     public String toString() {
         return super.toString()+"\nStudent [historyOfActivity=" + historyOfActivity + ", classNo=" + classNo + ", family=" + family + "]";
     }

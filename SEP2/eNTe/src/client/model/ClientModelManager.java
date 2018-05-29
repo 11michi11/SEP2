@@ -50,14 +50,12 @@ public class ClientModelManager implements ClientModel {
 
     @Override
     public Homework getHomework() {
-        return null;
-        //to do
+        return posts.getFirstHomework();
     }
 
     @Override
     public Discussion getDiscussion() {
-        return null;
-        //to do
+        return posts.getFirstDiscussion();
     }
 
     @Override
@@ -145,5 +143,18 @@ public class ClientModelManager implements ClientModel {
         user.setPwd(newPwd);
         server.changePwdWithEmail(email, newPwd);
     }
+
+	@Override
+	public void submitHomework(String text) {
+		// TO DO
+		
+	}
+
+	@Override
+	public ArrayList<Post> getAllPosts() {
+		return posts.getAll();
+		
+		
+	}
 
 }
