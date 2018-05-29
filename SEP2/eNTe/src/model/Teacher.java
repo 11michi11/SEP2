@@ -81,19 +81,6 @@ public class Teacher extends User implements Serializable {
         }
     }
 
-		@Override
-		public Teacher build() {
-			Teacher teacher = new Teacher(this.name, this.email);
-			if (this.pwd != null)
-				if (encryptPwd)
-					teacher.setPwd(pwd);
-				else
-					teacher.setPwdNoEncrypt(pwd);
-				if(this.id != null)
-					teacher.id = this.id;
-			return teacher;
-		}
-	}
     public interface TeacherNeedName {
         TeacherNeedEmail name(String name);
     }
