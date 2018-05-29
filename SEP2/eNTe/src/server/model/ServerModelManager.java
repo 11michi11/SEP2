@@ -6,6 +6,7 @@ import model.communication.LoginStatus;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -125,6 +126,8 @@ public class ServerModelManager implements ServerModel {
     }
     private LinkedList<Homework> getHomework() {
     	MyDate submitDate = new MyDate(15, 12, 2018);
+    	List<ClassNo> classes = new ArrayList<>();
+    	classes.add(ClassNo.First);
         Homework homework = new Homework("HOMEWORK Lorem ipsum dolor",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
                         + "Proin mattis at dolor sed aliquam. Nulla facilisi. "
@@ -136,7 +139,7 @@ public class ServerModelManager implements ServerModel {
                         + " venenatis eros. Etiam posuere tempus est non maximus."
                         + " Pellentesque diam tortor, fringilla eget cursus pretium,"
                         + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
-                        + " Cras facilisis neque at scelerisque placerat.", "Author", MyDate.now(), submitDate);
+                        + " Cras facilisis neque at scelerisque placerat.", "Author", MyDate.now(), submitDate, classes, 1);
 
         LinkedList<Homework> list = new LinkedList<>();
         list.add(homework);
