@@ -15,7 +15,7 @@ class UserTest {
 
 	@Test
 	void userUUIDTest() {
-		User user = new Teacher("name", "email", "pwd");
+		User user = Teacher.builder().name("name").email("email").pwdEncrypt("pwd").build();
 		try{
 		    UUID uuid = UUID.fromString(user.getId());
 		} catch (IllegalArgumentException exception){
