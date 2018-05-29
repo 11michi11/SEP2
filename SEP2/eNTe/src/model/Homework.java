@@ -14,8 +14,8 @@ public class Homework extends Post {
     //private boolean submited;
     //private ArrayList<Student> homeworkDone;
 
-    public Homework(String title, String content, String author, MyDate deadline, List <ClassNo> classes, int numberOfStudentsToDeliver) {
-        super(title, content, author, new MyDate());
+    public Homework(String title, String content, String author,MyDate pubDate,  MyDate deadline, List <ClassNo> classes, int numberOfStudentsToDeliver) {
+        super(title, content, author, pubDate);
         this.deadline = deadline;
         this.classes=classes;
         this.numberOfStudentsToDeliver=numberOfStudentsToDeliver;
@@ -23,8 +23,8 @@ public class Homework extends Post {
         //this.submited = false;
     }
 
-    public Homework(String postId, String title, String content, String author, MyDate deadline, List <ClassNo> classes, int numberOfStudentsToDeliver) {
-        super(postId, title, content, author, new MyDate());
+    public Homework(String postId, String title, String content, String author,MyDate pubDate, MyDate deadline, List <ClassNo> classes, int numberOfStudentsToDeliver) {
+        super(postId, title, content, author, pubDate);
         this.deadline = deadline;
         this.classes=classes;
         this.numberOfStudentsToDeliver=numberOfStudentsToDeliver;
