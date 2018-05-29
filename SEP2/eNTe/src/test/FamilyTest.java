@@ -12,6 +12,7 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -147,7 +148,30 @@ public class FamilyTest {
 
 	}
 
+	@Test
+	void testEquals() {
+		Family f1 = new Family("ID1");
+		Family f2 = new Family("ID1");
+		Student child1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child2 = Student.builder().name("child2").email("email").classs(ClassNo.Second).pwdEncrypt("pwd").build();
+		Parent parent1 = Parent.builder().name("parent1").email("email").build();
+		Parent parent2 = Parent.builder().name("parent2").email("email").build();
 
+		assertEquals(f1,f2);
+		f1.addChild(child1);
+		assertFalse(f1.equals(f2));
+		f1.addParent(parent1);
+		assertFalse(f1.equals(f2));
+		f2.addParent(parent1);
+		assertFalse(f1.equals(f2));
+		f2.addChild(child1);
+		f2.addParent(parent2);
+		assertFalse(f1.equals(f2));
+		f1.addChild(child2);
+		f2.addChild(child2);
+		f1.addParent(parent2);
+		assertEquals(f1,f2);
+	}
 
 
 

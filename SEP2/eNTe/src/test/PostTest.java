@@ -25,7 +25,6 @@ class PostTest {
 		Post post3 = new Post("title1", "content", "Author", pubDate);
 		Post post4 = new Post("title", "content1", "Author", pubDate);
 
-
 		assertEquals(post1, post2);
 		assertEquals(post2, post1);
 
