@@ -48,10 +48,10 @@ public class ClientModelManager implements ClientModel {
         return posts.getFirstHomework();
     }
 
-    @Override
-    public Discussion getDiscussion() {
-        return posts.getFirstDiscussion();
-    }
+//    @Override
+//    public Discussion getDiscussion() {
+//        return posts.getFirstDiscussion();
+//    }
 
     @Override
     public void addPost(Post post) {

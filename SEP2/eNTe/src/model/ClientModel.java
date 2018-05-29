@@ -13,7 +13,7 @@ public interface ClientModel {
 	void addPost(Post post);
 	Post getPost();
 	Homework getHomework();
-	Discussion getDiscussion();
+//	Discussion getDiscussion();
 	void saveData(WelcomingData data);
 	void addOrUpdateUser(User user);
 	void deleteUser(String id);
