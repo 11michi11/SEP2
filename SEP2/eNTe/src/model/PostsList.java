@@ -9,10 +9,11 @@ public class PostsList {
 	private LinkedList<Post> posts;
 
 	public PostsList() {
-		posts = new LinkedList<Post>();
+		posts = new LinkedList<>();
 	}
 
 	public Post getNextPost() {
+		//i don't like this method :/
 		return posts.removeFirst();
 	}
 
@@ -25,14 +26,11 @@ public class PostsList {
 	}
 
 	public void addAll(List<Post> list) {
-		for (Post e : list)
-			posts.add(e);
+		posts.addAll(list);
 	}
 
 	public ArrayList<Post> getAll() {
-		ArrayList<Post> list = new ArrayList<>();
-		list.addAll(posts);
-		return list;
+		return new ArrayList<>(posts);
 	}
 
 }

@@ -37,14 +37,10 @@ public class ServerModelManager implements ServerModel {
     }
 
     private void restoreState() {
-        //Commented for testing GUI part, when DB is ready - uncomment
-//		try {
-//			posts.add(db.getPosts());
-//			users.add(db.getUsers());
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-        users.add(getUsers());
+        families.addAll(db.getFamilies());
+        users.addAll(db.getUsers(families));
+        posts.addAll(db.getPosts(users));
+        users.addAll(getUsers());
         posts.addAll(getPosts());
     }
 

@@ -66,8 +66,8 @@ public class PostHandler {
 //                autosize();
 //            }
 //        };
-//        pane.getChildren().add(textFlow);
-//        pane.getStyleClass().add("textPane");
+//        pane.getChildren().addAll(textFlow);
+//        pane.getStyleClass().addAll("textPane");
 //        loadPanes(pane);
 
     }

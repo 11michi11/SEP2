@@ -75,7 +75,7 @@ class UsersListTest {
 		list.add(parent);
 		list.add(student);
 		
-		users.add(list);
+		users.addAll(list);
 		
 		assertEquals(list, users.getAll());
 	}

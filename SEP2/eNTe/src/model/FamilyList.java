@@ -41,4 +41,8 @@ public class FamilyList {
 			}
 		}
 	}
+
+    public void addAll(LinkedList<Family> families) {
+		this.families.addAll(families);
+    }
 }

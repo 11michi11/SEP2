@@ -71,8 +71,8 @@ class ClientModelManagerTest {
 //		Parent parent1 = Parent.builder().name("name1").email("email").pwdEncrypt("pwd").build();
 //		Parent parent2 = Parent.builder().name("name2").email("email").pwdEncrypt("pwd").build();
 //		ArrayList<Parent> list = new ArrayList<>();
-//		list.add(parent1);
-//		list.add(parent2);
+//		list.addAll(parent1);
+//		list.addAll(parent2);
 //
 //		model.addOrUpdateUser(parent1);
 //		model.addOrUpdateUser(parent2);
