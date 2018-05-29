@@ -30,8 +30,8 @@ public class ServerProxy {
             System.exit(1);
         }
         while (!serverSocket.isClosed()) {
-//            if (Thread.interrupted())
-//                break;
+            if (Thread.interrupted())
+                break;
 
             System.out.println("Waiting for a client...");
             try {
