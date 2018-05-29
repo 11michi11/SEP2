@@ -2,7 +2,9 @@ package model.communication;
 
 import model.Post;
 
-public class ManagePost {
+import java.io.Serializable;
+
+public class ManagePost implements Serializable {
 
 
     private String action;

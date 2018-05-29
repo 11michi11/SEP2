@@ -24,8 +24,10 @@ public class HomeworkCommunicationTest {
 
     @BeforeEach
     void setUp(){
-        serverModel = new ServerModelManager();
-        serverController = new ServerController(serverModel);
+        new Thread(() -> {
+            serverModel = new ServerModelManager();
+            serverController = new ServerController(serverModel);
+        }).start();
         clientModel = new ClientModelManager();
         clientController = ClientController.getInstance(clientModel, new EmptyViewForTests());
     }
@@ -41,7 +43,7 @@ public class HomeworkCommunicationTest {
 
         clientController.addHomework("Title", "Content", "Author", pubDate,deadLine ,classes ,numberOfStudentsToDeliver);
         h = (Homework) clientModel.getPost();
-        
+
         List<Post> list = serverModel.getAllPost();
         assertTrue(list.contains(h));
     }
