@@ -1,7 +1,7 @@
 package model;
 
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Homework extends Post {
@@ -9,43 +9,31 @@ public class Homework extends Post {
     public static final String noHomeworkId = "ThereIsNoHomework*******************";
 
     private MyDate deadline;
-    private List <ClassNo> classes;
+    private List<ClassNo> classes;
     private int numberOfStudentsToDeliver;
-    private String extraInfo;
-    //private List <HomeworkReply> replies;
-    //private boolean submited;
-    //private ArrayList<Student> homeworkDone;
+    private List<HomeworkReply> replies;
+    private boolean closed;
 
-    public Homework(String title, String content, String author,MyDate pubDate,  MyDate deadline, List <ClassNo> classes, int numberOfStudentsToDeliver) {
+    public Homework(String title, String content, String author, MyDate pubDate, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver) {
         super(title, content, author, pubDate);
         this.deadline = deadline;
-        this.classes=classes;
-        this.numberOfStudentsToDeliver=numberOfStudentsToDeliver;
-        extraInfo="";
-        //this.submited = false;
+        this.classes = classes;
+        this.numberOfStudentsToDeliver = numberOfStudentsToDeliver;
+        replies = new LinkedList<>();
+        closed = false;
     }
 
-    public Homework(String postId, String title, String content, String author,MyDate pubDate, MyDate deadline, List <ClassNo> classes, int numberOfStudentsToDeliver) {
+    public Homework(String postId, String title, String content, String author, MyDate pubDate, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver, List<HomeworkReply> replies, boolean closed) {
         super(postId, title, content, author, pubDate);
         this.deadline = deadline;
-        this.classes=classes;
-        this.numberOfStudentsToDeliver=numberOfStudentsToDeliver;
-        extraInfo="";
-        //this.submited = false;
+        this.classes = classes;
+        this.numberOfStudentsToDeliver = numberOfStudentsToDeliver;
+        this.closed = closed;
+        this.replies = replies;
     }
 
     public MyDate getDeadline() {
         return deadline;
-    }
-
-    public String toString() {
-        return "Homework{" +
-                "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", author='" + author + '\'' +
-                ", pubDate=" + pubDate +
-                ", deadline=" + deadline +
-                '}';
     }
 
     public List<ClassNo> getClasses() {
@@ -56,8 +44,8 @@ public class Homework extends Post {
         return numberOfStudentsToDeliver;
     }
 
-    public String getExtraInfo() {
-        return extraInfo;
+    public List<HomeworkReply> getReplies() {
+        return new LinkedList<>(replies);
     }
 
     @Override
@@ -68,7 +56,21 @@ public class Homework extends Post {
 
         Homework homework = (Homework) o;
 
-        //if (submited != homework.submited) return false;
-        return deadline != null ? deadline.equals(homework.deadline) : homework.deadline == null;
+        if (numberOfStudentsToDeliver != homework.numberOfStudentsToDeliver) return false;
+        if (closed != homework.closed) return false;
+        if (deadline != null ? !deadline.equals(homework.deadline) : homework.deadline != null) return false;
+        if (classes != null ? !classes.equals(homework.classes) : homework.classes != null) return false;
+        return replies != null ? replies.equals(homework.replies) : homework.replies == null;
+    }
+
+    @Override
+    public String toString() {
+        return "Homework{" +
+                "deadline=" + deadline +
+                ", classes=" + classes +
+                ", numberOfStudentsToDeliver=" + numberOfStudentsToDeliver +
+                ", replies=" + replies +
+                ", closed=" + closed +
+                "} " + super.toString();
     }
 }

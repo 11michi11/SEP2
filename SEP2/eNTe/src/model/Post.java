@@ -1,8 +1,6 @@
 package model;
 
-import java.awt.datatransfer.DataFlavor;
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Post implements Serializable {
@@ -49,6 +47,17 @@ public class Post implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                ", pubDate=" + pubDate +
+                ", postId='" + postId + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -62,17 +71,4 @@ public class Post implements Serializable {
         return postId != null ? postId.equals(post.postId) : post.postId == null;
     }
 
-    public String toString() {
-        return "Post{" +
-                "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", author='" + author + '\'' +
-                ", pubDate=" + pubDate +
-                ", postId=" + postId +
-                '}';
-    }
-
-    public String getId() {
-        return postId;
-    }
 }
