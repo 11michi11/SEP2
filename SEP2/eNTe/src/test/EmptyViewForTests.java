@@ -20,6 +20,11 @@ public class EmptyViewForTests implements ClientView {
     }
 
     @Override
+    public boolean showDeleteMessage(String message) {
+        return false;
+    }
+
+    @Override
     public void changePasswordDialog() {
 
     }
