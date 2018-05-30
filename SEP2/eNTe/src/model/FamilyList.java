@@ -2,6 +2,7 @@ package model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class FamilyList {
 	private LinkedList<Family> families;
@@ -49,4 +50,14 @@ public class FamilyList {
     public void clear() {
 		families.clear();
     }
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof FamilyList)) return false;
+		FamilyList that = (FamilyList) o;
+		return Objects.equals(families, that.families);
+	}
+
+
 }

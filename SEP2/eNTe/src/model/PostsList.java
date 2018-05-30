@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class PostsList {
 
@@ -59,4 +60,14 @@ public class PostsList {
     public void clear() {
         posts.clear();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PostsList)) return false;
+        PostsList postsList = (PostsList) o;
+        return Objects.equals(posts, postsList.posts);
+    }
+
+
 }

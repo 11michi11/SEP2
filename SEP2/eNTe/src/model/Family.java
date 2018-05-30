@@ -96,14 +96,6 @@ public class Family implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//
-//        Family family = (Family) o;
-//
-//        if (id != null ? !id.equals(family.id) : family.id != null) return false;
-//        if (children != null ? !children.equals(family.children) : family.children != null) return false;
-//        return parents != null ? parents.equals(family.parents) : family.parents == null;
 
         if (!(o instanceof Family))
             return false;

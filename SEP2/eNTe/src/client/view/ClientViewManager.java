@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -132,4 +133,19 @@ public class ClientViewManager extends Application implements ClientView {
 		Optional<String> result = dialog.showAndWait();
 		result.ifPresent(s -> controller.changePassword(s));
 	}
+
+	public void deleteConfirmantion() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation Dialog");
+		alert.setHeaderText("Delete user");
+		alert.setContentText("Are sure that you want to delete this user?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.YES){
+			// ... user chose OK
+		} else {
+			// ... user chose CANCEL or closed the dialog
+		}
+	}
+
 }
