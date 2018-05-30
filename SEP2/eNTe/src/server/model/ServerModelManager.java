@@ -40,7 +40,7 @@ public class ServerModelManager implements ServerModel {
     private void restoreState() {
         families.addAll(db.getFamilies());
         users.addAll(db.getUsers(families));
-        posts.addAll(db.getPosts(users));
+      //  posts.addAll(db.getPosts(users));
         users.addAll(getUsers());
         posts.addAll(getPosts());
     }
