@@ -61,6 +61,12 @@
 	-fx-font-size: 60px;
 	-fx-text-fill: #729eea;
 }
+.labelSmall {
+	-fx-font-family: "Gill Sans MT";
+	-fx-font-weight: bold;
+	-fx-font-size: 20px;
+	-fx-text-fill: #729eea;
+}
 .choice-box .menu-item {
 	-fx-pref-width: 472px;
 }
