@@ -48,7 +48,7 @@ public class TeacherListHandler {
         teacherList.getColumns().clear();
 		teacherList.getColumns().addAll(nameColumn, emailColumn);
         teacherList.setItems(controller.getTeachersForView());
-        //teacherList.setEditable(true);
+
     }
     
     public void createTeacher() {

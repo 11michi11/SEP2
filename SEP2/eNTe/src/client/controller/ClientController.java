@@ -206,4 +206,5 @@ public class ClientController {
     public void deletePost(Post post) {
         model.deletePost(post);
     }
+
 }

@@ -6,12 +6,10 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -23,16 +21,7 @@
             <Image url="@../enteLOGO.png" />
          </image>
       </ImageView>
-      <ScrollPane layoutX="34.0" layoutY="296.0" prefHeight="401.0" prefWidth="868.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="854.0">
-               <children>
-                  <TextArea fx:id="content" layoutX="-1.0" layoutY="1.0" prefHeight="428.0" prefWidth="845.0" promptText="content" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-      <Button fx:id="save" layoutX="545.0" layoutY="697.0" mnemonicParsing="false" styleClass="menuButtonSmall" stylesheets="@../login.css" text="save" />
+      <Button fx:id="save" layoutX="545.0" layoutY="697.0" onAction="#addHomework" mnemonicParsing="false" styleClass="menuButtonSmall" stylesheets="@../login.css" text="save" />
       <TextArea fx:id="title" layoutX="36.0" layoutY="195.0" prefHeight="71.0" prefWidth="471.0" promptText="title" />
       <Label layoutX="405.0" layoutY="62.0" prefHeight="71.0" prefWidth="552.0" styleClass="labelMain" stylesheets="@../login.css" text="create homework" />
       <VBox layoutX="953.0" layoutY="198.0" prefHeight="494.0" prefWidth="267.0">
@@ -96,5 +85,6 @@
       </VBox>
       <DatePicker fx:id="deadline" layoutX="573.0" layoutY="195.0" prefHeight="26.0" prefWidth="281.0" promptText="deadline" />
       <TextField fx:id="group" layoutX="573.0" layoutY="248.0" prefHeight="25.0" prefWidth="194.0" promptText="number of students" />
+      <TextArea fx:id="content" layoutX="36.0" layoutY="306.0" prefHeight="404.0" prefWidth="840.0" promptText="content" />
    </children>
 </Pane>

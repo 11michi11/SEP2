@@ -48,6 +48,10 @@ public class Homework extends Post {
         return new LinkedList<>(replies);
     }
 
+    public boolean getClosed() {
+        return closed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

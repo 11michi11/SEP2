@@ -68,7 +68,7 @@ public class PostHandler {
 //        };
 //        pane.getChildren().addAll(textFlow);
 //        pane.getStyleClass().addAll("textPane");
-//        loadPanes(pane);
+//        addPane(pane);
 
     }
     public void loadPanes(Pane pane) {
