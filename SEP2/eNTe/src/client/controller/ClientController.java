@@ -175,6 +175,9 @@ public class ClientController {
         model.addOrUpdateUser(p4);
 
     }
+    public boolean showDeleteMessage(String message) {
+        return view.showDeleteMessage(message);
+    }
 
     public void createFamily() {
         Family family = new Family();
