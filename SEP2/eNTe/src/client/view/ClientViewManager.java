@@ -123,7 +123,22 @@ public class ClientViewManager extends Application implements ClientView {
 
 		alert.showAndWait();
 	}
-	
+
+	@Override
+	public boolean showDeleteMessage(String message) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation Dialog");
+		alert.setHeaderText("Delete " + message);
+		alert.setContentText("Are sure that you want to delete this " + message + " ?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.YES){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void changePasswordDialog() {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Change password");
@@ -134,18 +149,5 @@ public class ClientViewManager extends Application implements ClientView {
 		result.ifPresent(s -> controller.changePassword(s));
 	}
 
-	public void deleteConfirmantion() {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmation Dialog");
-		alert.setHeaderText("Delete user");
-		alert.setContentText("Are sure that you want to delete this user?");
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.YES){
-			// ... user chose OK
-		} else {
-			// ... user chose CANCEL or closed the dialog
-		}
-	}
 
 }
