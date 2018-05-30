@@ -3,10 +3,13 @@ package test;
 import client.model.ClientModelManager;
 import model.*;
 import model.communication.WelcomingData;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import server.controller.ServerController;
 import server.controller.ServerMain;
+import server.model.ServerModelManager;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -17,12 +20,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ClientModelManagerTest {
 
-	public ClientModelManager model;
+	private ClientModelManager model;
+	private static ServerController serverController;
 	
 	@BeforeAll
-	
 	static void startServer() {
-		Thread t = new Thread(() -> ServerMain.main(new String[0]));
+		Thread t = new Thread(() -> {
+			serverController = new ServerController(new ServerModelManager());
+		});
 		t.start();
 		System.out.println("Server");
 	}
@@ -31,6 +36,11 @@ class ClientModelManagerTest {
 	void setup() {
 		
 		model = new ClientModelManager();
+	}
+
+	@AfterAll
+	static void shutDown(){
+		serverController.closeServer();
 	}
 
 	@Test

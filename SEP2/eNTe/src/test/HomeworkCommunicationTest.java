@@ -3,12 +3,10 @@ package test;
 import client.model.ClientProxy;
 import model.*;
 import model.communication.ManagePost;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import server.controller.ServerController;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -21,10 +19,11 @@ public class HomeworkCommunicationTest {
     static ClientProxy clientProxy;
     static ServerController serverController;
     private Homework homework;
+    private static CountDownLatch latch;
 
     @BeforeAll
     static void setUpConnection() {
-        CountDownLatch latch = new CountDownLatch(1);
+        latch = new CountDownLatch(1);
         new Thread(new TestServer(latch)).start();
         new Thread(new TestClient(latch)).start();
         try {
@@ -49,8 +48,19 @@ public class HomeworkCommunicationTest {
         serverModel.clear();
     }
 
+    @AfterAll
+    static void shutDown(){
+        serverController.closeServer();
+        clientProxy.close();
+    }
+
     @Test
     void addHomeworkTest() {
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         clientProxy.managePost(ManagePost.ADD, homework);
 
         List<Post> list = serverModel.getAllPost();
@@ -68,13 +78,13 @@ public class HomeworkCommunicationTest {
 
     @Test
     void editHomeworkTest(){
-        serverModel.addPost(homework);
+            serverModel.addPost(homework);
 
-        homework = new Homework(homework.getId(), "Title1", "Content1", "Author1", homework.getPubDate(), homework.getDeadline(), homework.getClasses(), homework.getNumberOfStudentsToDeliver());
-        clientProxy.managePost(ManagePost.EDIT, homework);
+            homework = new Homework(homework.getPostId(), "Title1", "Content1", "Author1", homework.getPubDate(), homework.getDeadline(), homework.getClasses(), homework.getNumberOfStudentsToDeliver(), new ArrayList<>(), false);
+            clientProxy.managePost(ManagePost.EDIT, homework);
 
-        assertTrue(serverModel.getAllPost().contains(homework));
-        assertEquals(1,serverModel.getAllPost().size());
+            assertTrue(serverModel.getAllPost().contains(homework));
+            assertEquals(1,serverModel.getAllPost().size());
     }
 
 }

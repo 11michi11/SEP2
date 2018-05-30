@@ -35,7 +35,7 @@ public class PostsList {
 
     public Homework getFirstHomework() {
         return posts.stream().filter(p -> p instanceof Homework).map(h -> (Homework) h).findFirst()
-                .orElse(new Homework(Homework.noHomeworkId, "There are no homeworks yet", "", "", MyDate.now(), MyDate.now(), new ArrayList<ClassNo>(), 0));
+                .orElse(new Homework(Homework.noHomeworkId, "There are no homeworks yet", "", "", MyDate.now(), MyDate.now(), new ArrayList<>(), 0, new ArrayList<>(), false));
     }
 
     public Discussion getFirstDiscussion() {
@@ -50,7 +50,7 @@ public class PostsList {
     public void editPost(Post post) {
         for (int i = 0, postsSize = posts.size(); i < postsSize; i++) {
             Post u = posts.get(i);
-            if (u.getId().equals(post.getId())) {
+            if (u.getPostId().equals(post.getPostId())) {
                 posts.set(i, post);
             }
         }
