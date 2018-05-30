@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import model.communication.Auth;
@@ -99,4 +100,13 @@ public class UsersList {
 	public void clear() {
 		users.clear();;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof UsersList)) return false;
+		UsersList usersList = (UsersList) o;
+		return Objects.equals(users, usersList.users);
+	}
+
 }

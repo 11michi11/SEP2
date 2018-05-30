@@ -18,4 +18,6 @@ public class Discussion extends Post {
             return super.equals(o);
         return false;
     }
+
+
 }
