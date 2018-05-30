@@ -48,7 +48,7 @@ public class Homework extends Post {
         return new LinkedList<>(replies);
     }
 
-    public boolean getClosed() {
+    public boolean isClosed() {
         return closed;
     }
 
