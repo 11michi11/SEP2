@@ -14,7 +14,7 @@ public class ServerController {
     public ServerController(ServerModel model) {
         this.model = model;
         server = new ServerProxy(this);
-        server.start();
+        new Thread(() -> server.start()).start();
     }
 
     public void closeServer() {

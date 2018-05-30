@@ -48,6 +48,18 @@ public class Homework extends Post {
                 '}';
     }
 
+    public List<ClassNo> getClasses() {
+        return classes;
+    }
+
+    public int getNumberOfStudentsToDeliver() {
+        return numberOfStudentsToDeliver;
+    }
+
+    public String getExtraInfo() {
+        return extraInfo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

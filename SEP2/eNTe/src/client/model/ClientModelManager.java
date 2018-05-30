@@ -78,14 +78,15 @@ public class ClientModelManager implements ClientModel {
     public void deleteUser(String id) {
         User user = users.getUserById(id);
         server.manageUser(ManageUser.DELETE, user);
-        if(user instanceof IFamily)
+        if (user instanceof IFamily)
             ((IFamily) user).getFamily().deleteMember(user);
         users.delete(id);
     }
+
     @Override
     public void deleteUser(User user) {
         server.manageUser(ManageUser.DELETE, users.getUserById(user.getId()));
-        if(user instanceof IFamily)
+        if (user instanceof IFamily)
             ((IFamily) user).getFamily().deleteMember(user);
         users.delete(user.getId());
     }
@@ -106,7 +107,7 @@ public class ClientModelManager implements ClientModel {
         return users.getUserById(id);
     }
 
-    private User getUserByEmail(String email){
+    private User getUserByEmail(String email) {
         return users.getUserByEmail(email);
     }
 
@@ -140,14 +141,20 @@ public class ClientModelManager implements ClientModel {
         server.changePwdWithEmail(email, newPwd);
     }
 
-	@Override
-	public void submitHomework(String text) {
-		// TO DO
-	}
+    @Override
+    public void submitHomework(String text) {
+        // TO DO
+    }
 
-	@Override
-	public ArrayList<Post> getAllPosts() {
-		return posts.getAll();
-	}
+    @Override
+    public ArrayList<Post> getAllPosts() {
+        return posts.getAll();
+    }
+
+    @Override
+    public void deletePost(Post post) {
+        posts.deletePost(post);
+        server.managePost(ManagePost.DELETE, post);
+    }
 
 }

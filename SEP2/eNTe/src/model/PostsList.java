@@ -55,4 +55,8 @@ public class PostsList {
             }
         }
     }
+
+    public void clear() {
+        posts.clear();
+    }
 }

@@ -95,4 +95,8 @@ public class UsersList {
     public boolean checkIfEmailExist(String email) {
     	return users.stream().anyMatch(u -> u.getEmail().equals(email));
 	}
+
+	public void clear() {
+		users.clear();;
+	}
 }

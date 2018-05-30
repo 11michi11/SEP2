@@ -105,28 +105,30 @@ public class Family implements Serializable {
 //        if (children != null ? !children.equals(family.children) : family.children != null) return false;
 //        return parents != null ? parents.equals(family.parents) : family.parents == null;
 
-        if (!(o instanceof Family)) {
+        if (!(o instanceof Family))
             return false;
-        }
 
         Family other = (Family) o;
-        if (!(this.id.equals(other.getId()))) {
+        if (!(this.id.equals(other.getId())))
             return false;
+
+        if (children.size() != other.getChildren().size())
+            return false;
+
+        for (int i = 0; i < children.size(); i++) {
+            if (!(children.get(i).getId().equals(other.getChildren().get(i).getId())))
+                return false;
         }
 
-        if (children.size() == other.getChildren().size()) {
-            for (int i = 0; i < children.size(); i++) {
-                if (!(children.get(i).getId().equals(other.getChildren().get(i).getId())))
-                    return false;
-            }
+
+        if (parents.size() != other.getParents().size())
+            return false;
+
+        for (int i = 0; i < parents.size(); i++) {
+            if (!(parents.get(i).getId().equals(other.getParents().get(i).getId())))
+                return false;
         }
 
-        if (parents.size() == other.getParents().size()) {
-            for (int i = 0; i < parents.size(); i++) {
-                if (!(parents.get(i).getId().equals(other.getParents().get(i).getId())))
-                    return false;
-            }
-        }
         return true;
     }
 }

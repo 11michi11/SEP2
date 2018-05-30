@@ -202,5 +202,8 @@ public class ClientController {
 		return model.getAllPosts();
 	}
 
-	
+
+    public void deletePost(Post post) {
+        model.deletePost(post);
+    }
 }

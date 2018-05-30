@@ -84,13 +84,38 @@ public abstract class User implements Serializable {
         return changePassword;
     }
 
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj instanceof User) {
+//            User other = (User) obj;
+//            return id.equals(other.id) && email.equals(other.email) && name.equals(other.name) && pwd.equals(other.pwd);
+//        }
+//        return false;
+//    }
+
+
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof User) {
-            User other = (User) obj;
-            return id.equals(other.id) && email.equals(other.email) && name.equals(other.name) && pwd.equals(other.pwd);
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (changePassword != user.changePassword) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (pwd != null ? !pwd.equals(user.pwd) : user.pwd != null) return false;
+        if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        return id != null ? id.equals(user.id) : user.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = email != null ? email.hashCode() : 0;
+        result = 31 * result + (pwd != null ? pwd.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (changePassword ? 1 : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        return result;
     }
 
     @Override
