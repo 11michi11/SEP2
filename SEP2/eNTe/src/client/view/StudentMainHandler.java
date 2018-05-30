@@ -83,7 +83,7 @@ public class StudentMainHandler {
 		Text separator1 = new Text("\n" + "\n" + " ");
 		Text separator2 = new Text("\n" + "\n" + " ");
 
-		Button submit = new Button("submit");
+		Button submit = new Button("SUBMIT");
 		submit.getStyleClass().add("smallButton");				
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

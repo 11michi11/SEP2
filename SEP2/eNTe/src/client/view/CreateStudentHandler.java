@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.ClassNo;
 import model.Family;
+import model.Student;
 
 public class CreateStudentHandler {
 
@@ -27,6 +28,7 @@ public class CreateStudentHandler {
 	private Parent mainPane;
 	private FXMLLoader loader;
 	private Family family;
+	private Student student;
 
 	public CreateStudentHandler() {
 		controller = ClientController.getInstance();
@@ -65,5 +67,12 @@ public class CreateStudentHandler {
 	
 	public void setFamily(Family family){
 		this.family = family;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+		name.setText(student.getName());
+		email.setText(student.getEmail());
+		classSelector.setValue(student.getClassNo());
 	}
 }
