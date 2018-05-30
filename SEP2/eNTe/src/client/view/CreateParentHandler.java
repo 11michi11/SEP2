@@ -22,6 +22,7 @@ public class CreateParentHandler {
 	private Parent mainPane;
 	private FXMLLoader loader;
 	private Family family;
+	private model.Parent parent;
 	
 	public CreateParentHandler() {
 		controller = ClientController.getInstance();
@@ -48,6 +49,13 @@ public class CreateParentHandler {
 	
 	public void setFamily(Family family) {
 		this.family = family;
+	}
+
+	public void setParent(model.Parent parent) {
+		this.parent = parent;
+		family = parent.getFamily();
+		name.setText(parent.getName());
+		email.setText(parent.getEmail());
 	}
 
 }
