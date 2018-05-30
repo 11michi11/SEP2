@@ -47,4 +47,6 @@ public interface ClientModel {
     ArrayList<Post> getAllPosts();
 
     void deletePost(Post post);
+
+    void editPost(Post post);
 }

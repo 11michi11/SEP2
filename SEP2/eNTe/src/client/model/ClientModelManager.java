@@ -78,8 +78,11 @@ public class ClientModelManager implements ClientModel {
     public void deleteUser(String id) {
         User user = users.getUserById(id);
         server.manageUser(ManageUser.DELETE, user);
-        if (user instanceof IFamily)
-            ((IFamily) user).getFamily().deleteMember(user);
+        if (user instanceof IFamily) {
+            IFamily familyUser = (IFamily) user;
+            if (familyUser.getFamily() != null)
+                familyUser.getFamily().deleteMember(user);
+        }
         users.delete(id);
     }
 
@@ -155,6 +158,12 @@ public class ClientModelManager implements ClientModel {
     public void deletePost(Post post) {
         posts.deletePost(post);
         server.managePost(ManagePost.DELETE, post);
+    }
+
+    @Override
+    public void editPost(Post post) {
+        posts.editPost(post);
+        server.managePost(ManagePost.EDIT, post);
     }
 
 }
