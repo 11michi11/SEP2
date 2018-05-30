@@ -68,6 +68,12 @@ public class Student extends User implements Serializable, IFamily {
         return new Builder();
     }
 
+    public void updateStudentFileds(Student newUser) {
+        historyOfActivity = newUser.historyOfActivity;
+        classNo = newUser.classNo;
+        family = newUser.family;
+    }
+
     public static final class Builder implements StudentNeedName, StudentNeedEmail, StudentNeedClassNo, StudentCanBeBuild {
         protected String id;
         private String historyOfActivity;
