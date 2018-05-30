@@ -13,7 +13,7 @@ public class MyDate implements Serializable {
     private int minute;
 
     public MyDate(int year, int month, int day) {
-        this.set(year, month, day);
+        this.set(year, month, day, 0, 0);
     }
 
     public MyDate() {
@@ -23,11 +23,7 @@ public class MyDate implements Serializable {
         this.day = now.get(Calendar.DAY_OF_MONTH);
     }
     public MyDate(int year, int month, int day, int hour, int minute) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.hour = hour;
-        this.minute = minute;
+        this.set(year, month, day, hour, minute);
     }
 
     public int getYear() {
@@ -42,7 +38,12 @@ public class MyDate implements Serializable {
         return day;
     }
 
-    public void set(int year, int month, int day) {
+    public int getHour() { return hour;
+    }
+    public int getMinute() { return minute;
+    }
+
+    public void set(int year, int month, int day, int hour, int minute) {
 
         this.year = year > 0 ? year : -year;
 
@@ -59,6 +60,20 @@ public class MyDate implements Serializable {
             this.day = numberOfDaysInMonth();
         else
             this.day = day;
+
+        if(hour > 23)
+            this.hour = 23;
+        if (hour < 0)
+            this.hour = 0;
+        else
+            this.hour = hour;
+
+        if (minute > 59)
+            this.minute = 59;
+        if(minute < 0)
+            this.minute = 0;
+        else
+            this.minute = minute;
     }
 
     public void set(int day, String monthName, int year) {
@@ -82,13 +97,15 @@ public class MyDate implements Serializable {
             this.day = day;
     }
 
+
+
     @Override
     public String toString() {
         String day = "00".substring(Integer.toString(this.day).length()) + Integer.toString(this.day);
         String month = "00".substring(Integer.toString(this.month).length()) + Integer.toString(this.month);
         String year = "0000".substring(Integer.toString(this.year).length()) + Integer.toString(this.year);
 
-        return day + "/" + month + "/" + year;
+        return day + "/" + month + "/" + year + "/ " + hour + ":" + minute;
     }
 
     public boolean isLeapYear() {
@@ -206,12 +223,12 @@ public class MyDate implements Serializable {
     public boolean equals(Object obj) {
         if(obj instanceof MyDate) {
             MyDate date2 = (MyDate) obj;
-            return this.day == date2.day && this.month == date2.month && this.year == date2.year;
+            return this.day == date2.day && this.month == date2.month && this.year == date2.year && this.hour == date2.hour && this.minute == date2.minute;
         }else return false;
     }
 
     public MyDate copy() {
-        return new MyDate(this.year, this.month, this.day);
+        return new MyDate(this.year, this.month, this.day, this.hour, this.minute);
     }
 
     public boolean isBefore(MyDate other) {
