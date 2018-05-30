@@ -16,13 +16,13 @@
 	-fx-font-family: "Gill Sans MT";
 	-fx-font-weight: bold;
 	-fx-font-size: 40px;
-	-fx-fill: #729eea;
+	-fx-text-fill: #729eea;
 }
 .smallButton{
 	-fx-font-family: "Gill Sans MT";
 	-fx-font-weight: bold;
 	-fx-font-size: 15px;
-	-fx-fill: #729eea;
+	-fx-text-fill: #729eea;
 }
 
 .textPane{
@@ -59,7 +59,7 @@
 	-fx-font-family: "Gill Sans MT";
 	-fx-font-weight: bold;
 	-fx-font-size: 60px;
-	-fx-fill: #729eea;
+	-fx-text-fill: #729eea;
 }
 .choice-box .menu-item {
 	-fx-pref-width: 472px;
