@@ -84,16 +84,6 @@ public abstract class User implements Serializable {
         return changePassword;
     }
 
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (obj instanceof User) {
-//            User other = (User) obj;
-//            return id.equals(other.id) && email.equals(other.email) && name.equals(other.name) && pwd.equals(other.pwd);
-//        }
-//        return false;
-//    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

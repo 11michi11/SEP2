@@ -1,5 +1,6 @@
 package server.model.persistance;
 
+import javafx.geometry.Pos;
 import model.*;
 import utility.persistence.MyDatabase;
 
@@ -27,7 +28,7 @@ public class DBAdapter implements DBPersistence {
 
     @Override
     public LinkedList<Post> getPosts(UsersList users) {
-        LinkedList<Post> list = new LinkedList<>();
+        /*LinkedList<Post> list = new LinkedList<>();
         try {
             String sql = "SELECT * FROM Post";
             ArrayList<Object[]> resultSet = db.query(sql);
@@ -46,6 +47,38 @@ public class DBAdapter implements DBPersistence {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return list;*/
+        LinkedList<Post> posts = new LinkedList<>();
+
+        LinkedList<Homework> homeworks = new LinkedList<>();
+        LinkedList<Discussion> discussions = new LinkedList<>();
+
+        posts.addAll(homeworks);
+        posts.addAll(discussions);
+
+        return posts;
+    }
+
+    private LinkedList<Homework> getHomeworks(UsersList users) {
+        LinkedList<Homework> list = new LinkedList<>();
+//        try {
+//            String sql = "SELECT p.postid, p.title, p.content, p.authorid, p.pubDate, h.noOfStudentsToDeliver, h.deadline FROM Post p, Homework h WHERE p.postid=h.homeworkid";
+//            ArrayList<Object[]> resultSet = db.query(sql);
+//            for (Object[] e : resultSet) {
+//                String postID = (String) e[0];
+//                String title = (String) e[1];
+//                String content = (String) e[2];
+//                String authorID = (String) e[3];
+//                User author = users.getUserById(authorID);
+//                Timestamp timestamp = (Timestamp) e[4];
+//                Calendar time = Calendar.getInstance();
+//                time.setTime(timestamp);
+//                MyDate date = new MyDate(time.get(Calendar.YEAR),time.get(Calendar.MONTH)+1,time.get(Calendar.DAY_OF_MONTH));
+//                list.add(new Post(postID,title,content,author.getName(),date));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         return list;
     }
 

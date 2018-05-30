@@ -66,11 +66,12 @@ public class ClientModelManager implements ClientModel {
 
     @Override
     public void addOrUpdateUser(User user) {
-        if (!users.contains(user)) {
+        if (!users.checkIfIdExist(user.getId())) {
             users.add(user);
             server.manageUser(ManageUser.ADD, user);
         } else {
             users.updateUser(user);
+            server.manageUser(ManageUser.EDIT, user);
         }
     }
 
@@ -78,8 +79,11 @@ public class ClientModelManager implements ClientModel {
     public void deleteUser(String id) {
         User user = users.getUserById(id);
         server.manageUser(ManageUser.DELETE, user);
-        if (user instanceof IFamily)
-            ((IFamily) user).getFamily().deleteMember(user);
+        if (user instanceof IFamily) {
+            IFamily familyUser = (IFamily) user;
+            if (familyUser.getFamily() != null)
+                familyUser.getFamily().deleteMember(user);
+        }
         users.delete(id);
     }
 
@@ -155,6 +159,12 @@ public class ClientModelManager implements ClientModel {
     public void deletePost(Post post) {
         posts.deletePost(post);
         server.managePost(ManagePost.DELETE, post);
+    }
+
+    @Override
+    public void editPost(Post post) {
+        posts.editPost(post);
+        server.managePost(ManagePost.EDIT, post);
     }
 
 }

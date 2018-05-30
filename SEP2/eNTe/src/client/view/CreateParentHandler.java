@@ -38,7 +38,10 @@ public class CreateParentHandler {
 	}
 
 	public void save() {
-		controller.addParent(name.getText(), email.getText(), family);
+		String id = null;
+		if(parent != null)
+			id = parent.getId();
+		controller.addParent(name.getText(), email.getText(), family, id);
 		goBack();
 	}
 
