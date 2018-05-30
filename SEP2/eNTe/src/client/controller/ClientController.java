@@ -87,21 +87,24 @@ public class ClientController {
     }
 
     public void addTeacher(String name, String email, String id) {
-        User user;
-            user = Teacher.builder().name(name).email(email).build();
+        User user = Teacher.builder().name(name).email(email).build();
         if (id != null)
             user.setId(id);
         model.addOrUpdateUser(user);
     }
 
-    public void addStudent(String name, String email, ClassNo classs, Family family) {
+    public void addStudent(String name, String email, ClassNo classs, Family family, String id) {
         Student student = Student.builder().name(name).email(email).classs(classs).family(family).build();
+        if (id != null)
+            student.setId(id);
         model.addOrUpdateUser(student);
         family.addChild(student);
     }
 
-    public void addParent(String name, String email, Family family) {
+    public void addParent(String name, String email, Family family, String id) {
         Parent parent = Parent.builder().name(name).email(email).family(family).build();
+        if (id != null)
+            parent.setId(id);
         model.addOrUpdateUser(parent);
         family.addParent(parent);
     }

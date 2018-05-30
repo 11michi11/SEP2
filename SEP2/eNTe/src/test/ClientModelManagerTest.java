@@ -142,7 +142,7 @@ class ClientModelManagerTest {
 		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
 		model.addOrUpdateUser(parent);
 
-		parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
+		parent = Parent.builder().name("changed").email("email").pwdEncrypt("pwd").build();
 		model.addOrUpdateUser(parent);
 
 		assertEquals(parent, model.getUserById(parent.getId()));

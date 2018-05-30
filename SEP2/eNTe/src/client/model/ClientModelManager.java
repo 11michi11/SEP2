@@ -66,11 +66,12 @@ public class ClientModelManager implements ClientModel {
 
     @Override
     public void addOrUpdateUser(User user) {
-        if (!users.contains(user)) {
+        if (!users.checkIfIdExist(user.getId())) {
             users.add(user);
             server.manageUser(ManageUser.ADD, user);
         } else {
             users.updateUser(user);
+            server.manageUser(ManageUser.EDIT, user);
         }
     }
 
