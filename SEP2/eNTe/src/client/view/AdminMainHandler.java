@@ -70,7 +70,7 @@ public class AdminMainHandler {
 		Text separator1 = new Text("\n" + "\n" + " ");
 		Text separator2 = new Text("\n" + "\n" + " ");
 
-		Button list = new Button("done by:");
+		Button list = new Button("DONE BY:");
 		list.getStyleClass().add("smallButton");
 
 

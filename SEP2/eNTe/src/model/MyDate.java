@@ -9,6 +9,8 @@ public class MyDate implements Serializable {
     private int year;
     private int month;
     private int day;
+    private int hour;
+    private int minute;
 
     public MyDate(int year, int month, int day) {
         this.set(year, month, day);
@@ -19,6 +21,13 @@ public class MyDate implements Serializable {
         this.year = now.get(Calendar.YEAR);
         this.month = now.get(Calendar.MONTH) + 1;
         this.day = now.get(Calendar.DAY_OF_MONTH);
+    }
+    public MyDate(int year, int month, int day, int hour, int minute) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
     }
 
     public int getYear() {
@@ -34,6 +43,7 @@ public class MyDate implements Serializable {
     }
 
     public void set(int year, int month, int day) {
+
         this.year = year > 0 ? year : -year;
 
         if (month < 1)
@@ -52,6 +62,7 @@ public class MyDate implements Serializable {
     }
 
     public void set(int day, String monthName, int year) {
+
         this.year = year > 0 ? year : -year;
 
         int month = convertToMonthNumber(monthName);

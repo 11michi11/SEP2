@@ -77,7 +77,7 @@ public class HomeworkHandler {
 		Text separator3 = new Text(" ");
 		Text separator4 = new Text(" ");
 
-		Button list = new Button("done by:");
+		Button list = new Button("DONE BY:");
 		Button edit = new Button("EDIT");
 		Button delete = new Button("DELETE");
 		delete.getStyleClass().add("smallButton");

@@ -21,12 +21,7 @@
    </ScrollPane>
    <VBox layoutX="850.0" layoutY="163.0" prefHeight="598.0" prefWidth="416.0" styleClass="menuPane">
       <children>
-         <Button fx:id="createPost" mnemonicParsing="false" onAction="#createHomework" prefHeight="104.0" prefWidth="427.0" styleClass="menuButtonSmall" stylesheets="@email.css" text="create homework" textAlignment="CENTER" textFill="#729eea">
-            <font>
-               <Font name="Gill Sans MT Bold" size="50.0" />
-            </font>
-         </Button>
-         <Button fx:id="editHomework" mnemonicParsing="false" prefHeight="104.0" prefWidth="422.0" styleClass="menuButtonSmall" stylesheets="@email.css" text="edit homework" textAlignment="CENTER" textFill="#729eea">
+         <Button fx:id="createPost" mnemonicParsing="false" onAction="#createHomework" prefHeight="104.0" prefWidth="427.0" styleClass="menuButtonSmall" stylesheets="@login.css" text="create homework" textAlignment="CENTER" textFill="#729eea">
             <font>
                <Font name="Gill Sans MT Bold" size="50.0" />
             </font>
