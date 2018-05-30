@@ -3,27 +3,37 @@ package test;
 import client.model.ClientModelManager;
 import model.*;
 import model.communication.WelcomingData;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import server.controller.ServerMain;
+import server.controller.ServerController;
+import server.model.ServerModelManager;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
+import java.util.concurrent.CountDownLatch;
 
 import static junit.framework.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ClientModelManagerTest {
 
-	public ClientModelManager model;
+	private ClientModelManager model;
+	private static ServerController serverController;
 	
 	@BeforeAll
-	
 	static void startServer() {
-		Thread t = new Thread(() -> ServerMain.main(new String[0]));
+		CountDownLatch latch = new CountDownLatch(1);
+		Thread t = new Thread(new ServerStarted(latch));
 		t.start();
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Server");
 	}
 
@@ -33,13 +43,39 @@ class ClientModelManagerTest {
 		model = new ClientModelManager();
 	}
 
+	@AfterAll
+	static void shutDown(){
+		serverController.closeServer();
+	}
+
 	@Test
 	void getAndStorePostTest() {
 		MyDate pubDate = MyDate.now();
 		Post post = new Post("Title", "Content", "Author", pubDate);
 		model.addPost(post);
 
-		assertEquals(new Post("Title", "Content", "Author", pubDate), model.getPost());
+		assertEquals(new Post(post.getPostId(), "Title", "Content", "Author", pubDate), model.getPost());
+	}
+
+	@Test
+	void editPostTest(){
+		MyDate pubDate = MyDate.now();
+		Post post = new Post("Title", "Content", "Author", pubDate);
+		model.addPost(post);
+
+		post = new Post(post.getPostId(), "Changed", "Change", "Changed", pubDate);
+		model.editPost(post);
+		assertEquals(post, model.getPost());
+	}
+
+	@Test
+	void deletePostTest(){
+		MyDate pubDate = MyDate.now();
+		Post post = new Post("Title", "Content", "Author", pubDate);
+		model.addPost(post);
+
+		model.deletePost(post);
+		assertThrows(NoSuchElementException.class, () -> model.getPost());
 	}
 
 	@Test
@@ -59,8 +95,7 @@ class ClientModelManagerTest {
 		data.insertPosts(list1);
 		model.saveData(data);
 
-		for (int i = 0; i < 3; i++)
-			list2.add(model.getPost());
+		list2.addAll(model.getAllPosts());
 
 		assertEquals(list3, list2);
 	}
@@ -106,11 +141,27 @@ class ClientModelManagerTest {
 	void updateUserTest() {
 		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
 		model.addOrUpdateUser(parent);
-	
-		parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
+
+		parent = Parent.builder().name("changed").email("email").pwdEncrypt("pwd").build();
 		model.addOrUpdateUser(parent);
-		
+
 		assertEquals(parent, model.getUserById(parent.getId()));
+	}
+
+
+	static class ServerStarted implements Runnable{
+
+		private CountDownLatch latch;
+
+		ServerStarted(CountDownLatch latch) {
+			this.latch = latch;
+		}
+
+		@Override
+		public void run() {
+			serverController = new ServerController(new ServerModelManager());
+			latch.countDown();
+		}
 	}
 
 }

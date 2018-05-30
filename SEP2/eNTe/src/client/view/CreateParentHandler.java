@@ -22,16 +22,12 @@ public class CreateParentHandler {
 	private Parent mainPane;
 	private FXMLLoader loader;
 	private Family family;
+	private model.Parent parent;
 	
 	public CreateParentHandler() {
 		controller = ClientController.getInstance();
 		System.out.println("CreateParentHandler");
 		stage = ClientViewManager.getStage();
-
-	}
-
-	public void save() {
-		controller.addParent(name.getText(), email.getText(), family);
 		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
 		try {
 			mainPane = loader.load();
@@ -39,6 +35,13 @@ public class CreateParentHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void save() {
+		String id = null;
+		if(parent != null)
+			id = parent.getId();
+		controller.addParent(name.getText(), email.getText(), family, id);
 		goBack();
 	}
 
@@ -49,6 +52,13 @@ public class CreateParentHandler {
 	
 	public void setFamily(Family family) {
 		this.family = family;
+	}
+
+	public void setParent(model.Parent parent) {
+		this.parent = parent;
+		family = parent.getFamily();
+		name.setText(parent.getName());
+		email.setText(parent.getEmail());
 	}
 
 }

@@ -1,20 +1,27 @@
 package client.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import client.controller.ClientController;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Control;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import model.Homework;
 import model.Post;
 
 public class HomeworkHandler {
@@ -44,18 +51,72 @@ public class HomeworkHandler {
 		System.out.println("second");
 		System.out.println(box);
 
-		Post[] posts = controller.getPosts();
+		ArrayList<Post> posts = controller.getAllPosts();
+		for(Post p : posts) {
+			switch(p.getClass().getSimpleName()) {
+				case "Homework":
+					loadHomework((Homework) p);
+					break;
+				case "Post":
+					loadPost(p);
+					break;
+				default:
+					break;
+			}
+		}
 
-		Text title = new Text(posts[0].getTitle());
+	}
+	private void loadHomework(Homework homework) {
+		Text title = new Text(homework.getTitle());
 		title.setId("title");
-		Text content = new Text(posts[0].getContent());
+		Text content = new Text(homework.getContent());
+		content.setId("content");
+		Text deadline = new Text(homework.getDeadline().toString());
+		Text separator = new Text("\n" + "\n");
+		Text separator1 = new Text("\n" + "\n" + " ");
+		Text separator2 = new Text("\n" + "\n" + " ");
+		Text separator3 = new Text(" ");
+		Text separator4 = new Text(" ");
+
+		Button list = new Button("DONE BY:");
+		Button edit = new Button("EDIT");
+		edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EditHomeworkHandler(homework));
+		Button delete = new Button("DELETE");
+		delete.getStyleClass().add("smallButton");
+		list.getStyleClass().add("smallButton");
+		edit.getStyleClass().add("smallButton");
+
+
+		TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, list, separator3, edit, separator4, delete);
+		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+		textFlow.setAccessibleText(homework.getContent());
+		textFlow.setPrefWidth(830);
+
+		Pane pane = new Pane() {
+			@Override
+			protected void layoutChildren() {
+				super.layoutChildren();
+				TextFlow textFlow = (TextFlow) getChildren().get(0);
+				setMinHeight(textFlow.getHeight() + 5);
+				autosize();
+			}
+		};
+		pane.getChildren().addAll(textFlow);
+		pane.getStyleClass().add("textPane");
+		addPane(pane);
+	}
+
+	private void loadPost(Post post) {
+		Text title = new Text(post.getTitle());
+		title.setId("title");
+		Text content = new Text(post.getContent());
 		content.setId("content");
 		Text separator = new Text("\n" + "\n");
 
 		TextFlow textFlow = new TextFlow(title, separator, content);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(posts[0].getContent());
-		textFlow.setPrefWidth(842);
+		textFlow.setAccessibleText(post.getContent());
+		textFlow.setPrefWidth(830);
 
 		Pane pane = new Pane() {
 			@Override
@@ -68,11 +129,9 @@ public class HomeworkHandler {
 		};
 		pane.getChildren().add(textFlow);
 		pane.getStyleClass().add("textPane");
-		loadPanes(pane);
-
+		addPane(pane);
 	}
-	public void loadPanes(Pane pane) {
-		box.getChildren().clear();
+	private void addPane(Pane pane) {
 		box.getChildren().add(pane);
 	}
 
@@ -89,12 +148,33 @@ public class HomeworkHandler {
 		}
 	}
 
-	public void editHomework() {
-
-	}
 	public void goBack() {
 		stage.getScene().setRoot(mainPane);
 		stage.show();
 	}
+
+	private class EditHomeworkHandler implements EventHandler<Event>{
+
+		private Homework homework;
+
+		private EditHomeworkHandler(Homework homework) {
+			this.homework = homework;
+		}
+
+		@Override
+		public void handle(Event event) {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomework.fxml"));
+				mainPane = loader.load();
+				((CreateHomeworkHandler) loader.getController()).setHomework(homework);
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+				stage.getScene().setRoot(mainPane);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }
 

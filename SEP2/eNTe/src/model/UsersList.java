@@ -71,8 +71,26 @@ public class UsersList {
 		for (int i = 0, usersSize = users.size(); i < usersSize; i++) {
 			User u = users.get(i);
 			if (u.getId().equals(user.getId())) {
-				users.set(i, user);
+				updateUserData(u, user);
 			}
+		}
+	}
+
+	private void updateUserData(User oldUser, User newUser){
+		oldUser.updateUserFields(newUser);
+		switch(oldUser.getClass().getSimpleName()){
+			case "Administrator":
+				((Administrator)oldUser).updateAdminFileds((Administrator)newUser);
+				break;
+			case "Teacher":
+				((Teacher)oldUser).updateTeacherFileds((Teacher)newUser);
+				break;
+			case "Student":
+				((Administrator)oldUser).updateAdminFileds((Student)newUser);
+				break;
+			case "Parent":
+				((Administrator)oldUser).updateAdminFileds((Administrator)newUser);
+				break;
 		}
 	}
 
@@ -98,5 +116,9 @@ public class UsersList {
 
 	public void clear() {
 		users.clear();;
+	}
+
+	public boolean checkIfIdExist(String id) {
+		return users.stream().anyMatch(u -> u.getId().equals(id));
 	}
 }

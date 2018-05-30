@@ -11,6 +11,7 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Family;
+import model.Student;
 import model.User;
 
 import java.io.IOException;
@@ -69,7 +70,32 @@ public class FamilyListHandler {
 		User user = ((UserDT) familyTable.getSelectionModel().getSelectedItem().getValue()).user;
 		controller.deleteUser(user);
 
+	}
 
+	public void editUser() {
+		User user = ((UserDT) familyTable.getSelectionModel().getSelectedItem().getValue()).user;
+		if (user.getClass().getSimpleName().equals("Student"))
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createStudent.fxml"));
+				mainPane = loader.load();
+				((CreateStudentHandler) loader.getController()).setStudent((Student) user);
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+				stage.getScene().setRoot(mainPane);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		if (user.getClass().getSimpleName().equals("Parent"))
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createParent.fxml"));
+				mainPane = loader.load();
+				((CreateParentHandler) loader.getController()).setParent((model.Parent) user);
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+				stage.getScene().setRoot(mainPane);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 
 	public void addStudent() {

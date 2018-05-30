@@ -87,21 +87,24 @@ public class ClientController {
     }
 
     public void addTeacher(String name, String email, String id) {
-        User user;
-            user = Teacher.builder().name(name).email(email).build();
+        User user = Teacher.builder().name(name).email(email).build();
         if (id != null)
             user.setId(id);
         model.addOrUpdateUser(user);
     }
 
-    public void addStudent(String name, String email, ClassNo classs, Family family) {
+    public void addStudent(String name, String email, ClassNo classs, Family family, String id) {
         Student student = Student.builder().name(name).email(email).classs(classs).family(family).build();
+        if (id != null)
+            student.setId(id);
         model.addOrUpdateUser(student);
         family.addChild(student);
     }
 
-    public void addParent(String name, String email, Family family) {
+    public void addParent(String name, String email, Family family, String id) {
         Parent parent = Parent.builder().name(name).email(email).family(family).build();
+        if (id != null)
+            parent.setId(id);
         model.addOrUpdateUser(parent);
         family.addParent(parent);
     }
@@ -125,11 +128,6 @@ public class ClientController {
         homework[0] = model.getHomework();
         return homework;
     }
-//    public Discussion[] getDiscussion() {
-//    	Discussion[] discussion = new Discussion[1];
-//    	discussion[0] = model.getDiscussion();
-//    	return discussion;
-//    }
     
     public void addPost(String title, String content, String author, MyDate publicationDate) {
         model.addPost(new Post(title, content, author, publicationDate));
@@ -137,6 +135,10 @@ public class ClientController {
 
     public void addHomework(String title, String content, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver){
         model.addPost(new Homework(title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver));
+    }
+
+    public void editHomework(String homeworkId, String title, String content, MyDate deadline, List<ClassNo> classes,List<HomeworkReply> replies, int numberOfStudentsToDeliver){
+        model.editPost(new Homework(homeworkId, title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver,replies, !deadline.isBefore(MyDate.now())));
     }
 
 
@@ -205,5 +207,9 @@ public class ClientController {
 
     public void deletePost(Post post) {
         model.deletePost(post);
+    }
+
+    public void setCurrentUser(Administrator currentUser) {
+        this.currentUser = currentUser;
     }
 }
