@@ -86,10 +86,10 @@ public class UsersList {
 				((Teacher)oldUser).updateTeacherFileds((Teacher)newUser);
 				break;
 			case "Student":
-				((Administrator)oldUser).updateAdminFileds((Student)newUser);
+				((Student)oldUser).updateStudentFileds((Student)newUser);
 				break;
 			case "Parent":
-				((Administrator)oldUser).updateAdminFileds((Administrator)newUser);
+				((Parent)oldUser).updateParentFileds((Parent)newUser);
 				break;
 		}
 	}

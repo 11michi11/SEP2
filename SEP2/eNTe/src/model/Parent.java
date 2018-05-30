@@ -59,6 +59,10 @@ public class Parent extends User implements Serializable, IFamily {
         return new Builder();
     }
 
+    public void updateParentFileds(Parent newUser) {
+        family = newUser.family;
+    }
+
     public static final class Builder implements NeedName, NeedEmail, CanBeBuild {
 
         private String name;

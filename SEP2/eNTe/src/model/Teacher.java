@@ -20,6 +20,9 @@ public class Teacher extends User implements Serializable {
         return new Builder();
     }
 
+    public void updateTeacherFileds(Teacher newUser) {
+    }
+
     public static final class Builder implements TeacherNeedName, TeacherNeedEmail, TeacherCanBeBuild {
 
         protected String id;
