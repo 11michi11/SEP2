@@ -206,6 +206,7 @@ class DBAdapterTest {
     void testOneHomeworkAddedAndLoaded() {
         ArrayList<ClassNo> classes = new ArrayList<>();
         classes.add(ClassNo.First);
+        classes.add(ClassNo.Second);
         classes.add(ClassNo.Fourth);
         classes.add(ClassNo.Eighth);
         Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
@@ -339,7 +340,7 @@ class DBAdapterTest {
         adapter.addPost(post);
         loadPosts();
 
-        assertEquals(100000000,posts.getAll().size());
+        assertEquals(100000,posts.getAll().size());
         assertEquals(post,posts.getAll().get(0));
 // cannot be tested yet .. homework setters missing
     }

@@ -7,14 +7,11 @@ import javax.sql.rowset.serial.SerialArray;
 import java.sql.Array;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class DBAdapter implements DBPersistence {
 
-    private MyDatabase db;
+    private Database db;
 //    private static final String DRIVER = "org.postgresql.Driver";
 //    private static final String URL = "jdbc:postgresql://207.154.237.196:5432/ente";
 //    private static final String USER = "ente";
@@ -22,7 +19,7 @@ public class DBAdapter implements DBPersistence {
 
     public DBAdapter(String driver, String url, String user, String password) {
         try {
-            db = new MyDatabase(driver,url,user,password);
+            db = new Database(driver,url,user,password);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -59,17 +56,41 @@ public class DBAdapter implements DBPersistence {
                 Calendar deadlineCal = Calendar.getInstance();
                 deadlineCal.setTime(deadlineStamp);
                 MyDate deadline = new MyDate(deadlineCal.get(Calendar.YEAR),deadlineCal.get(Calendar.MONTH)+1,deadlineCal.get(Calendar.DAY_OF_MONTH), deadlineCal.get(Calendar.HOUR_OF_DAY),deadlineCal.get(Calendar.MINUTE));
-//                Array classesArray = (SerialArray) e[7];
-//
+
+                String[] classesString = (String[]) e[7];
                 List<ClassNo> classes = new ArrayList<>();
-//                for (int i = 0;i<8;i++) {
-//                    classes.add(ClassNo.valueOf(f));
-//                }
-                classes.add(ClassNo.First);
-                classes.add(ClassNo.Fourth);
-                classes.add(ClassNo.Eighth);
+                for (String a:classesString) {
+                    classes.add(ClassNo.valueOf(a));
+                }
                 boolean closed = (boolean) e[8];
                 list.add(new Homework(postID,title,content,authorName,pubDate,deadline,classes,noOfStudentsToDeliver,null,closed));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    private LinkedList<HomeworkReply> getHomeworkReplies(LinkedList<Homework> homeworks, UsersList students) {
+        LinkedList<HomeworkReply> list = new LinkedList<>();
+        try {
+            String sql = "SELECT * FROM HomeworkReply";
+            ArrayList<Object[]> resultSet = db.query(sql);
+            for (Object[] e : resultSet) {
+                String homeworkID = (String) e[0];
+                String studentid = (String) e[1];
+                Timestamp handinStamp = (Timestamp) e[2];
+                Calendar handinCal = Calendar.getInstance();
+                handinCal.setTime(handinStamp);
+                MyDate handinDate = new MyDate(handinCal.get(Calendar.YEAR),handinCal.get(Calendar.MONTH)+1,handinCal.get(Calendar.DAY_OF_MONTH), handinCal.get(Calendar.HOUR_OF_DAY),handinCal.get(Calendar.MINUTE));
+                String content = (String) e[3];
+                boolean late = (boolean) e[4];
+
+//                for (Homework e:homeworks) {
+//
+//                }
+//
+//                list.add(new Homework(postID,title,content,authorName,pubDate,deadline,classes,noOfStudentsToDeliver,null,closed));
             }
         } catch (SQLException e) {
             e.printStackTrace();
