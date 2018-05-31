@@ -98,7 +98,7 @@ public class CreateHomeworkHandler {
 			if (seventh.isSelected())
 			classes.add(ClassNo.Seventh);
 			if (eight.isSelected())
-			classes.add(ClassNo.Eigth);
+			classes.add(ClassNo.Eighth);
 
 		return classes;
 	}

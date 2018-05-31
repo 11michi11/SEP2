@@ -34,7 +34,7 @@ public class ControllerTest {
 
     @Test
     void addStudent() {
-       // Student student = Student.builder().name("child").email("email").classs(ClassNo.Eigth).pwdEncrypt("pwd").build();
+       // Student student = Student.builder().name("child").email("email").classs(ClassNo.Eighth).pwdEncrypt("pwd").build();
         fail();
     }
 
