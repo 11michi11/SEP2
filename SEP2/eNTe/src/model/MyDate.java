@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -108,6 +109,18 @@ public class MyDate implements Serializable {
         return day + "/" + month + "/" + year + "/ " + hour + ":" + minute;
     }
 
+    public static MyDate convertFromTimestampToMyDate(Timestamp timestamp) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(timestamp);
+        return new MyDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE));
+    }
+    
+    public static Timestamp convertFromMyDateToTimestamp(MyDate date) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(date.getYear(),date.getMonth()-1,date.getDay(),date.getHour(),date.getMinute());
+        return new Timestamp(cal.getTimeInMillis());
+    }
+    
     public boolean isLeapYear() {
         return (this.year % 4 == 0) && (this.year % 100 != 0) || (this.year % 400 == 0);
     }

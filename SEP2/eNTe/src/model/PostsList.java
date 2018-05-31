@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class PostsList {
 
@@ -69,5 +66,8 @@ public class PostsList {
         return Objects.equals(posts, postsList.posts);
     }
 
-
+    public Post getPostById(String id) {
+        return posts.stream().filter(u -> u.getPostId().equals(id)).findFirst()
+                .orElseThrow(NoSuchElementException::new);
+    }
 }
