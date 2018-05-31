@@ -122,6 +122,11 @@ public class ServerModelManager implements ServerModel {
         users.clear();
     }
 
+    @Override
+    public List<User> getAllUsers() {
+        return users.getAll();
+    }
+
     private LinkedList<User> getUsers() {
         User user1 = Student.builder().name("student").email("student").classs(ClassNo.First).pwdEncrypt("pwd").build();
         User administrator = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").build();

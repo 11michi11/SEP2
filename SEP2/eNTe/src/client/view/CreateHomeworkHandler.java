@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.ClassNo;
 import model.Homework;
+import model.HomeworkReply;
 import model.MyDate;
 
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class CreateHomeworkHandler {
 	@FXML
 	private CheckBox first, second, third, fourth, fifth, sixth, seventh, eight;
 	private Homework homework;
+
 
 
 	public CreateHomeworkHandler() {
@@ -105,4 +107,6 @@ public class CreateHomeworkHandler {
 		stage.getScene().setRoot(mainPane);
 		stage.show();
 	}
+
+
 }
