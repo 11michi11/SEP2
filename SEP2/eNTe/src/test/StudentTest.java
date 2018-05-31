@@ -73,8 +73,8 @@ class StudentTest {
 		Student student = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").historyOfActivity("").build();
 		student.setClassNo(ClassNo.First);
 		assertEquals(ClassNo.First, student.getClassNo());
-		student.setClassNo(ClassNo.Eigth);
-		assertEquals(ClassNo.Eigth, student.getClassNo());
+		student.setClassNo(ClassNo.Eighth);
+		assertEquals(ClassNo.Eighth, student.getClassNo());
 	}
 
 	@Test
@@ -94,11 +94,11 @@ class StudentTest {
 	@Test
 	void buildTest() {
 		Family f = new Family("id");
-		Student student = Student.builder().name("child").email("email").classs(ClassNo.Eigth).family(f).historyOfActivity("").pwdEncrypt("pwd").id("id").build();
+		Student student = Student.builder().name("child").email("email").classs(ClassNo.Eighth).family(f).historyOfActivity("").pwdEncrypt("pwd").id("id").build();
 
 		assertEquals("child",student.getName());
 		assertEquals("email",student.getEmail());
-		assertEquals(ClassNo.Eigth,student.getClassNo());
+		assertEquals(ClassNo.Eighth,student.getClassNo());
 		assertEquals(f.getId(), student.getFamilyId());
 		assertEquals("",student.getHistoryOfActivity());
 		assertEquals("id", student.getId());
@@ -107,7 +107,7 @@ class StudentTest {
 
 	@Test
 	void buildNotFinishedTest() {
-		Student studentNotFinished = Student.builder().name("child").email("email").classs(ClassNo.Eigth).build();
+		Student studentNotFinished = Student.builder().name("child").email("email").classs(ClassNo.Eighth).build();
 		try {
 			UUID uuid = UUID.fromString(studentNotFinished.getId());
 		} catch (IllegalArgumentException exception) {
@@ -115,7 +115,7 @@ class StudentTest {
 		}
 		assertEquals("child", studentNotFinished.getName());
 		assertEquals("email",studentNotFinished.getEmail());
-		assertEquals(ClassNo.Eigth,studentNotFinished.getClassNo());
+		assertEquals(ClassNo.Eighth,studentNotFinished.getClassNo());
 		assertEquals("there is no family", studentNotFinished.getFamilyId());
 		assertNull(studentNotFinished.getHistoryOfActivity());
 	}

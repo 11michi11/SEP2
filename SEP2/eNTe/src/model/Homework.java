@@ -40,6 +40,16 @@ public class Homework extends Post {
         return classes;
     }
 
+    public String getClassesAsString() {
+        String string = "{";
+        for (ClassNo e:classes) {
+          string += e.toString()+",";
+        }
+        string = string.substring(0,string.length()-1);
+        string += "}";
+        return string;
+    }
+
     public int getNumberOfStudentsToDeliver() {
         return numberOfStudentsToDeliver;
     }

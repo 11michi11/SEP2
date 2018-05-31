@@ -6,7 +6,10 @@ import java.util.LinkedList;
 
 public interface DBPersistence {
 
-	LinkedList<Post> getPosts(UsersList users);
+	LinkedList<Post> getPosts();
+	void addPost(Post post);
+	void updatePost(Post post);
+	void deletePost(String postID);
 	LinkedList<User> getUsers(FamilyList families);
 	void addUser(User user);
 	void updateUser(User user);

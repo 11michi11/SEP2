@@ -14,7 +14,7 @@ public enum ClassNo implements Serializable{
 	 Fifth("Fifth"),
 	 Sixth("Sixth"),
 	 Seventh("Seventh"),
-	 Eigth("Eigth");
+	 Eighth("Eighth");
 	 
 	private String name;
 	
