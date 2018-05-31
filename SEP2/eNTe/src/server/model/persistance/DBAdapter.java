@@ -1,6 +1,5 @@
 package server.model.persistance;
 
-import javafx.geometry.Pos;
 import model.*;
 import utility.persistence.MyDatabase;
 
@@ -9,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.List;
 
 public class DBAdapter implements DBPersistence {
 
@@ -27,59 +27,136 @@ public class DBAdapter implements DBPersistence {
     }
 
     @Override
-    public LinkedList<Post> getPosts(UsersList users) {
-        /*LinkedList<Post> list = new LinkedList<>();
+    public LinkedList<Post> getPosts() {
+
+        LinkedList<Post> posts = new LinkedList<>();
+
+        LinkedList<Homework> homeworks = new LinkedList<>();
+
+        posts.addAll(homeworks);
+
+        return posts;
+    }
+
+    private LinkedList<Homework> getHomeworks() {
+        LinkedList<Homework> list = new LinkedList<>();
         try {
-            String sql = "SELECT * FROM Post";
+            String sql = "SELECT p.postid, p.title, p.content, p.authorname, p.pubDate, h.noOfStudentsToDeliver, h.deadline, h.closed, h.classes FROM Post p, Homework h WHERE p.postid=h.homeworkid";
             ArrayList<Object[]> resultSet = db.query(sql);
             for (Object[] e : resultSet) {
                 String postID = (String) e[0];
                 String title = (String) e[1];
                 String content = (String) e[2];
-                String authorID = (String) e[3];
-                User author = users.getUserById(authorID);
-                Timestamp timestamp = (Timestamp) e[4];
-                Calendar time = Calendar.getInstance();
-                time.setTime(timestamp);
-                MyDate date = new MyDate(time.get(Calendar.YEAR),time.get(Calendar.MONTH)+1,time.get(Calendar.DAY_OF_MONTH));
-                list.add(new Post(postID,title,content,author.getName(),date));
+                String authorName = (String) e[3];
+                Timestamp pubDateStamp = (Timestamp) e[4];
+                Calendar pubDateCal = Calendar.getInstance();
+                pubDateCal.setTime(pubDateStamp);
+                MyDate pubDate = new MyDate(pubDateCal.get(Calendar.YEAR),pubDateCal.get(Calendar.MONTH)+1,pubDateCal.get(Calendar.DAY_OF_MONTH));
+                int noOfStudentsToDeliver = (int) e[5];
+                Timestamp deadlineStamp = (Timestamp) e[6];
+                Calendar deadlineCal = Calendar.getInstance();
+                deadlineCal.setTime(deadlineStamp);
+                MyDate deadline = new MyDate(deadlineCal.get(Calendar.YEAR),deadlineCal.get(Calendar.MONTH)+1,deadlineCal.get(Calendar.DAY_OF_MONTH));
+                String[] classesArray = (String[]) e[7];
+                List<ClassNo> classes = new ArrayList<>();
+                for (String f:classesArray) {
+                    classes.add(ClassNo.valueOf(f));
+                }
+                boolean closed = (boolean) e[8];
+                list.add(new Homework(postID,title,content,authorName,pubDate,deadline,classes,noOfStudentsToDeliver,null,closed));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;*/
-        LinkedList<Post> posts = new LinkedList<>();
-
-        LinkedList<Homework> homeworks = new LinkedList<>();
-        LinkedList<Discussion> discussions = new LinkedList<>();
-
-        posts.addAll(homeworks);
-        posts.addAll(discussions);
-
-        return posts;
+        return list;
     }
 
-    private LinkedList<Homework> getHomeworks(UsersList users) {
-        LinkedList<Homework> list = new LinkedList<>();
-//        try {
-//            String sql = "SELECT p.postid, p.title, p.content, p.authorid, p.pubDate, h.noOfStudentsToDeliver, h.deadline FROM Post p, Homework h WHERE p.postid=h.homeworkid";
-//            ArrayList<Object[]> resultSet = db.query(sql);
-//            for (Object[] e : resultSet) {
-//                String postID = (String) e[0];
-//                String title = (String) e[1];
-//                String content = (String) e[2];
-//                String authorID = (String) e[3];
-//                User author = users.getUserById(authorID);
-//                Timestamp timestamp = (Timestamp) e[4];
-//                Calendar time = Calendar.getInstance();
-//                time.setTime(timestamp);
-//                MyDate date = new MyDate(time.get(Calendar.YEAR),time.get(Calendar.MONTH)+1,time.get(Calendar.DAY_OF_MONTH));
-//                list.add(new Post(postID,title,content,author.getName(),date));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-        return list;
+    @Override
+    public void addPost(Post post) {
+        try {
+            ArrayList<String> sqlList = new ArrayList<>();
+
+            String sql = "INSERT INTO post VALUES ('";
+            sql += post.getPostId() + "','";
+            sql += post.getClass().getSimpleName() + "','";
+            sql += post.getTitle() + "','";
+            sql += post.getContent() + "','";
+            sql += post.getAuthor() + "','";
+            Calendar cal = Calendar.getInstance();
+            cal.set(post.getPubDate().getYear(),post.getPubDate().getMonth()+1,post.getPubDate().getDay(),post.getPubDate().getHour(),post.getPubDate().getMinute());
+            Timestamp timestamp = new Timestamp(cal.getTimeInMillis());
+            sql += timestamp + "')";
+            sqlList.add(sql);
+
+            sql = "INSERT INTO ";
+
+            switch (post.getClass().getSimpleName()) {
+                case "Homework":
+                    Homework homework = (Homework) post;
+                    sql += "homework VALUES ('";
+                    sql += homework.getPostId() + "','";
+                    sql += homework.getNumberOfStudentsToDeliver() + "','";
+                    sql += homework.getClassesAsString() + "',";
+                    sql += homework.getClosed() + ")";
+                    sqlList.add(sql);
+                    break;
+
+                default:
+                    break;
+            }
+            db.updateAll(sqlList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updatePost(Post post) {
+        try {
+            ArrayList<String> sqlList = new ArrayList<>();
+            String sql = "";
+            String posttype = post.getClass().getSimpleName();
+            sql += "UPDATE post SET ";
+            sql += "posttype='" + posttype + "',";
+            sql += "title='" + post.getTitle() + "',";
+            sql += "content='" + post.getContent() + "',";
+            sql += "authorname='" + post.getAuthor() + "',";
+            Calendar cal = Calendar.getInstance();
+            cal.set(post.getPubDate().getYear(),post.getPubDate().getMonth()+1,post.getPubDate().getDay(),post.getPubDate().getHour(),post.getPubDate().getMinute());
+            Timestamp timestamp = new Timestamp(cal.getTimeInMillis());
+            sql += "pubdate='" + timestamp + "' ";
+            sql += "WHERE postid='" + post.getPostId() + "'";
+            sqlList.add(sql);
+            switch (posttype) {
+                case "Homework":
+                    Homework homework = (Homework) post;
+                    sql = "UPDATE homework SET noOfStudentsToDeliver='" + homework.getNumberOfStudentsToDeliver() + "',";
+                    cal.set(post.getPubDate().getYear(),post.getPubDate().getMonth()+1,post.getPubDate().getDay(),post.getPubDate().getHour(),post.getPubDate().getMinute());
+                    timestamp = new Timestamp(cal.getTimeInMillis());
+                    sql += "deadline='" + timestamp + "'";
+                    sql += "classes='" + homework.getClassesAsString() + "'";
+                    sql += "closed='" + homework.getClosed() + "' ";
+                    sql += "WHERE homeworkid='" + homework.getPostId() + "'";
+                    sqlList.add(sql);
+                    break;
+
+                default:
+                    break;
+            }
+            db.updateAll(sqlList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deletePost(String postID) {
+        String sql = "DELETE FROM post WHERE postid='" + postID + "'";
+        try {
+            db.update(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

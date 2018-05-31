@@ -140,7 +140,7 @@ public class MyDate implements Serializable {
     public String getMonthName() {
         switch(this.month){
             case 1:
-                return "Janurary";
+                return "January";
             case 2:
                 return "February";
             case 3:
