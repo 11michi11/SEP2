@@ -18,6 +18,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import model.Discussion;
 import model.Homework;
+import model.HomeworkReply;
 import model.Post;
 
 public class StudentMainHandler {
@@ -41,10 +42,10 @@ public class StudentMainHandler {
 		for(Post p : posts) {
 			switch(p.getClass().getSimpleName()) {
 			case "Homework":
-				loadHomework();
+				loadHomework((Homework) p);
 				break;				
 			case "Post":
-				loadPost();
+				loadPost(p);
 				break;
 			default:
 				break;
@@ -70,55 +71,100 @@ public class StudentMainHandler {
 			e.printStackTrace();
 		}
 	}
-	
-	private void loadHomework() {
 
-		Homework[] homework = controller.getHomework();
+	public void editHomework(HomeworkReply reply) {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/textArea.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
 
-		Text title = new Text(homework[0].getTitle());
-		title.setId("title");
-		Text content = new Text(homework[0].getContent());
-		content.setId("content");
-		Text deadline = new Text(homework[0].getDeadline().toString());
-		Text separator = new Text("\n" + "\n");
-		Text separator1 = new Text("\n" + "\n" + " ");
-		Text separator2 = new Text("\n" + "\n" + " ");
-
-		Button submit = new Button("SUBMIT");
-		submit.getStyleClass().add("smallButton");				
-		submit.setOnAction(arg0 -> submit());
-		
-		TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, submit);
-		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(homework[0].getContent());
-		textFlow.setPrefWidth(842);
-
-		Pane pane = new Pane() {
-			@Override
-			protected void layoutChildren() {
-				super.layoutChildren();
-				TextFlow textFlow = (TextFlow) getChildren().get(0);
-				setMinHeight(textFlow.getHeight() + 5);
-				autosize();
-			}
-		};
-		pane.getChildren().addAll(textFlow);
-		pane.getStyleClass().add("textPane");
-		loadPanes(pane);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	private void loadPost() {
-		Post[] post = controller.getPosts();
+	private void loadHomework(Homework homework) {
 
-		Text titleOfPost = new Text(post[0].getTitle());
+		HomeworkReply reply = homework.getStudentReply(controller.getCurrentUserId());
+		if(reply != null) {
+			Text title = new Text(homework.getTitle());
+			title.setId("title");
+			Text content = new Text(homework.getContent());
+			content.setId("content");
+			Text deadline = new Text(homework.getDeadline().toString());
+			Text separator = new Text("\n" + "\n");
+			Text separator1 = new Text("\n" + "\n" + " ");
+			Text separator2 = new Text("\n" + "\n" + " ");
+
+			Button solution = new Button("EDIT SOLUTION");
+			solution.getStyleClass().add("smallButton");
+			solution.setOnAction(arg0 -> editHomework(reply));
+
+			TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, solution);
+			textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+			textFlow.setAccessibleText(homework.getContent());
+			textFlow.setPrefWidth(842);
+
+			Pane pane = new Pane() {
+				@Override
+				protected void layoutChildren() {
+					super.layoutChildren();
+					TextFlow textFlow = (TextFlow) getChildren().get(0);
+					setMinHeight(textFlow.getHeight() + 5);
+					autosize();
+				}
+			};
+			pane.getChildren().addAll(textFlow);
+			pane.getStyleClass().add("textPane");
+			loadPanes(pane);
+		} else {
+			Text title = new Text(homework.getTitle());
+			title.setId("title");
+			Text content = new Text(homework.getContent());
+			content.setId("content");
+			Text deadline = new Text(homework.getDeadline().toString());
+			Text separator = new Text("\n" + "\n");
+			Text separator1 = new Text("\n" + "\n" + " ");
+			Text separator2 = new Text("\n" + "\n" + " ");
+
+			Button submit = new Button("SUBMIT");
+			submit.getStyleClass().add("smallButton");
+			submit.setOnAction(arg0 -> submit());
+
+			TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, submit);
+			textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+			textFlow.setAccessibleText(homework.getContent());
+			textFlow.setPrefWidth(842);
+
+			Pane pane = new Pane() {
+				@Override
+				protected void layoutChildren() {
+					super.layoutChildren();
+					TextFlow textFlow = (TextFlow) getChildren().get(0);
+					setMinHeight(textFlow.getHeight() + 5);
+					autosize();
+				}
+			};
+			pane.getChildren().addAll(textFlow);
+			pane.getStyleClass().add("textPane");
+			loadPanes(pane);
+		}
+	}
+	
+	private void loadPost(Post post) {
+
+		Text titleOfPost = new Text(post.getTitle());
 		titleOfPost.setId("title");
-		Text contentOfPost = new Text(post[0].getContent());
+		Text contentOfPost = new Text(post.getContent());
 		contentOfPost.setId("content");
 		Text separator = new Text("\n" + "\n");
 
 		TextFlow textFlow = new TextFlow(titleOfPost, separator, contentOfPost);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(post[0].getContent());
+		textFlow.setAccessibleText(post.getContent());
 		textFlow.setPrefWidth(842);
 		
 		Pane postPane = new Pane() {

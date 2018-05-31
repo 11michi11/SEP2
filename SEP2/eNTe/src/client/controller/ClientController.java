@@ -206,4 +206,7 @@ public class ClientController {
         return view.showDeleteMessage(message);
     }
 
+    public String getCurrentUserId() {
+        return currentUser.getId();
+    }
 }

@@ -41,10 +41,10 @@ public class AdminMainHandler {
 		for(Post p : posts) {
 			switch(p.getClass().getSimpleName()) {
 				case "Homework":
-					loadHomework();
+					loadHomework((Homework) p);
 					break;
 				case "Post":
-					loadPost();
+					loadPost(p);
 					break;
 				default:
 					break;
@@ -55,17 +55,15 @@ public class AdminMainHandler {
 	}
 
 	public void loadPanes(Pane pane) {
-		box.getChildren().clear();
 		box.getChildren().add(pane);
 	}
-	private void loadHomework() {
-		Homework[] homework = controller.getHomework();
+	private void loadHomework(Homework homework) {
 
-		Text title = new Text(homework[0].getTitle());
+		Text title = new Text(homework.getTitle());
 		title.setId("title");
-		Text content = new Text(homework[0].getContent());
+		Text content = new Text(homework.getContent());
 		content.setId("content");
-		Text deadline = new Text(homework[0].getDeadline().toString());
+		Text deadline = new Text(homework.getDeadline().toString());
 		Text separator = new Text("\n" + "\n");
 		Text separator1 = new Text("\n" + "\n" + " ");
 		Text separator2 = new Text("\n" + "\n" + " ");
@@ -76,7 +74,7 @@ public class AdminMainHandler {
 
 		TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, list);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(homework[0].getContent());
+		textFlow.setAccessibleText(homework.getContent());
 		textFlow.setPrefWidth(842);
 
 		Pane pane = new Pane() {
@@ -93,18 +91,16 @@ public class AdminMainHandler {
 		loadPanes(pane);
 	}
 
-	private void loadPost() {
-		Post[] posts = controller.getPosts();
-
-		Text title = new Text(posts[0].getTitle());
+	private void loadPost(Post post) {
+		Text title = new Text(post.getTitle());
 		title.setId("title");
-		Text content = new Text(posts[0].getContent());
+		Text content = new Text(post.getContent());
 		content.setId("content");
 		Text separator = new Text("\n" + "\n");
 
 		TextFlow textFlow = new TextFlow(title, separator, content);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(posts[0].getContent());
+		textFlow.setAccessibleText(post.getContent());
 		textFlow.setPrefWidth(842);
 
 		Pane pane = new Pane() {

@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.HomeworkReply;
 
 public class TextAreaHandler {
 	
@@ -20,6 +21,7 @@ public class TextAreaHandler {
 	private TextArea text;
 	private Parent mainPane;
 	private FXMLLoader loader;
+	private HomeworkReply reply;
 	
 	public TextAreaHandler() {
 		controller = ClientController.getInstance();
@@ -43,6 +45,11 @@ public class TextAreaHandler {
 	public void goBack() {
 		stage.getScene().setRoot(mainPane);
 		stage.show();
+	}
+
+	public void setReply(HomeworkReply reply) {
+		this.reply = reply;
+		text.setText(reply.getContent());
 	}
 
 }

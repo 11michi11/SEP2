@@ -62,6 +62,10 @@ public class Homework extends Post {
         return closed;
     }
 
+    public HomeworkReply getStudentReply(String id) {
+    	return replies.stream().filter(r -> r.getStudent().getId().equals(id)).findFirst().orElse(null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
