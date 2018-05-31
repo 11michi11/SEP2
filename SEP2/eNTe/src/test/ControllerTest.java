@@ -212,6 +212,11 @@ public class ControllerTest {
         }
 
         @Override
+        public boolean showDeleteMessage(String message) {
+            return false;
+        }
+
+        @Override
         public void changePasswordDialog() {
 
         }
