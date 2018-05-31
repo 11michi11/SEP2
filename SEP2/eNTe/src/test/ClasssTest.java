@@ -22,7 +22,7 @@ class ClasssTest {
 		list.add("Fifth");
 		list.add("Sixth");
 		list.add("Seventh");
-		list.add("Eigth");
+		list.add("Eighth");
 		
 		assertEquals(list, ClassNo.getClassesInStrings());
 	}

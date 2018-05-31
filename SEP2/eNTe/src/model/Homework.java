@@ -45,7 +45,7 @@ public class Homework extends Post {
         for (ClassNo e:classes) {
           string += e.toString()+",";
         }
-        string.substring(0,string.length()-1);
+        string = string.substring(0,string.length()-1);
         string += "}";
         return string;
     }

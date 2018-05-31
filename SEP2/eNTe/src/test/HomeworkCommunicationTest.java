@@ -38,7 +38,7 @@ public class HomeworkCommunicationTest {
         MyDate pubDate = MyDate.now(), deadLine = MyDate.now();
         List<ClassNo> classes = new LinkedList<>();
         classes.add(ClassNo.First);
-        classes.add(ClassNo.Eigth);
+        classes.add(ClassNo.Eighth);
         int numberOfStudentsToDeliver = 0;
         homework = new Homework("Title", "Content", "Author", pubDate, deadLine, classes, numberOfStudentsToDeliver);
     }

@@ -8,6 +8,7 @@ import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
 
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
@@ -53,7 +54,7 @@ class DBAdapterTest {
     static void setUp() {
         adapter = new DBAdapter("org.postgresql.Driver","jdbc:postgresql://207.154.237.196:5432/ente?currentSchema=test","ente","ente");
         families = new FamilyList();
-//        users = new UsersList();
+        users = new UsersList();
         posts = new PostsList();
     }
 
@@ -123,14 +124,8 @@ class DBAdapterTest {
     @Test
     void testNoPostLoadedBeforeInsert() {
         loadPosts();
-        assertEquals(0,posts);
+        assertEquals(0,posts.getAll().size());
     }
-
-//    @Test
-//    void testNoPostLoadedBeforeInsert() {
-//        loadPosts(users);
-//        assertEquals(0,posts.getAll().size());
-//    }
 
     //----------O-----------
         //adding and loading
@@ -205,17 +200,20 @@ class DBAdapterTest {
         loadUsers(families);
         assertEquals(1,users.getAll().size());
         assertEquals(parent1,users.getAll().get(0));
+    }
 
+    @Test
+    void testOneHomeworkAddedAndLoaded() {
+        ArrayList<ClassNo> classes = new ArrayList<>();
+        classes.add(ClassNo.First);
+        classes.add(ClassNo.Fourth);
+        classes.add(ClassNo.Eighth);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
+        adapter.addPost(post);
+        loadPosts();
 
-//        assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75c",users.getAll().get(0).getId());
-//        assertEquals("ParentName1",users.getAll().get(0).getName());
-//        assertEquals("ParentEmail1",users.getAll().get(0).getEmail());
-//        assertEquals("ParentPwd1",users.getAll().get(0).getPwd());
-//        assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-//        assertEquals("Parent",users.getAll().get(0).getClass().getSimpleName());
-//        assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Parent) users.getUserById("adc8ba24-7250-425e-a0c9-00e144bbf75c")).getFamilyId());
-//        assertEquals("adc8ba24-7250-425e-a0c9-00e144bbf75c",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getParents().get(0).getId());
-   
+        assertEquals(1,posts.getAll().size());
+        assertEquals(post,posts.getAll().get(0));
     }
 
         //updating
@@ -331,6 +329,21 @@ class DBAdapterTest {
         assertEquals(f2,families.getFamilyById(f2.getId()));
     }
 
+    @Test
+    void testUpdateHomework() {
+        ArrayList<ClassNo> classes = new ArrayList<>();
+        classes.add(ClassNo.First);
+        classes.add(ClassNo.Fourth);
+        classes.add(ClassNo.Eighth);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
+        adapter.addPost(post);
+        loadPosts();
+
+        assertEquals(100000000,posts.getAll().size());
+        assertEquals(post,posts.getAll().get(0));
+// cannot be tested yet .. homework setters missing
+    }
+
         //deleting
     @Test
     void testDeleteAdmin() {
@@ -407,6 +420,24 @@ class DBAdapterTest {
         assertEquals(0,families.getSize());
     }
 
+    @Test
+    void testDeleteHomework() {
+        ArrayList<ClassNo> classes = new ArrayList<>();
+        classes.add(ClassNo.First);
+        classes.add(ClassNo.Fourth);
+        classes.add(ClassNo.Eighth);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
+        adapter.addPost(post);
+        loadPosts();
+
+        assertEquals(1,posts.getAll().size());
+        assertEquals(post,posts.getAll().get(0));
+        adapter.deletePost("cee12240-3e76-406e-bf12-0d40488ed3b9");
+        loadPosts();
+        assertEquals(0,posts.getAll().size());
+
+    }
+
     //----------M-----------
     @Test
     void testAdminAndTwoTeachersAddedAndLoaded() {
@@ -458,6 +489,23 @@ class DBAdapterTest {
         assertEquals(parent2,users.getAll().get(2));
         assertEquals(f1.getParent("ParentName1"),parent1);
         assertEquals(f1.getParent("ParentName2"),parent2);
+    }
+
+    @Test
+    void testTwoHomeworksAdded() {
+        ArrayList<ClassNo> classes = new ArrayList<>();
+        classes.add(ClassNo.First);
+        classes.add(ClassNo.Fourth);
+        classes.add(ClassNo.Eighth);
+        Post post1 = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
+        Post post2 = new Homework("gee12240-3e76-406e-bf12-0d40488ed3b9","Title2","Content3","Phillips",new MyDate(2019,5,5,0,0),new MyDate(2019,10,10,10,0),classes,4,null,false);
+        adapter.addPost(post1);
+        adapter.addPost(post2);
+        loadPosts();
+
+        assertEquals(2,posts.getAll().size());
+        assertEquals(post1,posts.getAll().get(0));
+        assertEquals(post2,posts.getAll().get(1));
     }
 
     @AfterEach
