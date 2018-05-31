@@ -26,17 +26,17 @@ public class ParentMainHandler {
 		System.out.println("second");
 		System.out.println(box);
 
-		Post[] posts = controller.getPosts();
+		Post post = controller.getAllPosts().get(0);
 
-		Text title = new Text(posts[0].getTitle());
+		Text title = new Text(post.getTitle());
 		title.setId("title");
-		Text content = new Text(posts[0].getContent());
+		Text content = new Text(post.getContent());
 		content.setId("content");
 		Text separator = new Text("\n");
 
 		TextFlow textFlow = new TextFlow(title, separator,  content);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(posts[0].getContent());
+		textFlow.setAccessibleText(post.getContent());
 		textFlow.setPrefWidth(842);
 		
 		Pane pane = new Pane() {
@@ -55,7 +55,6 @@ public class ParentMainHandler {
 	}
 
 	public void loadPanes(Pane pane) {
-		box.getChildren().clear();
 		box.getChildren().add(pane);
 	}
 
