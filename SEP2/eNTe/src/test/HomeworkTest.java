@@ -33,7 +33,7 @@ public class HomeworkTest {
 		assertEquals(MyDate.now(), h2.getDeadline());
 		assertEquals(2, h2.getNumberOfStudentsToDeliver());
 		assertEquals(replies, h2.getReplies());
-		assertEquals(true, h2.getClosed());
+		assertEquals(true, h2.isClosed());
 
 	}
 	@Test
@@ -48,7 +48,7 @@ public class HomeworkTest {
 		assertEquals(MyDate.now(), h2.getDeadline());
 		assertEquals(2, h2.getNumberOfStudentsToDeliver());
 		assertEquals(replies, h2.getReplies());
-		assertEquals(true, h2.getClosed());
+		assertEquals(true, h2.isClosed());
 	}
 
 

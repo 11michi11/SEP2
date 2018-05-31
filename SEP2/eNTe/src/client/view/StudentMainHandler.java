@@ -72,8 +72,9 @@ public class StudentMainHandler {
 	}
 	
 	private void loadHomework() {
+
 		Homework[] homework = controller.getHomework();
-		
+
 		Text title = new Text(homework[0].getTitle());
 		title.setId("title");
 		Text content = new Text(homework[0].getContent());
@@ -85,12 +86,7 @@ public class StudentMainHandler {
 
 		Button submit = new Button("SUBMIT");
 		submit.getStyleClass().add("smallButton");				
-		submit.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				submit();
-			}
-		});
+		submit.setOnAction(arg0 -> submit());
 		
 		TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, submit);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
