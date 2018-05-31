@@ -117,28 +117,16 @@ public class ClientController {
         model.deleteUser(user);
     }
 
-    public Post[] getPosts() {
-        Post[] posts = new Post[1];
-        posts[0] = model.getPost();
-        return posts;
-    }
-
-    public Homework[] getHomework() {
-        Homework[] homework = new Homework[1];
-        homework[0] = model.getHomework();
-        return homework;
-    }
-    
     public void addPost(String title, String content, String author, MyDate publicationDate) {
         model.addPost(new Post(title, content, author, publicationDate));
     }
 
-    public void addHomework(String title, String content, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver){
+    public void addHomework(String title, String content, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver) {
         model.addPost(new Homework(title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver));
     }
 
-    public void editHomework(String homeworkId, String title, String content, MyDate deadline, List<ClassNo> classes,List<HomeworkReply> replies, int numberOfStudentsToDeliver){
-        model.editPost(new Homework(homeworkId, title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver,replies, !deadline.isBefore(MyDate.now())));
+    public void editHomework(String homeworkId, String title, String content, MyDate deadline, List<ClassNo> classes, List<HomeworkReply> replies, int numberOfStudentsToDeliver) {
+        model.editPost(new Homework(homeworkId, title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver, replies, !deadline.isBefore(MyDate.now())));
     }
 
 
@@ -175,9 +163,6 @@ public class ClientController {
         model.addOrUpdateUser(p4);
 
     }
-    public boolean showDeleteMessage(String message) {
-        return view.showDeleteMessage(message);
-    }
 
     public void createFamily() {
         Family family = new Family();
@@ -188,32 +173,37 @@ public class ClientController {
         return currentUser.getName();
     }
 
+    public void setCurrentUser(Administrator currentUser) {
+        this.currentUser = currentUser;
+    }
+
     public void resetPwd(String email) {
         if (model.checkEmailForPwdReset(email)) {
             String newPwd = Password.generateEntePassword();
             SendEmail.sendPasswordEmail(email, newPwd);
             model.changePwdWithEmail(email, newPwd);
-        }else{
+        } else {
             view.showMessage("Entered email does not exist in the system.\nTry again or contact administrator: enteEmailService@gmail.com");
         }
     }
 
-	public void submitHomework(String text) {
-		model.submitHomework(text);
-		
-	}
+    public void submitHomework(String text) {
+        model.submitHomework(text);
 
-	public ArrayList<Post> getAllPosts() {
-		return model.getAllPosts();
-	}
+    }
+
+    public ArrayList<Post> getAllPosts() {
+        return model.getAllPosts();
+    }
 
 
     public void deletePost(Post post) {
         model.deletePost(post);
     }
 
-    public void setCurrentUser(Administrator currentUser) {
-        this.currentUser = currentUser;
+
+    public boolean showDeleteMessage(String message) {
+        return view.showDeleteMessage(message);
     }
 
     public String getCurrentUserId() {
