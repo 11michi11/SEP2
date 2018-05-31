@@ -9,6 +9,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import model.Post;
 
+import java.util.ArrayList;
+
 public class ParentMainHandler {
 
 	@FXML
@@ -25,20 +27,27 @@ public class ParentMainHandler {
 	public void initialize() {
 		System.out.println("second");
 		System.out.println(box);
+		ArrayList<Post> posts = controller.getAllPosts();
+		for(Post p : posts) {
+			loadPost(p);
+		}
 
-		Post post = controller.getAllPosts().get(0);
+	}
 
+	
+
+	private void loadPost(Post post) {
 		Text title = new Text(post.getTitle());
 		title.setId("title");
 		Text content = new Text(post.getContent());
 		content.setId("content");
-		Text separator = new Text("\n");
+		Text separator = new Text("\n" + "\n");
 
-		TextFlow textFlow = new TextFlow(title, separator,  content);
+		TextFlow textFlow = new TextFlow(title, separator, content);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(post.getContent());
 		textFlow.setPrefWidth(842);
-		
+
 		Pane pane = new Pane() {
 			@Override
 			protected void layoutChildren() {
@@ -54,7 +63,7 @@ public class ParentMainHandler {
 
 	}
 
-	public void loadPanes(Pane pane) {
+	private void loadPanes(Pane pane) {
 		box.getChildren().add(pane);
 	}
 

@@ -1,14 +1,13 @@
 package test;
 
-import model.ClassNo;
-import model.Homework;
-import model.HomeworkReply;
-import model.MyDate;
+import javafx.fxml.FXML;
+import model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 
 public class HomeworkTest {
 
@@ -49,6 +48,35 @@ public class HomeworkTest {
 		assertEquals(2, h2.getNumberOfStudentsToDeliver());
 		assertEquals(replies, h2.getReplies());
 		assertEquals(true, h2.isClosed());
+	}
+
+	@Test
+	void getClassesAsStringTest() {
+		ArrayList<HomeworkReply> replies = new ArrayList<>();
+		ArrayList<ClassNo> classes = new ArrayList<>();
+		classes.add(ClassNo.First);
+		Homework h = new Homework("id","title", "content", "author", MyDate.now(), MyDate.now(), classes, 2, replies, true);
+		assertEquals("{First}", h.getClassesAsString());
+	}
+
+	@Test
+	void getStudentReplyTest() {
+		Student student = Student.builder().name("name").email("email").classs(ClassNo.First).id("id").build();
+		ArrayList<HomeworkReply> replies = new ArrayList<>();
+		HomeworkReply reply = new HomeworkReply("content", student, true, MyDate.now());
+		replies.add(reply);
+
+		ArrayList<ClassNo> classes = new ArrayList<>();
+		Homework h = new Homework("id","title", "content", "author", MyDate.now(), MyDate.now(), classes, 2, replies, true);
+		assertEquals(reply, h.getStudentReply("id"));
+	}
+
+	@Test
+	void toStringTest() {
+		ArrayList<HomeworkReply> replies = new ArrayList<>();
+		ArrayList<ClassNo> classes = new ArrayList<>();
+		Homework h = new Homework("id","title", "content", "author", MyDate.now(), MyDate.now(), classes, 2, replies, true);
+		assertNotNull(h.toString());
 	}
 
 
