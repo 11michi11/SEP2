@@ -215,4 +215,8 @@ public class ClientController {
     public void setCurrentUser(Administrator currentUser) {
         this.currentUser = currentUser;
     }
+
+    public String getCurrentUserId() {
+        return currentUser.getId();
+    }
 }
