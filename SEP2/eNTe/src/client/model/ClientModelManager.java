@@ -62,6 +62,8 @@ public class ClientModelManager implements ClientModel {
     @Override
     public void saveData(WelcomingData data) {
         posts.addAll(data.getPosts());
+        users.addAll(data.getUsers());
+        families.addAll(data.getFamilies());
     }
 
     @Override

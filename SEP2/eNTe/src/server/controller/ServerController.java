@@ -1,8 +1,5 @@
 package server.controller;
 
-import java.util.LinkedList;
-
-import model.Post;
 import model.ServerModel;
 import model.communication.*;
 
@@ -21,7 +18,7 @@ public class ServerController {
         server.close();
     }
 
-    Message handleMessage(Message msg) {
+    synchronized Message handleMessage(Message msg) {
         Message response;
 
         switch (msg.getType()) {
@@ -136,7 +133,8 @@ public class ServerController {
             case SUCCESS:
                 data = new WelcomingData();
                 data.insertPosts(model.getAllPost());
-                //status.currentUser.changePassword(); - for testing changing password
+                data.insertUsers(model.getAllUsers());
+                data.insertFamilies(model.getAllFamilies());
                 login = new Login(LoginStatus.SUCCESS, data, status.currentUser);
                 break;
             case FAILURE_LOGIN:

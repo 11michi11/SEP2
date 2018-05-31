@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import model.communication.Auth;
@@ -86,10 +87,10 @@ public class UsersList {
 				((Teacher)oldUser).updateTeacherFileds((Teacher)newUser);
 				break;
 			case "Student":
-				((Administrator)oldUser).updateAdminFileds((Student)newUser);
+				((Student)oldUser).updateStudentFileds((Student)newUser);
 				break;
 			case "Parent":
-				((Administrator)oldUser).updateAdminFileds((Administrator)newUser);
+				((Parent)oldUser).updateParentFileds((Parent)newUser);
 				break;
 		}
 	}
@@ -121,4 +122,13 @@ public class UsersList {
 	public boolean checkIfIdExist(String id) {
 		return users.stream().anyMatch(u -> u.getId().equals(id));
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof UsersList)) return false;
+		UsersList usersList = (UsersList) o;
+		return Objects.equals(users, usersList.users);
+	}
+
 }

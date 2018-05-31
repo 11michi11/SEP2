@@ -26,6 +26,10 @@ public class Administrator extends User implements Serializable {
         return new Builder();
     }
 
+    public void updateAdminFileds(Administrator newUser) {
+
+    }
+
     public static final class Builder implements AdminNeedName, AdminNeedEmail, AdminCanBeBuild {
 
         protected String id;

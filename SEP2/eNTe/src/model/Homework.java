@@ -40,6 +40,16 @@ public class Homework extends Post {
         return classes;
     }
 
+    public String getClassesAsString() {
+        String string = "{";
+        for (ClassNo e:classes) {
+          string += e.toString()+",";
+        }
+        string = string.substring(0,string.length()-1);
+        string += "}";
+        return string;
+    }
+
     public int getNumberOfStudentsToDeliver() {
         return numberOfStudentsToDeliver;
     }
@@ -48,8 +58,12 @@ public class Homework extends Post {
         return new LinkedList<>(replies);
     }
 
-    public boolean getClosed() {
+    public boolean isClosed() {
         return closed;
+    }
+
+    public HomeworkReply getStudentReply(String id) {
+    	return replies.stream().filter(r -> r.getStudent().getId().equals(id)).findFirst().orElse(null);
     }
 
     @Override

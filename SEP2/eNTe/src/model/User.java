@@ -114,4 +114,10 @@ public abstract class User implements Serializable {
     }
 
 
+    public void updateUserFields(User newUser) {
+        email = newUser.email;
+        pwd = newUser.pwd;
+        name = newUser.name;
+        changePassword = newUser.changePassword;
+    }
 }

@@ -60,16 +60,19 @@ public class FamilyListHandler {
 
 
 	public void deleteFamily() {
-		Family family = ((FamilyDT) familyTable.getSelectionModel().getSelectedItem().getValue()).family;
-		controller.deleteFamily(family);
-		familyTable.setRoot(dataForTable());
+		if(controller.showDeleteMessage("family")) {
+			Family family = ((FamilyDT) familyTable.getSelectionModel().getSelectedItem().getValue()).family;
+			controller.deleteFamily(family);
+			familyTable.setRoot(dataForTable());
+		}
 	}
 
 
 	public void deleteUser() {
-		User user = ((UserDT) familyTable.getSelectionModel().getSelectedItem().getValue()).user;
-		controller.deleteUser(user);
-
+		if(controller.showDeleteMessage("user")) {
+			User user = ((UserDT) familyTable.getSelectionModel().getSelectedItem().getValue()).user;
+			controller.deleteUser(user);
+		}
 	}
 
 	public void editUser() {

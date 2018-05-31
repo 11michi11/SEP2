@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.ClassNo;
 import model.Homework;
+import model.HomeworkReply;
 import model.MyDate;
 
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class CreateHomeworkHandler {
 	@FXML
 	private CheckBox first, second, third, fourth, fifth, sixth, seventh, eight;
 	private Homework homework;
+
 
 
 	public CreateHomeworkHandler() {
@@ -96,7 +98,7 @@ public class CreateHomeworkHandler {
 			if (seventh.isSelected())
 			classes.add(ClassNo.Seventh);
 			if (eight.isSelected())
-			classes.add(ClassNo.Eigth);
+			classes.add(ClassNo.Eighth);
 
 		return classes;
 	}
@@ -105,4 +107,6 @@ public class CreateHomeworkHandler {
 		stage.getScene().setRoot(mainPane);
 		stage.show();
 	}
+
+
 }

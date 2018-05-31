@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -122,7 +123,22 @@ public class ClientViewManager extends Application implements ClientView {
 
 		alert.showAndWait();
 	}
-	
+
+	@Override
+	public boolean showDeleteMessage(String message) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation Dialog");
+		alert.setHeaderText("Delete " + message);
+		alert.setContentText("Are sure that you want to delete this " + message + " ?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.YES){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void changePasswordDialog() {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Change password");
@@ -132,4 +148,6 @@ public class ClientViewManager extends Application implements ClientView {
 		Optional<String> result = dialog.showAndWait();
 		result.ifPresent(s -> controller.changePassword(s));
 	}
+
+
 }
