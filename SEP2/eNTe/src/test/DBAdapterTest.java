@@ -40,7 +40,7 @@ class DBAdapterTest {
     }
 
     private void loadPosts() {
-        LinkedList<Post> list = adapter.getPosts();
+        LinkedList<Post> list = adapter.getPosts(users);
         PostsList postsTemp = new PostsList();
         for (Post e:list) {
             postsTemp.add(e);
