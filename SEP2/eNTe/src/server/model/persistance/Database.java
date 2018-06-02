@@ -1,10 +1,7 @@
 package server.model.persistance;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Database {
 
@@ -12,11 +9,6 @@ public class Database {
     private String user;
     private String pw;
     private Connection connection;
-
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost/";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
 
     /**
      * Constructor.
@@ -34,40 +26,6 @@ public class Database {
         this.pw = pw;
         connection = null;
         Class.forName(driver);
-    }
-
-    /**
-     * Constructor for a mysql database.
-     *
-     * @param databaseName the name of the database
-     * @param user         the username for database
-     * @param pw           the password for database
-     * @throws ClassNotFoundException if the mysql driver cannot be loaded
-     */
-    public Database(String databaseName, String user, String pw)
-            throws ClassNotFoundException {
-        this(DRIVER, URL + databaseName, user, pw);
-    }
-
-    /**
-     * Constructor for a mysql database with username = "root" and an empty
-     * password string.
-     *
-     * @param databaseName the name of the database
-     * @throws ClassNotFoundException if the mysql driver cannot be loaded
-     */
-    public Database(String databaseName) throws ClassNotFoundException {
-        this(DRIVER, URL + databaseName, USER, PASSWORD);
-    }
-
-    /**
-     * Constructor for a mysql database with username = "root", an empty
-     * password string and database name not specified.
-     *
-     * @throws ClassNotFoundException if the mysql driver cannot be loaded
-     */
-    public Database() throws ClassNotFoundException {
-        this(DRIVER, URL, USER, PASSWORD);
     }
 
     private void openDatabase() throws SQLException {
@@ -167,38 +125,6 @@ public class Database {
         }
         closeDatabase();
         return results;
-    }
-
-    /**
-     * A number of SQL updates from a text file with each SQL statement ended by a semicolon.
-     *
-     * @param fileName a filename for a text file containing SQL updates to execute.
-     * @return an integer array representing the number of updates given by the database for each statement
-     * @throws SQLException          if something went wrong in the connection or update
-     * @throws FileNotFoundException if text file cannot be found
-     */
-    public int[] updateAll(String fileName) throws SQLException,
-            FileNotFoundException {
-        ArrayList<String> sqlList = readFile(fileName, ";");
-        return updateAll(sqlList);
-    }
-
-    private ArrayList<String> readFile(String filename, String deliminator)
-            throws FileNotFoundException {
-        Scanner input = new Scanner(new FileInputStream(filename));
-        ArrayList<String> list = new ArrayList<String>();
-        String sql = "";
-        while (input.hasNext()) {
-            sql += input.nextLine();
-            if (deliminator == null || sql.trim().endsWith(deliminator)) {
-                list.add(sql);
-                sql = "";
-            } else if (sql.length() > 0) {
-                sql += "\n";
-            }
-        }
-        input.close();
-        return list;
     }
 
 }
