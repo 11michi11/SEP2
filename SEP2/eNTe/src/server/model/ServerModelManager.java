@@ -177,6 +177,7 @@ public class ServerModelManager implements ServerModel {
         list.add(homework);
         return list;
     }
+
     
     private LinkedList<Discussion> getDiscussion() {
         Discussion discussion = new Discussion("HOMEWORK Lorem ipsum dolor",

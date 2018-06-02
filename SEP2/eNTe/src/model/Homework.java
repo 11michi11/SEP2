@@ -32,6 +32,10 @@ public class Homework extends Post {
         this.replies = replies;
     }
 
+    public void addHomeworkReply(HomeworkReply reply) {
+        replies.add(reply);
+    }
+
     public MyDate getDeadline() {
         return deadline;
     }

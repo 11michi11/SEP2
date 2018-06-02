@@ -148,11 +148,6 @@ public class ClientModelManager implements ClientModel {
     }
 
     @Override
-    public void submitHomework(String text) {
-        // TO DO
-    }
-
-    @Override
     public ArrayList<Post> getAllPosts() {
         return posts.getAll();
     }

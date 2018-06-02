@@ -161,11 +161,6 @@ public class ControllerTest {
         }
 
         @Override
-        public void submitHomework(String text) {
-
-        }
-
-        @Override
         public ArrayList<Post> getAllPosts() {
             return null;
         }
