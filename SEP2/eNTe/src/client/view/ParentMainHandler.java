@@ -39,7 +39,7 @@ public class ParentMainHandler {
 	public void loadPanes(Pane pane) {
 		box.getChildren().add(pane);
 	}
-	
+
 
 	private void loadPost(Post post) {
 		Text title = new Text(post.getTitle());
