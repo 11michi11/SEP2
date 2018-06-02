@@ -1,6 +1,8 @@
 package model;
 
-public class HomeworkReply {
+import java.io.Serializable;
+
+public class HomeworkReply implements Serializable {
 
 	private String content;
 	private Student student;

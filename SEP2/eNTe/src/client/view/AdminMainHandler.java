@@ -39,9 +39,13 @@ public class AdminMainHandler {
     public void initialize() {
         System.out.println("second");
         System.out.println(box);
+        loadPosts();
+
+    }
+    private void loadPosts() {
         ArrayList<Post> posts = controller.getAllPosts();
-        for (Post p : posts) {
-            switch (p.getClass().getSimpleName()) {
+        for(Post p : posts) {
+            switch(p.getClass().getSimpleName()) {
                 case "Homework":
                     loadHomework((Homework) p);
                     break;
@@ -52,12 +56,6 @@ public class AdminMainHandler {
                     break;
             }
         }
-
-
-    }
-
-    private void loadPanes(Pane pane) {
-        box.getChildren().add(pane);
     }
 
     private void loadHomework(Homework homework) {
@@ -69,14 +67,8 @@ public class AdminMainHandler {
         Text deadline = new Text(homework.getDeadline().toString());
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n" + " ");
-        Text separator2 = new Text("\n" + "\n" + " ");
 
-        Button list = new Button("DONE BY:");
-        list.getStyleClass().add("smallButton");
-
-
-
-        TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, list);
+        TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(homework.getContent());
         textFlow.setPrefWidth(842);
@@ -86,13 +78,13 @@ public class AdminMainHandler {
             protected void layoutChildren() {
                 super.layoutChildren();
                 TextFlow textFlow = (TextFlow) getChildren().get(0);
-                setMinHeight(textFlow.getHeight() + 5);
+                setMinHeight(textFlow.getHeight() + 50);
                 autosize();
             }
         };
         pane.getChildren().addAll(textFlow);
         pane.getStyleClass().add("textPane");
-        loadPanes(pane);
+        addPane(pane);
     }
 
     private void loadPost(Post post) {
@@ -112,13 +104,16 @@ public class AdminMainHandler {
             protected void layoutChildren() {
                 super.layoutChildren();
                 TextFlow textFlow = (TextFlow) getChildren().get(0);
-                setMinHeight(textFlow.getHeight() + 5);
+                setMinHeight(textFlow.getHeight()+5);
                 autosize();
             }
         };
         pane.getChildren().add(textFlow);
         pane.getStyleClass().add("textPane");
-        loadPanes(pane);
+        addPane(pane);
+    }
+    private void addPane(Pane pane) {
+        box.getChildren().add(pane);
     }
 
     public void familyList() {
@@ -189,6 +184,11 @@ public class AdminMainHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void loadPanes(Pane pane) {
+        box.getChildren().add(pane);
     }
 }
 

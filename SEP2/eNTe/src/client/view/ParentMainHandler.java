@@ -36,6 +36,7 @@ public class ParentMainHandler {
 
 	
 
+
 	private void loadPost(Post post) {
 		Text title = new Text(post.getTitle());
 		title.setId("title");
