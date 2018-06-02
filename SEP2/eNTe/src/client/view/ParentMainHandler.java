@@ -2,13 +2,11 @@ package client.view;
 
 import client.controller.ClientController;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import model.Homework;
 import model.Post;
 
 import java.util.ArrayList;
@@ -36,9 +34,7 @@ public class ParentMainHandler {
 
 	}
 
-	public void loadPanes(Pane pane) {
-		box.getChildren().add(pane);
-	}
+	
 
 
 	private void loadPost(Post post) {
@@ -65,6 +61,11 @@ public class ParentMainHandler {
 		pane.getChildren().add(textFlow);
 		pane.getStyleClass().add("textPane");
 		loadPanes(pane);
+
+	}
+
+	private void loadPanes(Pane pane) {
+		box.getChildren().add(pane);
 	}
 
 }

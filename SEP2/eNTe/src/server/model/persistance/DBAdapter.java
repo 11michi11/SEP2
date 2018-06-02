@@ -7,14 +7,11 @@ import javax.sql.rowset.serial.SerialArray;
 import java.sql.Array;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class DBAdapter implements DBPersistence {
 
-    private MyDatabase db;
+    private Database db;
 //    private static final String DRIVER = "org.postgresql.Driver";
 //    private static final String URL = "jdbc:postgresql://207.154.237.196:5432/ente";
 //    private static final String USER = "ente";
@@ -22,25 +19,24 @@ public class DBAdapter implements DBPersistence {
 
     public DBAdapter(String driver, String url, String user, String password) {
         try {
-            db = new MyDatabase(driver,url,user,password);
+            db = new Database(driver,url,user,password);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public LinkedList<Post> getPosts() {
+    public LinkedList<Post> getPosts(UsersList users) {
 
         LinkedList<Post> posts = new LinkedList<>();
-
-        LinkedList<Homework> homeworks = getHomeworks();
+        LinkedList<Homework> homeworks = getHomeworks(getHomeworkReplies(users));
 
         posts.addAll(homeworks);
 
         return posts;
     }
 
-    private LinkedList<Homework> getHomeworks() {
+    private LinkedList<Homework> getHomeworks(HashMap<String,LinkedList<HomeworkReply>> replies) {
         LinkedList<Homework> list = new LinkedList<>();
         try {
             String sql = "SELECT p.postid, p.title, p.content, p.authorname, p.pubDate, h.noOfStudentsToDeliver, h.deadline, h.classes, h.closed FROM Post p, Homework h WHERE p.postid=h.homeworkid";
@@ -51,30 +47,49 @@ public class DBAdapter implements DBPersistence {
                 String content = (String) e[2];
                 String authorName = (String) e[3];
                 Timestamp pubDateStamp = (Timestamp) e[4];
-                Calendar pubDateCal = Calendar.getInstance();
-                pubDateCal.setTime(pubDateStamp);
-                MyDate pubDate = new MyDate(pubDateCal.get(Calendar.YEAR),pubDateCal.get(Calendar.MONTH)+1,pubDateCal.get(Calendar.DAY_OF_MONTH), pubDateCal.get(Calendar.HOUR_OF_DAY),pubDateCal.get(Calendar.MINUTE));
                 int noOfStudentsToDeliver = (int) e[5];
                 Timestamp deadlineStamp = (Timestamp) e[6];
-                Calendar deadlineCal = Calendar.getInstance();
-                deadlineCal.setTime(deadlineStamp);
-                MyDate deadline = new MyDate(deadlineCal.get(Calendar.YEAR),deadlineCal.get(Calendar.MONTH)+1,deadlineCal.get(Calendar.DAY_OF_MONTH), deadlineCal.get(Calendar.HOUR_OF_DAY),deadlineCal.get(Calendar.MINUTE));
-//                Array classesArray = (SerialArray) e[7];
-//
+
+                String[] classesString = (String[]) e[7];
                 List<ClassNo> classes = new ArrayList<>();
-//                for (int i = 0;i<8;i++) {
-//                    classes.add(ClassNo.valueOf(f));
-//                }
-                classes.add(ClassNo.First);
-                classes.add(ClassNo.Fourth);
-                classes.add(ClassNo.Eighth);
+                for (String a:classesString) {
+                    classes.add(ClassNo.valueOf(a));
+                }
                 boolean closed = (boolean) e[8];
-                list.add(new Homework(postID,title,content,authorName,pubDate,deadline,classes,noOfStudentsToDeliver,null,closed));
+                list.add(new Homework(postID,title,content,authorName,MyDate.convertFromTimestampToMyDate(pubDateStamp),MyDate.convertFromTimestampToMyDate(deadlineStamp),classes,noOfStudentsToDeliver,replies.get(postID),closed));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    private HashMap<String,LinkedList<HomeworkReply>> getHomeworkReplies (UsersList students) {
+        HashMap<String,LinkedList<HomeworkReply>> map = new HashMap<>();
+        try {
+            String sql = "SELECT * FROM HomeworkReply";
+            ArrayList<Object[]> resultSet = db.query(sql);
+            LinkedList<HomeworkReply> replies = new LinkedList<>();
+            String previousHomeworkId = (String) resultSet.get(0)[0];
+            for (Object[] e : resultSet) {
+                String homeworkID = (String) e[0];
+                String studentid = (String) e[1];
+                Student student = (Student) students.getUserById(studentid);
+                Timestamp timestamp = (Timestamp) e[2];
+                String content = (String) e[3];
+                boolean late = (boolean) e[4];
+                if (!previousHomeworkId.equals(homeworkID)) {
+                    map.put(previousHomeworkId,replies);
+                    replies = new LinkedList<>();
+                    previousHomeworkId = homeworkID;
+                }
+                replies.add(new HomeworkReply(content,student,late,MyDate.convertFromTimestampToMyDate(timestamp)));
+            }
+            map.put(previousHomeworkId,replies);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return map;
     }
 
     @Override
@@ -88,10 +103,7 @@ public class DBAdapter implements DBPersistence {
             sql += post.getTitle() + "','";
             sql += post.getContent() + "','";
             sql += post.getAuthor() + "','";
-            Calendar cal = Calendar.getInstance();
-            cal.set(post.getPubDate().getYear(),post.getPubDate().getMonth()-1,post.getPubDate().getDay(),post.getPubDate().getHour(),post.getPubDate().getMinute());
-            Timestamp timestamp = new Timestamp(cal.getTimeInMillis());
-            sql += timestamp + "')";
+            sql += MyDate.convertFromMyDateToTimestamp(post.getPubDate()) + "')";
             sqlList.add(sql);
 
             sql = "INSERT INTO ";
@@ -102,9 +114,7 @@ public class DBAdapter implements DBPersistence {
                     sql += "homework VALUES ('";
                     sql += homework.getPostId() + "','";
                     sql += homework.getNumberOfStudentsToDeliver() + "','";
-                    cal.set(homework.getDeadline().getYear(),homework.getDeadline().getMonth()-1,homework.getDeadline().getDay(),homework.getDeadline().getHour(),homework.getDeadline().getMinute());
-                    timestamp = new Timestamp(cal.getTimeInMillis());
-                    sql += timestamp+"','";
+                    sql += MyDate.convertFromMyDateToTimestamp(homework.getDeadline())+"','";
                     sql += homework.getClassesAsString() + "',";
                     sql += homework.isClosed() + ")";
                     sqlList.add(sql);
