@@ -56,9 +56,6 @@ public class AdminMainHandler {
 
     }
 
-    private void loadPanes(Pane pane) {
-        box.getChildren().add(pane);
-    }
 
     private void loadHomework(Homework homework) {
 
@@ -75,7 +72,6 @@ public class AdminMainHandler {
         list.getStyleClass().add("smallButton");
 
 
-
         TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, list);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(homework.getContent());
@@ -86,11 +82,11 @@ public class AdminMainHandler {
             protected void layoutChildren() {
                 super.layoutChildren();
                 TextFlow textFlow = (TextFlow) getChildren().get(0);
-                setMinHeight(textFlow.getHeight() + 5);
+                setMinHeight(textFlow.getHeight() + 50);
                 autosize();
             }
         };
-        pane.getChildren().addAll(textFlow);
+        pane.getChildren().add(textFlow);
         pane.getStyleClass().add("textPane");
         loadPanes(pane);
     }
@@ -112,7 +108,7 @@ public class AdminMainHandler {
             protected void layoutChildren() {
                 super.layoutChildren();
                 TextFlow textFlow = (TextFlow) getChildren().get(0);
-                setMinHeight(textFlow.getHeight() + 5);
+                setMinHeight(textFlow.getHeight() + 50);
                 autosize();
             }
         };
@@ -189,6 +185,12 @@ public class AdminMainHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void loadPanes(Pane pane) {
+        box.getChildren().add(pane);
+        box.getChildren().add(pane);
     }
 }
 
