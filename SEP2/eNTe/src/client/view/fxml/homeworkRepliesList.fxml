@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@../login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.HomeworkRepliesListHandler">
+   <children>
+      <ImageView fitHeight="182.0" fitWidth="209.0" layoutX="22.0" layoutY="-3.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../enteLOGO.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="346.0" layoutY="63.0" styleClass="labelMain" stylesheets="@../login.css" text="homework replies list" textFill="#729eea">
+         <font>
+            <Font name="Gill Sans MT Bold" size="50.0" />
+         </font>
+      </Label>
+      <TableView fx:id="replyList" layoutX="66.0" layoutY="190.0" prefHeight="544.0" prefWidth="1108.0">
+        <columns>
+          <TableColumn fx:id="name" prefWidth="435.19996643066406" />
+          <TableColumn fx:id="classNo" prefWidth="394.4000549316406" />
+            <TableColumn fx:id="handIn" prefWidth="278.39996337890625" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

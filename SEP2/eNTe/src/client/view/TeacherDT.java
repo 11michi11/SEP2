@@ -15,11 +15,6 @@ public class TeacherDT {
 		this.teacher = teacher;
 	}
 	
-	public TeacherDT(String name, String email) {
-		this.name = new SimpleStringProperty(name);
-		this.email = new SimpleStringProperty(email);
-	}
-	
 	public String getName() {
 		return name.get();
 	}
