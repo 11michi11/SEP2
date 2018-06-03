@@ -38,9 +38,7 @@ public class Login implements Serializable{
 				return false;
 		} else if (!data.equals(other.data))
 			return false;
-		if (status != other.status)
-			return false;
-		return true;
+		return status == other.status;
 	}
 
 	@Override
