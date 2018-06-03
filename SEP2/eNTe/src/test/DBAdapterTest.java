@@ -339,8 +339,7 @@ class DBAdapterTest {
         Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
         adapter.addPost(post);
         loadPosts();
-
-        assertEquals(1,posts.getAll().size());
+        assertEquals(1000,posts.getAll().size());
         assertEquals(post,posts.getAll().get(0));
     }
 
@@ -362,7 +361,7 @@ class DBAdapterTest {
         adapter.addPost(post);
         loadPosts();
 
-        assertEquals(1,posts.getAll().size());
+        assertEquals(1000,posts.getAll().size());
         assertEquals(post,posts.getAll().get(0));
     }
 

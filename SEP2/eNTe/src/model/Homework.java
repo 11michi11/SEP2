@@ -59,7 +59,7 @@ public class Homework extends Post {
     }
 
     public List<HomeworkReply> getReplies() {
-        return new LinkedList<>(replies);
+        return replies;
     }
 
     public boolean isClosed() {
