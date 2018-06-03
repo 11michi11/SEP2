@@ -1,10 +1,7 @@
 package server.model.persistance;
 
 import model.*;
-import utility.persistence.MyDatabase;
 
-import javax.sql.rowset.serial.SerialArray;
-import java.sql.Array;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
@@ -342,7 +339,7 @@ public class DBAdapter implements DBPersistence {
                 boolean changePwdNeeded = (boolean) e[4];
                 String familyID = (String) e[5];
                 ClassNo classs = ClassNo.valueOf((String) e[6]);
-                Student student = Student.builder().name(name).email(email).classs(classs).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
+                Student student = Student.builder().name(name).email(email).classNo(classs).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
                 student.setChangePassword(changePwdNeeded);
 			    families.getFamilyById(familyID).addChild(student);
 			    list.add(student);

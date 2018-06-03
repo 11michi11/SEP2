@@ -68,7 +68,7 @@ class UsersListTest {
 		Teacher teacher = Teacher.builder().name("name").email( "email").pwdEncrypt( "pwd").build();
 		Administrator admin = Administrator.builder().name("name").email( "email").pwdEncrypt( "pwd").build();
 		Parent parent = Parent.builder().name("name").email( "email").pwdEncrypt( "pwd").build();
-		Student student =  Student.builder().name("name").email("email").classs(ClassNo.First).build();
+		Student student =  Student.builder().name("name").email("email").classNo(ClassNo.First).build();
 		ArrayList<User> list = new ArrayList<>();
 		list.add(teacher);
 		list.add(admin);

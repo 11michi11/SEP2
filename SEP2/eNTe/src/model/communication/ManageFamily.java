@@ -4,23 +4,14 @@ import model.Family;
 
 import java.io.Serializable;
 
-public class ManageFamily implements Serializable {
+public class ManageFamily extends Manage implements Serializable {
 
-    private String action;
-    public static final String ADD = "ADD";
-    public static final String DELETE = "DELETE";
-    public static final String EDIT = "EDIT";
     private Family family;
 
     public ManageFamily(String action, Family family) {
+        super(action);
         this.family = family;
-        this.action = action;
     }
-
-    public String getAction() {
-        return action;
-    }
-
 
     public Family getFamily() {
         return family;

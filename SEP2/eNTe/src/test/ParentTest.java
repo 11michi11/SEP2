@@ -1,8 +1,6 @@
 package test;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import model.ClassNo;
 import model.Family;
@@ -60,9 +58,9 @@ class ParentTest {
 		Parent p = Parent.builder().name("name").email("email").build();
 		assertEquals("", p.getChildrenNames());
 		ArrayList<Student> children = new ArrayList<>();
-		Student child1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
-		Student child2 = Student.builder().name("child2").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
-		Student child3 = Student.builder().name("child3").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child1 = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child2 = Student.builder().name("child2").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child3 = Student.builder().name("child3").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
 		children.add(child1);
 		children.add(child2);
 		children.add(child3);
@@ -76,7 +74,7 @@ class ParentTest {
 
 	@Test
 	void getChildrenTest() {
-		Student child1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child1 = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
 		Family family = new Family();
 		family.addChild(child1);
 		Parent parent = Parent.builder().name("name").email("email").pwdEncrypt("pwd").family(family).build();
