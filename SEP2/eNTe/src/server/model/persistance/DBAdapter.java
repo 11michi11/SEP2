@@ -201,6 +201,16 @@ public class DBAdapter implements DBPersistence {
     }
 
     @Override
+    public void addHomeworkReply(HomeworkReply reply) {
+
+    }
+
+    @Override
+    public void updateHomeworkReply(HomeworkReply reply) {
+
+    }
+
+    @Override
     public LinkedList<User> getUsers(FamilyList families) {
         LinkedList<User> users = new LinkedList<>();
 
