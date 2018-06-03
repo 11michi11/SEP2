@@ -11,8 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -50,7 +48,11 @@ public class HomeworkHandler {
 	public void initialize() {
 		System.out.println("second");
 		System.out.println(box);
+		loadPosts();
 
+
+	}
+	private void loadPosts() {
 		ArrayList<Post> posts = controller.getAllPosts();
 		for(Post p : posts) {
 			switch(p.getClass().getSimpleName()) {
@@ -64,8 +66,8 @@ public class HomeworkHandler {
 					break;
 			}
 		}
-
 	}
+
 	private void loadHomework(Homework homework) {
 		Text title = new Text(homework.getTitle());
 		title.setId("title");
@@ -79,12 +81,14 @@ public class HomeworkHandler {
 		Text separator4 = new Text(" ");
 
 		Button list = new Button("DONE BY:");
+		list.addEventHandler(MouseEvent.MOUSE_CLICKED, new ListOfHomeworkHandler(homework));
+		list.getStyleClass().add("smallButton");
 		Button edit = new Button("EDIT");
 		edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EditHomeworkHandler(homework));
-		Button delete = new Button("DELETE");
-		delete.getStyleClass().add("smallButton");
-		list.getStyleClass().add("smallButton");
 		edit.getStyleClass().add("smallButton");
+		Button delete = new Button("DELETE");
+		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new DeleteHomeworkHandler(homework));
+		delete.getStyleClass().add("smallButton");
 
 
 		TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, list, separator3, edit, separator4, delete);
@@ -174,7 +178,49 @@ public class HomeworkHandler {
 				e.printStackTrace();
 			}
 		}
-	}
 
+
+	}
+	private class DeleteHomeworkHandler implements EventHandler<Event>{
+
+		private Homework homework;
+
+		private DeleteHomeworkHandler(Homework homework) {
+			this.homework = homework;
+		}
+
+		@Override
+		public void handle(Event event) {
+			controller.deletePost(homework);
+			box.getChildren().clear();
+			loadPosts();
+		}
+	}
+	private class ListOfHomeworkHandler implements EventHandler<Event>{
+
+		private Homework homework;
+
+		private ListOfHomeworkHandler(Homework homework) {
+			this.homework = homework;
+		}
+
+		@Override
+		public void handle(Event event) {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkRepliesList.fxml"));
+				mainPane = loader.load();
+				((HomeworkRepliesListHandler) loader.getController()).setHomework(homework);
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+				stage.getScene().setRoot(mainPane);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+
+	}
 }
+
+
 

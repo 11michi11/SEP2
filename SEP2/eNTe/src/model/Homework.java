@@ -32,6 +32,10 @@ public class Homework extends Post {
         this.replies = replies;
     }
 
+    public void addHomeworkReply(HomeworkReply reply) {
+        replies.add(reply);
+    }
+
     public MyDate getDeadline() {
         return deadline;
     }
@@ -55,7 +59,7 @@ public class Homework extends Post {
     }
 
     public List<HomeworkReply> getReplies() {
-        return new LinkedList<>(replies);
+        return replies;
     }
 
     public boolean isClosed() {

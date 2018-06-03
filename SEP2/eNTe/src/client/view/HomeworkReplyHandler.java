@@ -1,29 +1,31 @@
 package client.view;
 
-import java.awt.TextArea;
 import java.io.IOException;
 
 import client.controller.ClientController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.Homework;
 import model.HomeworkReply;
 
-public class TextAreaHandler {
+public class HomeworkReplyHandler {
 	
 	private ClientController controller;
 	private Stage stage;
 	@FXML
 	private ImageView ente;
 	@FXML
-	private TextArea text;
+	private TextArea area;
 	private Parent mainPane;
 	private FXMLLoader loader;
+	private Homework homework;
 	private HomeworkReply reply;
 	
-	public TextAreaHandler() {
+	public HomeworkReplyHandler() {
 		controller = ClientController.getInstance();
 		System.out.println("TextAreaForHomeworkHandler");
 		stage = ClientViewManager.getStage();
@@ -35,10 +37,9 @@ public class TextAreaHandler {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public void submit() {
-		controller.submitHomework(text.getText());
+		controller.submitHomework(homework, area.getText());
 		goBack();
 	}
 	
@@ -49,7 +50,14 @@ public class TextAreaHandler {
 
 	public void setReply(HomeworkReply reply) {
 		this.reply = reply;
-		text.setText(reply.getContent());
+		area.setText(reply.getContent());
+	}
+	public void setHomework(Homework homework) {
+		this.homework = homework;
+		HomeworkReply reply = homework.getStudentReply(controller.getCurrentUserId());
+		if(reply != null){
+			area.setText(reply.getContent());
+		}
 	}
 
 }

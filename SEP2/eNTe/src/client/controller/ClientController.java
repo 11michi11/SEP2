@@ -187,9 +187,9 @@ public class ClientController {
         }
     }
 
-    public void submitHomework(String text) {
-        model.submitHomework(text);
-
+    public void submitHomework(Homework homework, String text) {
+        homework.addHomeworkReply(new HomeworkReply(text, (Student)currentUser, homework.isClosed(), MyDate.now()));
+        model.editPost(homework);
     }
 
     public ArrayList<Post> getAllPosts() {

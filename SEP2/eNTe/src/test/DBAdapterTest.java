@@ -331,7 +331,7 @@ class DBAdapterTest {
     }
 
     @Test
-    void testUpdateHomework() {
+    void testUpdateHomeworkWithoutReplies() {
         ArrayList<ClassNo> classes = new ArrayList<>();
         classes.add(ClassNo.First);
         classes.add(ClassNo.Fourth);
@@ -339,10 +339,30 @@ class DBAdapterTest {
         Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
         adapter.addPost(post);
         loadPosts();
-
-        assertEquals(100000,posts.getAll().size());
+        assertEquals(1000,posts.getAll().size());
         assertEquals(post,posts.getAll().get(0));
-// cannot be tested yet .. homework setters missing
+    }
+
+    @Test
+    void testUpdateHomeworkWithReplies() {
+        ArrayList<ClassNo> classes = new ArrayList<>();
+        classes.add(ClassNo.First);
+        classes.add(ClassNo.Seventh);
+        classes.add(ClassNo.Eighth);
+        Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
+        Family f2 = new Family("ggg12240-3e76-406e-bf12-0d4048899999");
+        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classs(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
+        User student2 = Student.builder().name("StudentName2").email("StudentEmail2").classs(ClassNo.Eighth).pwd("StudentPwd2").id("64e65555-204f-45ee-8c5a-aefdffa15555").family(f2).build();
+        student1.setChangePassword(true);
+        f1.addChild((Student) student1);
+        f2.addChild((Student) student2);
+        HomeworkReply reply1 = new HomeworkReply("Content",(Student) student1,false,new MyDate(2018,6,6,15,0));
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
+        adapter.addPost(post);
+        loadPosts();
+
+        assertEquals(1000,posts.getAll().size());
+        assertEquals(post,posts.getAll().get(0));
     }
 
         //deleting

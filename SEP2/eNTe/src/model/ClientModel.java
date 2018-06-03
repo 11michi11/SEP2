@@ -42,8 +42,6 @@ public interface ClientModel {
 
     void changePwdWithEmail(String email, String newPwd);
 
-    void submitHomework(String text);
-
     ArrayList<Post> getAllPosts();
 
     void deletePost(Post post);

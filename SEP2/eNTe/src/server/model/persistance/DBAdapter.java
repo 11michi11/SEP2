@@ -46,7 +46,6 @@ public class DBAdapter implements DBPersistence {
                 Timestamp pubDateStamp = (Timestamp) e[4];
                 int noOfStudentsToDeliver = (int) e[5];
                 Timestamp deadlineStamp = (Timestamp) e[6];
-
                 String[] classesString = (String[]) e[7];
                 List<ClassNo> classes = new ArrayList<>();
                 for (String a:classesString) {
@@ -67,22 +66,24 @@ public class DBAdapter implements DBPersistence {
             String sql = "SELECT * FROM HomeworkReply";
             ArrayList<Object[]> resultSet = db.query(sql);
             LinkedList<HomeworkReply> replies = new LinkedList<>();
-            String previousHomeworkId = (String) resultSet.get(0)[0];
-            for (Object[] e : resultSet) {
-                String homeworkID = (String) e[0];
-                String studentid = (String) e[1];
-                Student student = (Student) students.getUserById(studentid);
-                Timestamp timestamp = (Timestamp) e[2];
-                String content = (String) e[3];
-                boolean late = (boolean) e[4];
-                if (!previousHomeworkId.equals(homeworkID)) {
-                    map.put(previousHomeworkId,replies);
-                    replies = new LinkedList<>();
-                    previousHomeworkId = homeworkID;
+            if (resultSet.size()>0) {
+                String previousHomeworkId = (String) resultSet.get(0)[0];
+                for (Object[] e : resultSet) {
+                    String homeworkID = (String) e[0];
+                    String studentid = (String) e[1];
+                    Student student = (Student) students.getUserById(studentid);
+                    Timestamp timestamp = (Timestamp) e[2];
+                    String content = (String) e[3];
+                    boolean late = (boolean) e[4];
+                    if (!previousHomeworkId.equals(homeworkID)) {
+                        map.put(previousHomeworkId,replies);
+                        replies = new LinkedList<>();
+                        previousHomeworkId = homeworkID;
+                    }
+                    replies.add(new HomeworkReply(content,student,late,MyDate.convertFromTimestampToMyDate(timestamp)));
                 }
-                replies.add(new HomeworkReply(content,student,late,MyDate.convertFromTimestampToMyDate(timestamp)));
+                map.put(previousHomeworkId,replies);
             }
-            map.put(previousHomeworkId,replies);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -115,6 +116,20 @@ public class DBAdapter implements DBPersistence {
                     sql += homework.getClassesAsString() + "',";
                     sql += homework.isClosed() + ")";
                     sqlList.add(sql);
+
+                    if (homework.getReplies() != null) {
+                        LinkedList<HomeworkReply> replies = new LinkedList<>();
+                        replies.addAll(homework.getReplies());
+                        for (HomeworkReply e:replies) {
+                            sql = "INSERT INTO homeworkreply VALUES ('";
+                            sql += homework.getPostId() +"','";
+                            sql += e.getStudent().getId() + "','";
+                            sql += MyDate.convertFromMyDateToTimestamp(e.getHandInDate())+"','";
+                            sql += e.getContent() + "',";
+                            sql += e.isLate() + ")";
+                            sqlList.add(sql);
+                        }
+                    }
                     break;
 
                 default:
@@ -137,23 +152,30 @@ public class DBAdapter implements DBPersistence {
             sql += "title='" + post.getTitle() + "',";
             sql += "content='" + post.getContent() + "',";
             sql += "authorname='" + post.getAuthor() + "',";
-            Calendar cal = Calendar.getInstance();
-            cal.set(post.getPubDate().getYear(),post.getPubDate().getMonth()+1,post.getPubDate().getDay(),post.getPubDate().getHour(),post.getPubDate().getMinute());
-            Timestamp timestamp = new Timestamp(cal.getTimeInMillis());
-            sql += "pubdate='" + timestamp + "' ";
+            sql += "pubdate='" + MyDate.convertFromMyDateToTimestamp(post.getPubDate()) + "' ";
             sql += "WHERE postid='" + post.getPostId() + "'";
             sqlList.add(sql);
             switch (posttype) {
                 case "Homework":
                     Homework homework = (Homework) post;
                     sql = "UPDATE homework SET noOfStudentsToDeliver='" + homework.getNumberOfStudentsToDeliver() + "',";
-                    cal.set(post.getPubDate().getYear(),post.getPubDate().getMonth()+1,post.getPubDate().getDay(),post.getPubDate().getHour(),post.getPubDate().getMinute());
-                    timestamp = new Timestamp(cal.getTimeInMillis());
-                    sql += "deadline='" + timestamp + "'";
+                    sql += "deadline='" + MyDate.convertFromMyDateToTimestamp(homework.getDeadline()) + "'";
                     sql += "classes='" + homework.getClassesAsString() + "'";
                     sql += "closed='" + homework.isClosed() + "' ";
                     sql += "WHERE homeworkid='" + homework.getPostId() + "'";
                     sqlList.add(sql);
+
+                    if (homework.getReplies() != null) {
+                        LinkedList<HomeworkReply> replies = new LinkedList<>();
+                        replies.addAll(homework.getReplies());
+                        for (HomeworkReply e:replies) {
+                            sql = "UPDATE homeworkreply SET handindate='"+ MyDate.convertFromMyDateToTimestamp(e.getHandInDate())+"',";
+                            sql += "content='"+e.getContent()+"',";
+                            sql += "late="+e.isLate();
+                            sql += " WHERE homeworkid='"+homework.getPostId()+"' AND studentid='"+e.getStudent().getId()+"'";
+                            sqlList.add(sql);
+                        }
+                    }
                     break;
 
                 default:
@@ -173,6 +195,16 @@ public class DBAdapter implements DBPersistence {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void addHomeworkReply(HomeworkReply reply) {
+
+    }
+
+    @Override
+    public void updateHomeworkReply(HomeworkReply reply) {
+
     }
 
     @Override
