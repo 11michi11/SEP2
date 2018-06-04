@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
 import server.model.persistance.Database;
+import sun.awt.image.ImageWatched;
 
 
 import java.util.ArrayList;
@@ -216,7 +217,7 @@ class DBAdapterTest {
         classes.add(ClassNo.Second);
         classes.add(ClassNo.Fourth);
         classes.add(ClassNo.Eighth);
-        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,new LinkedList<HomeworkReply>(),false);
         adapter.addPost(post);
         loadPosts();
 
@@ -343,10 +344,16 @@ class DBAdapterTest {
         classes.add(ClassNo.First);
         classes.add(ClassNo.Fourth);
         classes.add(ClassNo.Eighth);
-        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,new LinkedList<HomeworkReply>(),false);
         adapter.addPost(post);
         loadPosts();
-        assertEquals(1000,posts.getAll().size());
+        assertEquals(1,posts.getAll().size());
+        assertEquals(post,posts.getAll().get(0));
+        post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","TitleNEW","ContentNEW","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,12,12,12,0),classes,6,new LinkedList<HomeworkReply>(),false);
+        posts.editPost(post);
+        adapter.updatePost(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"));
+        loadPosts();
+        assertEquals(1,posts.getAll().size());
         assertEquals(post,posts.getAll().get(0));
     }
 
@@ -356,20 +363,45 @@ class DBAdapterTest {
         classes.add(ClassNo.First);
         classes.add(ClassNo.Seventh);
         classes.add(ClassNo.Eighth);
-        Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
-        Family f2 = new Family("ggg12240-3e76-406e-bf12-0d4048899999");
-        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classNo(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
-        User student2 = Student.builder().name("StudentName2").email("StudentEmail2").classNo(ClassNo.Eighth).pwd("StudentPwd2").id("64e65555-204f-45ee-8c5a-aefdffa15555").family(f2).build();
-        student1.setChangePassword(true);
-        f1.addChild((Student) student1);
-        f2.addChild((Student) student2);
-        HomeworkReply reply1 = new HomeworkReply("Content",(Student) student1,false,new MyDate(2018,6,6,15,0));
-        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,new LinkedList<HomeworkReply>(),false);
         adapter.addPost(post);
         loadPosts();
-
-        assertEquals(1000,posts.getAll().size());
+        assertEquals(1,posts.getAll().size());
         assertEquals(post,posts.getAll().get(0));
+        assertEquals(0,((Homework) posts.getAll().get(0)).getReplies().size());
+
+            Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
+            Family f2 = new Family("ggg12240-3e76-406e-bf12-0d4048899999");
+            User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classNo(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
+            User student2 = Student.builder().name("StudentName2").email("StudentEmail2").classNo(ClassNo.Eighth).pwd("StudentPwd2").id("64e65555-204f-45ee-8c5a-aefdffa15555").family(f2).build();
+            student1.setChangePassword(true);
+            f1.addChild((Student) student1);
+            f2.addChild((Student) student2);
+            adapter.addFamily(f1);
+            adapter.addFamily(f2);
+            adapter.addUser(student1);
+            adapter.addUser(student2);
+            loadFamilies();
+            loadUsers(families);
+
+        Post post2 = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","TitleNEW","ContentNEW","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,8,8,8,8),classes,8,new LinkedList<HomeworkReply>(),false);
+        posts.editPost(post2);
+        HomeworkReply reply1 = new HomeworkReply("Content",(Student) student1,false,new MyDate(2018,6,6,15,0));
+        HomeworkReply reply2 = new HomeworkReply("Content",(Student) student2,false,new MyDate(2018,6,10,11,0));
+        ((Homework)(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).addHomeworkReply(reply1);
+        ((Homework)(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).addHomeworkReply(reply2);
+
+        ((Homework) post).addHomeworkReply(reply1);
+        ((Homework) post).addHomeworkReply(reply2);
+
+        adapter.updatePost(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"));
+        loadPosts();
+        assertEquals(1,posts.getAll().size());
+//        assertEquals(post,posts.getAll().get(0));
+        System.out.println(posts.getAll().get(0));
+        assertEquals(2,((Homework) posts.getAll().get(0)).getReplies().size());
+        assertTrue(((Homework)(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).getReplies().contains(reply1));
+        assertTrue(((Homework)(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).getReplies().contains(reply2));
     }
 
         //deleting
@@ -454,7 +486,7 @@ class DBAdapterTest {
         classes.add(ClassNo.First);
         classes.add(ClassNo.Fourth);
         classes.add(ClassNo.Eighth);
-        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,new LinkedList<HomeworkReply>(),false);
         adapter.addPost(post);
         loadPosts();
 
@@ -525,8 +557,8 @@ class DBAdapterTest {
         classes.add(ClassNo.First);
         classes.add(ClassNo.Fourth);
         classes.add(ClassNo.Eighth);
-        Post post1 = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,null,false);
-        Post post2 = new Homework("gee12240-3e76-406e-bf12-0d40488ed3b9","Title2","Content3","Phillips",new MyDate(2019,5,5,0,0),new MyDate(2019,10,10,10,0),classes,4,null,false);
+        Post post1 = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,new LinkedList<HomeworkReply>(),false);
+        Post post2 = new Homework("gee12240-3e76-406e-bf12-0d40488ed3b9","Title2","Content3","Phillips",new MyDate(2019,5,5,0,0),new MyDate(2019,10,10,10,0),classes,4,new LinkedList<HomeworkReply>(),false);
         adapter.addPost(post1);
         adapter.addPost(post2);
         loadPosts();

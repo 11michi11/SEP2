@@ -100,8 +100,8 @@ class DatabaseTest {
     void testInsertAndDeleteParent() throws SQLException {
         ArrayList<String> sqlList = new ArrayList<>();
         sqlList.add("INSERT INTO family VALUES ('FamilyIDTEST')");
-        sqlList.add("INSERT INTO enteuser VALUES ('ParentIDTEST', 'Parent', 'ParentEmailTEST', 'ParentPwdTEST', 'ParentNameTEST', false)");
-        sqlList.add("INSERT INTO parent VALUES ('ParentIDTEST', 'FamilyIDTEST')");
+        sqlList.add("INSERT INTO enteuser VALUES ('ParentIDTEST','Parent','ParentEmailTEST','ParentPwdTEST','ParentNameTEST',false)");
+        sqlList.add("INSERT INTO parent VALUES ('ParentIDTEST','FamilyIDTEST')");
         int[] updates = database.updateAll(sqlList);
         for (int e : updates) {
             assertEquals(1, e);
