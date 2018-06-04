@@ -69,7 +69,8 @@ public class FamilyListHandler {
 
 
 	public void deleteUser() {
-		if(controller.showDeleteMessage("user")) {
+		boolean flag = controller.showDeleteMessage("user");
+		if(flag) {
 			User user = ((UserDT) familyTable.getSelectionModel().getSelectedItem().getValue()).user;
 			controller.deleteUser(user);
 		}

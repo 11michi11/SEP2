@@ -4,7 +4,6 @@ import utility.Password;
 import utility.SendEmail;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.UUID;
 
 public abstract class User implements Serializable {
