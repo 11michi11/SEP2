@@ -5,6 +5,7 @@ import model.communication.Auth;
 import model.communication.LoginStatus;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
+import server.model.persistance.Database;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,9 +23,13 @@ public class ServerModelManager implements ServerModel {
         posts = new PostsList();
         users = new UsersList();
         families = new FamilyList();
-        db = new DBAdapter("org.postgresql.Driver", "jdbc:postgresql://207.154.237.196:5432/ente", "ente", "ente");
+        try {
+            db = new DBAdapter(new Database("org.postgresql.Driver","jdbc:postgresql://207.154.237.196:5432/ente","ente","ente"));
+            restoreState();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Database connection has not been established");
+        }
 
-        restoreState();
     }
 
     @Override

@@ -34,7 +34,7 @@ class DatabaseTest {
 
     @Test
     void testQuerySelectFromStudent() throws SQLException {
-        ArrayList<Object[]> list = database.query("SELECT e.id, e.email, e.pwd, e.name, e.changePassword, s.familyid, s.class FROM enteuser e, student s WHERE e.id=s.studentid");
+        ArrayList<Object[]> list = database.query("SELECT e.id, e.email, e.pwd, e.name, e.changePassword, s.familyid, s.class FROM enteuser e, student s WHERE e.id=s.studentid ORDER BY e.id");
         assertEquals(4, list.size());
         for (Object[] e : list) {
             assertEquals(7, e.length);
@@ -43,7 +43,7 @@ class DatabaseTest {
 
     @Test
     void testQuerySelectFromParent() throws SQLException {
-        ArrayList<Object[]> list = database.query("SELECT e.id, e.email, e.pwd, e.name, e.changePassword, p.familyid FROM enteuser e, parent p WHERE e.id=p.parentid");
+        ArrayList<Object[]> list = database.query("SELECT e.id, e.email, e.pwd, e.name, e.changePassword, p.familyid FROM enteuser e, parent p WHERE e.id=p.parentid ORDER BY e.id");
         assertEquals(4, list.size());
         for (Object[] e : list) {
             assertEquals(6, e.length);
@@ -52,7 +52,7 @@ class DatabaseTest {
 
     @Test
     void testQuerySelectFromHomeWork() throws SQLException {
-        ArrayList<Object[]> list = database.query("SELECT p.postid, p.title, p.content, p.authorname, p.pubDate, h.noOfStudentsToDeliver, h.deadline, h.classes, h.closed FROM Post p, Homework h WHERE p.postid=h.homeworkid");
+        ArrayList<Object[]> list = database.query("SELECT p.postid, p.title, p.content, p.authorname, p.pubDate, h.noOfStudentsToDeliver, h.deadline, h.classes, h.closed FROM Post p, Homework h WHERE p.postid=h.homeworkid ORDER BY p.postid");
         assertEquals(2, list.size());
         for (Object[] e : list) {
             assertEquals(9, e.length);
@@ -61,7 +61,7 @@ class DatabaseTest {
 
     @Test
     void testQuerySelectFromHomeworkReply() throws SQLException {
-        ArrayList<Object[]> list = database.query("SELECT * FROM homeworkreply");
+        ArrayList<Object[]> list = database.query("SELECT * FROM homeworkreply ORDER BY (homeworkid,studentid)");
         assertEquals(3, list.size());
         for (Object[] e : list) {
             assertEquals(5, e.length);

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
+import server.model.persistance.Database;
 
 
 import java.util.ArrayList;
@@ -52,7 +53,13 @@ class DBAdapterTest {
     // foreign key from post to enteuser temporarily deleted
     @BeforeAll
     static void setUp() {
-        adapter = new DBAdapter("org.postgresql.Driver","jdbc:postgresql://207.154.237.196:5432/ente?currentSchema=test","ente","ente");
+
+        try {
+            adapter = new DBAdapter(new Database("org.postgresql.Driver","jdbc:postgresql://207.154.237.196:5432/ente?currentSchema=test","ente","ente"));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            fail("Adapter not created");
+        }
         families = new FamilyList();
         users = new UsersList();
         posts = new PostsList();

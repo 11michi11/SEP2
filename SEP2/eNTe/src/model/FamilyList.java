@@ -43,7 +43,7 @@ public class FamilyList {
 		}
 	}
 
-    public void addAll(LinkedList<Family> families) {
+    public void addAll(List<Family> families) {
 		this.families.addAll(families);
     }
 
@@ -58,6 +58,5 @@ public class FamilyList {
 		FamilyList that = (FamilyList) o;
 		return Objects.equals(families, that.families);
 	}
-
 
 }

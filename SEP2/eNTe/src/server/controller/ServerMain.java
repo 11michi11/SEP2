@@ -10,5 +10,4 @@ public class ServerMain {
 		ServerModelManager model = new ServerModelManager();
 		controller = new ServerController(model);
 	}
-
 }

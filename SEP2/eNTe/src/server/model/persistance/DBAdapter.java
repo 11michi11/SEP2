@@ -1,28 +1,21 @@
 package server.model.persistance;
 
 import model.*;
-import utility.persistence.MyDatabase;
 
-import javax.sql.rowset.serial.SerialArray;
-import java.sql.Array;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
 
 public class DBAdapter implements DBPersistence {
 
-    private Database db;
+    private DBInterface db;
 //    private static final String DRIVER = "org.postgresql.Driver";
 //    private static final String URL = "jdbc:postgresql://207.154.237.196:5432/ente";
 //    private static final String USER = "ente";
 //    private static final String PASSWORD = "ente";
 
-    public DBAdapter(String driver, String url, String user, String password) {
-        try {
-            db = new Database(driver,url,user,password);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public DBAdapter(DBInterface database) {
+        db = database;
     }
 
     @Override
@@ -36,10 +29,10 @@ public class DBAdapter implements DBPersistence {
         return posts;
     }
 
-    private LinkedList<Homework> getHomeworks(HashMap<String,LinkedList<HomeworkReply>> replies) {
+    private LinkedList<Homework> getHomeworks(HashMap<String, LinkedList<HomeworkReply>> replies) {
         LinkedList<Homework> list = new LinkedList<>();
         try {
-            String sql = "SELECT p.postid, p.title, p.content, p.authorname, p.pubDate, h.noOfStudentsToDeliver, h.deadline, h.classes, h.closed FROM Post p, Homework h WHERE p.postid=h.homeworkid";
+            String sql = "SELECT p.postid, p.title, p.content, p.authorname, p.pubDate, h.noOfStudentsToDeliver, h.deadline, h.classes, h.closed FROM Post p, Homework h WHERE p.postid=h.homeworkid ORDER BY p.postid";
             ArrayList<Object[]> resultSet = db.query(sql);
             for (Object[] e : resultSet) {
                 String postID = (String) e[0];
@@ -51,11 +44,11 @@ public class DBAdapter implements DBPersistence {
                 Timestamp deadlineStamp = (Timestamp) e[6];
                 String[] classesString = (String[]) e[7];
                 List<ClassNo> classes = new ArrayList<>();
-                for (String a:classesString) {
+                for (String a : classesString) {
                     classes.add(ClassNo.valueOf(a));
                 }
                 boolean closed = (boolean) e[8];
-                list.add(new Homework(postID,title,content,authorName,MyDate.convertFromTimestampToMyDate(pubDateStamp),MyDate.convertFromTimestampToMyDate(deadlineStamp),classes,noOfStudentsToDeliver,replies.get(postID),closed));
+                list.add(new Homework(postID, title, content, authorName, MyDate.convertFromTimestampToMyDate(pubDateStamp), MyDate.convertFromTimestampToMyDate(deadlineStamp), classes, noOfStudentsToDeliver, replies.get(postID), closed));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,13 +56,13 @@ public class DBAdapter implements DBPersistence {
         return list;
     }
 
-    private HashMap<String,LinkedList<HomeworkReply>> getHomeworkReplies (UsersList students) {
-        HashMap<String,LinkedList<HomeworkReply>> map = new HashMap<>();
+    private HashMap<String, LinkedList<HomeworkReply>> getHomeworkReplies(UsersList students) {
+        HashMap<String, LinkedList<HomeworkReply>> map = new HashMap<>();
         try {
-            String sql = "SELECT * FROM HomeworkReply";
+            String sql = "SELECT * FROM HomeworkReply ORDER BY (homeworkid,studentid)";
             ArrayList<Object[]> resultSet = db.query(sql);
             LinkedList<HomeworkReply> replies = new LinkedList<>();
-            if (resultSet.size()>0) {
+            if (resultSet.size() > 0) {
                 String previousHomeworkId = (String) resultSet.get(0)[0];
                 for (Object[] e : resultSet) {
                     String homeworkID = (String) e[0];
@@ -79,13 +72,13 @@ public class DBAdapter implements DBPersistence {
                     String content = (String) e[3];
                     boolean late = (boolean) e[4];
                     if (!previousHomeworkId.equals(homeworkID)) {
-                        map.put(previousHomeworkId,replies);
+                        map.put(previousHomeworkId, replies);
                         replies = new LinkedList<>();
                         previousHomeworkId = homeworkID;
                     }
-                    replies.add(new HomeworkReply(content,student,late,MyDate.convertFromTimestampToMyDate(timestamp)));
+                    replies.add(new HomeworkReply(content, student, late, MyDate.convertFromTimestampToMyDate(timestamp)));
                 }
-                map.put(previousHomeworkId,replies);
+                map.put(previousHomeworkId, replies);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,24 +108,25 @@ public class DBAdapter implements DBPersistence {
                     sql += "homework VALUES ('";
                     sql += homework.getPostId() + "','";
                     sql += homework.getNumberOfStudentsToDeliver() + "','";
-                    sql += MyDate.convertFromMyDateToTimestamp(homework.getDeadline())+"','";
+                    sql += MyDate.convertFromMyDateToTimestamp(homework.getDeadline()) + "','";
                     sql += homework.getClassesAsString() + "',";
                     sql += homework.isClosed() + ")";
                     sqlList.add(sql);
 
-                    if (homework.getReplies() != null) {
-                        LinkedList<HomeworkReply> replies = new LinkedList<>();
-                        replies.addAll(homework.getReplies());
-                        for (HomeworkReply e:replies) {
-                            sql = "INSERT INTO homeworkreply VALUES ('";
-                            sql += homework.getPostId() +"','";
-                            sql += e.getStudent().getId() + "','";
-                            sql += MyDate.convertFromMyDateToTimestamp(e.getHandInDate())+"','";
-                            sql += e.getContent() + "',";
-                            sql += e.isLate() + ")";
-                            sqlList.add(sql);
-                        }
-                    }
+                    // NOT NECCESARY BC ALWAYS WHEN POST IS ADDED, it doesn't contain any reply .. or ?
+//                    if (homework.getReplies() != null) {
+//                        LinkedList<HomeworkReply> replies = new LinkedList<>();
+//                        replies.addAll(homework.getReplies());
+//                        for (HomeworkReply e:replies) {
+//                            sql = "INSERT INTO homeworkreply VALUES ('";
+//                            sql += homework.getPostId() +"','";
+//                            sql += e.getStudent().getId() + "','";
+//                            sql += MyDate.convertFromMyDateToTimestamp(e.getHandInDate())+"','";
+//                            sql += e.getContent() + "',";
+//                            sql += e.isLate() + ")";
+//                            sqlList.add(sql);
+//                        }
+//                    }
                     break;
 
                 default:
@@ -171,11 +165,11 @@ public class DBAdapter implements DBPersistence {
                     if (homework.getReplies() != null) {
                         LinkedList<HomeworkReply> replies = new LinkedList<>();
                         replies.addAll(homework.getReplies());
-                        for (HomeworkReply e:replies) {
-                            sql = "UPDATE homeworkreply SET handindate='"+ MyDate.convertFromMyDateToTimestamp(e.getHandInDate())+"',";
-                            sql += "content='"+e.getContent()+"',";
-                            sql += "late="+e.isLate();
-                            sql += " WHERE homeworkid='"+homework.getPostId()+"' AND studentid='"+e.getStudent().getId()+"'";
+                        for (HomeworkReply e : replies) {
+                            sql = "UPDATE homeworkreply SET handindate='" + MyDate.convertFromMyDateToTimestamp(e.getHandInDate()) + "',";
+                            sql += "content='" + e.getContent() + "',";
+                            sql += "late=" + e.isLate();
+                            sql += " WHERE homeworkid='" + homework.getPostId() + "' AND studentid='" + e.getStudent().getId() + "'";
                             sqlList.add(sql);
                         }
                     }
@@ -321,7 +315,7 @@ public class DBAdapter implements DBPersistence {
     private LinkedList<Administrator> getAdmins() {
         LinkedList<Administrator> list = new LinkedList<>();
         try {
-            String sql = "SELECT * FROM enteUser WHERE usertype ='Administrator'";
+            String sql = "SELECT * FROM enteUser WHERE usertype ='Administrator' ORDER BY id";
             ArrayList<Object[]> resultSet = db.query(sql);
             for (Object[] e : resultSet) {
                 String id = (String) e[0];
@@ -342,7 +336,7 @@ public class DBAdapter implements DBPersistence {
     private LinkedList<Teacher> getTeachers() {
         LinkedList<Teacher> list = new LinkedList<>();
         try {
-            String sql = "SELECT * FROM enteUser WHERE usertype ='Teacher'";
+            String sql = "SELECT * FROM enteUser WHERE usertype ='Teacher' ORDER BY id";
             ArrayList<Object[]> resultSet = db.query(sql);
             for (Object[] e : resultSet) {
                 String id = (String) e[0];
@@ -364,7 +358,7 @@ public class DBAdapter implements DBPersistence {
         LinkedList<Student> list = new LinkedList<>();
 
         try {
-            String sql = "SELECT e.id, e.email, e.pwd, e.name, e.changePassword, s.familyid, s.class FROM enteuser e, student s WHERE e.id=s.studentid";
+            String sql = "SELECT e.id, e.email, e.pwd, e.name, e.changePassword, s.familyid, s.class FROM enteuser e, student s WHERE e.id=s.studentid ORDER BY e.id";
             ArrayList<Object[]> resultSet = db.query(sql);
             for (Object[] e : resultSet) {
                 String id = (String) e[0];
@@ -373,11 +367,12 @@ public class DBAdapter implements DBPersistence {
                 String name = (String) e[3];
                 boolean changePwdNeeded = (boolean) e[4];
                 String familyID = (String) e[5];
+                ClassNo classss = (ClassNo) e[6];
                 ClassNo classs = ClassNo.valueOf((String) e[6]);
-                Student student = Student.builder().name(name).email(email).classs(classs).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
+                Student student = Student.builder().name(name).email(email).classs(classss).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
                 student.setChangePassword(changePwdNeeded);
-			    families.getFamilyById(familyID).addChild(student);
-			    list.add(student);
+                families.getFamilyById(familyID).addChild(student);
+                list.add(student);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -388,7 +383,7 @@ public class DBAdapter implements DBPersistence {
     private LinkedList<Parent> getParents(FamilyList families) {
         LinkedList<Parent> list = new LinkedList<>();
         try {
-            String sql = "SELECT e.id, e.email, e.pwd, e.name, e.changePassword, p.familyid FROM enteuser e, parent p WHERE e.id=p.parentid";
+            String sql = "SELECT e.id, e.email, e.pwd, e.name, e.changePassword, p.familyid FROM enteuser e, parent p WHERE e.id=p.parentid ORDER BY e.id";
             ArrayList<Object[]> resultSet = db.query(sql);
             for (Object[] e : resultSet) {
                 String id = (String) e[0];
