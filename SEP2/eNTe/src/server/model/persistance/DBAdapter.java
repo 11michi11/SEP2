@@ -48,7 +48,7 @@ public class DBAdapter implements DBPersistence {
                     classes.add(ClassNo.valueOf(a));
                 }
                 boolean closed = (boolean) e[8];
-                list.add(new Homework(postID, title, content, authorName, MyDate.convertFromTimestampToMyDate(pubDateStamp), MyDate.convertFromTimestampToMyDate(deadlineStamp), classes, noOfStudentsToDeliver, replies.get(postID), closed));
+                list.add(new Homework(postID, title, content, authorName, MyDate.convertFromTimestampToMyDate(pubDateStamp), MyDate.convertFromTimestampToMyDate(deadlineStamp), classes, noOfStudentsToDeliver, replies.getOrDefault(postID, new LinkedList<>()), closed));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class DBAdapter implements DBPersistence {
             String sql = "SELECT * FROM HomeworkReply ORDER BY (homeworkid,studentid)";
             ArrayList<Object[]> resultSet = db.query(sql);
             LinkedList<HomeworkReply> replies = new LinkedList<>();
-            if (resultSet.size() > 0) {
+            if (resultSet != null && resultSet.size() > 0 ) {
                 String previousHomeworkId = (String) resultSet.get(0)[0];
                 for (Object[] e : resultSet) {
                     String homeworkID = (String) e[0];
@@ -106,8 +106,8 @@ public class DBAdapter implements DBPersistence {
                 case "Homework":
                     Homework homework = (Homework) post;
                     sql += "homework VALUES ('";
-                    sql += homework.getPostId() + "','";
-                    sql += homework.getNumberOfStudentsToDeliver() + "','";
+                    sql += homework.getPostId() + "',";
+                    sql += homework.getNumberOfStudentsToDeliver() + ",'";
                     sql += MyDate.convertFromMyDateToTimestamp(homework.getDeadline()) + "','";
                     sql += homework.getClassesAsString() + "',";
                     sql += homework.isClosed() + ")";
@@ -367,9 +367,9 @@ public class DBAdapter implements DBPersistence {
                 String name = (String) e[3];
                 boolean changePwdNeeded = (boolean) e[4];
                 String familyID = (String) e[5];
-                ClassNo classss = (ClassNo) e[6];
+               // ClassNo classs = (ClassNo) e[6];
                 ClassNo classs = ClassNo.valueOf((String) e[6]);
-                Student student = Student.builder().name(name).email(email).classs(classss).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
+                Student student = Student.builder().name(name).email(email).classNo(classs).id(id).pwd(pwd).family(families.getFamilyById(familyID)).build();
                 student.setChangePassword(changePwdNeeded);
                 families.getFamilyById(familyID).addChild(student);
                 list.add(student);

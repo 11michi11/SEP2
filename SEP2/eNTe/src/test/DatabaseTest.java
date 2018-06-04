@@ -81,8 +81,8 @@ class DatabaseTest {
     void testInsertAndDeleteStudent() throws SQLException {
         ArrayList<String> sqlList = new ArrayList<>();
         sqlList.add("INSERT INTO family VALUES ('FamilyIDTEST')");
-        sqlList.add("INSERT INTO enteuser VALUES ('StudentIDTEST', 'Student', 'StudentEmailTEST', 'StudentPwdTEST', 'StudentNameTEST', false)");
-        sqlList.add("INSERT INTO student VALUES ('StudentIDTEST', 'FamilyIDTEST','First')");
+        sqlList.add("INSERT INTO enteuser VALUES ('StudentIDTEST','Student','StudentEmailTEST','StudentPwdTEST','StudentNameTEST',false)");
+        sqlList.add("INSERT INTO student VALUES ('StudentIDTEST','FamilyIDTEST','First')");
         int[] updates = database.updateAll(sqlList);
         for (int e : updates) {
             assertEquals(1, e);
@@ -126,8 +126,8 @@ class DatabaseTest {
     @Test
     void testInsertAndDeleteHomework() throws SQLException {
         ArrayList<String> sqlList = new ArrayList<>();
-        sqlList.add("INSERT INTO post VALUES ('HomeworkIDTEST', 'Homework', 'TitleTEST', 'ContentTEST', 'AuthorNameTEST', '2018-01-01 00:00:00.557000')");
-        sqlList.add("INSERT INTO homework VALUES ('HomeworkIDTEST', 10, '2018-10-01 14:59:00.000000', '{Second,Fourth,Seventh}', true)");
+        sqlList.add("INSERT INTO post VALUES ('HomeworkIDTEST','Homework','TitleTEST','ContentTEST','AuthorNameTEST','2018-01-01 00:00:00.0')");
+        sqlList.add("INSERT INTO homework VALUES ('HomeworkIDTEST',10,'2018-10-01 14:59:00.0','{Second,Fourth,Seventh}',true)");
         int[] updates = database.updateAll(sqlList);
         for (int e : updates) {
             assertEquals(1, e);
@@ -140,11 +140,11 @@ class DatabaseTest {
     void testInsertAndDeleteHomeworkReply() throws SQLException {
         ArrayList<String> sqlList = new ArrayList<>();
         sqlList.add("INSERT INTO family VALUES ('FamilyIDTEST')");
-        sqlList.add("INSERT INTO enteuser VALUES ('StudentIDTEST', 'Student', 'StudentEmailTEST', 'StudentPwdTEST', 'StudentNameTEST', false)");
-        sqlList.add("INSERT INTO student VALUES ('StudentIDTEST', 'FamilyIDTEST','First')");
-        sqlList.add("INSERT INTO post VALUES ('HomeworkIDTEST', 'Homework', 'TitleTEST', 'ContentTEST', 'AuthorNameTEST', '2018-01-01 00:00:00.557000')");
-        sqlList.add("INSERT INTO homework VALUES ('HomeworkIDTEST', 10, '2018-10-01 14:59:00.000000', '{Second,Fourth,Seventh}', true)");
-        sqlList.add("INSERT INTO homeworkreply VALUES ('HomeworkIDTEST', 'StudentIDTEST', '2018-06-26 05:55:58.231000', 'SolutionTEST', false)");
+        sqlList.add("INSERT INTO enteuser VALUES ('StudentIDTEST','Student','StudentEmailTEST','StudentPwdTEST','StudentNameTEST',false)");
+        sqlList.add("INSERT INTO student VALUES ('StudentIDTEST','FamilyIDTEST','First')");
+        sqlList.add("INSERT INTO post VALUES ('HomeworkIDTEST','Homework','TitleTEST','ContentTEST','AuthorNameTEST','2018-01-01 00:00:00.0')");
+        sqlList.add("INSERT INTO homework VALUES ('HomeworkIDTEST',10,'2018-10-01 14:59:00.0','{Second,Fourth,Seventh}',true)");
+        sqlList.add("INSERT INTO homeworkreply VALUES ('HomeworkIDTEST','StudentIDTEST','2018-06-26 05:55:58.0','SolutionTEST',false)");
         int[] updates = database.updateAll(sqlList);
         for (int e : updates) {
             assertEquals(1, e);
@@ -199,7 +199,7 @@ class DatabaseTest {
             randomNo = (int) (Math.random() * 4 + 5);
         } while (lastRandomNo == randomNo);
         lastRandomNo = randomNo;
-        sqlList.add("UPDATE post SET title='TitleNEW" + lastRandomNo + "', content='ContentNEW" + lastRandomNo + "',pubdate='2018-0" + lastRandomNo + "-0" + lastRandomNo + " 00:00' WHERE postid='HomeworkID1'");
+        sqlList.add("UPDATE post SET title='TitleNEW" + lastRandomNo + "', content='ContentNEW" + lastRandomNo + "',pubdate='2018-0" + lastRandomNo + "-0" + lastRandomNo + " 00:00.0' WHERE postid='HomeworkID1'");
         sqlList.add("UPDATE homework SET deadline='2018-0" + lastRandomNo + "-0" + lastRandomNo + " 20:00', classes='{First,Third,Seventh}',closed=false WHERE homeworkid='HomeworkID1'");
         int[] updates = database.updateAll(sqlList);
         for (int e : updates) {
@@ -214,7 +214,7 @@ class DatabaseTest {
             randomNo = (int) (Math.random() * 4 + 5);
         } while (lastRandomNo == randomNo);
         lastRandomNo = randomNo;
-        int updates = database.update("UPDATE homeworkreply SET content='SolutionNEW" + lastRandomNo + "', handindate='2020-0" + lastRandomNo + "-0" + lastRandomNo + " 00:00' WHERE homeworkid='HomeworkID1' AND studentid='StudentID1'");
+        int updates = database.update("UPDATE homeworkreply SET content='SolutionNEW" + lastRandomNo + "', handindate='2020-0" + lastRandomNo + "-0" + lastRandomNo + " 00:00.0' WHERE homeworkid='HomeworkID1' AND studentid='StudentID1'");
         assertEquals(1, updates);
     }
 }

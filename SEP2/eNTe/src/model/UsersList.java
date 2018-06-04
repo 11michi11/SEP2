@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import model.communication.Auth;
@@ -11,10 +8,10 @@ import model.communication.LoginStatus;
 
 public class UsersList {
 
-	private ArrayList<User> users;
+	private LinkedList<User> users;
 
 	public UsersList() {
-		users = new ArrayList<>();
+		users = new LinkedList<>();
 	}
 
 	public LoginStatus authenticate(Auth auth) {
@@ -103,7 +100,7 @@ public class UsersList {
 		return parents;
 	}
 
-	public ArrayList<User> getAll() {
+	public LinkedList<User> getAll() {
 		return users;
 	}
 

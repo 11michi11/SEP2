@@ -117,7 +117,8 @@ public class MyDate implements Serializable {
     
     public static Timestamp convertFromMyDateToTimestamp(MyDate date) {
         Calendar cal = Calendar.getInstance();
-        cal.set(date.getYear(),date.getMonth()-1,date.getDay(),date.getHour(),date.getMinute());
+        cal.set(date.getYear(),date.getMonth()-1,date.getDay(),date.getHour(),date.getMinute(),0);
+        cal.set(Calendar.MILLISECOND,000);
         return new Timestamp(cal.getTimeInMillis());
     }
     
