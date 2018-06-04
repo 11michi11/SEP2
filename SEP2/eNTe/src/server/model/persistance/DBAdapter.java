@@ -165,10 +165,8 @@ public class DBAdapter implements DBPersistence {
                     sql = "DELETE FROM homeworkreply WHERE homeworkid='" + homework.getPostId() + "'";
                     sqlList.add(sql);
                     if (homework.getReplies() != null) {
-                        LinkedList<HomeworkReply> replies2 = new LinkedList<>(homework.getReplies());
-                        LinkedList<HomeworkReply> replies = new LinkedList<>();
-                        replies.addAll(homework.getReplies());
-                        for (HomeworkReply e : replies2) {
+                        LinkedList<HomeworkReply> replies = new LinkedList<>(homework.getReplies());
+                        for (HomeworkReply e : replies) {
                             sql = "INSERT INTO homeworkreply VALUES ('";
                             sql += homework.getPostId() + "','";
                             sql += e.getStudent().getId() + "','";
