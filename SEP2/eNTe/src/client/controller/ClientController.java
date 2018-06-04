@@ -94,7 +94,7 @@ public class ClientController {
     }
 
     public void addStudent(String name, String email, ClassNo classs, Family family, String id) {
-        Student student = Student.builder().name(name).email(email).classs(classs).family(family).build();
+        Student student = Student.builder().name(name).email(email).classNo(classs).family(family).build();
         if (id != null)
             student.setId(id);
         model.addOrUpdateUser(student);

@@ -47,16 +47,6 @@ public class ClientProxy {
 		}
 	}
 
-	void manageUser(String action, User user) {
-		ManageUser manageUser = new ManageUser(action, user);
-		Message msg = Message.createMangeUser(manageUser);
-		try {
-			sendMessage(msg);
-		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public Message login(Auth auth) {
 		Message msg = Message.createAuth(auth), response = null;
 		try {
@@ -86,7 +76,7 @@ public class ClientProxy {
 		}
 	}
 
-    public void manageFamily(String action, Family family) {
+    void manageFamily(String action, Family family) {
 		ManageFamily manageFamily = new ManageFamily(action, family);
 		Message msg = Message.createMangeFamily(manageFamily);
 		try {
@@ -95,6 +85,16 @@ public class ClientProxy {
 			e.printStackTrace();
 		}
     }
+
+	void manageUser(String action, User user) {
+		ManageUser manageUser = new ManageUser(action, user);
+		Message msg = Message.createMangeUser(manageUser);
+		try {
+			sendMessage(msg);
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+	}
 
     public void managePost(String action, Post post) {
 		ManagePost managePost = new ManagePost(action, post);

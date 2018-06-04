@@ -94,7 +94,7 @@ public class Student extends User implements Serializable, IFamily {
             return this;
         }
 
-        public StudentCanBeBuild classs(ClassNo classs) {
+        public StudentCanBeBuild classNo(ClassNo classs) {
             this.classNo = classs;
             return this;
         }
@@ -153,7 +153,7 @@ public class Student extends User implements Serializable, IFamily {
     }
 
     public interface StudentNeedClassNo {
-        StudentCanBeBuild classs(ClassNo classs);
+        StudentCanBeBuild classNo(ClassNo classs);
     }
 
     public interface StudentCanBeBuild {

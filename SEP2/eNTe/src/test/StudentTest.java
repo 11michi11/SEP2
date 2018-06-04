@@ -18,7 +18,7 @@ class StudentTest {
 	@Test
 	void initializeStudentTest() {
 		Family f = new Family("id");
-		Student student = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(f).build();
+		Student student = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").family(f).build();
 		assertEquals(ClassNo.First, student.getClassNo());
 		assertEquals("id", student.getFamilyId());
 	}
@@ -27,14 +27,14 @@ class StudentTest {
 	void testEquals() {
 		Family family = new Family("fID");
 		Family family2 = new Family("fID2");
-		User student1 = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(family).build();
-		User student2 = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(family).build();
-		User student3 = Student.builder().name("anotherName").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(family).build();
-		User student4 = Student.builder().name("name").email("anotherEmail").classs(ClassNo.First).pwdEncrypt("pwd").family(family).build();
-		User student5 = Student.builder().name("name").email("Email").classs(ClassNo.Second).pwdEncrypt("pwd").family(family).build();
-		User student6 = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("anotherPwd").family(family).build();
-		User student7 = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(family2).build();
-		User student8 = Student.builder().name("name").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(family).build();
+		User student1 = Student.builder().name("name").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").family(family).build();
+		User student2 = Student.builder().name("name").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").family(family).build();
+		User student3 = Student.builder().name("anotherName").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").family(family).build();
+		User student4 = Student.builder().name("name").email("anotherEmail").classNo(ClassNo.First).pwdEncrypt("pwd").family(family).build();
+		User student5 = Student.builder().name("name").email("Email").classNo(ClassNo.Second).pwdEncrypt("pwd").family(family).build();
+		User student6 = Student.builder().name("name").email("email").classNo(ClassNo.First).pwdEncrypt("anotherPwd").family(family).build();
+		User student7 = Student.builder().name("name").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").family(family2).build();
+		User student8 = Student.builder().name("name").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").family(family).build();
 		student8.setChangePassword(true);
 		assertFalse(student1.equals(student2)); //different IDs
 		assertFalse(student1.equals(student3));
@@ -47,7 +47,7 @@ class StudentTest {
 	
 	@Test
 	void testClasses() {
-		Student student = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+		Student student = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
 		assertEquals(ClassNo.First, student.getClassNo());
 
 		student.setClassNo(ClassNo.Second);
@@ -56,21 +56,21 @@ class StudentTest {
 
 	@Test
 	void testAddHistoryOfActivity() {
-		Student student = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").historyOfActivity("").build();
+		Student student = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").historyOfActivity("").build();
 		student.addHistoryOfActivity("someText");
 		assertEquals("someText\n", student.getHistoryOfActivity());
 	}
 
 	@Test
 	void getHistoryOfActivityTest() {
-		Student student = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").historyOfActivity("").build();
+		Student student = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").historyOfActivity("").build();
 		student.addHistoryOfActivity("someText");
 		assertEquals("someText\n", student.getHistoryOfActivity());
 	}
 
 	@Test
 	void setClasssTest() {
-		Student student = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").historyOfActivity("").build();
+		Student student = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").historyOfActivity("").build();
 		student.setClassNo(ClassNo.First);
 		assertEquals(ClassNo.First, student.getClassNo());
 		student.setClassNo(ClassNo.Eighth);
@@ -79,14 +79,14 @@ class StudentTest {
 
 	@Test
 	void getClasssTest() {
-		Student student = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").historyOfActivity("").build();
+		Student student = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").historyOfActivity("").build();
 		assertEquals(ClassNo.First, student.getClassNo());
 	}
 
 	@Test
 	void getFamilyIdTest() {
 		Family f = new Family("id");
-		Student student = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").family(f).build();
+		Student student = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").family(f).build();
 		assertEquals("id", student.getFamilyId());
 
 	}
@@ -94,7 +94,7 @@ class StudentTest {
 	@Test
 	void buildTest() {
 		Family f = new Family("id");
-		Student student = Student.builder().name("child").email("email").classs(ClassNo.Eighth).family(f).historyOfActivity("").pwdEncrypt("pwd").id("id").build();
+		Student student = Student.builder().name("child").email("email").classNo(ClassNo.Eighth).family(f).historyOfActivity("").pwdEncrypt("pwd").id("id").build();
 
 		assertEquals("child",student.getName());
 		assertEquals("email",student.getEmail());
@@ -107,7 +107,7 @@ class StudentTest {
 
 	@Test
 	void buildNotFinishedTest() {
-		Student studentNotFinished = Student.builder().name("child").email("email").classs(ClassNo.Eighth).build();
+		Student studentNotFinished = Student.builder().name("child").email("email").classNo(ClassNo.Eighth).build();
 		try {
 			UUID uuid = UUID.fromString(studentNotFinished.getId());
 		} catch (IllegalArgumentException exception) {

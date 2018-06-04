@@ -133,7 +133,7 @@ public class ServerModelManager implements ServerModel {
     }
 
     private LinkedList<User> getUsers() {
-        User user1 = Student.builder().name("student").email("student").classs(ClassNo.First).pwdEncrypt("pwd").build();
+        User user1 = Student.builder().name("student").email("student").classNo(ClassNo.First).pwdEncrypt("pwd").build();
         User administrator = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").build();
 
         LinkedList<User> list = new LinkedList<>();

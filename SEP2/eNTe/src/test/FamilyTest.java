@@ -46,14 +46,14 @@ public class FamilyTest {
 
 	@Test
 	void addChildTest() {
-		Student child = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
 		f.addChild(child);
 		assertEquals(child, f.getChild("child1"));
 	}
 
 	@Test
 	void deleteChildTest() {
-		Student child = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
 		f.addChild(child);
 		f.deleteChild(child);
 		assertEquals(Collections.EMPTY_LIST, f.getChildren());
@@ -62,7 +62,7 @@ public class FamilyTest {
 
 	@Test
 	void getChildTest() {
-		Student child = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
 		f.addChild(child);
 		assertEquals(child, f.getChild("child1"));
 		assertThrows(NoSuchElementException.class, () -> f.getChild("child2"));
@@ -80,7 +80,7 @@ public class FamilyTest {
 	@Test
 	void getMembersNamesTest() {
 		assertEquals("", f.getMembersNames());
-		Student child = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
 		f.addChild(child);
 		assertEquals("child1", f.getMembersNames());
 
@@ -110,9 +110,9 @@ public class FamilyTest {
 
 	@Test
 	void getClassesTest() {
-		Student child1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
-		Student child2 = Student.builder().name("child2").email("email").classs(ClassNo.Second).pwdEncrypt("pwd").build();
-		Student child3 = Student.builder().name("child3").email("email").classs(ClassNo.Third).pwdEncrypt("pwd").build();
+		Student child1 = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child2 = Student.builder().name("child2").email("email").classNo(ClassNo.Second).pwdEncrypt("pwd").build();
+		Student child3 = Student.builder().name("child3").email("email").classNo(ClassNo.Third).pwdEncrypt("pwd").build();
 		assertNotNull(f.getClasses());
 	}
 
@@ -124,8 +124,8 @@ public class FamilyTest {
 
 //	@Test
 //	void deleteMemberTest() {
-//		Student student1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
-//		Student student2 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
+//		Student student1 = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
+//		Student student2 = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
 //		f.addChild(student1);
 //		f.deleteMember(student1);
 //		assertEquals(student2, f.getChildren());
@@ -134,7 +134,7 @@ public class FamilyTest {
 
 	@Test
 	void clearTest() {
-		Student s = Student.builder().name("child").email("email").classs(ClassNo.First).family(f).pwdEncrypt("pwd").build();
+		Student s = Student.builder().name("child").email("email").classNo(ClassNo.First).family(f).pwdEncrypt("pwd").build();
 		Parent p = Parent.builder().name("parent").email("email").family(f).build();
 		f.addChild(s);
 		f.addParent(p);
@@ -152,8 +152,8 @@ public class FamilyTest {
 	void testEquals() {
 		Family f1 = new Family("ID1");
 		Family f2 = new Family("ID1");
-		Student child1 = Student.builder().name("child1").email("email").classs(ClassNo.First).pwdEncrypt("pwd").build();
-		Student child2 = Student.builder().name("child2").email("email").classs(ClassNo.Second).pwdEncrypt("pwd").build();
+		Student child1 = Student.builder().name("child1").email("email").classNo(ClassNo.First).pwdEncrypt("pwd").build();
+		Student child2 = Student.builder().name("child2").email("email").classNo(ClassNo.Second).pwdEncrypt("pwd").build();
 		Parent parent1 = Parent.builder().name("parent1").email("email").build();
 		Parent parent2 = Parent.builder().name("parent2").email("email").build();
 

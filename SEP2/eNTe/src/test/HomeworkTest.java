@@ -1,6 +1,5 @@
 package test;
 
-import javafx.fxml.FXML;
 import model.*;
 import org.junit.jupiter.api.Test;
 
@@ -61,7 +60,7 @@ public class HomeworkTest {
 
 	@Test
 	void getStudentReplyTest() {
-		Student student = Student.builder().name("name").email("email").classs(ClassNo.First).id("id").build();
+		Student student = Student.builder().name("name").email("email").classNo(ClassNo.First).id("id").build();
 		ArrayList<HomeworkReply> replies = new ArrayList<>();
 		HomeworkReply reply = new HomeworkReply("content", student, true, MyDate.now());
 		replies.add(reply);
