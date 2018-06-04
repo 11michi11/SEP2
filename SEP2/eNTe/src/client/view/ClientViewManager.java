@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
@@ -27,6 +28,7 @@ public class ClientViewManager extends Application implements ClientView {
 
 	public ClientViewManager() {
 	}
+
 	@Override
 	public void setController(ClientController controller) {
 		this.controller = controller;
@@ -35,7 +37,7 @@ public class ClientViewManager extends Application implements ClientView {
 	public void startView() {
 		Application.launch(getClass());
 	}
-	
+
 	public static Stage getStage() {
 		return stage;
 	}
@@ -45,7 +47,7 @@ public class ClientViewManager extends Application implements ClientView {
 		try {
 			stage = primaryStage;
 			loader = new FXMLLoader(getClass().getResource("/client/view/fxml/loginPane.fxml"));
-			Pane root = (Pane) loader.load();
+			Pane root = loader.load();
 			Scene scene = new Scene(root, 1280, 780);
 			scene.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -60,61 +62,61 @@ public class ClientViewManager extends Application implements ClientView {
 	public void showPosts(String user) {
 		Parent mainPane;
 		switch (user) {
-		case "Parent":
-			try {
-				loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneParent.fxml"));
-				mainPane = loader.load();
-				parentHandler = new ParentMainHandler();
-				loader.setController(parentHandler);
-				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-				stage.getScene().setRoot(mainPane);
-				stage.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			break;
-		case "Administrator":
-			try {
-				loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
-				mainPane = loader.load();
-				parentHandler = new ParentMainHandler();
-				loader.setController(adminHandler);
-				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-				stage.getScene().setRoot(mainPane);
-				stage.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			break;
-		case "Student":
-			try {
-				loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneStudent.fxml"));
-				mainPane = loader.load();
-				parentHandler = new ParentMainHandler();
-				loader.setController(studentHandler);
-				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-				stage.getScene().setRoot(mainPane);
-				stage.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			break;
-		case "Teacher":
-			try {
-				loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneTeacher.fxml"));
-				mainPane = loader.load();
-				parentHandler = new ParentMainHandler();
-				// loader.setController(teacherHandler);
-				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-				stage.getScene().setRoot(mainPane);
-				stage.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			break;
+			case "Parent":
+				try {
+					loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneParent.fxml"));
+					mainPane = loader.load();
+					parentHandler = new ParentMainHandler();
+					loader.setController(parentHandler);
+					mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+					stage.getScene().setRoot(mainPane);
+					stage.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+			case "Administrator":
+				try {
+					loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
+					mainPane = loader.load();
+					parentHandler = new ParentMainHandler();
+					loader.setController(adminHandler);
+					mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+					stage.getScene().setRoot(mainPane);
+					stage.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+			case "Student":
+				try {
+					loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneStudent.fxml"));
+					mainPane = loader.load();
+					parentHandler = new ParentMainHandler();
+					loader.setController(studentHandler);
+					mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+					stage.getScene().setRoot(mainPane);
+					stage.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+			case "Teacher":
+				try {
+					loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneTeacher.fxml"));
+					mainPane = loader.load();
+					parentHandler = new ParentMainHandler();
+					// loader.setController(teacherHandler);
+					mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+					stage.getScene().setRoot(mainPane);
+					stage.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
 		}
 	}
-	
+
 	public void showMessage(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information Dialog");
@@ -132,11 +134,7 @@ public class ClientViewManager extends Application implements ClientView {
 		alert.setContentText("Are sure that you want to delete this " + message + " ?");
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.YES){
-			return true;
-		} else {
-			return false;
-		}
+		return result.map(buttonType -> buttonType.getText().equals("OK")).orElse(false);
 	}
 
 	public void changePasswordDialog() {
@@ -144,7 +142,7 @@ public class ClientViewManager extends Application implements ClientView {
 		dialog.setTitle("Change password");
 		dialog.setHeaderText("Create a new password");
 		dialog.setContentText("Please enter your password:");
-		
+
 		Optional<String> result = dialog.showAndWait();
 		result.ifPresent(s -> controller.changePassword(s));
 	}
