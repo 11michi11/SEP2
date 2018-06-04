@@ -10,7 +10,7 @@ public interface DBPersistence {
 	void addPost(Post post);
 	void updatePost(Post post);
 	void deletePost(String postID);
-    void addHomeworkReply(HomeworkReply reply);
+    void addHomeworkReply(String homeworkId, HomeworkReply reply);
 	void updateHomeworkReply(HomeworkReply reply);
 	LinkedList<User> getUsers(FamilyList families);
 	void addUser(User user);
