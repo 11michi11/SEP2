@@ -8,7 +8,6 @@ import server.model.persistance.DBAdapter;
 import server.model.persistance.DBInterface;
 import server.model.persistance.DBPersistence;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -17,16 +16,10 @@ import java.util.stream.Collectors;
 
 import static junit.framework.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DBAdapterTestNEW {
 
-    private DBInterface database;
     private static DBPersistence adapter;
-    private static ArrayList<String> selectList;
-    private static ArrayList<String> updateList;
-    private static ArrayList<String> deleteList;
     private UsersList users;
     private FamilyList families;
     private PostsList posts;
@@ -92,14 +85,6 @@ class DBAdapterTestNEW {
 //        sortUsers();
     }
 
-    private void sortUsers() {
-        List<User> sorted = users.getAll()
-                .stream().sorted(Comparator.comparing(User::getId)).collect(Collectors.toList());
-
-        users.clear();
-        users.addAll(sorted);
-    }
-
     private void loadPosts() {
         posts = new PostsList();
         List<ClassNo> classes = new LinkedList<>();
@@ -117,14 +102,6 @@ class DBAdapterTestNEW {
     @BeforeAll
     static void setUpAdapter() {
         adapter = new DBAdapter(new MockDatabaseTest());
-        selectList = new ArrayList<>();
-        selectList.add("SELECT p.postid, p.title, p.content, p.authorname, p.pubDate, h.noOfStudentsToDeliver, h.deadline, h.classes, h.closed FROM Post p, Homework h WHERE p.postid=h.homeworkid ORDER BY p.postid");
-        selectList.add("SELECT * FROM homeworkreply ORDER BY (homeworkid,studentid)");
-        selectList.add("SELECT * FROM enteUser WHERE usertype ='Administrator' ORDER BY id");
-        selectList.add("SELECT * FROM enteUser WHERE usertype ='Teacher' ORDER BY id");
-        selectList.add("SELECT e.id, e.email, e.pwd, e.name, e.changePassword, s.familyid, s.class FROM enteuser e, student s WHERE e.id=s.studentid ORDER BY e.id");
-        selectList.add("SELECT e.id, e.email, e.pwd, e.name, e.changePassword, p.familyid FROM enteuser e, parent p WHERE e.id=p.parentid ORDER BY e.id");
-        selectList.add("SELECT * FROM family ORDER BY familyid");
     }
 
     @BeforeEach
@@ -135,7 +112,7 @@ class DBAdapterTestNEW {
     @Test
     void testGetPosts() {
         loadPosts();
-        assertEquals(new LinkedList<>(posts.getAll()),adapter.getPosts(users));
+        assertEquals(new LinkedList<>(posts.getAll()), adapter.getPosts(users));
     }
 
     @Test
@@ -150,13 +127,27 @@ class DBAdapterTestNEW {
     }
 
     @Test
+    void testAddHomeworkReply() {
+        loadPosts();
+        HomeworkReply reply1 = new HomeworkReply("Solution", (Student) users.getUserById("StudentID1"), false, new MyDate(2018, 6, 6, 15, 0));
+        adapter.addHomeworkReply(posts.getPostById("HomeworkID1").getPostId(), reply1);
+    }
+
+    @Test
     void testUpdatePost() {
         loadPosts();
-        Homework homework = (Homework) posts.getPostById("HomeworkID1");
+        List<ClassNo> classes = new LinkedList<>();
+        classes.add(ClassNo.First);
+        classes.add(ClassNo.Third);
+        classes.add(ClassNo.Seventh);
+        Homework post = new Homework("HomeworkID1", "TitleNEW", "ContentNEW", posts.getPostById("HomeworkID1").getAuthor(), posts.getPostById("HomeworkID1").getPubDate(), new MyDate(2018, 9, 9, 0, 0), classes, ((Homework) posts.getPostById("HomeworkID1")).getNumberOfStudentsToDeliver(), ((Homework) posts.getPostById("HomeworkID1")).getReplies(), ((Homework) posts.getPostById("HomeworkID1")).isClosed());
+        posts.editPost(post);
     }
 
     @Test
     void testDeletePost() {
+        loadPosts();
+        adapter.deletePost(posts.getPostById("HomeworkID1").getPostId());
     }
 
     @Test
@@ -165,15 +156,84 @@ class DBAdapterTestNEW {
     }
 
     @Test
-    void testAddUser() {
+    void testAddAdmin() {
+        User admin = Administrator.builder().name("AdminName").email("AdminEmail").id("AdminID").pwd("AdminPwd").build();
+        adapter.addUser(admin);
     }
 
     @Test
-    void testUpdateUser() {
+    void testAddTeacher() {
+        User teacher = Teacher.builder().name("TeacherName").email("TeacherEmail").id("TeacherID").pwd("TeacherPwd").build();
+        adapter.addUser(teacher);
     }
 
     @Test
-    void testDeleteUser() {
+    void testAddStudent() {
+        Family f1 = new Family("FamilyID");
+        User student1 = Student.builder().name("StudentName").email("StudentEmail").classNo(ClassNo.First).pwd("StudentPwd").id("StudentID").family(f1).build();
+        adapter.addUser(student1);
+    }
+
+    @Test
+    void testAddParent() {
+        Family f1 = new Family("FamilyID");
+        User parent1 = Parent.builder().name("ParentName").email("ParentEmail").pwd("ParentPwd").id("ParentID").family(f1).build();
+        adapter.addUser(parent1);
+    }
+
+    @Test
+    void testUpdateAdmin() {
+        Administrator admin = (Administrator) users.getUserById("AdminID");
+        admin.setPwdNoEncrypt("AdminPwdNEW");
+        admin.setChangePassword(true);
+        adapter.updateUser(admin);
+    }
+
+    @Test
+    void testUpdateTeacher() {
+        Teacher teacher = (Teacher) users.getUserById("TeacherID1");
+        teacher.setPwdNoEncrypt("TeacherPwdNEW");
+        teacher.setChangePassword(true);
+        adapter.updateUser(teacher);
+    }
+
+    @Test
+    void testUpdateStudent() {
+        Student student = (Student) users.getUserById("StudentID1");
+        student.setFamily(new Family("FamilyIDNEW"));
+        student.setClassNo(ClassNo.Second);
+        student.setPwdNoEncrypt("StudentPwdNEW");
+        student.setChangePassword(true);
+        adapter.updateUser(student);
+    }
+
+    @Test
+    void testUpdateParent() {
+        Parent parent = (Parent) users.getUserById("ParentID1");
+        parent.setFamily(new Family("FamilyIDNEW"));
+        parent.setPwdNoEncrypt("ParentPwdNEW");
+        parent.setChangePassword(true);
+        adapter.updateUser(parent);
+    }
+
+    @Test
+    void testDeleteAdmin() {
+        adapter.deleteUser(users.getUserById("AdminID").getId());
+    }
+
+    @Test
+    void testDeleteTeacher() {
+        adapter.deleteUser(users.getUserById("TeacherID1").getId());
+    }
+
+    @Test
+    void testDeleteStudent() {
+        adapter.deleteUser(users.getUserById("StudentID1").getId());
+    }
+
+    @Test
+    void testDeleteParent() {
+        adapter.deleteUser(users.getUserById("ParentID1").getId());
     }
 
     @Test
@@ -223,8 +283,30 @@ class DBAdapterTestNEW {
             updateList.add("INSERT INTO post VALUES ('HomeworkID','Homework','Title','Content','Author','2018-06-06 12:00:00.0')");
             updateList.add("INSERT INTO homework VALUES ('HomeworkID',1,'2018-07-07 12:00:00.0','{First}',false)");
             updateList.add("INSERT INTO family VALUES ('FamilyID1')");
-            updateList.add("UPDATE post SET title='TitleNEW', content='ContentNEW',pubdate='2018-09-09 00:00.0' WHERE postid='HomeworkID1'");
+            updateList.add("INSERT INTO enteuser VALUES ('AdminID','Administrator','AdminEmail','AdminPwd','AdminName',false)");
+            updateList.add("INSERT INTO enteuser VALUES ('TeacherID','Teacher','TeacherEmail','TeacherPwd','TeacherName',false)");
+            updateList.add("INSERT INTO enteuser VALUES ('StudentID','Student','StudentEmail','StudentPwd','StudentName',false)");
+            updateList.add("INSERT INTO student VALUES ('StudentID','FamilyID','First')");
+            updateList.add("INSERT INTO enteuser VALUES ('ParentID','Parent','ParentEmail','ParentPwd','ParentName',false)");
+            updateList.add("INSERT INTO parent VALUES ('ParentID','FamilyID')");
+            updateList.add("INSERT INTO homeworkreply VALUES ('HomeworkID1','StudentID1','2018-06-06 15:00:00.0','Solution',false)");
+
+            updateList.add("UPDATE post SET title='TitleNEW', content='ContentNEW',pubdate='2018-06-06 12:00.0' WHERE postid='HomeworkID'");
+            updateList.add("UPDATE homework SET deadline='2018-09-09 00:00', classes='{First,Third,Seventh}',closed=false WHERE homeworkid='HomeworkID1'");
+            updateList.add("UPDATE enteuser SET usertype='Administrator',email='AdminEmail',pwd='AdminPwdNEW',name='AdminName',changepassword=true WHERE id='AdminID'");
+            updateList.add("UPDATE enteuser SET usertype='Teacher',email='TeacherEmail1',pwd='TeacherPwdNEW',name='TeacherName1',changepassword=true WHERE id='TeacherID1'");
+            updateList.add("UPDATE enteuser SET usertype='Student',email='StudentEmail1',pwd='StudentPwdNEW',name='StudentName1',changepassword=true WHERE id='StudentID1'");
+            updateList.add("UPDATE student SET class='Second',familyid='FamilyIDNEW' WHERE studentid='StudentID1'");
+            updateList.add("UPDATE enteuser SET usertype='Parent',email='ParentEmail1',pwd='ParentPwdNEW',name='ParentName1',changepassword=true WHERE id='ParentID1'");
+            updateList.add("UPDATE parent SET familyid='FamilyIDNEW' WHERE parentid='ParentID1'");
+
             updateList.add("DELETE FROM family WHERE familyid='FamilyID1'");
+            updateList.add("DELETE FROM post WHERE postid='HomeworkID1'");
+            updateList.add("DELETE FROM enteuser WHERE id='AdminID'");
+            updateList.add("DELETE FROM enteuser WHERE id='TeacherID1'");
+            updateList.add("DELETE FROM enteuser WHERE id='StudentID1'");
+            updateList.add("DELETE FROM enteuser WHERE id='ParentID1'");
+
         }
 
         private void initializeUsers() {
@@ -304,11 +386,9 @@ class DBAdapterTestNEW {
                 row[1] = "Title" + (i + 1);
                 row[2] = "Content" + (i + 1);
                 row[3] = "Author" + (i + 1);
-                row[4] = MyDate.convertFromMyDateToTimestamp(new MyDate(2018,i+6,i+6,12,0));
-//                row[4] = "2018-0"+(i+6)+"-0"+(i+6)+" 12:00:00.0";
+                row[4] = MyDate.convertFromMyDateToTimestamp(new MyDate(2018, i + 6, i + 6, 12, 0));
                 row[5] = 1;
-                row[6] = MyDate.convertFromMyDateToTimestamp(new MyDate(2018,i+7,i+7,12,0));
-//                row[6] = "2018-0"+(i+7)+"-0"+(i+7)+" 12:00:00.0";
+                row[6] = MyDate.convertFromMyDateToTimestamp(new MyDate(2018, i + 7, i + 7, 12, 0));
                 switch (i) {
                     case 0:
                         String[] classes = new String[1];
@@ -322,20 +402,9 @@ class DBAdapterTestNEW {
                         classes[2] = "Eighth";
                         row[7] = classes;
                         break;
-                        default:break;
+                    default:
+                        break;
                 }
-//                if (i < 1) {
-//                    String[] classes = new String[1];
-//                    classes[0] = "First";
-//                    row[7] = classes;
-//                }
-//                else {
-//                    String[] classes = new String[3];
-//                    classes[0] = "First";
-//                    classes[1] = "Seventh";
-//                    classes[2] = "Eighth";
-//                    row[7] = classes;
-//                }
                 row[8] = false;
                 posts.add(row);
             }
@@ -346,7 +415,7 @@ class DBAdapterTestNEW {
                 Object[] row = new Object[9];
                 row[0] = "HomeworkID2";
                 row[1] = "StudentID" + (i + 1);
-                row[2] = MyDate.convertFromMyDateToTimestamp(new MyDate(2018,(i + 7),15,12,0));
+                row[2] = MyDate.convertFromMyDateToTimestamp(new MyDate(2018, (i + 7), 15, 12, 0));
                 row[3] = "Solution" + (i + 1);
                 row[4] = false;
                 replies.add(row);
@@ -355,13 +424,12 @@ class DBAdapterTestNEW {
 
         @Override
         public ArrayList<Object[]> query(String sql, Object... statementElements) {
-            System.out.println(sql);
             switch (sql) {
                 case "SELECT * FROM family ORDER BY familyid":
                     return families;
                 case "SELECT p.postid, p.title, p.content, p.authorname, p.pubDate, h.noOfStudentsToDeliver, h.deadline, h.classes, h.closed FROM Post p, Homework h WHERE p.postid=h.homeworkid ORDER BY p.postid":
                     return posts;
-                case "SELECT * FROM HomeworkReply ORDER BY (homeworkid,studentid)":
+                case "SELECT * FROM homeworkreply ORDER BY (homeworkid,studentid)":
                     return replies;
                 case "SELECT * FROM enteUser WHERE usertype ='Administrator' ORDER BY id":
                     return admins;
@@ -378,7 +446,6 @@ class DBAdapterTestNEW {
 
         @Override
         public int update(String sql, Object... statementElements) {
-            System.out.println(sql);
             if (!updateList.contains(sql))
                 fail();
             return 0;

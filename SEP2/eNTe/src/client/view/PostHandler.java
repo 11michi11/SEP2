@@ -88,6 +88,7 @@ public class PostHandler {
         text.getChildren().addAll(title, content);
 
         box.getChildren().add(0, text);
+
     }
 
     public void addPost() {
