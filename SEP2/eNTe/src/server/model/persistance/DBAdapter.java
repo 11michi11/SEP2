@@ -19,6 +19,39 @@ public class DBAdapter implements DBPersistence {
     }
 
     @Override
+    public LinkedList<Family> getFamilies() {
+        LinkedList<Family> list = new LinkedList<>();
+        try {
+            String sql = "SELECT * FROM family ORDER BY familyid";
+            ArrayList<Object[]> resultSet = db.query(sql);
+            for (Object[] e : resultSet) {
+                String familyID = (String) e[0];
+                list.add(new Family(familyID));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public LinkedList<User> getUsers(FamilyList families) {
+        LinkedList<User> users = new LinkedList<>();
+
+        LinkedList<Administrator> admins = getAdmins();
+        LinkedList<Teacher> teachers = getTeachers();
+
+        LinkedList<Student> students = getStudents(families);
+        LinkedList<Parent> parents = getParents(families);
+
+        users.addAll(admins);
+        users.addAll(teachers);
+        users.addAll(students);
+        users.addAll(parents);
+        return users;
+    }
+
+    @Override
     public LinkedList<Post> getPosts(UsersList users) {
 
         LinkedList<Post> posts = new LinkedList<>();
@@ -29,61 +62,59 @@ public class DBAdapter implements DBPersistence {
         return posts;
     }
 
-    private LinkedList<Homework> getHomeworks(HashMap<String, LinkedList<HomeworkReply>> replies) {
-        LinkedList<Homework> list = new LinkedList<>();
+    @Override
+    public void addFamily(Family family) {
         try {
-            String sql = "SELECT p.postid, p.title, p.content, p.authorname, p.pubDate, h.noOfStudentsToDeliver, h.deadline, h.classes, h.closed FROM Post p, Homework h WHERE p.postid=h.homeworkid ORDER BY p.postid";
-            ArrayList<Object[]> resultSet = db.query(sql);
-            for (Object[] e : resultSet) {
-                String postID = (String) e[0];
-                String title = (String) e[1];
-                String content = (String) e[2];
-                String authorName = (String) e[3];
-                Timestamp pubDateStamp = (Timestamp) e[4];
-                int noOfStudentsToDeliver = (int) e[5];
-                Timestamp deadlineStamp = (Timestamp) e[6];
-                String[] classesString = (String[]) e[7];
-                List<ClassNo> classes = new ArrayList<>();
-                for (String a : classesString) {
-                    classes.add(ClassNo.valueOf(a));
-                }
-                boolean closed = (boolean) e[8];
-                list.add(new Homework(postID, title, content, authorName, MyDate.convertFromTimestampToMyDate(pubDateStamp), MyDate.convertFromTimestampToMyDate(deadlineStamp), classes, noOfStudentsToDeliver, replies.getOrDefault(postID, new LinkedList<>()), closed));
-            }
+            String sql = "INSERT INTO family VALUES ('";
+            sql += family.getId() + "')";
+
+            db.update(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
     }
 
-    private HashMap<String, LinkedList<HomeworkReply>> getHomeworkReplies(UsersList students) {
-        HashMap<String, LinkedList<HomeworkReply>> map = new HashMap<>();
+    @Override
+    public void addUser(User user) {
         try {
-            String sql = "SELECT * FROM homeworkreply ORDER BY (homeworkid,studentid)";
-            ArrayList<Object[]> resultSet = db.query(sql);
-            LinkedList<HomeworkReply> replies = new LinkedList<>();
-            if (resultSet != null && resultSet.size() > 0) {
-                String previousHomeworkId = (String) resultSet.get(0)[0];
-                for (Object[] e : resultSet) {
-                    String homeworkID = (String) e[0];
-                    String studentid = (String) e[1];
-                    Student student = (Student) students.getUserById(studentid);
-                    Timestamp timestamp = (Timestamp) e[2];
-                    String content = (String) e[3];
-                    boolean late = (boolean) e[4];
-                    if (!previousHomeworkId.equals(homeworkID)) {
-                        map.put(previousHomeworkId, replies);
-                        replies = new LinkedList<>();
-                        previousHomeworkId = homeworkID;
-                    }
-                    replies.add(new HomeworkReply(content, student, late, MyDate.convertFromTimestampToMyDate(timestamp)));
-                }
-                map.put(previousHomeworkId, replies);
+            ArrayList<String> sqlList = new ArrayList<>();
+
+            String sql = "INSERT INTO enteuser VALUES ('";
+            sql += user.getId() + "','";
+            sql += user.getClass().getSimpleName() + "','";
+            sql += user.getEmail() + "','";
+            sql += user.getPwd() + "','";
+            sql += user.getName() + "',";
+            sql += user.isPasswordChangeNeeded() + ")";
+            sqlList.add(sql);
+
+            sql = "INSERT INTO ";
+
+            switch (user.getClass().getSimpleName()) {
+                case "Student":
+                    Student student = (Student) user;
+                    sql += "student VALUES ('";
+                    sql += student.getId() + "','";
+                    sql += student.getFamilyId() + "','";
+                    sql += student.getClassNo() + "')";
+                    sqlList.add(sql);
+                    break;
+
+                case "Parent":
+                    Parent parent = (Parent) user;
+                    sql += "parent VALUES ('";
+                    sql += parent.getId() + "','";
+                    sql += parent.getFamilyId() + "')";
+                    sqlList.add(sql);
+                    break;
+
+                default:
+                    break;
             }
+            db.updateAll(sqlList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return map;
     }
 
     @Override
@@ -129,6 +160,59 @@ public class DBAdapter implements DBPersistence {
                     }
                     break;
 
+                default:
+                    break;
+            }
+            db.updateAll(sqlList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addHomeworkReply(String homeworkId, HomeworkReply reply) {
+        String sql = "INSERT INTO homeworkreply VALUES ('";
+        sql += homeworkId + "','";
+        sql += reply.getStudent().getId() + "','";
+        sql += MyDate.convertFromMyDateToTimestamp(reply.getHandInDate()) + "','";
+        sql += reply.getContent() + "',";
+        sql += reply.isLate() + ")";
+        try {
+            db.update(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateUser(User user) {
+        try {
+            ArrayList<String> sqlList = new ArrayList<>();
+            String sql = "";
+            String usertype = user.getClass().getSimpleName();
+            sql += "UPDATE enteuser SET ";
+            sql += "usertype='" + usertype + "',";
+            sql += "email='" + user.getEmail() + "',";
+            sql += "pwd='" + user.getPwd() + "',";
+            sql += "name='" + user.getName() + "',";
+            sql += "changepassword=" + user.isPasswordChangeNeeded() + " ";
+            sql += "WHERE id='" + user.getId() + "'";
+            sqlList.add(sql);
+            switch (usertype) {
+                case "Student":
+                    Student student = (Student) user;
+                    sql = "UPDATE student SET class='" + student.getClassNo() + "',";
+                    sql += "familyid='" + student.getFamilyId() + "' ";
+                    sql += "WHERE studentid='" + student.getId() + "'";
+                    sqlList.add(sql);
+                    break;
+                case "Parent":
+                    Parent parent = (Parent) user;
+                    sql = "UPDATE parent SET ";
+                    sql += "familyid='" + parent.getFamilyId() + "' ";
+                    sql += "WHERE parentid='" + parent.getId() + "'";
+                    sqlList.add(sql);
+                    break;
                 default:
                     break;
             }
@@ -188,31 +272,6 @@ public class DBAdapter implements DBPersistence {
     }
 
     @Override
-    public void deletePost(String postID) {
-        String sql = "DELETE FROM post WHERE postid='" + postID + "'";
-        try {
-            db.update(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void addHomeworkReply(String homeworkId, HomeworkReply reply) {
-        String sql = "INSERT INTO homeworkreply VALUES ('";
-        sql += homeworkId + "','";
-        sql += reply.getStudent().getId() + "','";
-        sql += MyDate.convertFromMyDateToTimestamp(reply.getHandInDate()) + "','";
-        sql += reply.getContent() + "',";
-        sql += reply.isLate() + ")";
-        try {
-            db.update(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void updateHomeworkReply(HomeworkReply reply) {
 //      for (HomeworkReply e : replies2) {
 //        sql = "UPDATE homeworkreply SET handindate='" + MyDate.convertFromMyDateToTimestamp(e.getHandInDate()) + "',";
@@ -224,98 +283,13 @@ public class DBAdapter implements DBPersistence {
     }
 
     @Override
-    public LinkedList<User> getUsers(FamilyList families) {
-        LinkedList<User> users = new LinkedList<>();
-
-        LinkedList<Administrator> admins = getAdmins();
-        LinkedList<Teacher> teachers = getTeachers();
-
-        LinkedList<Student> students = getStudents(families);
-        LinkedList<Parent> parents = getParents(families);
-
-        users.addAll(admins);
-        users.addAll(teachers);
-        users.addAll(students);
-        users.addAll(parents);
-        return users;
-    }
-
-    @Override
-    public void addUser(User user) {
+    public void deleteFamily(Family family) {
         try {
-            ArrayList<String> sqlList = new ArrayList<>();
-
-            String sql = "INSERT INTO enteuser VALUES ('";
-            sql += user.getId() + "','";
-            sql += user.getClass().getSimpleName() + "','";
-            sql += user.getEmail() + "','";
-            sql += user.getPwd() + "','";
-            sql += user.getName() + "',";
-            sql += user.isPasswordChangeNeeded() + ")";
-            sqlList.add(sql);
-
-            sql = "INSERT INTO ";
-
-            switch (user.getClass().getSimpleName()) {
-                case "Student":
-                    Student student = (Student) user;
-                    sql += "student VALUES ('";
-                    sql += student.getId() + "','";
-                    sql += student.getFamilyId() + "','";
-                    sql += student.getClassNo() + "')";
-                    sqlList.add(sql);
-                    break;
-
-                case "Parent":
-                    Parent parent = (Parent) user;
-                    sql += "parent VALUES ('";
-                    sql += parent.getId() + "','";
-                    sql += parent.getFamilyId() + "')";
-                    sqlList.add(sql);
-                    break;
-
-                default:
-                    break;
-            }
-            db.updateAll(sqlList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void updateUser(User user) {
-        try {
-            ArrayList<String> sqlList = new ArrayList<>();
             String sql = "";
-            String usertype = user.getClass().getSimpleName();
-            sql += "UPDATE enteuser SET ";
-            sql += "usertype='" + usertype + "',";
-            sql += "email='" + user.getEmail() + "',";
-            sql += "pwd='" + user.getPwd() + "',";
-            sql += "name='" + user.getName() + "',";
-            sql += "changepassword=" + user.isPasswordChangeNeeded() + " ";
-            sql += "WHERE id='" + user.getId() + "'";
-            sqlList.add(sql);
-            switch (usertype) {
-                case "Student":
-                    Student student = (Student) user;
-                    sql = "UPDATE student SET class='" + student.getClassNo() + "',";
-                    sql += "familyid='" + student.getFamilyId() + "' ";
-                    sql += "WHERE studentid='" + student.getId() + "'";
-                    sqlList.add(sql);
-                    break;
-                case "Parent":
-                    Parent parent = (Parent) user;
-                    sql = "UPDATE parent SET ";
-                    sql += "familyid='" + parent.getFamilyId() + "' ";
-                    sql += "WHERE parentid='" + parent.getId() + "'";
-                    sqlList.add(sql);
-                    break;
-                default:
-                    break;
+            if (family.getChildren() != null && family.getParents() != null) {
+                sql = "DELETE FROM family WHERE familyid='" + family.getId() + "'";
             }
-            db.updateAll(sqlList);
+            db.update(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -324,6 +298,16 @@ public class DBAdapter implements DBPersistence {
     @Override
     public void deleteUser(String id) {
         String sql = "DELETE FROM enteuser WHERE id='" + id + "'";
+        try {
+            db.update(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deletePost(String postID) {
+        String sql = "DELETE FROM post WHERE postid='" + postID + "'";
         try {
             db.update(sql);
         } catch (SQLException e) {
@@ -422,15 +406,26 @@ public class DBAdapter implements DBPersistence {
         return list;
     }
 
-    @Override
-    public LinkedList<Family> getFamilies() {
-        LinkedList<Family> list = new LinkedList<>();
+    private LinkedList<Homework> getHomeworks(HashMap<String, LinkedList<HomeworkReply>> replies) {
+        LinkedList<Homework> list = new LinkedList<>();
         try {
-            String sql = "SELECT * FROM family ORDER BY familyid";
+            String sql = "SELECT p.postid, p.title, p.content, p.authorname, p.pubDate, h.noOfStudentsToDeliver, h.deadline, h.classes, h.closed FROM Post p, Homework h WHERE p.postid=h.homeworkid ORDER BY p.postid";
             ArrayList<Object[]> resultSet = db.query(sql);
             for (Object[] e : resultSet) {
-                String familyID = (String) e[0];
-                list.add(new Family(familyID));
+                String postID = (String) e[0];
+                String title = (String) e[1];
+                String content = (String) e[2];
+                String authorName = (String) e[3];
+                Timestamp pubDateStamp = (Timestamp) e[4];
+                int noOfStudentsToDeliver = (int) e[5];
+                Timestamp deadlineStamp = (Timestamp) e[6];
+                String[] classesString = (String[]) e[7];
+                List<ClassNo> classes = new ArrayList<>();
+                for (String a : classesString) {
+                    classes.add(ClassNo.valueOf(a));
+                }
+                boolean closed = (boolean) e[8];
+                list.add(new Homework(postID, title, content, authorName, MyDate.convertFromTimestampToMyDate(pubDateStamp), MyDate.convertFromTimestampToMyDate(deadlineStamp), classes, noOfStudentsToDeliver, replies.getOrDefault(postID, new LinkedList<>()), closed));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -438,29 +433,34 @@ public class DBAdapter implements DBPersistence {
         return list;
     }
 
-    @Override
-    public void addFamily(Family family) {
+    private HashMap<String, LinkedList<HomeworkReply>> getHomeworkReplies(UsersList students) {
+        HashMap<String, LinkedList<HomeworkReply>> map = new HashMap<>();
         try {
-            String sql = "INSERT INTO family VALUES ('";
-            sql += family.getId() + "')";
-
-            db.update(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void deleteFamily(Family family) {
-        try {
-            String sql = "";
-            if (family.getChildren() != null && family.getParents() != null) {
-                sql = "DELETE FROM family WHERE familyid='" + family.getId() + "'";
+            String sql = "SELECT * FROM homeworkreply ORDER BY (homeworkid,studentid)";
+            ArrayList<Object[]> resultSet = db.query(sql);
+            LinkedList<HomeworkReply> replies = new LinkedList<>();
+            if (resultSet != null && resultSet.size() > 0) {
+                String previousHomeworkId = (String) resultSet.get(0)[0];
+                for (Object[] e : resultSet) {
+                    String homeworkID = (String) e[0];
+                    String studentid = (String) e[1];
+                    Student student = (Student) students.getUserById(studentid);
+                    Timestamp timestamp = (Timestamp) e[2];
+                    String content = (String) e[3];
+                    boolean late = (boolean) e[4];
+                    if (!previousHomeworkId.equals(homeworkID)) {
+                        map.put(previousHomeworkId, replies);
+                        replies = new LinkedList<>();
+                        previousHomeworkId = homeworkID;
+                    }
+                    replies.add(new HomeworkReply(content, student, late, MyDate.convertFromTimestampToMyDate(timestamp)));
+                }
+                map.put(previousHomeworkId, replies);
             }
-            db.update(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return map;
     }
 
     public void executeSQL(String sql) {

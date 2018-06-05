@@ -6,17 +6,17 @@ import java.util.LinkedList;
 
 public interface DBPersistence {
 
-	LinkedList<Post> getPosts(UsersList users);
-	void addPost(Post post);
-	void updatePost(Post post);
-	void deletePost(String postID);
-    void addHomeworkReply(String homeworkId, HomeworkReply reply);
-	void updateHomeworkReply(HomeworkReply reply);
-	LinkedList<User> getUsers(FamilyList families);
-	void addUser(User user);
-	void updateUser(User user);
-	void deleteUser(String id);
-	void addFamily(Family family);
-	void deleteFamily(Family family);
 	LinkedList<Family> getFamilies();
+	LinkedList<User> getUsers(FamilyList families);
+	LinkedList<Post> getPosts(UsersList users);
+	void addFamily(Family family);
+	void addUser(User user);
+	void addPost(Post post);
+	void addHomeworkReply(String homeworkId, HomeworkReply reply);
+	void updateUser(User user);
+	void updatePost(Post post);
+	void updateHomeworkReply(HomeworkReply reply);
+	void deleteFamily(Family family);
+	void deleteUser(String id);
+	void deletePost(String postID);
 }
