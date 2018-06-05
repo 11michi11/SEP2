@@ -22,26 +22,19 @@ public class ClientController {
     private static ClientController instance;
     private User currentUser;
 
-    private ClientController(ClientModel model, ClientView view) {
-        instance = this;
+    public static ClientController getInstance() {
+        if (instance == null)
+            instance = new ClientController();
+        return instance;
+    }
+
+    public void init(ClientModel model, ClientView view){
         this.model = model;
         model.setController(this);
         initializeModelForTests();
         this.view = view;
         view.setController(this);
         this.view.startView();
-    }
-
-    public static ClientController getInstance(ClientModel model, ClientView view) {
-        if (instance == null)
-            instance = new ClientController(model, view);
-        return instance;
-    }
-
-    public static ClientController getInstance() {
-        if (instance == null)
-            throw new IllegalStateException("There is no instance");
-        return instance;
     }
 
     public void login(String email, String pwd) {

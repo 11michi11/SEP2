@@ -24,12 +24,14 @@ public class ServerModelManager implements ServerModel {
         users = new UsersList();
         families = new FamilyList();
         try {
-            db = new DBAdapter(new Database("org.postgresql.Driver","jdbc:postgresql://207.154.237.196:5432/ente","ente","ente"));
+            db = new DBAdapter(new Database("org.postgresql.Driver", "jdbc:postgresql://207.154.237.196:5432/ente", "ente", "ente"));
             restoreState();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Database connection has not been established");
         }
-
+        Thread dbSynchronize = new Thread(new SynchronizeDatabase());
+        dbSynchronize.setDaemon(true);
+        dbSynchronize.start();
     }
 
     @Override
@@ -45,7 +47,7 @@ public class ServerModelManager implements ServerModel {
     private void restoreState() {
         families.addAll(db.getFamilies());
         users.addAll(db.getUsers(families));
-      //  posts.addAll(db.getPosts(users));
+        posts.addAll(db.getPosts(users));
         users.addAll(getUsers());
         posts.addAll(getPosts());
     }
@@ -145,17 +147,18 @@ public class ServerModelManager implements ServerModel {
     private LinkedList<Post> getPosts() {
         Post post = new Post("Lorem ipsum dolor",
                 "This is a post about Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mattis at dolor sed."
-                       , "Author", MyDate.now());
+                , "Author", MyDate.now());
 
         LinkedList<Post> list = new LinkedList<>();
         list.add(post);
         list.addAll(getHomework());
         return list;
     }
+
     private LinkedList<Homework> getHomework() {
-    	MyDate submitDate = new MyDate(15, 12, 2018);
-    	List<ClassNo> classes = new ArrayList<>();
-    	classes.add(ClassNo.First);
+        MyDate submitDate = new MyDate(15, 12, 2018);
+        List<ClassNo> classes = new ArrayList<>();
+        classes.add(ClassNo.First);
         Homework homework = new Homework("HOMEWORK Lorem ipsum dolor",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
                         + "Proin mattis at dolor sed aliquam. Nulla facilisi. "
@@ -174,7 +177,7 @@ public class ServerModelManager implements ServerModel {
         return list;
     }
 
-    
+
     private LinkedList<Discussion> getDiscussion() {
         Discussion discussion = new Discussion("HOMEWORK Lorem ipsum dolor",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
@@ -193,5 +196,126 @@ public class ServerModelManager implements ServerModel {
         list.add(discussion);
         return list;
     }
+
+    private void updateDb() {
+        List<Family> fList = db.getFamilies();
+        FamilyList familyList = new FamilyList();
+        familyList.addAll(fList);
+        List<List<Family>> famDiff = getFamilyDiff(fList);
+        List<Family> familiesToAdd = famDiff.get(0);
+        List<Family> familiesToUpdate = famDiff.get(1);
+
+        List<User> uList = db.getUsers(familyList);
+        UsersList usersList = new UsersList();
+        usersList.addAll(uList);
+        List<List<User>> usersDiff = getUserDiff(uList);
+        List<User> usersToAdd = usersDiff.get(0);
+        List<User> usersToUpdate = usersDiff.get(1);
+
+        List<List<Post>> postsDiff = getPostDiff(db.getPosts(usersList));
+        List<Post> postsToAdd = postsDiff.get(0);
+        List<Post> postsToUpdate = postsDiff.get(1);
+
+        updateFamilies(familiesToAdd, familiesToUpdate);
+        updateUsers(usersToAdd, usersToUpdate);
+        postsUsers(postsToAdd, postsToUpdate);
+    }
+
+    private List<List<Post>> getPostDiff(List<Post> dbPosts) {
+        List<Post> toAdd = new LinkedList<>();
+        List<Post> toUpdate = new LinkedList<>();
+
+        for (Post post : posts.getAll()) {
+            if (!dbPosts.contains(post)) {
+                toAdd.add(post);
+            } else {
+                for (Post dbPost : dbPosts)
+                    if (dbPost.getPostId().equals(post.getPostId())) {
+                        toUpdate.add(post);
+                        break;
+                    }
+            }
+        }
+
+        List<List<Post>> result = new LinkedList<>();
+        result.add(toAdd);
+        result.add(toUpdate);
+        return result;
+    }
+
+    private List<List<User>> getUserDiff(List<User> dbUsers) {
+        List<User> toAdd = new LinkedList<>();
+        List<User> toUpdate = new LinkedList<>();
+
+        for (User user : users.getAll()) {
+            if (!dbUsers.contains(user)) {
+                toAdd.add(user);
+            } else {
+                for (User dbUser : dbUsers)
+                    if (dbUser.getId().equals(user.getId())) {
+                        toUpdate.add(user);
+                        break;
+                    }
+            }
+        }
+
+        List<List<User>> result = new LinkedList<>();
+        result.add(toAdd);
+        result.add(toUpdate);
+        return result;
+    }
+
+    private List<List<Family>> getFamilyDiff(List<Family> dbFamilies) {
+        List<Family> toAdd = new LinkedList<>();
+        List<Family> toUpdate = new LinkedList<>();
+
+        for (Family family : families.getAllFamilies()) {
+            if (!dbFamilies.contains(family)) {
+                toAdd.add(family);
+            } else {
+                for (Family dbFamily : dbFamilies)
+                    if (dbFamily.getId().equals(family.getId())) {
+                        toUpdate.add(family);
+                        break;
+                    }
+            }
+        }
+
+        List<List<Family>> result = new LinkedList<>();
+        result.add(toAdd);
+        result.add(toUpdate);
+        return result;
+    }
+
+    private void postsUsers(List<Post> postsToAdd, List<Post> postsToUpdate) {
+        postsToAdd.forEach(post -> db.addPost(post));
+        postsToUpdate.forEach(post -> db.updatePost(post));
+    }
+
+    private void updateUsers(List<User> usersToAdd, List<User> usersToUpdate) {
+        usersToAdd.forEach(user -> db.addUser(user));
+        usersToUpdate.forEach(user -> db.updateUser(user));
+    }
+
+    private void updateFamilies(List<Family> familiesToAdd, List<Family> familiesToUpdate) {
+        familiesToAdd.forEach(family -> db.addFamily(family));
+        // familiesToUpdate.forEach(family -> db.updateFamilies(family));
+    }
+
+    class SynchronizeDatabase implements Runnable {
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(1000 * 60 * 60 * 12);
+                } catch (InterruptedException e) {
+                    return;
+                }
+                updateDb();
+            }
+        }
+    }
+
 
 }
