@@ -17,14 +17,14 @@ public class MyDate implements Serializable {
         this.set(year, month, day, 0, 0);
     }
 
+    public MyDate(int year, int month, int day, int hour, int minute) {
+        this.set(year, month, day, hour, minute);
+    }
     public MyDate() {
         Calendar now = GregorianCalendar.getInstance();
         this.year = now.get(Calendar.YEAR);
         this.month = now.get(Calendar.MONTH) + 1;
         this.day = now.get(Calendar.DAY_OF_MONTH);
-    }
-    public MyDate(int year, int month, int day, int hour, int minute) {
-        this.set(year, month, day, hour, minute);
     }
 
     public int getYear() {
