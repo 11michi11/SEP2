@@ -42,12 +42,15 @@ public class StudentMainHandler {
 		loadPosts();
 
 	}
+
 	public void loadPosts() {
 		ArrayList<Post> posts = controller.getAllPosts();
 		for (Post p : posts) {
 			switch (p.getClass().getSimpleName()) {
 				case "Homework":
-					loadHomework((Homework) p);
+					if (controller.checkHomeworkClass((Homework) p)) {
+						loadHomework((Homework) p);
+					}
 					break;
 				case "Post":
 					loadPost(p);

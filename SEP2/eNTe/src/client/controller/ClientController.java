@@ -134,6 +134,13 @@ public class ClientController {
         model.editPost(homework);
     }
 
+    public boolean checkHomeworkClass(Homework homework) {
+        if(currentUser instanceof Student)
+            return homework.getClasses().contains(((Student) currentUser).getClassNo());
+        else
+            return false;
+    }
+
     public ArrayList<Family> getFamilies() {
         return model.getAllFamilies();
     }
