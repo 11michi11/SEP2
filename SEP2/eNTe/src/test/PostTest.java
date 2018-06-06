@@ -20,8 +20,8 @@ class PostTest {
 	@Test
 	void testEquals() {
 		MyDate pubDate = MyDate.now();
-		Post post1 = new Post("title", "content", "Author", pubDate);
-		Post post2 = new Post("title", "content", "Author", pubDate);
+		Post post1 = new Post("id","title", "content", "Author", pubDate);
+		Post post2 = new Post(post1.getPostId(),post1.getTitle(), post1.getContent(), post1.getAuthor(), post1.getPubDate());
 		Post post3 = new Post("title1", "content", "Author", pubDate);
 		Post post4 = new Post("title", "content1", "Author", pubDate);
 

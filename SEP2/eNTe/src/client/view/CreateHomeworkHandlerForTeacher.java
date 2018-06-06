@@ -71,13 +71,29 @@ public class CreateHomeworkHandlerForTeacher {
 		minute.setValue(date.getMinute());
 
 	}
+	public void checkForNull() {
+		if (title.getText() == null || content.getText() == null || deadline.getValue() == null || getClasses() == null || group.getText() == null) {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Warning Dialog");
+			alert.setHeaderText("Look, unfinished selection");
+			alert.setContentText("Please select or fill everything!");
+			alert.showAndWait();
+		}
+	}
 
 	public void addHomework() {
+		checkForNull();
 		LocalDate localDate = deadline.getValue();
 		MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
 		controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()));
 		System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
-		goBack();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreationForTeacher.fxml"));
+		try {
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private List<ClassNo> getClasses() {
