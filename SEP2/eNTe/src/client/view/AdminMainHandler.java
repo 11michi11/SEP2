@@ -79,8 +79,8 @@ public class AdminMainHandler {
             protected void layoutChildren() {
                 super.layoutChildren();
                 TextFlow textFlow = (TextFlow) getChildren().get(0);
-                setMinHeight(textFlow.getHeight() + 50);
-                autosize();
+                setMinHeight(textFlow.getHeight() + 100);
+                //autosize();
             }
         };
         pane.getChildren().addAll(textFlow);
@@ -105,7 +105,7 @@ public class AdminMainHandler {
             protected void layoutChildren() {
                 super.layoutChildren();
                 TextFlow textFlow = (TextFlow) getChildren().get(0);
-                setMinHeight(textFlow.getHeight() + 5);
+                setMinHeight(textFlow.getHeight() + 100);
                 autosize();
             }
         };

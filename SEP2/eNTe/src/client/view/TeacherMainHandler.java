@@ -50,7 +50,6 @@ public class TeacherMainHandler {
     }
 
     private void loadHomework(Homework homework) {
-
         Text title = new Text(homework.getTitle());
         title.setId("title");
         Text content = new Text(homework.getContent());
@@ -70,7 +69,7 @@ public class TeacherMainHandler {
                 super.layoutChildren();
                 TextFlow textFlow = (TextFlow) getChildren().get(0);
                 setMinHeight(textFlow.getHeight() + 50);
-                autosize();
+                //autosize();
             }
         };
         pane.getChildren().addAll(textFlow);
@@ -96,7 +95,7 @@ public class TeacherMainHandler {
                 super.layoutChildren();
                 TextFlow textFlow = (TextFlow) getChildren().get(0);
                 setMinHeight(textFlow.getHeight() + 5);
-                autosize();
+                //autosize();
             }
         };
         pane.getChildren().add(textFlow);

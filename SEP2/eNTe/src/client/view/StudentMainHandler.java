@@ -38,25 +38,28 @@ public class StudentMainHandler {
         loadPosts();
     }
 
-    private void loadPosts() {
-        ArrayList<Post> posts = controller.getAllPosts();
-        for (Post p : posts) {
-            switch (p.getClass().getSimpleName()) {
-                case "Homework":
-                    loadHomework((Homework) p);
-                    break;
-                case "Post":
-                    loadPost(p);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
     private void addPane(Pane pane) {
         VBox.getChildren().add(pane);
     }
+
+
+	private void loadPosts() {
+		ArrayList<Post> posts = controller.getAllPosts();
+		for (Post p : posts) {
+			switch (p.getClass().getSimpleName()) {
+				case "Homework":
+					if (controller.checkHomeworkClass((Homework) p)) {
+						loadHomework((Homework) p);
+					}
+					break;
+				case "Post":
+					loadPost(p);
+					break;
+				default:
+					break;
+			}
+		}
+	}
 
     public void submit(Homework homework) {
         Parent mainPane;
@@ -99,19 +102,17 @@ public class StudentMainHandler {
         textFlow.setAccessibleText(homework.getContent());
         textFlow.setPrefWidth(842);
 
-        Pane pane = new Pane() {
-            @Override
-            protected void layoutChildren() {
-                super.layoutChildren();
-                TextFlow textFlow = (TextFlow) getChildren().get(0);
-                setMinHeight(textFlow.getHeight() + 5);
-                autosize();
-            }
-        };
-        pane.getChildren().addAll(textFlow);
-        pane.getStyleClass().add("textPane");
-        addPane(pane);
-
+		Pane pane = new Pane() {
+			@Override
+			protected void layoutChildren() {
+				super.layoutChildren();
+				TextFlow textFlow = (TextFlow) getChildren().get(0);
+				setMinHeight(textFlow.getHeight() + 5);
+			}
+		};
+		pane.getChildren().addAll(textFlow);
+		pane.getStyleClass().add("textPane");
+		addPane(pane);
     }
 
     private void loadPost(Post post) {
