@@ -9,17 +9,8 @@ public class Parent extends User implements Serializable, IFamily {
 
     private Family family;
 
-    public Parent(String name, String email) {
+    private Parent(String name, String email) {
         super(name, email);
-    }
-
-    public Parent(String name, String email, String pwd, Family family, String id) {
-        super(name, email, pwd, id);
-        this.family = family;
-    }
-
-    public Parent(String name, String email, String pwd) {
-        super(name, email, pwd);
     }
 
     public String getChildrenNames() {
@@ -32,12 +23,19 @@ public class Parent extends User implements Serializable, IFamily {
         return family.getChildren();
     }
 
+    @Override
     public Family getFamily() {
         return family;
     }
 
+    @Override
     public String getFamilyId() {
         return family.getId();
+    }
+
+    @Override
+    public void setFamily(Family family) {
+        this.family = family;
     }
 
     @Override
@@ -51,15 +49,11 @@ public class Parent extends User implements Serializable, IFamily {
         return family != null ? family.equals(parent.family) : parent.family == null;
     }
 
-    public void setFamily(Family family) {
-        this.family = family;
-    }
-
     public static NeedName builder() {
         return new Builder();
     }
 
-    public void updateParentFileds(Parent newUser) {
+    void updateParentFields(Parent newUser) {
         family = newUser.family;
     }
 

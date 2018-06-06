@@ -8,6 +8,12 @@ public class Teacher extends User implements Serializable {
         super(name, email);
     }
 
+    public static TeacherNeedName builder() {
+        return new Builder();
+    }
+
+    void updateTeacherFields(Teacher newUser) {
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -16,21 +22,15 @@ public class Teacher extends User implements Serializable {
         return false;
     }
 
-    public static TeacherNeedName builder() {
-        return new Builder();
-    }
-
-    public void updateTeacherFileds(Teacher newUser) {
-    }
-
     public static final class Builder implements TeacherNeedName, TeacherNeedEmail, TeacherCanBeBuild {
+
 
         protected String id;
         private String name;
         private String email;
         private String pwd;
-        private boolean encryptPwd;
 
+        private boolean encryptPwd;
 
         @Override
         public TeacherNeedEmail name(String name) {

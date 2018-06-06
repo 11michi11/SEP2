@@ -8,9 +8,6 @@ public class Student extends User implements Serializable, IFamily {
     private ClassNo classNo;
     private Family family;
 
-    //Student should be initialized with builder!
-    //Student.builder()...
-
     private Student(String name, String email) {
         super(name, email);
     }
@@ -31,6 +28,7 @@ public class Student extends User implements Serializable, IFamily {
         return classNo;
     }
 
+    @Override
     public String getFamilyId() {
         return (family != null) ? family.getId() : "there is no family";
     }

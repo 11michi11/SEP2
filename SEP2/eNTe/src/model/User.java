@@ -29,7 +29,7 @@ public abstract class User implements Serializable {
         id = UUID.randomUUID().toString();
         changePassword = true;
         //Uncomment in real system - i don't want spam right now
-        //SendEmail.sendPasswordEmail(email, pwd);
+        SendEmail.sendPasswordEmail(email, pwd);
     }
 
     public User(String name, String email, String pwd, String id) {
@@ -83,6 +83,13 @@ public abstract class User implements Serializable {
         return changePassword;
     }
 
+    void updateUserFields(User newUser) {
+        email = newUser.email;
+        pwd = newUser.pwd;
+        name = newUser.name;
+        changePassword = newUser.changePassword;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,25 +105,8 @@ public abstract class User implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int result = email != null ? email.hashCode() : 0;
-        result = 31 * result + (pwd != null ? pwd.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (changePassword ? 1 : 0);
-        result = 31 * result + (id != null ? id.hashCode() : 0);
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "User [email=" + email + ", pwd=" + pwd + ", name=" + name + ", id=" + id + "]";
     }
 
-
-    public void updateUserFields(User newUser) {
-        email = newUser.email;
-        pwd = newUser.pwd;
-        name = newUser.name;
-        changePassword = newUser.changePassword;
-    }
 }

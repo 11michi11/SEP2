@@ -4,11 +4,9 @@ import java.io.Serializable;
 
 public class Administrator extends User implements Serializable {
 
-
     private Administrator(String name, String email) {
         super(name, email);
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -26,7 +24,7 @@ public class Administrator extends User implements Serializable {
         return new Builder();
     }
 
-    public void updateAdminFileds(Administrator newUser) {
+    public void updateAdminFields(Administrator newUser) {
 
     }
 

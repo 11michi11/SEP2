@@ -9,10 +9,6 @@ import java.util.*;
 public class DBAdapter implements DBPersistence {
 
     private DBInterface db;
-//    private static final String DRIVER = "org.postgresql.Driver";
-//    private static final String URL = "jdbc:postgresql://207.154.237.196:5432/ente";
-//    private static final String USER = "ente";
-//    private static final String PASSWORD = "ente";
 
     public DBAdapter(DBInterface database) {
         db = database;

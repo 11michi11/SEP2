@@ -13,7 +13,6 @@ public abstract class Manage implements Serializable {
         this.action = action;
     }
 
-
     public String getAction() {
         return action;
     }
