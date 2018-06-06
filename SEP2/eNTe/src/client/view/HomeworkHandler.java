@@ -55,15 +55,8 @@ public class HomeworkHandler {
 	private void loadPosts() {
 		ArrayList<Post> posts = controller.getAllPosts();
 		for(Post p : posts) {
-			switch(p.getClass().getSimpleName()) {
-				case "Homework":
+			if(p.getClass().getSimpleName().equals("Homework")) {
 					loadHomework((Homework) p);
-					break;
-				case "Post":
-					loadPost(p);
-					break;
-				default:
-					break;
 			}
 		}
 	}
@@ -110,31 +103,7 @@ public class HomeworkHandler {
 		addPane(pane);
 	}
 
-	private void loadPost(Post post) {
-		Text title = new Text(post.getTitle());
-		title.setId("title");
-		Text content = new Text(post.getContent());
-		content.setId("content");
-		Text separator = new Text("\n" + "\n");
 
-		TextFlow textFlow = new TextFlow(title, separator, content);
-		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(post.getContent());
-		textFlow.setPrefWidth(830);
-
-		Pane pane = new Pane() {
-			@Override
-			protected void layoutChildren() {
-				super.layoutChildren();
-				TextFlow textFlow = (TextFlow) getChildren().get(0);
-				setMinHeight(textFlow.getHeight()+5);
-				autosize();
-			}
-		};
-		pane.getChildren().add(textFlow);
-		pane.getStyleClass().add("textPane");
-		addPane(pane);
-	}
 	private void addPane(Pane pane) {
 		box.getChildren().add(pane);
 	}
