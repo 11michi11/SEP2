@@ -16,12 +16,12 @@ public class WelcomingData implements Serializable {
     private List<Post> posts;
     private List<Family> families;
     private List<User> users;
-    private List<ChatMsg> unreadMessages;
+   // private List<ChatMsg> unreadMessages;
 
 
     public WelcomingData() {
         posts = new LinkedList<>();
-        unreadMessages = new LinkedList<>();
+       // unreadMessages = new LinkedList<>();
         families = new LinkedList<>();
         users = new LinkedList<>();
     }
@@ -30,9 +30,9 @@ public class WelcomingData implements Serializable {
         return posts;
     }
 
-    public List<ChatMsg> getUnreadMessages() {
-        return unreadMessages;
-    }
+//    public List<ChatMsg> getUnreadMessages() {
+//        return unreadMessages;
+//    }
 
     public List<Family> getFamilies() {
         return families;
@@ -63,7 +63,8 @@ public class WelcomingData implements Serializable {
         WelcomingData that = (WelcomingData) o;
 
         if (posts != null ? !posts.equals(that.posts) : that.posts != null) return false;
-        return unreadMessages != null ? unreadMessages.equals(that.unreadMessages) : that.unreadMessages == null;
+        if (families != null ? !families.equals(that.families) : that.families != null) return false;
+        return users != null ? users.equals(that.users) : that.users == null;
     }
 
     @Override
@@ -72,7 +73,6 @@ public class WelcomingData implements Serializable {
                 "posts=" + posts +
                 ", families=" + families +
                 ", users=" + users +
-                ", unreadMessages=" + unreadMessages +
                 '}';
     }
 }

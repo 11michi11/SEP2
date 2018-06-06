@@ -24,6 +24,18 @@ public class Login implements Serializable{
 		return data;
 	}
 
+	public String getUserType() {
+		return currentUser.getClass().getSimpleName();
+	}
+
+	public boolean changeLogin() {
+		return currentUser.isPasswordChangeNeeded();
+	}
+
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -44,17 +56,5 @@ public class Login implements Serializable{
 	@Override
 	public String toString() {
 		return "Login [status=" + status + ", data=" + data + "]";
-	}
-
-	public String getUserType() {
-		return currentUser.getClass().getSimpleName();
-	}
-
-	public boolean changeLogin() {
-		return currentUser.isPasswordChangeNeeded();
-	}
-
-	public User getCurrentUser() {
-		return currentUser;
 	}
 }
