@@ -49,9 +49,9 @@ public class AdminMainHandler {
                 case "Homework":
                     loadHomework((Homework) p);
                     break;
-//                case "Post":
-//                    loadPost(p);
-//                    break;
+                case "Post":
+                    loadPost(p);
+                    break;
                 default:
                     break;
             }

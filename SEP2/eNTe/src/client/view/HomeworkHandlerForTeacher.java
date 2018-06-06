@@ -1,8 +1,5 @@
 package client.view;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import client.controller.ClientController;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -10,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -22,8 +18,10 @@ import javafx.stage.Stage;
 import model.Homework;
 import model.Post;
 
-public class HomeworkHandler {
+import java.io.IOException;
+import java.util.ArrayList;
 
+public class HomeworkHandlerForTeacher {
 	@FXML
 	private VBox box;
 	@FXML
@@ -32,11 +30,11 @@ public class HomeworkHandler {
 	private Stage stage;
 	private Parent mainPane;
 
-	public HomeworkHandler() {
+	public HomeworkHandlerForTeacher() {
 		controller = ClientController.getInstance();
 		stage = ClientViewManager.getStage();
 		System.out.println("HomeworkHandler");
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneTeacher.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
@@ -56,7 +54,7 @@ public class HomeworkHandler {
 		ArrayList<Post> posts = controller.getAllPosts();
 		for(Post p : posts) {
 			if(p.getClass().getSimpleName().equals("Homework")) {
-					loadHomework((Homework) p);
+				loadHomework((Homework) p);
 			}
 		}
 	}
@@ -74,13 +72,13 @@ public class HomeworkHandler {
 		Text separator4 = new Text(" ");
 
 		Button list = new Button("DONE BY:");
-		list.addEventHandler(MouseEvent.MOUSE_CLICKED, new ListOfHomeworkHandler(homework));
+		list.addEventHandler(MouseEvent.MOUSE_CLICKED, new HomeworkHandlerForTeacher.ListOfHomeworkHandlerTeacher(homework));
 		list.getStyleClass().add("smallButton");
 		Button edit = new Button("EDIT");
-		edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EditHomeworkHandler(homework));
+		edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new HomeworkHandlerForTeacher.EditHomeworkHandlerTeacher(homework));
 		edit.getStyleClass().add("smallButton");
 		Button delete = new Button("DELETE");
-		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new DeleteHomeworkHandler(homework));
+		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new HomeworkHandlerForTeacher.DeleteHomeworkHandlerTeacher(homework));
 		delete.getStyleClass().add("smallButton");
 
 
@@ -110,7 +108,7 @@ public class HomeworkHandler {
 
 	public void createHomework() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomework.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomeworkForTeacher.fxml"));
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
@@ -126,18 +124,18 @@ public class HomeworkHandler {
 		stage.show();
 	}
 
-	private class EditHomeworkHandler implements EventHandler<Event>{
+	private class EditHomeworkHandlerTeacher implements EventHandler<Event> {
 
 		private Homework homework;
 
-		private EditHomeworkHandler(Homework homework) {
+		private EditHomeworkHandlerTeacher(Homework homework) {
 			this.homework = homework;
 		}
 
 		@Override
 		public void handle(Event event) {
 			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomework.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomeworkForTeacher.fxml"));
 				mainPane = loader.load();
 				((CreateHomeworkHandler) loader.getController()).setHomework(homework);
 				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
@@ -150,11 +148,11 @@ public class HomeworkHandler {
 
 
 	}
-	private class DeleteHomeworkHandler implements EventHandler<Event>{
+	private class DeleteHomeworkHandlerTeacher implements EventHandler<Event>{
 
 		private Homework homework;
 
-		private DeleteHomeworkHandler(Homework homework) {
+		private DeleteHomeworkHandlerTeacher(Homework homework) {
 			this.homework = homework;
 		}
 
@@ -165,11 +163,11 @@ public class HomeworkHandler {
 			loadPosts();
 		}
 	}
-	private class ListOfHomeworkHandler implements EventHandler<Event>{
+	private class ListOfHomeworkHandlerTeacher implements EventHandler<Event>{
 
 		private Homework homework;
 
-		private ListOfHomeworkHandler(Homework homework) {
+		private ListOfHomeworkHandlerTeacher(Homework homework) {
 			this.homework = homework;
 		}
 
@@ -190,6 +188,3 @@ public class HomeworkHandler {
 
 	}
 }
-
-
-
