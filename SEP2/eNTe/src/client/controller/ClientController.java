@@ -31,7 +31,6 @@ public class ClientController {
     public void init(ClientModel model, ClientView view){
         this.model = model;
         model.setController(this);
-        initializeModelForTests();
         this.view = view;
         view.setController(this);
         this.view.startView();
@@ -114,6 +113,14 @@ public class ClientController {
         model.addPost(new Post(title, content, author, publicationDate));
     }
 
+    public ArrayList<Post> getAllPosts() {
+        return model.getAllPosts();
+    }
+
+    public void deletePost(Post post) {
+        model.deletePost(post);
+    }
+
     public void addHomework(String title, String content, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver) {
         model.addPost(new Homework(title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver));
     }
@@ -122,9 +129,18 @@ public class ClientController {
         model.editPost(new Homework(homeworkId, title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver, replies, !deadline.isBefore(MyDate.now())));
     }
 
+    public void submitHomework(Homework homework, String text) {
+        homework.addHomeworkReply(new HomeworkReply(text, (Student)currentUser, homework.isClosed(), MyDate.now()));
+        model.editPost(homework);
+    }
 
     public ArrayList<Family> getFamilies() {
         return model.getAllFamilies();
+    }
+
+    public void createFamily() {
+        Family family = new Family();
+        model.addFamily(family);
     }
 
     public void deleteFamily(Family family) {
@@ -139,35 +155,16 @@ public class ClientController {
         return teachers;
     }
 
-    private void initializeModelForTests() {
-        Teacher t1 = Teacher.builder().name("Pato").email("email").build();
-        Teacher t2 = Teacher.builder().name("Juraj").email("sdfdsf").build();
-        Teacher t3 = Teacher.builder().name("Michał Pompa").email("emailIzidro").build();
-        model.addOrUpdateUser(t1);
-        model.addOrUpdateUser(t2);
-        model.addOrUpdateUser(t3);
-        Parent p1 = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
-        Parent p2 = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
-        Parent p3 = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
-        Parent p4 = Parent.builder().name("name").email("email").pwdEncrypt("pwd").build();
-        model.addOrUpdateUser(p1);
-        model.addOrUpdateUser(p2);
-        model.addOrUpdateUser(p3);
-        model.addOrUpdateUser(p4);
-
-    }
-
-    public void createFamily() {
-        Family family = new Family();
-        model.addFamily(family);
-    }
-
     public String getCurrentUserName() {
         return currentUser.getName();
     }
 
-    public void setCurrentUser(Administrator currentUser) {
+    public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public String getCurrentUserId() {
+        return currentUser.getId();
     }
 
     public void resetPwd(String email) {
@@ -180,26 +177,7 @@ public class ClientController {
         }
     }
 
-    public void submitHomework(Homework homework, String text) {
-        homework.addHomeworkReply(new HomeworkReply(text, (Student)currentUser, homework.isClosed(), MyDate.now()));
-        model.editPost(homework);
-    }
-
-    public ArrayList<Post> getAllPosts() {
-        return model.getAllPosts();
-    }
-
-
-    public void deletePost(Post post) {
-        model.deletePost(post);
-    }
-
-
     public boolean showDeleteMessage(String message) {
         return view.showDeleteMessage(message);
-    }
-
-    public String getCurrentUserId() {
-        return currentUser.getId();
     }
 }

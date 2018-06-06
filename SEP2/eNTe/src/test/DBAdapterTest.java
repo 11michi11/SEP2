@@ -77,20 +77,20 @@ class DBAdapterTest {
 //        adapter.addUser(teacher2);
 //        loadUsers(families);
 //        loadPosts(users);
-//        assertEquals(2,posts.getAll().size());
-//        assertEquals("af7e04fa-4b5e-424a-8637-0b2be1250cc9",posts.getAll().get(0).getPostId());
-//        assertEquals("Lessons cancelled",posts.getAll().get(0).getTitle());
-//        assertEquals("All lessons are cancelled tommorow (20.3.2018) due to school reconstruction.",posts.getAll().get(0).getContent());
-//        assertEquals("TeacherName2",posts.getAll().get(0).getAuthor());
+//        assertEquals(2,posts.getAllFamilies().size());
+//        assertEquals("af7e04fa-4b5e-424a-8637-0b2be1250cc9",posts.getAllFamilies().get(0).getPostId());
+//        assertEquals("Lessons cancelled",posts.getAllFamilies().get(0).getTitle());
+//        assertEquals("All lessons are cancelled tommorow (20.3.2018) due to school reconstruction.",posts.getAllFamilies().get(0).getContent());
+//        assertEquals("TeacherName2",posts.getAllFamilies().get(0).getAuthor());
 //        MyDate date1 = new MyDate(2018,3,18);
-//        assertEquals(date1,posts.getAll().get(0).getPubDate());
+//        assertEquals(date1,posts.getAllFamilies().get(0).getPubDate());
 //
-//        assertEquals("c0ccc398-29ae-4f7e-ac61-e294fa8d0583",posts.getAll().get(1).getPostId());
-//        assertEquals("End of school year",posts.getAll().get(1).getTitle());
-//        assertEquals("Dear pupils and parents, Friday 30.06.2018 is the last day, so don't forget to bring some flowers or dark chocolates for your lovely teachers.",posts.getAll().get(1).getContent());
-//        assertEquals("TeacherName1",posts.getAll().get(1).getAuthor());
+//        assertEquals("c0ccc398-29ae-4f7e-ac61-e294fa8d0583",posts.getAllFamilies().get(1).getPostId());
+//        assertEquals("End of school year",posts.getAllFamilies().get(1).getTitle());
+//        assertEquals("Dear pupils and parents, Friday 30.06.2018 is the last day, so don't forget to bring some flowers or dark chocolates for your lovely teachers.",posts.getAllFamilies().get(1).getContent());
+//        assertEquals("TeacherName1",posts.getAllFamilies().get(1).getAuthor());
 //        MyDate date2 = new MyDate(2018,3,10);
-//        assertEquals(date2,posts.getAll().get(1).getPubDate());
+//        assertEquals(date2,posts.getAllFamilies().get(1).getPubDate());
     }
 
     //----------Z-----------
@@ -154,12 +154,12 @@ class DBAdapterTest {
         loadUsers(families);
         assertEquals(1,users.getAll().size());
         assertEquals(admin,users.getAll().get(0));
-//        assertEquals("b2c74531-49ea-4efe-9308-59d01f4792cb",users.getAll().get(0).getId());
-//        assertEquals("AdminName",users.getAll().get(0).getName());
-//        assertEquals("AdminEmail",users.getAll().get(0).getEmail());
-//        assertEquals("AdminPwd",users.getAll().get(0).getPwd());
-//        assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-//        assertEquals("Administrator",users.getAll().get(0).getClass().getSimpleName());
+//        assertEquals("b2c74531-49ea-4efe-9308-59d01f4792cb",users.getAllFamilies().get(0).getId());
+//        assertEquals("AdminName",users.getAllFamilies().get(0).getName());
+//        assertEquals("AdminEmail",users.getAllFamilies().get(0).getEmail());
+//        assertEquals("AdminPwd",users.getAllFamilies().get(0).getPwd());
+//        assertTrue(users.getAllFamilies().get(0).isPasswordChangeNeeded());
+//        assertEquals("Administrator",users.getAllFamilies().get(0).getClass().getSimpleName());
     }
 
     @Test
@@ -185,13 +185,13 @@ class DBAdapterTest {
         assertEquals(1,users.getAll().size());
         assertEquals(student1,users.getAll().get(0));
 
-//        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",users.getAll().get(0).getId());
-//        assertEquals("StudentName1",users.getAll().get(0).getName());
-//        assertEquals("StudentEmail1",users.getAll().get(0).getEmail());
-//        assertEquals("StudentPwd1",users.getAll().get(0).getPwd());
-//        assertTrue(users.getAll().get(0).isPasswordChangeNeeded());
-//        assertEquals(ClassNo.First,((Student) users.getAll().get(0)).getClassNo());
-//        assertEquals("Student",users.getAll().get(0).getClass().getSimpleName());
+//        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",users.getAllFamilies().get(0).getId());
+//        assertEquals("StudentName1",users.getAllFamilies().get(0).getName());
+//        assertEquals("StudentEmail1",users.getAllFamilies().get(0).getEmail());
+//        assertEquals("StudentPwd1",users.getAllFamilies().get(0).getPwd());
+//        assertTrue(users.getAllFamilies().get(0).isPasswordChangeNeeded());
+//        assertEquals(ClassNo.First,((Student) users.getAllFamilies().get(0)).getClassNo());
+//        assertEquals("Student",users.getAllFamilies().get(0).getClass().getSimpleName());
 //        assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
 //        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());
     }
@@ -397,7 +397,7 @@ class DBAdapterTest {
         adapter.updatePost(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"));
         loadPosts();
         assertEquals(1,posts.getAll().size());
-//        assertEquals(post,posts.getAll().get(0));
+//        assertEquals(post,posts.getAllFamilies().get(0));
         System.out.println(posts.getAll().get(0));
         assertEquals(2,((Homework) posts.getAll().get(0)).getReplies().size());
         assertTrue(((Homework)(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).getReplies().contains(reply1));
