@@ -87,7 +87,13 @@ public class CreateHomeworkHandlerForTeacher {
 		MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
 		controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()));
 		System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
-		goBack();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreationForTeacher.fxml"));
+		try {
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private List<ClassNo> getClasses() {

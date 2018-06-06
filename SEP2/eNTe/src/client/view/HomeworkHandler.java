@@ -49,16 +49,11 @@ public class HomeworkHandler {
 	public void initialize() {
 		System.out.println("second");
 		System.out.println(box);
-		refresh();
 		loadPosts();
 	}
 
-	private void refresh() {
-		box.getChildren().removeAll();
-
-	}
-
 	private void loadPosts() {
+
 		ArrayList<Post> posts = controller.getAllPosts();
 		for(Post p : posts) {
 			if(p.getClass().getSimpleName().equals("Homework")) {
