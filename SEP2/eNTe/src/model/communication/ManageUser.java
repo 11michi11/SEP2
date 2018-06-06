@@ -16,6 +16,4 @@ public class ManageUser extends Manage implements Serializable{
 	public User getUser() {
 		return user;
 	}
-	
-
 }

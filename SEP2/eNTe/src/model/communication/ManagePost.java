@@ -8,9 +8,9 @@ public class ManagePost extends Manage implements Serializable {
 
     private Post post;
 
-    public ManagePost(String action, Post user) {
+    public ManagePost(String action, Post post) {
         super(action);
-        this.post = user;
+        this.post = post;
     }
 
     public Post getPost() {

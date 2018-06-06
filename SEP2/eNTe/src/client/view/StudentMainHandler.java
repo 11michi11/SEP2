@@ -39,12 +39,18 @@ public class StudentMainHandler {
 	@FXML
 	public void initialize() {
 		System.out.println(VBox);
+		loadPosts();
 
+	}
+
+	public void loadPosts() {
 		ArrayList<Post> posts = controller.getAllPosts();
 		for (Post p : posts) {
 			switch (p.getClass().getSimpleName()) {
 				case "Homework":
-					loadHomework((Homework) p);
+					if (controller.checkHomeworkClass((Homework) p)) {
+						loadHomework((Homework) p);
+					}
 					break;
 				case "Post":
 					loadPost(p);
@@ -55,8 +61,7 @@ public class StudentMainHandler {
 		}
 	}
 
-	public void loadPanes(Pane pane) {
-		VBox.getChildren().clear();
+	private void addPane(Pane pane) {
 		VBox.getChildren().add(pane);
 	}
 
@@ -77,7 +82,6 @@ public class StudentMainHandler {
 
 	private void loadHomework(Homework homework) {
 
-		HomeworkReply reply = homework.getStudentReply(controller.getCurrentUserId());
 		Text title = new Text(homework.getTitle());
 		title.setId("title");
 		Text content = new Text(homework.getContent());
@@ -87,6 +91,7 @@ public class StudentMainHandler {
 		Text separator1 = new Text("\n" + "\n" + " ");
 		Text separator2 = new Text("\n" + "\n" + " ");
 
+		HomeworkReply reply = homework.getStudentReply(controller.getCurrentUserId());
 		Button solution;
 		if (reply != null)
 			solution = new Button("EDIT SOLUTION");
@@ -112,7 +117,7 @@ public class StudentMainHandler {
 		};
 		pane.getChildren().addAll(textFlow);
 		pane.getStyleClass().add("textPane");
-		loadPanes(pane);
+		addPane(pane);
 
 	}
 
@@ -140,7 +145,7 @@ public class StudentMainHandler {
 		};
 		postPane.getChildren().add(textFlow);
 		postPane.getStyleClass().add("textPane");
-		loadPanes(postPane);
+		addPane(postPane);
 	}
 
 	private class SubmitHomeworkHandler implements EventHandler<Event> {

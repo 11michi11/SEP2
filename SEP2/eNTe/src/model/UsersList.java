@@ -66,8 +66,7 @@ public class UsersList {
 	}
 
 	public void updateUser(User user) {
-		for (int i = 0, usersSize = users.size(); i < usersSize; i++) {
-			User u = users.get(i);
+		for (User u : users) {
 			if (u.getId().equals(user.getId())) {
 				updateUserData(u, user);
 			}
@@ -78,16 +77,16 @@ public class UsersList {
 		oldUser.updateUserFields(newUser);
 		switch(oldUser.getClass().getSimpleName()){
 			case "Administrator":
-				((Administrator)oldUser).updateAdminFileds((Administrator)newUser);
+				((Administrator)oldUser).updateAdminFields((Administrator)newUser);
 				break;
 			case "Teacher":
-				((Teacher)oldUser).updateTeacherFileds((Teacher)newUser);
+				((Teacher)oldUser).updateTeacherFields((Teacher)newUser);
 				break;
 			case "Student":
 				((Student)oldUser).updateStudentFileds((Student)newUser);
 				break;
 			case "Parent":
-				((Parent)oldUser).updateParentFileds((Parent)newUser);
+				((Parent)oldUser).updateParentFields((Parent)newUser);
 				break;
 		}
 	}
@@ -112,12 +111,12 @@ public class UsersList {
     	return users.stream().anyMatch(u -> u.getEmail().equals(email));
 	}
 
-	public void clear() {
-		users.clear();;
-	}
-
 	public boolean checkIfIdExist(String id) {
 		return users.stream().anyMatch(u -> u.getId().equals(id));
+	}
+
+	public void clear() {
+		users.clear();
 	}
 
 	@Override

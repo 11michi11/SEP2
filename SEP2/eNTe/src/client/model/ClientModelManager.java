@@ -1,7 +1,6 @@
 package client.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import client.controller.ClientController;
@@ -35,7 +34,7 @@ public class ClientModelManager implements ClientModel {
 
     @Override
     public ArrayList<Family> getAllFamilies() {
-        return families.getAll();
+        return families.getAllFamilies();
     }
 
     @Override
@@ -109,6 +108,7 @@ public class ClientModelManager implements ClientModel {
         return users.getParents();
     }
 
+    @Override
     public User getUserById(String id) {
         return users.getUserById(id);
     }

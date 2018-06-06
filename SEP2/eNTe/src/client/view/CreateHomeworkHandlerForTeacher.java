@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.ClassNo;
 import model.Homework;
-import model.HomeworkReply;
 import model.MyDate;
 
 import java.io.IOException;
@@ -17,7 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateHomeworkHandler {
+public class CreateHomeworkHandlerForTeacher {
 	private ClientController controller;
 	private Stage stage;
 	private Parent mainPane;
@@ -40,11 +39,11 @@ public class CreateHomeworkHandler {
 
 
 
-	public CreateHomeworkHandler() {
+	public CreateHomeworkHandlerForTeacher() {
 		controller = ClientController.getInstance();
 		stage = ClientViewManager.getStage();
 		System.out.println("HomeworkHandler");
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreation.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreationForTeacher.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
@@ -72,7 +71,6 @@ public class CreateHomeworkHandler {
 		minute.setValue(date.getMinute());
 
 	}
-
 	public void checkForNull() {
 		if (title.getText() == null || content.getText() == null || deadline.getValue() == null || getClasses() == null || group.getText() == null) {
 			Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -89,13 +87,10 @@ public class CreateHomeworkHandler {
 		MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
 		controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()));
 		System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreationForTeacher.fxml"));
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreation.fxml"));
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-			stage.getScene().setRoot(mainPane);
-			stage.show();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -103,21 +98,21 @@ public class CreateHomeworkHandler {
 
 	private List<ClassNo> getClasses() {
 		ArrayList<ClassNo> classes = new ArrayList<>();
-			if (first.isSelected())
+		if (first.isSelected())
 			classes.add(ClassNo.First);
-			if (second.isSelected())
+		if (second.isSelected())
 			classes.add(ClassNo.Second);
-			if (third.isSelected())
+		if (third.isSelected())
 			classes.add(ClassNo.Third);
-			if (fourth.isSelected())
+		if (fourth.isSelected())
 			classes.add(ClassNo.Fourth);
-			if (fifth.isSelected())
+		if (fifth.isSelected())
 			classes.add(ClassNo.Fifth);
-			if (sixth.isSelected())
+		if (sixth.isSelected())
 			classes.add(ClassNo.Sixth);
-			if (seventh.isSelected())
+		if (seventh.isSelected())
 			classes.add(ClassNo.Seventh);
-			if (eight.isSelected())
+		if (eight.isSelected())
 			classes.add(ClassNo.Eighth);
 
 		return classes;

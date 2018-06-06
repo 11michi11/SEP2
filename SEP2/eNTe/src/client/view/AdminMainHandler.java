@@ -42,16 +42,17 @@ public class AdminMainHandler {
         loadPosts();
 
     }
+
     private void loadPosts() {
         ArrayList<Post> posts = controller.getAllPosts();
-        for(Post p : posts) {
-            switch(p.getClass().getSimpleName()) {
+        for (Post p : posts) {
+            switch (p.getClass().getSimpleName()) {
                 case "Homework":
                     loadHomework((Homework) p);
                     break;
-//                case "Post":
-//                    loadPost(p);
-//                    break;
+                case "Post":
+                    loadPost(p);
+                    break;
                 default:
                     break;
             }
@@ -104,7 +105,7 @@ public class AdminMainHandler {
             protected void layoutChildren() {
                 super.layoutChildren();
                 TextFlow textFlow = (TextFlow) getChildren().get(0);
-                setMinHeight(textFlow.getHeight()+5);
+                setMinHeight(textFlow.getHeight() + 5);
                 autosize();
             }
         };
@@ -112,6 +113,7 @@ public class AdminMainHandler {
         pane.getStyleClass().add("textPane");
         addPane(pane);
     }
+
     private void addPane(Pane pane) {
         box.getChildren().add(pane);
     }
