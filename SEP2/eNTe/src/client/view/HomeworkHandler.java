@@ -8,6 +8,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
@@ -48,10 +49,15 @@ public class HomeworkHandler {
 	public void initialize() {
 		System.out.println("second");
 		System.out.println(box);
+		refresh();
 		loadPosts();
+	}
 
+	private void refresh() {
+		box.getChildren().removeAll();
 
 	}
+
 	private void loadPosts() {
 		ArrayList<Post> posts = controller.getAllPosts();
 		for(Post p : posts) {

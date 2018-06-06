@@ -73,7 +73,18 @@ public class CreateHomeworkHandler {
 
 	}
 
+	public void checkForNull() {
+		if (title.getText() == null || content.getText() == null || deadline.getValue() == null || getClasses() == null || group.getText() == null) {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Warning Dialog");
+			alert.setHeaderText("Look, unfinished selection");
+			alert.setContentText("Please select or fill everything!");
+			alert.showAndWait();
+		}
+	}
+
 	public void addHomework() {
+		checkForNull();
 		LocalDate localDate = deadline.getValue();
 		MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
 		controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()));
