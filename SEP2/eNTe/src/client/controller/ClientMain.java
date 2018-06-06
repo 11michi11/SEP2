@@ -13,6 +13,7 @@ public class ClientMain {
 	public static void main(String[] args) {
 		ClientModel model = new ClientModelManager();
 		ClientView view = new ClientViewManager();
-		ClientController controller = ClientController.getInstance(model, view);
+		ClientController controller = ClientController.getInstance();
+		controller.init(model, view);
 	}
 }

@@ -28,7 +28,8 @@ public class ControllerTest {
     void setUp() {
         model = new MockClientModelManagerTest();
         view = new MockClientViewManagerTest();
-        controller = ClientController.getInstance(model, view);
+        controller = ClientController.getInstance();
+        controller.init(model, view);
         controller.setCurrentUser(currentUser);
     }
 
