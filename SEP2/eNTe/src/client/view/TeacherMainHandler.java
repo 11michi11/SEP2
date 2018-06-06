@@ -72,7 +72,7 @@ public class TeacherMainHandler {
 					super.layoutChildren();
 					TextFlow textFlow = (TextFlow) getChildren().get(0);
 					setMinHeight(textFlow.getHeight() + 50);
-					autosize();
+					//autosize();
 				}
 			};
 			pane.getChildren().addAll(textFlow);
@@ -98,7 +98,7 @@ public class TeacherMainHandler {
 					super.layoutChildren();
 					TextFlow textFlow = (TextFlow) getChildren().get(0);
 					setMinHeight(textFlow.getHeight()+5);
-					autosize();
+					//autosize();
 				}
 			};
 			pane.getChildren().add(textFlow);

@@ -112,7 +112,7 @@ public class StudentMainHandler {
 				super.layoutChildren();
 				TextFlow textFlow = (TextFlow) getChildren().get(0);
 				setMinHeight(textFlow.getHeight() + 5);
-				autosize();
+				//autosize();
 			}
 		};
 		pane.getChildren().addAll(textFlow);

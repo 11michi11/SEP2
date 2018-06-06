@@ -87,18 +87,18 @@ public class HomeworkHandlerForTeacher {
 		textFlow.setAccessibleText(homework.getContent());
 		textFlow.setPrefWidth(830);
 
-		Pane pane = new Pane() {
-			@Override
-			protected void layoutChildren() {
-				super.layoutChildren();
-				TextFlow textFlow = (TextFlow) getChildren().get(0);
-				setMinHeight(textFlow.getHeight() + 5);
-				autosize();
-			}
-		};
-		pane.getChildren().addAll(textFlow);
-		pane.getStyleClass().add("textPane");
-		addPane(pane);
+//		Pane pane = new Pane() {
+//			@Override
+//			protected void layoutChildren() {
+//				super.layoutChildren();
+//				TextFlow textFlow = (TextFlow) getChildren().get(0);
+//				setMinHeight(textFlow.getHeight() + 5);
+//				autosize();
+//			}
+//		};
+//		pane.getChildren().addAll(textFlow);
+//		pane.getStyleClass().add("textPane");
+		addPane(textFlow);
 	}
 
 
