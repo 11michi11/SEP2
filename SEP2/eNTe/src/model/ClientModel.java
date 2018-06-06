@@ -15,9 +15,13 @@ public interface ClientModel {
 
     Post getPost();
 
-    Homework getHomework();
+    void editPost(Post post);
 
+    void deletePost(Post post);
+
+    Homework getHomework();
     //	Discussion getDiscussion();
+
     void saveData(WelcomingData data);
 
     void addOrUpdateUser(User user);
@@ -30,13 +34,13 @@ public interface ClientModel {
 
     ArrayList<Parent> getParents();
 
+    void addFamily(Family family);
+
     ArrayList<Family> getAllFamilies();
 
     void deleteFamily(Family family);
 
     List<Teacher> getTeachers();
-
-    void addFamily(Family family);
 
     boolean checkEmailForPwdReset(String email);
 
@@ -44,7 +48,5 @@ public interface ClientModel {
 
     ArrayList<Post> getAllPosts();
 
-    void deletePost(Post post);
-
-    void editPost(Post post);
+    User getUserById(String id);
 }

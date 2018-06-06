@@ -7,8 +7,6 @@ import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
 import server.model.persistance.Database;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +32,12 @@ public class ServerModelManager implements ServerModel {
         dbSynchronize.start();
     }
 
+    private void restoreState() {
+        families.addAll(db.getFamilies());
+        users.addAll(db.getUsers(families));
+        posts.addAll(db.getPosts(users));
+    }
+
     @Override
     public Post getPost() {
         return posts.getFirstPost();
@@ -42,14 +46,6 @@ public class ServerModelManager implements ServerModel {
     @Override
     public LoginStatus authenticate(Auth auth) {
         return users.authenticate(auth);
-    }
-
-    private void restoreState() {
-        families.addAll(db.getFamilies());
-        users.addAll(db.getUsers(families));
-        posts.addAll(db.getPosts(users));
-        users.addAll(getUsers());
-        posts.addAll(getPosts());
     }
 
     @Override
@@ -134,69 +130,6 @@ public class ServerModelManager implements ServerModel {
         return users.getAll();
     }
 
-    private LinkedList<User> getUsers() {
-        User user1 = Student.builder().name("student").email("student").classNo(ClassNo.First).pwdEncrypt("pwd").build();
-        User administrator = Administrator.builder().name("name").email("email").pwdEncrypt("pwd").build();
-
-        LinkedList<User> list = new LinkedList<>();
-        Collections.addAll(list, administrator, user1);
-        list.add(administrator);
-        return list;
-    }
-
-    private LinkedList<Post> getPosts() {
-        Post post = new Post("Lorem ipsum dolor",
-                "This is a post about Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mattis at dolor sed."
-                , "Author", MyDate.now());
-
-        LinkedList<Post> list = new LinkedList<>();
-        list.add(post);
-        list.addAll(getHomework());
-        return list;
-    }
-
-    private LinkedList<Homework> getHomework() {
-        MyDate submitDate = new MyDate(15, 12, 2018);
-        List<ClassNo> classes = new ArrayList<>();
-        classes.add(ClassNo.First);
-        Homework homework = new Homework("HOMEWORK Lorem ipsum dolor",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                        + "Proin mattis at dolor sed aliquam. Nulla facilisi. "
-                        + "Maecenas sodales urna quis risus sollicitudin, "
-                        + "eget posuere neque aliquet. Nulla lacinia maximus "
-                        + "risus non elementum. Donec egestas sit amet lacus vitae"
-                        + " efficitur. Nulla ac mauris in turpis condimentum tincidunt "
-                        + "sed id metus. Cras vel lectus rutrum, interdum tellus non,"
-                        + " venenatis eros. Etiam posuere tempus est non maximus."
-                        + " Pellentesque diam tortor, fringilla eget cursus pretium,"
-                        + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
-                        + " Cras facilisis neque at scelerisque placerat.", "Author", MyDate.now(), submitDate, classes, 1);
-
-        LinkedList<Homework> list = new LinkedList<>();
-        list.add(homework);
-        return list;
-    }
-
-
-    private LinkedList<Discussion> getDiscussion() {
-        Discussion discussion = new Discussion("HOMEWORK Lorem ipsum dolor",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                        + "Proin mattis at dolor sed aliquam. Nulla facilisi. "
-                        + "Maecenas sodales urna quis risus sollicitudin, "
-                        + "eget posuere neque aliquet. Nulla lacinia maximus "
-                        + "risus non elementum. Donec egestas sit amet lacus vitae"
-                        + " efficitur. Nulla ac mauris in turpis condimentum tincidunt "
-                        + "sed id metus. Cras vel lectus rutrum, interdum tellus non,"
-                        + " venenatis eros. Etiam posuere tempus est non maximus."
-                        + " Pellentesque diam tortor, fringilla eget cursus pretium,"
-                        + " dictum posuere dolor. Donec non eros commodo," + " ultrices risus sed, fermentum dolor."
-                        + " Cras facilisis neque at scelerisque placerat.", "Author", MyDate.now());
-
-        LinkedList<Discussion> list = new LinkedList<>();
-        list.add(discussion);
-        return list;
-    }
-
     private void updateDb() {
         List<Family> fList = db.getFamilies();
         FamilyList familyList = new FamilyList();
@@ -218,7 +151,7 @@ public class ServerModelManager implements ServerModel {
 
         updateFamilies(familiesToAdd, familiesToUpdate);
         updateUsers(usersToAdd, usersToUpdate);
-        postsUsers(postsToAdd, postsToUpdate);
+        updatePosts(postsToAdd, postsToUpdate);
     }
 
     private List<List<Post>> getPostDiff(List<Post> dbPosts) {
@@ -287,7 +220,7 @@ public class ServerModelManager implements ServerModel {
         return result;
     }
 
-    private void postsUsers(List<Post> postsToAdd, List<Post> postsToUpdate) {
+    private void updatePosts(List<Post> postsToAdd, List<Post> postsToUpdate) {
         postsToAdd.forEach(post -> db.addPost(post));
         postsToUpdate.forEach(post -> db.updatePost(post));
     }

@@ -16,7 +16,7 @@ public class FamiliesList {
         families.add(0, family);
     }
 
-    public ArrayList<Family> getAll() {
+    public ArrayList<Family> getAllFamilies() {
         return families;
     }
 

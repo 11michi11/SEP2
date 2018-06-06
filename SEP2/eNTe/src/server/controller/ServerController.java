@@ -97,11 +97,6 @@ public class ServerController {
         return response;
     }
 
-
-    private Message checkEmail(String email) {
-        return model.checkIfEmailExist(email) ? Message.createEmailExist() : Message.createEmailDoesNotExist();
-    }
-
     private Message handleManageUser(ManageUser manageUser) {
         Message response;
         switch (manageUser.getAction()) {
@@ -122,6 +117,10 @@ public class ServerController {
                 break;
         }
         return response;
+    }
+
+    private Message checkEmail(String email) {
+        return model.checkIfEmailExist(email) ? Message.createEmailExist() : Message.createEmailDoesNotExist();
     }
 
     private Message handleAuthentication(Message msg) {
