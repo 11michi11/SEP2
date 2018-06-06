@@ -26,7 +26,7 @@ class DBAdapterTest {
     private void loadFamilies() {
         LinkedList<Family> list = adapter.getFamilies();
         FamilyList familiesTemp = new FamilyList();
-        for (Family e:list) {
+        for (Family e : list) {
             familiesTemp.addFamily(e);
         }
         families = familiesTemp;
@@ -35,7 +35,7 @@ class DBAdapterTest {
     private void loadUsers(FamilyList families) {
         LinkedList<User> list = adapter.getUsers(families);
         UsersList usersTemp = new UsersList();
-        for (User e:list) {
+        for (User e : list) {
             usersTemp.add(e);
         }
         users = usersTemp;
@@ -44,7 +44,7 @@ class DBAdapterTest {
     private void loadPosts() {
         LinkedList<Post> list = adapter.getPosts(users);
         PostsList postsTemp = new PostsList();
-        for (Post e:list) {
+        for (Post e : list) {
             postsTemp.add(e);
         }
         posts = postsTemp;
@@ -56,7 +56,7 @@ class DBAdapterTest {
     static void setUp() {
 
         try {
-            adapter = new DBAdapter(new Database("org.postgresql.Driver","jdbc:postgresql://207.154.237.196:5432/ente?currentSchema=test","ente","ente"));
+            adapter = new DBAdapter(new Database("org.postgresql.Driver", "jdbc:postgresql://207.154.237.196:5432/ente?currentSchema=test", "ente", "ente"));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             fail("Adapter not created");
@@ -64,33 +64,6 @@ class DBAdapterTest {
         families = new FamilyList();
         users = new UsersList();
         posts = new PostsList();
-    }
-
-    @Test
-    void testGetPosts() {
-//        assertTrue(false);
-//        User teacher1 = Teacher.builder().name("TeacherName1").email("TeacherEmail1").pwd("TeacherPwd1").id("21bfea93-0c98-4490-a7bf-ad7878991bbc").build();
-//        User teacher2 = Teacher.builder().name("TeacherName2").email("TeacherEmail2").pwd("TeacherPwd2").id("9d5ff8a7-77ba-49ff-ac0d-7b48978987f1").build();
-//        teacher1.setChangePassword(false);
-//        teacher2.setChangePassword(true);
-//        adapter.addUser(teacher1);
-//        adapter.addUser(teacher2);
-//        loadUsers(families);
-//        loadPosts(users);
-//        assertEquals(2,posts.getAllFamilies().size());
-//        assertEquals("af7e04fa-4b5e-424a-8637-0b2be1250cc9",posts.getAllFamilies().get(0).getPostId());
-//        assertEquals("Lessons cancelled",posts.getAllFamilies().get(0).getTitle());
-//        assertEquals("All lessons are cancelled tommorow (20.3.2018) due to school reconstruction.",posts.getAllFamilies().get(0).getContent());
-//        assertEquals("TeacherName2",posts.getAllFamilies().get(0).getAuthor());
-//        MyDate date1 = new MyDate(2018,3,18);
-//        assertEquals(date1,posts.getAllFamilies().get(0).getPubDate());
-//
-//        assertEquals("c0ccc398-29ae-4f7e-ac61-e294fa8d0583",posts.getAllFamilies().get(1).getPostId());
-//        assertEquals("End of school year",posts.getAllFamilies().get(1).getTitle());
-//        assertEquals("Dear pupils and parents, Friday 30.06.2018 is the last day, so don't forget to bring some flowers or dark chocolates for your lovely teachers.",posts.getAllFamilies().get(1).getContent());
-//        assertEquals("TeacherName1",posts.getAllFamilies().get(1).getAuthor());
-//        MyDate date2 = new MyDate(2018,3,10);
-//        assertEquals(date2,posts.getAllFamilies().get(1).getPubDate());
     }
 
     //----------Z-----------
@@ -102,48 +75,48 @@ class DBAdapterTest {
     @Test
     void testEmptyFamilyListWhenInstantiated() {
         families = new FamilyList();
-        assertEquals(0,families.getSize());
+        assertEquals(0, families.getSize());
     }
 
     @Test
     void testNoFamilyLoadedBeforeInsert() {
         loadFamilies();
-        assertEquals(0,families.getSize());
+        assertEquals(0, families.getSize());
     }
 
     @Test
     void testEmptyUsersListWhenInstantiated() {
         users = new UsersList();
-        assertEquals(0,users.getAll().size());
+        assertEquals(0, users.getAll().size());
     }
 
     @Test
     void testNoUserLoadedBeforeInsert() {
         loadUsers(families);
-        assertEquals(0,users.getAll().size());
+        assertEquals(0, users.getAll().size());
     }
 
     @Test
     void testEmptyPostsListWhenInstantiated() {
         posts = new PostsList();
-        assertEquals(0,posts.getAll().size());
+        assertEquals(0, posts.getAll().size());
     }
 
     @Test
     void testNoPostLoadedBeforeInsert() {
         loadPosts();
-        assertEquals(0,posts.getAll().size());
+        assertEquals(0, posts.getAll().size());
     }
 
     //----------O-----------
-        //adding and loading
+    //adding and loading
     @Test
     void testOneFamilyAddedAndLoaded() {
         Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
         adapter.addFamily(f1);
         loadFamilies();
-        assertEquals(1,families.getSize());
-        assertEquals(f1,families.getAllFamilies().get(0));
+        assertEquals(1, families.getSize());
+        assertEquals(f1, families.getAllFamilies().get(0));
     }
 
     @Test
@@ -152,8 +125,8 @@ class DBAdapterTest {
         admin.setChangePassword(true);
         adapter.addUser(admin);
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(admin,users.getAll().get(0));
+        assertEquals(1, users.getAll().size());
+        assertEquals(admin, users.getAll().get(0));
 //        assertEquals("b2c74531-49ea-4efe-9308-59d01f4792cb",users.getAllFamilies().get(0).getId());
 //        assertEquals("AdminName",users.getAllFamilies().get(0).getName());
 //        assertEquals("AdminEmail",users.getAllFamilies().get(0).getEmail());
@@ -168,8 +141,8 @@ class DBAdapterTest {
         teacher1.setChangePassword(false);
         adapter.addUser(teacher1);
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(teacher1,users.getAll().get(0));
+        assertEquals(1, users.getAll().size());
+        assertEquals(teacher1, users.getAll().get(0));
     }
 
     @Test
@@ -182,18 +155,8 @@ class DBAdapterTest {
         loadFamilies();
         adapter.addUser(student1);
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(student1,users.getAll().get(0));
-
-//        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",users.getAllFamilies().get(0).getId());
-//        assertEquals("StudentName1",users.getAllFamilies().get(0).getName());
-//        assertEquals("StudentEmail1",users.getAllFamilies().get(0).getEmail());
-//        assertEquals("StudentPwd1",users.getAllFamilies().get(0).getPwd());
-//        assertTrue(users.getAllFamilies().get(0).isPasswordChangeNeeded());
-//        assertEquals(ClassNo.First,((Student) users.getAllFamilies().get(0)).getClassNo());
-//        assertEquals("Student",users.getAllFamilies().get(0).getClass().getSimpleName());
-//        assertEquals("cee12240-3e76-406e-bf12-0d40488ed3b9",((Student) users.getUserById("64e691e3-204f-45ee-8c5a-aefdffa1b3a5")).getFamilyId());
-//        assertEquals("64e691e3-204f-45ee-8c5a-aefdffa1b3a5",families.getFamilyById("cee12240-3e76-406e-bf12-0d40488ed3b9").getChild("StudentName1").getId());
+        assertEquals(1, users.getAll().size());
+        assertEquals(student1, users.getAll().get(0));
     }
 
     @Test
@@ -206,8 +169,8 @@ class DBAdapterTest {
         adapter.addUser(parent1);
         loadFamilies();
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(parent1,users.getAll().get(0));
+        assertEquals(1, users.getAll().size());
+        assertEquals(parent1, users.getAll().get(0));
     }
 
     @Test
@@ -217,23 +180,56 @@ class DBAdapterTest {
         classes.add(ClassNo.Second);
         classes.add(ClassNo.Fourth);
         classes.add(ClassNo.Eighth);
-        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,new LinkedList<HomeworkReply>(),false);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9", "Title", "Content", "Phill", new MyDate(2018, 5, 5, 0, 0), new MyDate(2018, 10, 10, 10, 0), classes, 5, new LinkedList<HomeworkReply>(), false);
         adapter.addPost(post);
         loadPosts();
 
-        assertEquals(1,posts.getAll().size());
-        assertEquals(post,posts.getAll().get(0));
+        assertEquals(1, posts.getAll().size());
+        assertEquals(post, posts.getAll().get(0));
     }
 
-        //updating
+    @Test
+    void testOneHomeworkWithRepliesAddedAndLoaded() {
+        Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
+        Family f2 = new Family("ggg12240-3e76-406e-bf12-0d4048899999");
+        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classNo(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
+        User student2 = Student.builder().name("StudentName2").email("StudentEmail2").classNo(ClassNo.Third).pwd("StudentPwd2").id("64e65555-204f-45ee-8c5a-aefdffa15555").family(f2).build();
+        f1.addChild((Student) student1);
+        f2.addChild((Student) student2);
+        adapter.addFamily(f1);
+        adapter.addFamily(f2);
+        adapter.addUser(student1);
+        adapter.addUser(student2);
+        loadFamilies();
+        loadUsers(families);
+        ArrayList<ClassNo> classes = new ArrayList<>();
+        classes.add(ClassNo.First);
+        classes.add(ClassNo.Second);
+        classes.add(ClassNo.Third);
+        LinkedList<HomeworkReply> replies = new LinkedList<>();
+        HomeworkReply reply1 = new HomeworkReply("Content", (Student) student1, false, new MyDate(2018, 6, 6, 15, 0));
+        HomeworkReply reply2 = new HomeworkReply("Content", (Student) student2, false, new MyDate(2018, 6, 10, 11, 0));
+        replies.add(reply2);
+        replies.add(reply1);
+
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9", "Title", "Content", "Phill", new MyDate(2018, 5, 5, 0, 0), new MyDate(2018, 10, 10, 10, 0), classes, 5, replies, false);
+        adapter.addPost(post);
+        loadPosts();
+
+
+        assertEquals(1, posts.getAll().size());
+        assertEquals(post, posts.getAll().get(0));
+    }
+
+    //updating
     @Test
     void testUpdateAdmin() {
         User admin = Administrator.builder().name("AdminName").email("AdminEmail").pwd("AdminPwd").id("b2c74531-49ea-4efe-9308-59d01f4792cb").build();
         admin.setChangePassword(true);
         adapter.addUser(admin);
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(admin,users.getAll().get(0));
+        assertEquals(1, users.getAll().size());
+        assertEquals(admin, users.getAll().get(0));
 
         users.getAll().get(0).setPwdNoEncrypt("AdminPwdNEW");
         admin.setPwdNoEncrypt("AdminPwdNEW");
@@ -241,8 +237,8 @@ class DBAdapterTest {
         admin.setChangePassword(false);
         adapter.updateUser(users.getAll().get(0));
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(admin,users.getAll().get(0));
+        assertEquals(1, users.getAll().size());
+        assertEquals(admin, users.getAll().get(0));
     }
 
     @Test
@@ -251,8 +247,8 @@ class DBAdapterTest {
         teacher1.setChangePassword(false);
         adapter.addUser(teacher1);
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(teacher1,users.getAll().get(0));
+        assertEquals(1, users.getAll().size());
+        assertEquals(teacher1, users.getAll().get(0));
 
         users.getAll().get(0).setPwdNoEncrypt("TeacherPwd1NEW");
         users.getAll().get(0).setChangePassword(true);
@@ -260,8 +256,8 @@ class DBAdapterTest {
         teacher1.setChangePassword(true);
         adapter.updateUser(users.getAll().get(0));
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(teacher1,users.getAll().get(0));
+        assertEquals(1, users.getAll().size());
+        assertEquals(teacher1, users.getAll().get(0));
     }
 
     @Test
@@ -274,15 +270,15 @@ class DBAdapterTest {
         loadFamilies();
         adapter.addUser(student1);
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(f1,families.getAllFamilies().get(0));
-        assertEquals(student1,users.getAll().get(0));
+        assertEquals(1, users.getAll().size());
+        assertEquals(f1, families.getAllFamilies().get(0));
+        assertEquals(student1, users.getAll().get(0));
 
         Family f2 = new Family("bee12240-3e76-406e-bf12-0d40488ed3b9");
         f2.addChild((Student) users.getAll().get(0));
         adapter.addFamily(f2);
         loadFamilies();
-        assertEquals(2,families.getSize());
+        assertEquals(2, families.getSize());
 
         ((Student) users.getAll().get(0)).setClassNo(ClassNo.Second);
         users.getAll().get(0).setChangePassword(false);
@@ -296,10 +292,10 @@ class DBAdapterTest {
 
         adapter.updateUser(users.getAll().get(0));
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(student1,users.getAll().get(0));
-        assertEquals(f1,families.getFamilyById(f1.getId()));
-        assertEquals(f2,families.getFamilyById(f2.getId()));
+        assertEquals(1, users.getAll().size());
+        assertEquals(student1, users.getAll().get(0));
+        assertEquals(f1, families.getFamilyById(f1.getId()));
+        assertEquals(f2, families.getFamilyById(f2.getId()));
     }
 
     @Test
@@ -312,15 +308,15 @@ class DBAdapterTest {
         adapter.addUser(parent1);
         loadFamilies();
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(f1,families.getAllFamilies().get(0));
-        assertEquals(parent1,users.getAll().get(0));
+        assertEquals(1, users.getAll().size());
+        assertEquals(f1, families.getAllFamilies().get(0));
+        assertEquals(parent1, users.getAll().get(0));
 
         Family f2 = new Family("bee12240-3e76-406e-bf12-0d40488ed3b9");
         f2.addParent((Parent) users.getAll().get(0));
         adapter.addFamily(f2);
         loadFamilies();
-        assertEquals(2,families.getSize());
+        assertEquals(2, families.getSize());
 
         users.getAll().get(0).setChangePassword(false);
         users.getAll().get(0).setPwdNoEncrypt("ParentPwd1NEW");
@@ -332,10 +328,10 @@ class DBAdapterTest {
 
         adapter.updateUser(users.getAll().get(0));
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
-        assertEquals(parent1,users.getAll().get(0));
-        assertEquals(f1,families.getFamilyById(f1.getId()));
-        assertEquals(f2,families.getFamilyById(f2.getId()));
+        assertEquals(1, users.getAll().size());
+        assertEquals(parent1, users.getAll().get(0));
+        assertEquals(f1, families.getFamilyById(f1.getId()));
+        assertEquals(f2, families.getFamilyById(f2.getId()));
     }
 
     @Test
@@ -344,17 +340,17 @@ class DBAdapterTest {
         classes.add(ClassNo.First);
         classes.add(ClassNo.Fourth);
         classes.add(ClassNo.Eighth);
-        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,new LinkedList<HomeworkReply>(),false);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9", "Title", "Content", "Phill", new MyDate(2018, 5, 5, 0, 0), new MyDate(2018, 10, 10, 10, 0), classes, 5, new LinkedList<HomeworkReply>(), false);
         adapter.addPost(post);
         loadPosts();
-        assertEquals(1,posts.getAll().size());
-        assertEquals(post,posts.getAll().get(0));
-        post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","TitleNEW","ContentNEW","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,12,12,12,0),classes,6,new LinkedList<HomeworkReply>(),false);
+        assertEquals(1, posts.getAll().size());
+        assertEquals(post, posts.getAll().get(0));
+        post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9", "TitleNEW", "ContentNEW", "Phill", new MyDate(2018, 5, 5, 0, 0), new MyDate(2018, 12, 12, 12, 0), classes, 6, new LinkedList<HomeworkReply>(), false);
         posts.editPost(post);
         adapter.updatePost(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"));
         loadPosts();
-        assertEquals(1,posts.getAll().size());
-        assertEquals(post,posts.getAll().get(0));
+        assertEquals(1, posts.getAll().size());
+        assertEquals(post, posts.getAll().get(0));
     }
 
     @Test
@@ -363,59 +359,59 @@ class DBAdapterTest {
         classes.add(ClassNo.First);
         classes.add(ClassNo.Seventh);
         classes.add(ClassNo.Eighth);
-        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,new LinkedList<HomeworkReply>(),false);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9", "Title", "Content", "Phill", new MyDate(2018, 5, 5, 0, 0), new MyDate(2018, 10, 10, 10, 0), classes, 5, new LinkedList<HomeworkReply>(), false);
         adapter.addPost(post);
         loadPosts();
-        assertEquals(1,posts.getAll().size());
-        assertEquals(post,posts.getAll().get(0));
-        assertEquals(0,((Homework) posts.getAll().get(0)).getReplies().size());
+        assertEquals(1, posts.getAll().size());
+        assertEquals(post, posts.getAll().get(0));
+        assertEquals(0, ((Homework) posts.getAll().get(0)).getReplies().size());
 
-            Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
-            Family f2 = new Family("ggg12240-3e76-406e-bf12-0d4048899999");
-            User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classNo(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
-            User student2 = Student.builder().name("StudentName2").email("StudentEmail2").classNo(ClassNo.Eighth).pwd("StudentPwd2").id("64e65555-204f-45ee-8c5a-aefdffa15555").family(f2).build();
-            student1.setChangePassword(true);
-            f1.addChild((Student) student1);
-            f2.addChild((Student) student2);
-            adapter.addFamily(f1);
-            adapter.addFamily(f2);
-            adapter.addUser(student1);
-            adapter.addUser(student2);
-            loadFamilies();
-            loadUsers(families);
+        Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
+        Family f2 = new Family("ggg12240-3e76-406e-bf12-0d4048899999");
+        User student1 = Student.builder().name("StudentName1").email("StudentEmail1").classNo(ClassNo.First).pwd("StudentPwd1").id("64e691e3-204f-45ee-8c5a-aefdffa1b3a5").family(f1).build();
+        User student2 = Student.builder().name("StudentName2").email("StudentEmail2").classNo(ClassNo.Eighth).pwd("StudentPwd2").id("64e65555-204f-45ee-8c5a-aefdffa15555").family(f2).build();
+        student1.setChangePassword(true);
+        f1.addChild((Student) student1);
+        f2.addChild((Student) student2);
+        adapter.addFamily(f1);
+        adapter.addFamily(f2);
+        adapter.addUser(student1);
+        adapter.addUser(student2);
+        loadFamilies();
+        loadUsers(families);
 
-        Post post2 = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","TitleNEW","ContentNEW","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,8,8,8,8),classes,8,new LinkedList<HomeworkReply>(),false);
+        Post post2 = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9", "TitleNEW", "ContentNEW", "Phill", new MyDate(2018, 5, 5, 0, 0), new MyDate(2018, 8, 8, 8, 8), classes, 8, new LinkedList<HomeworkReply>(), false);
         posts.editPost(post2);
-        HomeworkReply reply1 = new HomeworkReply("Content",(Student) student1,false,new MyDate(2018,6,6,15,0));
-        HomeworkReply reply2 = new HomeworkReply("Content",(Student) student2,false,new MyDate(2018,6,10,11,0));
-        ((Homework)(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).addHomeworkReply(reply1);
-        ((Homework)(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).addHomeworkReply(reply2);
+        HomeworkReply reply1 = new HomeworkReply("Content", (Student) student1, false, new MyDate(2018, 6, 6, 15, 0));
+        HomeworkReply reply2 = new HomeworkReply("Content", (Student) student2, false, new MyDate(2018, 6, 10, 11, 0));
+        ((Homework) (posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).addHomeworkReply(reply1);
+        ((Homework) (posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).addHomeworkReply(reply2);
 
         ((Homework) post).addHomeworkReply(reply1);
         ((Homework) post).addHomeworkReply(reply2);
 
         adapter.updatePost(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"));
         loadPosts();
-        assertEquals(1,posts.getAll().size());
+        assertEquals(1, posts.getAll().size());
 //        assertEquals(post,posts.getAllFamilies().get(0));
         System.out.println(posts.getAll().get(0));
-        assertEquals(2,((Homework) posts.getAll().get(0)).getReplies().size());
-        assertTrue(((Homework)(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).getReplies().contains(reply1));
-        assertTrue(((Homework)(posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).getReplies().contains(reply2));
+        assertEquals(2, ((Homework) posts.getAll().get(0)).getReplies().size());
+        assertTrue(((Homework) (posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).getReplies().contains(reply1));
+        assertTrue(((Homework) (posts.getPostById("cee12240-3e76-406e-bf12-0d40488ed3b9"))).getReplies().contains(reply2));
     }
 
-        //deleting
+    //deleting
     @Test
     void testDeleteAdmin() {
         User admin = Administrator.builder().name("AdminName").email("AdminEmail").pwd("AdminPwd").id("b2c74531-49ea-4efe-9308-59d01f4792cb").build();
         admin.setChangePassword(true);
         adapter.addUser(admin);
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
+        assertEquals(1, users.getAll().size());
         adapter.deleteUser(users.getUserById(admin.getId()).getId());
         loadUsers(families);
         assertThrows(NoSuchElementException.class, () -> users.getUserById(admin.getId()));
-        assertEquals(0,users.getAll().size());
+        assertEquals(0, users.getAll().size());
     }
 
     @Test
@@ -424,11 +420,11 @@ class DBAdapterTest {
         teacher1.setChangePassword(false);
         adapter.addUser(teacher1);
         loadUsers(families);
-        assertEquals(1,users.getAll().size());
+        assertEquals(1, users.getAll().size());
         adapter.deleteUser(users.getUserById(teacher1.getId()).getId());
         loadUsers(families);
         assertThrows(NoSuchElementException.class, () -> users.getUserById(teacher1.getId()));
-        assertEquals(0,users.getAll().size());
+        assertEquals(0, users.getAll().size());
     }
 
     @Test
@@ -441,12 +437,12 @@ class DBAdapterTest {
         loadFamilies();
         adapter.addUser(student1);
         loadUsers(families);
-        assertEquals(f1,families.getAllFamilies().get(0));
-        assertEquals(1,users.getAll().size());
+        assertEquals(f1, families.getAllFamilies().get(0));
+        assertEquals(1, users.getAll().size());
         adapter.deleteUser(users.getUserById(student1.getId()).getId());
         loadUsers(families);
         assertThrows(NoSuchElementException.class, () -> users.getUserById(student1.getId()));
-        assertEquals(0,users.getAll().size());
+        assertEquals(0, users.getAll().size());
     }
 
     @Test
@@ -459,12 +455,12 @@ class DBAdapterTest {
         adapter.addUser(parent1);
         loadFamilies();
         loadUsers(families);
-        assertEquals(f1,families.getAllFamilies().get(0));
-        assertEquals(1,users.getAll().size());
+        assertEquals(f1, families.getAllFamilies().get(0));
+        assertEquals(1, users.getAll().size());
         adapter.deleteUser(users.getUserById(parent1.getId()).getId());
         loadUsers(families);
         assertThrows(NoSuchElementException.class, () -> users.getUserById(parent1.getId()));
-        assertEquals(0,users.getAll().size());
+        assertEquals(0, users.getAll().size());
     }
 
     @Test
@@ -472,12 +468,12 @@ class DBAdapterTest {
         Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
         adapter.addFamily(f1);
         loadFamilies();
-        assertEquals(1,families.getSize());
-        assertEquals(f1,families.getAllFamilies().get(0));
+        assertEquals(1, families.getSize());
+        assertEquals(f1, families.getAllFamilies().get(0));
 
         adapter.deleteFamily(families.getFamilyById(f1.getId()));
         loadFamilies();
-        assertEquals(0,families.getSize());
+        assertEquals(0, families.getSize());
     }
 
     @Test
@@ -486,15 +482,15 @@ class DBAdapterTest {
         classes.add(ClassNo.First);
         classes.add(ClassNo.Fourth);
         classes.add(ClassNo.Eighth);
-        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,new LinkedList<HomeworkReply>(),false);
+        Post post = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9", "Title", "Content", "Phill", new MyDate(2018, 5, 5, 0, 0), new MyDate(2018, 10, 10, 10, 0), classes, 5, new LinkedList<HomeworkReply>(), false);
         adapter.addPost(post);
         loadPosts();
 
-        assertEquals(1,posts.getAll().size());
-        assertEquals(post,posts.getAll().get(0));
+        assertEquals(1, posts.getAll().size());
+        assertEquals(post, posts.getAll().get(0));
         adapter.deletePost("cee12240-3e76-406e-bf12-0d40488ed3b9");
         loadPosts();
-        assertEquals(0,posts.getAll().size());
+        assertEquals(0, posts.getAll().size());
 
     }
 
@@ -512,14 +508,14 @@ class DBAdapterTest {
         adapter.addUser(teacher2);
         loadUsers(families);
 
-        assertEquals(3,users.getAll().size());
+        assertEquals(3, users.getAll().size());
         //assertions for admin
-        assertEquals(admin,users.getAll().get(0));
+        assertEquals(admin, users.getAll().get(0));
         //assertions for teachers
-        assertEquals(teacher1,users.getAll().get(1));
-        assertEquals(teacher2,users.getAll().get(2));
+        assertEquals(teacher1, users.getAll().get(1));
+        assertEquals(teacher2, users.getAll().get(2));
     }
-    
+
     @Test
     void testStudentAndTwoParentsAddedAndLoaded() {
         Family f1 = new Family("cee12240-3e76-406e-bf12-0d40488ed3b9");
@@ -534,21 +530,21 @@ class DBAdapterTest {
         f1.addParent((Parent) parent2);
         adapter.addFamily(f1);
         loadFamilies();
-        
+
         adapter.addUser(student1);
         adapter.addUser(parent1);
         adapter.addUser(parent2);
         loadUsers(families);
 
-        assertEquals(3,users.getAll().size());
+        assertEquals(3, users.getAll().size());
         //assertions for student
-        assertEquals(student1,users.getAll().get(0));
-        assertEquals(f1.getChildren().get(0),users.getAll().get(0));
+        assertEquals(student1, users.getAll().get(0));
+        assertEquals(f1.getChildren().get(0), users.getAll().get(0));
         //assertions for parents
-        assertEquals(parent1,users.getAll().get(1));
-        assertEquals(parent2,users.getAll().get(2));
-        assertEquals(f1.getParent("ParentName1"),parent1);
-        assertEquals(f1.getParent("ParentName2"),parent2);
+        assertEquals(parent1, users.getAll().get(1));
+        assertEquals(parent2, users.getAll().get(2));
+        assertEquals(f1.getParent("ParentName1"), parent1);
+        assertEquals(f1.getParent("ParentName2"), parent2);
     }
 
     @Test
@@ -557,15 +553,15 @@ class DBAdapterTest {
         classes.add(ClassNo.First);
         classes.add(ClassNo.Fourth);
         classes.add(ClassNo.Eighth);
-        Post post1 = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9","Title","Content","Phill",new MyDate(2018,5,5,0,0),new MyDate(2018,10,10,10,0),classes,5,new LinkedList<HomeworkReply>(),false);
-        Post post2 = new Homework("gee12240-3e76-406e-bf12-0d40488ed3b9","Title2","Content3","Phillips",new MyDate(2019,5,5,0,0),new MyDate(2019,10,10,10,0),classes,4,new LinkedList<HomeworkReply>(),false);
+        Post post1 = new Homework("cee12240-3e76-406e-bf12-0d40488ed3b9", "Title", "Content", "Phill", new MyDate(2018, 5, 5, 0, 0), new MyDate(2018, 10, 10, 10, 0), classes, 5, new LinkedList<HomeworkReply>(), false);
+        Post post2 = new Homework("gee12240-3e76-406e-bf12-0d40488ed3b9", "Title2", "Content3", "Phillips", new MyDate(2019, 5, 5, 0, 0), new MyDate(2019, 10, 10, 10, 0), classes, 4, new LinkedList<HomeworkReply>(), false);
         adapter.addPost(post1);
         adapter.addPost(post2);
         loadPosts();
 
-        assertEquals(2,posts.getAll().size());
-        assertEquals(post1,posts.getAll().get(0));
-        assertEquals(post2,posts.getAll().get(1));
+        assertEquals(2, posts.getAll().size());
+        assertEquals(post1, posts.getAll().get(0));
+        assertEquals(post2, posts.getAll().get(1));
     }
 
     @AfterEach
