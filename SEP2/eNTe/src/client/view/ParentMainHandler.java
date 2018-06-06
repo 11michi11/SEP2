@@ -20,22 +20,12 @@ public class ParentMainHandler {
 
 	public ParentMainHandler() {
 		controller = ClientController.getInstance();
-		System.out.println("parentMainHandler");
 	}
 
 	@FXML
 	public void initialize() {
-		System.out.println("second");
-		System.out.println(box);
-		ArrayList<Post> posts = controller.getAllPosts();
-		for(Post p : posts) {
-			loadPost(p);
-		}
-
+		controller.getAllPosts().forEach(this::loadPost);
 	}
-
-	
-
 
 	private void loadPost(Post post) {
 		Text title = new Text(post.getTitle());

@@ -187,11 +187,6 @@ public class AdminMainHandler {
             e.printStackTrace();
         }
     }
-
-
-    private void loadPanes(Pane pane) {
-        box.getChildren().add(pane);
-    }
 }
 
 

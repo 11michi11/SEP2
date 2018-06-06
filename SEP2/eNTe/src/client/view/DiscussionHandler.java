@@ -17,56 +17,58 @@ import java.io.IOException;
 
 public class DiscussionHandler {
 
-	@FXML
-	private Button createPost, editPost;
-	@FXML
-	private VBox box;
-	@FXML
-	private ImageView ente;
-	private ClientController controller;
-	private Stage stage;
-	private Parent mainPane;
+    @FXML
+    private Button createPost, editPost;
+    @FXML
+    private VBox box;
+    @FXML
+    private ImageView ente;
+    private ClientController controller;
+    private Stage stage;
+    private Parent mainPane;
 
-	public DiscussionHandler() {
-		controller = ClientController.getInstance();
-		stage = ClientViewManager.getStage();
-		System.out.println("DiscussionHandler");
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
-		try {
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	public void loadPanes(Pane pane) {
-		box.getChildren().clear();
-		box.getChildren().add(pane);
-	}
+    public DiscussionHandler() {
+        controller = ClientController.getInstance();
+        stage = ClientViewManager.getStage();
+        System.out.println("DiscussionHandler");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
+        try {
+            mainPane = loader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public void createPost() {
-		TextField title = new TextField();
-		title.setText("Title");
-		title.setId("title");
-		TextArea content = new TextArea();
-		content.setText("Write a content");
-		content.getStyleClass().add("content");
+    public void loadPanes(Pane pane) {
+        box.getChildren().clear();
+        box.getChildren().add(pane);
+    }
 
-		VBox text = new VBox();
-		text.getChildren().addAll(title, content);
+    public void createPost() {
+        TextField title = new TextField();
+        title.setText("Title");
+        title.setId("title");
+        TextArea content = new TextArea();
+        content.setText("Write a content");
+        content.getStyleClass().add("content");
 
-		box.getChildren().add(0, text);
-	}
+        VBox text = new VBox();
+        text.getChildren().addAll(title, content);
 
-	public void addPost() {
-		VBox text = (VBox) box.getChildren().get(0);
-		TextField title = (TextField) text.getChildren().get(0);
-		TextArea content = (TextArea) text.getChildren().get(1);
+        box.getChildren().add(0, text);
+    }
 
-		controller.addPost(title.getText(), content.getText(), controller.getCurrentUserName(), MyDate.now());
-	}
-	public void goBack() {
-		stage.getScene().setRoot(mainPane);
-		stage.show();
-	}
+    public void addPost() {
+        VBox text = (VBox) box.getChildren().get(0);
+        TextField title = (TextField) text.getChildren().get(0);
+        TextArea content = (TextArea) text.getChildren().get(1);
+
+        controller.addPost(title.getText(), content.getText(), controller.getCurrentUserName(), MyDate.now());
+    }
+
+    public void goBack() {
+        stage.getScene().setRoot(mainPane);
+        stage.show();
+    }
 }

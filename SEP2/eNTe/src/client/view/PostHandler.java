@@ -23,7 +23,7 @@ public class PostHandler {
     @FXML
     private VBox box;
     @FXML
-	private ImageView ente;
+    private ImageView ente;
     private ClientController controller;
     private Stage stage;
     private Parent mainPane;
@@ -33,13 +33,13 @@ public class PostHandler {
         stage = ClientViewManager.getStage();
         System.out.println("PostHandler");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
-		try {
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+        try {
+            mainPane = loader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
@@ -71,6 +71,7 @@ public class PostHandler {
 //        addPane(pane);
 
     }
+
     public void loadPanes(Pane pane) {
         box.getChildren().clear();
         box.getChildren().add(pane);
@@ -98,8 +99,9 @@ public class PostHandler {
 
         controller.addPost(title.getText(), content.getText(), controller.getCurrentUserName(), MyDate.now());
     }
+
     public void goBack() {
-		stage.getScene().setRoot(mainPane);
-		stage.show();
-	}
+        stage.getScene().setRoot(mainPane);
+        stage.show();
+    }
 }

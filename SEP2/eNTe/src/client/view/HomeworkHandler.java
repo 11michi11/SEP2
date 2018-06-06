@@ -104,7 +104,6 @@ public class HomeworkHandler {
 		addPane(pane);
 	}
 
-
 	private void addPane(Pane pane) {
 		box.getChildren().add(pane);
 	}

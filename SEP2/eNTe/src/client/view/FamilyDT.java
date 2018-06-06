@@ -16,5 +16,4 @@ public class FamilyDT extends TableDataType {
         return name;
     }
 
-
 }
