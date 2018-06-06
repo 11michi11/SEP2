@@ -1,7 +1,5 @@
 package client.view;
 
-import model.User;
-
 public abstract class TableDataType {
 
     protected String name;

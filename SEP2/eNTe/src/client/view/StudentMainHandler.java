@@ -22,28 +22,28 @@ import model.HomeworkReply;
 import model.Post;
 
 public class StudentMainHandler {
-	@FXML
-	private VBox VBox;
+    @FXML
+    private VBox VBox;
 
-	private ClientController controller;
-	private Stage stage;
-	private Parent mainPane;
+    private ClientController controller;
+    private Stage stage;
 
-	public StudentMainHandler() {
-		controller = ClientController.getInstance();
-		stage = ClientViewManager.getStage();
-		System.out.println("studentMainHandler");
+    public StudentMainHandler() {
+        controller = ClientController.getInstance();
+        stage = ClientViewManager.getStage();
+    }
 
-	}
+    @FXML
+    public void initialize() {
+        loadPosts();
+    }
 
-	@FXML
-	public void initialize() {
-		System.out.println(VBox);
-		loadPosts();
+    private void addPane(Pane pane) {
+        VBox.getChildren().add(pane);
+    }
 
-	}
 
-	public void loadPosts() {
+	private void loadPosts() {
 		ArrayList<Post> posts = controller.getAllPosts();
 		for (Post p : posts) {
 			switch (p.getClass().getSimpleName()) {
@@ -61,50 +61,46 @@ public class StudentMainHandler {
 		}
 	}
 
-	private void addPane(Pane pane) {
-		VBox.getChildren().add(pane);
-	}
+    public void submit(Homework homework) {
+        Parent mainPane;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReply.fxml"));
+            mainPane = loader.load();
+            ((HomeworkReplyHandler) loader.getController()).setHomework(homework);
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
 
-	public void submit(Homework homework) {
-		Parent mainPane;
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReply.fxml"));
-			mainPane = loader.load();
-			((HomeworkReplyHandler) loader.getController()).setHomework(homework);
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-			stage.getScene().setRoot(mainPane);
-			stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    private void loadHomework(Homework homework) {
 
-	private void loadHomework(Homework homework) {
+        Text title = new Text(homework.getTitle());
+        title.setId("title");
+        Text content = new Text(homework.getContent());
+        content.setId("content");
+        Text deadline = new Text(homework.getDeadline().toString());
+        Text separator = new Text("\n" + "\n");
+        Text separator1 = new Text("\n" + "\n" + " ");
+        Text separator2 = new Text("\n" + "\n" + " ");
 
-		Text title = new Text(homework.getTitle());
-		title.setId("title");
-		Text content = new Text(homework.getContent());
-		content.setId("content");
-		Text deadline = new Text(homework.getDeadline().toString());
-		Text separator = new Text("\n" + "\n");
-		Text separator1 = new Text("\n" + "\n" + " ");
-		Text separator2 = new Text("\n" + "\n" + " ");
+        HomeworkReply reply = homework.getStudentReply(controller.getCurrentUserId());
+        Button solution;
+        if (reply != null)
+            solution = new Button("EDIT SOLUTION");
+        else
+            solution = new Button("SUBMIT");
 
-		HomeworkReply reply = homework.getStudentReply(controller.getCurrentUserId());
-		Button solution;
-		if (reply != null)
-			solution = new Button("EDIT SOLUTION");
-		else
-			solution = new Button("SUBMIT");
+        solution.addEventHandler(MouseEvent.MOUSE_CLICKED, new SubmitHomeworkHandler(homework));
+        solution.getStyleClass().add("smallButton");
 
-		solution.addEventHandler(MouseEvent.MOUSE_CLICKED, new SubmitHomeworkHandler(homework));
-		solution.getStyleClass().add("smallButton");
-
-		TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, solution);
-		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(homework.getContent());
-		textFlow.setPrefWidth(842);
+        TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, solution);
+        textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+        textFlow.setAccessibleText(homework.getContent());
+        textFlow.setPrefWidth(842);
 
 		Pane pane = new Pane() {
 			@Override
@@ -112,63 +108,61 @@ public class StudentMainHandler {
 				super.layoutChildren();
 				TextFlow textFlow = (TextFlow) getChildren().get(0);
 				setMinHeight(textFlow.getHeight() + 5);
-				autosize();
 			}
 		};
 		pane.getChildren().addAll(textFlow);
 		pane.getStyleClass().add("textPane");
 		addPane(pane);
+    }
 
-	}
+    private void loadPost(Post post) {
 
-	private void loadPost(Post post) {
+        Text titleOfPost = new Text(post.getTitle());
+        titleOfPost.setId("title");
+        Text contentOfPost = new Text(post.getContent());
+        contentOfPost.setId("content");
+        Text separator = new Text("\n" + "\n");
 
-		Text titleOfPost = new Text(post.getTitle());
-		titleOfPost.setId("title");
-		Text contentOfPost = new Text(post.getContent());
-		contentOfPost.setId("content");
-		Text separator = new Text("\n" + "\n");
+        TextFlow textFlow = new TextFlow(titleOfPost, separator, contentOfPost);
+        textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+        textFlow.setAccessibleText(post.getContent());
+        textFlow.setPrefWidth(842);
 
-		TextFlow textFlow = new TextFlow(titleOfPost, separator, contentOfPost);
-		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(post.getContent());
-		textFlow.setPrefWidth(842);
+        Pane postPane = new Pane() {
+            @Override
+            protected void layoutChildren() {
+                super.layoutChildren();
+                TextFlow textFlow = (TextFlow) getChildren().get(0);
+                setMinHeight(textFlow.getHeight() + 5);
+                autosize();
+            }
+        };
+        postPane.getChildren().add(textFlow);
+        postPane.getStyleClass().add("textPane");
+        addPane(postPane);
+    }
 
-		Pane postPane = new Pane() {
-			@Override
-			protected void layoutChildren() {
-				super.layoutChildren();
-				TextFlow textFlow = (TextFlow) getChildren().get(0);
-				setMinHeight(textFlow.getHeight() + 5);
-				autosize();
-			}
-		};
-		postPane.getChildren().add(textFlow);
-		postPane.getStyleClass().add("textPane");
-		addPane(postPane);
-	}
+    private class SubmitHomeworkHandler implements EventHandler<Event> {
 
-	private class SubmitHomeworkHandler implements EventHandler<Event> {
+        private Homework homework;
 
-		private Homework homework;
+        private SubmitHomeworkHandler(Homework homework) {
+            this.homework = homework;
+        }
 
-		private SubmitHomeworkHandler(Homework homework) {
-			this.homework = homework;
-		}
-
-		@Override
-		public void handle(Event event) {
-			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReply.fxml"));
-				mainPane = loader.load();
-				((HomeworkReplyHandler) loader.getController()).setHomework(homework);
-				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-				stage.getScene().setRoot(mainPane);
-				stage.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+        @Override
+        public void handle(Event event) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReply.fxml"));
+                Parent mainPane = loader.load();
+                ((HomeworkReplyHandler) loader.getController()).setHomework(homework);
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+                stage.getScene().setRoot(mainPane);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
