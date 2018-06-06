@@ -167,6 +167,11 @@ public class ControllerTest {
         }
 
         @Override
+        public User getUserById(String id) {
+            return null;
+        }
+
+        @Override
         public void deletePost(Post post) {
 
         }
