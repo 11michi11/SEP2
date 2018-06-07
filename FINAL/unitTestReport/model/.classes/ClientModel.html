@@ -1,0 +1,99 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ClientModel</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ClientModel (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ClientModel</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;
+<i>2</i>&nbsp;package model;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import java.util.ArrayList;
+<i>5</i>&nbsp;import java.util.List;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import client.controller.ClientController;
+<i>8</i>&nbsp;import model.communication.WelcomingData;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;public interface ClientModel {
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    void setController(ClientController controller);
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    void addPost(Post post);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    Post getPost();
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    void editPost(Post post);
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    void deletePost(Post post);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    Homework getHomework();
+<i>23</i>&nbsp;    //	Discussion getDiscussion();
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    void saveData(WelcomingData data);
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    void addOrUpdateUser(User user);
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    void deleteUser(String id);
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    void deleteUser(User user);
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    void login(String email, String pwd);
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    ArrayList&lt;Parent&gt; getParents();
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    void addFamily(Family family);
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    ArrayList&lt;Family&gt; getAllFamilies();
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    void deleteFamily(Family family);
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    List&lt;Teacher&gt; getTeachers();
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    boolean checkEmailForPwdReset(String email);
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    void changePwdWithEmail(String email, String newPwd);
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    ArrayList&lt;Post&gt; getAllPosts();
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    User getUserById(String id);
+<i>52</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-06-07 21:33</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ClassNo</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ClassNo (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ClassNo</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83,3%
+  </span>
+  <span class="absValue">
+    (5/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93,3%
+  </span>
+  <span class="absValue">
+    (14/ 15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.io.Serializable;
+<i>4</i>&nbsp;import java.util.List;
+<i>5</i>&nbsp;import java.util.stream.Collectors;
+<i>6</i>&nbsp;import java.util.stream.Stream;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;//TO DO, class not finished
+<b class="fc"><i>9</i>&nbsp;public enum ClassNo implements Serializable{</b>
+<b class="fc"><i>10</i>&nbsp;	 First(&quot;First&quot;),</b>
+<b class="fc"><i>11</i>&nbsp;	 Second(&quot;Second&quot;),</b>
+<b class="fc"><i>12</i>&nbsp;	 Third(&quot;Third&quot;),</b>
+<b class="fc"><i>13</i>&nbsp;	 Fourth(&quot;Fourth&quot;),</b>
+<b class="fc"><i>14</i>&nbsp;	 Fifth(&quot;Fifth&quot;),</b>
+<b class="fc"><i>15</i>&nbsp;	 Sixth(&quot;Sixth&quot;),</b>
+<b class="fc"><i>16</i>&nbsp;	 Seventh(&quot;Seventh&quot;),</b>
+<b class="fc"><i>17</i>&nbsp;	 Eighth(&quot;Eighth&quot;);</b>
+<i>18</i>&nbsp;	 
+<i>19</i>&nbsp;	private String name;
+<i>20</i>&nbsp;	
+<b class="fc"><i>21</i>&nbsp;	ClassNo(String name) {</b>
+<b class="fc"><i>22</i>&nbsp;		this.name = name;</b>
+<b class="fc"><i>23</i>&nbsp;	}</b>
+<i>24</i>&nbsp;	
+<i>25</i>&nbsp;	
+<i>26</i>&nbsp;	public static List&lt;String&gt; getClassesInStrings() {
+<b class="fc"><i>27</i>&nbsp;		return Stream.of(ClassNo.values()).map(Enum::name).collect(Collectors.toList());</b>
+<i>28</i>&nbsp;	}
+<i>29</i>&nbsp;	
+<i>30</i>&nbsp;	public static List&lt;ClassNo&gt; getClasses() {
+<b class="nc"><i>31</i>&nbsp;		return Stream.of(ClassNo.values()).collect(Collectors.toList());</b>
+<i>32</i>&nbsp;	}
+<i>33</i>&nbsp;	
+<i>34</i>&nbsp;	public String toString() {
+<b class="fc"><i>35</i>&nbsp;		return name;</b>
+<i>36</i>&nbsp;	}
+<i>37</i>&nbsp;}
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-06-07 21:33</div>
+</div>
+</body>
+</html>

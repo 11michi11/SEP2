@@ -1,0 +1,69 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DBPersistence</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">server.model.persistance</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DBPersistence (server.model.persistance)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">DBPersistence</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package server.model.persistance;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import model.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.util.LinkedList;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;public interface DBPersistence {
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;	LinkedList&lt;Family&gt; getFamilies();
+<i>10</i>&nbsp;	LinkedList&lt;User&gt; getUsers(FamilyList families);
+<i>11</i>&nbsp;	LinkedList&lt;Post&gt; getPosts(UsersList users);
+<i>12</i>&nbsp;	void addFamily(Family family);
+<i>13</i>&nbsp;	void addUser(User user);
+<i>14</i>&nbsp;	void addPost(Post post);
+<i>15</i>&nbsp;	void addHomeworkReply(String homeworkId, HomeworkReply reply);
+<i>16</i>&nbsp;	void updateUser(User user);
+<i>17</i>&nbsp;	void updatePost(Post post);
+<i>18</i>&nbsp;	void updateHomeworkReply(HomeworkReply reply);
+<i>19</i>&nbsp;	void deleteFamily(Family family);
+<i>20</i>&nbsp;	void deleteUser(String id);
+<i>21</i>&nbsp;	void deletePost(String postID);
+<i>22</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-06-07 21:33</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DBInterface</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">server.model.persistance</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DBInterface (server.model.persistance)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">DBInterface</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package server.model.persistance;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.sql.SQLException;
+<i>4</i>&nbsp;import java.util.ArrayList;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;public interface DBInterface {
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;    /**
+<i>9</i>&nbsp;     * Returning the result from an SQL query in the form of an Object array for
+<i>10</i>&nbsp;     * each row. All Object arrays are returned in an ArrayList.
+<i>11</i>&nbsp;     *
+<i>12</i>&nbsp;     * @param sql               the SQL statement to execute. Starting with &quot;SELECT&quot;.
+<i>13</i>&nbsp;     * @param statementElements a number of statement elements each representing an element for a
+<i>14</i>&nbsp;     *                          placeholder in the SQL string.
+<i>15</i>&nbsp;     * @return an ArrayList with an Object[] for each row in the query result
+<i>16</i>&nbsp;     * @throws SQLException if something went wrong in the connection or query
+<i>17</i>&nbsp;     */
+<i>18</i>&nbsp;    ArrayList&lt;Object[]&gt; query(String sql, Object... statementElements) throws SQLException;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * An SQL update.
+<i>22</i>&nbsp;     *
+<i>23</i>&nbsp;     * @param sql               the sql updates to execute. Could start with &quot;UPDATE&quot;, &quot;INSERT&quot;, &quot;CREATE&quot;, ...
+<i>24</i>&nbsp;     * @param statementElements a number of statement elements each representing an element for a
+<i>25</i>&nbsp;     *                          placeholder in the SQL string.
+<i>26</i>&nbsp;     * @return an integer representing the number of updates given by the database
+<i>27</i>&nbsp;     * @throws SQLException if something went wrong in the connection or update
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    int update(String sql, Object... statementElements) throws SQLException;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * A number of SQL updates.
+<i>33</i>&nbsp;     *
+<i>34</i>&nbsp;     * @param sqlList an ArrayList containing SQL updates to execute.
+<i>35</i>&nbsp;     * @return an integer array representing the number of updates given by the database for each statement
+<i>36</i>&nbsp;     * @throws SQLException if something went wrong in the connection or update
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    int[] updateAll(ArrayList&lt;String&gt; sqlList) throws SQLException;
+<i>39</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-06-07 21:33</div>
+</div>
+</body>
+</html>

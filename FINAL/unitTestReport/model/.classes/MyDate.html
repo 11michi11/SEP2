@@ -1,0 +1,385 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MyDate</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MyDate (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MyDate</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    64%
+  </span>
+  <span class="absValue">
+    (16/ 25)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    36,6%
+  </span>
+  <span class="absValue">
+    (52/ 142)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.io.Serializable;
+<i>4</i>&nbsp;import java.sql.Timestamp;
+<i>5</i>&nbsp;import java.util.Calendar;
+<i>6</i>&nbsp;import java.util.GregorianCalendar;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;public class MyDate implements Serializable {
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;    private int year;
+<i>11</i>&nbsp;    private int month;
+<i>12</i>&nbsp;    private int day;
+<i>13</i>&nbsp;    private int hour;
+<i>14</i>&nbsp;    private int minute;
+<i>15</i>&nbsp;
+<b class="fc"><i>16</i>&nbsp;    public MyDate(int year, int month, int day) {</b>
+<b class="fc"><i>17</i>&nbsp;        this.set(year, month, day, 0, 0);</b>
+<b class="fc"><i>18</i>&nbsp;    }</b>
+<i>19</i>&nbsp;
+<b class="fc"><i>20</i>&nbsp;    public MyDate(int year, int month, int day, int hour, int minute) {</b>
+<b class="fc"><i>21</i>&nbsp;        this.set(year, month, day, hour, minute);</b>
+<b class="fc"><i>22</i>&nbsp;    }</b>
+<b class="fc"><i>23</i>&nbsp;    public MyDate() {</b>
+<b class="fc"><i>24</i>&nbsp;        Calendar now = GregorianCalendar.getInstance();</b>
+<b class="fc"><i>25</i>&nbsp;        this.year = now.get(Calendar.YEAR);</b>
+<b class="fc"><i>26</i>&nbsp;        this.month = now.get(Calendar.MONTH) + 1;</b>
+<b class="fc"><i>27</i>&nbsp;        this.day = now.get(Calendar.DAY_OF_MONTH);</b>
+<b class="fc"><i>28</i>&nbsp;    }</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    public int getYear() {
+<b class="fc"><i>31</i>&nbsp;        return year;</b>
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    public int getMonth() {
+<b class="fc"><i>35</i>&nbsp;        return month;</b>
+<i>36</i>&nbsp;    }
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    public int getDay() {
+<b class="fc"><i>39</i>&nbsp;        return day;</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;
+<b class="fc"><i>42</i>&nbsp;    public int getHour() { return hour;</b>
+<i>43</i>&nbsp;    }
+<b class="fc"><i>44</i>&nbsp;    public int getMinute() { return minute;</b>
+<i>45</i>&nbsp;    }
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    public void set(int year, int month, int day, int hour, int minute) {
+<i>48</i>&nbsp;
+<b class="fc"><i>49</i>&nbsp;        this.year = year &gt; 0 ? year : -year;</b>
+<i>50</i>&nbsp;
+<b class="fc"><i>51</i>&nbsp;        if (month &lt; 1)</b>
+<b class="nc"><i>52</i>&nbsp;            this.month = 1;</b>
+<b class="fc"><i>53</i>&nbsp;        else if (month &gt; 12)</b>
+<b class="nc"><i>54</i>&nbsp;            this.month = 12;</b>
+<i>55</i>&nbsp;        else
+<b class="fc"><i>56</i>&nbsp;            this.month = month;</b>
+<i>57</i>&nbsp;
+<b class="fc"><i>58</i>&nbsp;        if (day &lt; 1)</b>
+<b class="nc"><i>59</i>&nbsp;            this.day = 1;</b>
+<b class="fc"><i>60</i>&nbsp;        else if (day &gt; numberOfDaysInMonth())</b>
+<b class="nc"><i>61</i>&nbsp;            this.day = numberOfDaysInMonth();</b>
+<i>62</i>&nbsp;        else
+<b class="fc"><i>63</i>&nbsp;            this.day = day;</b>
+<i>64</i>&nbsp;
+<b class="fc"><i>65</i>&nbsp;        if(hour &gt; 23)</b>
+<b class="nc"><i>66</i>&nbsp;            this.hour = 23;</b>
+<b class="fc"><i>67</i>&nbsp;        if (hour &lt; 0)</b>
+<b class="nc"><i>68</i>&nbsp;            this.hour = 0;</b>
+<i>69</i>&nbsp;        else
+<b class="fc"><i>70</i>&nbsp;            this.hour = hour;</b>
+<i>71</i>&nbsp;
+<b class="fc"><i>72</i>&nbsp;        if (minute &gt; 59)</b>
+<b class="nc"><i>73</i>&nbsp;            this.minute = 59;</b>
+<b class="fc"><i>74</i>&nbsp;        if(minute &lt; 0)</b>
+<b class="nc"><i>75</i>&nbsp;            this.minute = 0;</b>
+<i>76</i>&nbsp;        else
+<b class="fc"><i>77</i>&nbsp;            this.minute = minute;</b>
+<b class="fc"><i>78</i>&nbsp;    }</b>
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    public void set(int day, String monthName, int year) {
+<i>81</i>&nbsp;
+<b class="nc"><i>82</i>&nbsp;        this.year = year &gt; 0 ? year : -year;</b>
+<i>83</i>&nbsp;
+<b class="nc"><i>84</i>&nbsp;        int month = convertToMonthNumber(monthName);</b>
+<i>85</i>&nbsp;
+<b class="nc"><i>86</i>&nbsp;        if (month &lt; 1)</b>
+<b class="nc"><i>87</i>&nbsp;            this.month = 1;</b>
+<b class="nc"><i>88</i>&nbsp;        else if (month &gt; 12)</b>
+<b class="nc"><i>89</i>&nbsp;            this.month = 12;</b>
+<i>90</i>&nbsp;        else
+<b class="nc"><i>91</i>&nbsp;            this.month = month;</b>
+<i>92</i>&nbsp;
+<b class="nc"><i>93</i>&nbsp;        if (day &lt; 1)</b>
+<b class="nc"><i>94</i>&nbsp;            this.day = 1;</b>
+<b class="nc"><i>95</i>&nbsp;        else if (day &gt; numberOfDaysInMonth())</b>
+<b class="nc"><i>96</i>&nbsp;            this.day = numberOfDaysInMonth();</b>
+<i>97</i>&nbsp;        else
+<b class="nc"><i>98</i>&nbsp;            this.day = day;</b>
+<b class="nc"><i>99</i>&nbsp;    }</b>
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    @Override
+<i>104</i>&nbsp;    public String toString() {
+<b class="fc"><i>105</i>&nbsp;        String day = &quot;00&quot;.substring(Integer.toString(this.day).length()) + Integer.toString(this.day);</b>
+<b class="fc"><i>106</i>&nbsp;        String month = &quot;00&quot;.substring(Integer.toString(this.month).length()) + Integer.toString(this.month);</b>
+<b class="fc"><i>107</i>&nbsp;        String year = &quot;0000&quot;.substring(Integer.toString(this.year).length()) + Integer.toString(this.year);</b>
+<i>108</i>&nbsp;
+<b class="fc"><i>109</i>&nbsp;        return day + &quot;/&quot; + month + &quot;/&quot; + year + &quot;/ &quot; + hour + &quot;:&quot; + minute;</b>
+<i>110</i>&nbsp;    }
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    public static MyDate convertFromTimestampToMyDate(Timestamp timestamp) {
+<b class="fc"><i>113</i>&nbsp;        Calendar calendar = Calendar.getInstance();</b>
+<b class="fc"><i>114</i>&nbsp;        calendar.setTime(timestamp);</b>
+<b class="fc"><i>115</i>&nbsp;        return new MyDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE));</b>
+<i>116</i>&nbsp;    }
+<i>117</i>&nbsp;    
+<i>118</i>&nbsp;    public static Timestamp convertFromMyDateToTimestamp(MyDate date) {
+<b class="fc"><i>119</i>&nbsp;        Calendar cal = Calendar.getInstance();</b>
+<b class="fc"><i>120</i>&nbsp;        cal.set(date.getYear(),date.getMonth()-1,date.getDay(),date.getHour(),date.getMinute(),0);</b>
+<b class="fc"><i>121</i>&nbsp;        cal.set(Calendar.MILLISECOND,000);</b>
+<b class="fc"><i>122</i>&nbsp;        return new Timestamp(cal.getTimeInMillis());</b>
+<i>123</i>&nbsp;    }
+<i>124</i>&nbsp;    
+<i>125</i>&nbsp;    public boolean isLeapYear() {
+<b class="nc"><i>126</i>&nbsp;        return (this.year % 4 == 0) &amp;&amp; (this.year % 100 != 0) || (this.year % 400 == 0);</b>
+<i>127</i>&nbsp;    }
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;    public int numberOfDaysInMonth() {
+<b class="fc"><i>130</i>&nbsp;        switch (this.month) {</b>
+<i>131</i>&nbsp;            case 1:
+<i>132</i>&nbsp;            case 3:
+<i>133</i>&nbsp;            case 5:
+<i>134</i>&nbsp;            case 7:
+<i>135</i>&nbsp;            case 8:
+<i>136</i>&nbsp;            case 10:
+<i>137</i>&nbsp;            case 12:
+<b class="fc"><i>138</i>&nbsp;                return 31;</b>
+<i>139</i>&nbsp;            case 4:
+<i>140</i>&nbsp;            case 6:
+<i>141</i>&nbsp;            case 9:
+<i>142</i>&nbsp;            case 11:
+<b class="fc"><i>143</i>&nbsp;                return 30;</b>
+<i>144</i>&nbsp;            case 2:
+<b class="nc"><i>145</i>&nbsp;                if (isLeapYear())</b>
+<b class="nc"><i>146</i>&nbsp;                    return 29;</b>
+<i>147</i>&nbsp;                else
+<b class="nc"><i>148</i>&nbsp;                    return 29;</b>
+<i>149</i>&nbsp;            default:
+<b class="nc"><i>150</i>&nbsp;                return -1;</b>
+<i>151</i>&nbsp;        }
+<i>152</i>&nbsp;    }
+<i>153</i>&nbsp;
+<i>154</i>&nbsp;    public String getMonthName() {
+<b class="nc"><i>155</i>&nbsp;        switch(this.month){</b>
+<i>156</i>&nbsp;            case 1:
+<b class="nc"><i>157</i>&nbsp;                return &quot;January&quot;;</b>
+<i>158</i>&nbsp;            case 2:
+<b class="nc"><i>159</i>&nbsp;                return &quot;February&quot;;</b>
+<i>160</i>&nbsp;            case 3:
+<b class="nc"><i>161</i>&nbsp;                return &quot;March&quot;;</b>
+<i>162</i>&nbsp;            case 4:
+<b class="nc"><i>163</i>&nbsp;                return &quot;April&quot;;</b>
+<i>164</i>&nbsp;            case 5:
+<b class="nc"><i>165</i>&nbsp;                return &quot;May&quot;;</b>
+<i>166</i>&nbsp;            case 6:
+<b class="nc"><i>167</i>&nbsp;                return &quot;June&quot;;</b>
+<i>168</i>&nbsp;            case 7:
+<b class="nc"><i>169</i>&nbsp;                return &quot;July&quot;;</b>
+<i>170</i>&nbsp;            case 8:
+<b class="nc"><i>171</i>&nbsp;                return &quot;August&quot;;</b>
+<i>172</i>&nbsp;            case 9:
+<b class="nc"><i>173</i>&nbsp;                return &quot;September&quot;;</b>
+<i>174</i>&nbsp;            case 10:
+<b class="nc"><i>175</i>&nbsp;                return &quot;October&quot;;</b>
+<i>176</i>&nbsp;            case 11:
+<b class="nc"><i>177</i>&nbsp;                return &quot;November&quot;;</b>
+<i>178</i>&nbsp;            case 12:
+<b class="nc"><i>179</i>&nbsp;                return &quot;December&quot;;</b>
+<i>180</i>&nbsp;            default:
+<b class="nc"><i>181</i>&nbsp;                return &quot;-1&quot;;</b>
+<i>182</i>&nbsp;        }
+<i>183</i>&nbsp;    }
+<i>184</i>&nbsp;
+<i>185</i>&nbsp;    public void stepForward(int days) {
+<b class="nc"><i>186</i>&nbsp;        for(int i=0;i&lt;days;i++)</b>
+<b class="nc"><i>187</i>&nbsp;            stepForwardOneDay();</b>
+<b class="nc"><i>188</i>&nbsp;    }</b>
+<i>189</i>&nbsp;
+<i>190</i>&nbsp;    public void stepForwardOneDay() {
+<b class="nc"><i>191</i>&nbsp;        if((this.day + 1) &gt; numberOfDaysInMonth()) {</b>
+<b class="nc"><i>192</i>&nbsp;            if((this.month + 1) &gt; 12) {</b>
+<b class="nc"><i>193</i>&nbsp;                this.day = 1;</b>
+<b class="nc"><i>194</i>&nbsp;                this.month = 1;</b>
+<b class="nc"><i>195</i>&nbsp;                this.year++;</b>
+<i>196</i>&nbsp;            }else {
+<b class="nc"><i>197</i>&nbsp;                this.day = 1;</b>
+<b class="nc"><i>198</i>&nbsp;                this.month++;</b>
+<i>199</i>&nbsp;            }
+<i>200</i>&nbsp;        }else {
+<b class="nc"><i>201</i>&nbsp;            this.day++;</b>
+<i>202</i>&nbsp;        }
+<b class="nc"><i>203</i>&nbsp;    }</b>
+<i>204</i>&nbsp;
+<i>205</i>&nbsp;    public static int convertToMonthNumber(String monthName) {
+<b class="nc"><i>206</i>&nbsp;        switch(monthName){</b>
+<i>207</i>&nbsp;            case &quot;January&quot;:
+<b class="nc"><i>208</i>&nbsp;                return 1;</b>
+<i>209</i>&nbsp;            case &quot;February&quot;:
+<b class="nc"><i>210</i>&nbsp;                return 2;</b>
+<i>211</i>&nbsp;            case &quot;March&quot;:
+<b class="nc"><i>212</i>&nbsp;                return 3;</b>
+<i>213</i>&nbsp;            case &quot;April&quot;:
+<b class="nc"><i>214</i>&nbsp;                return 4;</b>
+<i>215</i>&nbsp;            case &quot;May&quot;:
+<b class="nc"><i>216</i>&nbsp;                return 5;</b>
+<i>217</i>&nbsp;            case &quot;June&quot;:
+<b class="nc"><i>218</i>&nbsp;                return 6;</b>
+<i>219</i>&nbsp;            case &quot;July&quot;:
+<b class="nc"><i>220</i>&nbsp;                return 7;</b>
+<i>221</i>&nbsp;            case &quot;August&quot;:
+<b class="nc"><i>222</i>&nbsp;                return 8;</b>
+<i>223</i>&nbsp;            case &quot;September&quot;:
+<b class="nc"><i>224</i>&nbsp;                return 9;</b>
+<i>225</i>&nbsp;            case &quot;October&quot;:
+<b class="nc"><i>226</i>&nbsp;                return 10;</b>
+<i>227</i>&nbsp;            case &quot;November&quot;:
+<b class="nc"><i>228</i>&nbsp;                return 11;</b>
+<i>229</i>&nbsp;            case &quot;December&quot;:
+<b class="nc"><i>230</i>&nbsp;                return 12;</b>
+<i>231</i>&nbsp;            default:
+<b class="nc"><i>232</i>&nbsp;                return -1;</b>
+<i>233</i>&nbsp;        }
+<i>234</i>&nbsp;    }
+<i>235</i>&nbsp;
+<i>236</i>&nbsp;    @Override
+<i>237</i>&nbsp;    public boolean equals(Object obj) {
+<b class="fc"><i>238</i>&nbsp;        if(obj instanceof MyDate) {</b>
+<b class="fc"><i>239</i>&nbsp;            MyDate date2 = (MyDate) obj;</b>
+<b class="fc"><i>240</i>&nbsp;            return this.day == date2.day &amp;&amp; this.month == date2.month &amp;&amp; this.year == date2.year &amp;&amp; this.hour == date2.hour &amp;&amp; this.minute == date2.minute;</b>
+<b class="nc"><i>241</i>&nbsp;        }else return false;</b>
+<i>242</i>&nbsp;    }
+<i>243</i>&nbsp;
+<i>244</i>&nbsp;    public MyDate copy() {
+<b class="nc"><i>245</i>&nbsp;        return new MyDate(this.year, this.month, this.day, this.hour, this.minute);</b>
+<i>246</i>&nbsp;    }
+<i>247</i>&nbsp;
+<i>248</i>&nbsp;    public boolean isBefore(MyDate other) {
+<b class="fc"><i>249</i>&nbsp;        if (other.year &lt; this.year)</b>
+<b class="nc"><i>250</i>&nbsp;            return false;</b>
+<i>251</i>&nbsp;        else {
+<b class="fc"><i>252</i>&nbsp;            if (other.month &lt; this.month)</b>
+<b class="nc"><i>253</i>&nbsp;                return false;</b>
+<i>254</i>&nbsp;            else {
+<b class="fc"><i>255</i>&nbsp;                return other.month &gt;= this.month || other.day &gt;= this.day;</b>
+<i>256</i>&nbsp;            }
+<i>257</i>&nbsp;        }
+<i>258</i>&nbsp;    }
+<i>259</i>&nbsp;
+<i>260</i>&nbsp;    public int yearsBetween(MyDate other) {
+<b class="nc"><i>261</i>&nbsp;        int years = 0;</b>
+<i>262</i>&nbsp;        MyDate copy;
+<b class="nc"><i>263</i>&nbsp;        if(this.isBefore(other))</b>
+<b class="nc"><i>264</i>&nbsp;            copy = this.copy();</b>
+<i>265</i>&nbsp;        else {
+<b class="nc"><i>266</i>&nbsp;            copy = other.copy();</b>
+<b class="nc"><i>267</i>&nbsp;            other = this;</b>
+<i>268</i>&nbsp;        }
+<i>269</i>&nbsp;
+<b class="nc"><i>270</i>&nbsp;        while(copy.isBefore(other)) {</b>
+<b class="nc"><i>271</i>&nbsp;            copy.stepForward(365);</b>
+<b class="nc"><i>272</i>&nbsp;            if(copy.isBefore(other))</b>
+<b class="nc"><i>273</i>&nbsp;                years++;</b>
+<i>274</i>&nbsp;        }
+<b class="nc"><i>275</i>&nbsp;        return years;</b>
+<i>276</i>&nbsp;    }
+<i>277</i>&nbsp;
+<i>278</i>&nbsp;    public int daysBetween(MyDate other) {
+<b class="nc"><i>279</i>&nbsp;        int days = 0;</b>
+<i>280</i>&nbsp;        MyDate copy;
+<i>281</i>&nbsp;
+<b class="nc"><i>282</i>&nbsp;        if(this.isBefore(other))</b>
+<b class="nc"><i>283</i>&nbsp;            copy = this.copy();</b>
+<i>284</i>&nbsp;        else {
+<b class="nc"><i>285</i>&nbsp;            copy = other.copy();</b>
+<b class="nc"><i>286</i>&nbsp;            other = this;</b>
+<i>287</i>&nbsp;        }
+<i>288</i>&nbsp;
+<b class="nc"><i>289</i>&nbsp;        while(copy.isBefore(other)) {</b>
+<b class="nc"><i>290</i>&nbsp;            copy.stepForwardOneDay();</b>
+<b class="nc"><i>291</i>&nbsp;            if(copy.isBefore(other))</b>
+<b class="nc"><i>292</i>&nbsp;                days++;</b>
+<i>293</i>&nbsp;        }
+<i>294</i>&nbsp;
+<b class="nc"><i>295</i>&nbsp;        return days;</b>
+<i>296</i>&nbsp;    }
+<i>297</i>&nbsp;
+<i>298</i>&nbsp;    public static MyDate now() {
+<b class="fc"><i>299</i>&nbsp;        return new MyDate();</b>
+<i>300</i>&nbsp;    }
+<i>301</i>&nbsp;
+<i>302</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-06-07 21:33</div>
+</div>
+</body>
+</html>

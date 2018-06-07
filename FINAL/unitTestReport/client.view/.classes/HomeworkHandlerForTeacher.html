@@ -1,0 +1,359 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: HomeworkHandlerForTeacher</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">client.view</a> ]
+</div>
+
+<h1>Coverage Summary for Class: HomeworkHandlerForTeacher (client.view)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HomeworkHandlerForTeacher</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 64)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">HomeworkHandlerForTeacher$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">HomeworkHandlerForTeacher$DeleteHomeworkHandlerTeacher</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">HomeworkHandlerForTeacher$EditHomeworkHandlerTeacher</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 14)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">HomeworkHandlerForTeacher$ListOfHomeworkHandlerTeacher</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 14)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 106)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package client.view;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import client.controller.ClientController;
+<i>4</i>&nbsp;import javafx.event.Event;
+<i>5</i>&nbsp;import javafx.event.EventHandler;
+<i>6</i>&nbsp;import javafx.fxml.FXML;
+<i>7</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i>8</i>&nbsp;import javafx.scene.Parent;
+<i>9</i>&nbsp;import javafx.scene.control.Button;
+<i>10</i>&nbsp;import javafx.scene.image.ImageView;
+<i>11</i>&nbsp;import javafx.scene.input.MouseEvent;
+<i>12</i>&nbsp;import javafx.scene.layout.Pane;
+<i>13</i>&nbsp;import javafx.scene.layout.VBox;
+<i>14</i>&nbsp;import javafx.scene.text.Text;
+<i>15</i>&nbsp;import javafx.scene.text.TextAlignment;
+<i>16</i>&nbsp;import javafx.scene.text.TextFlow;
+<i>17</i>&nbsp;import javafx.stage.Stage;
+<i>18</i>&nbsp;import model.Homework;
+<i>19</i>&nbsp;import model.Post;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;import java.io.IOException;
+<i>22</i>&nbsp;import java.util.ArrayList;
+<i>23</i>&nbsp;
+<b class="nc"><i>24</i>&nbsp;public class HomeworkHandlerForTeacher {</b>
+<i>25</i>&nbsp;    @FXML
+<i>26</i>&nbsp;    private VBox box;
+<i>27</i>&nbsp;    @FXML
+<i>28</i>&nbsp;    private ImageView ente;
+<i>29</i>&nbsp;    private ClientController controller;
+<i>30</i>&nbsp;    private Stage stage;
+<i>31</i>&nbsp;    private Parent mainPane;
+<i>32</i>&nbsp;
+<b class="nc"><i>33</i>&nbsp;    public HomeworkHandlerForTeacher() {</b>
+<b class="nc"><i>34</i>&nbsp;        controller = ClientController.getInstance();</b>
+<b class="nc"><i>35</i>&nbsp;        stage = ClientViewManager.getStage();</b>
+<b class="nc"><i>36</i>&nbsp;        System.out.println(&quot;HomeworkHandler&quot;);</b>
+<b class="nc"><i>37</i>&nbsp;        FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/client/view/fxml/mainPaneTeacher.fxml&quot;));</b>
+<i>38</i>&nbsp;        try {
+<b class="nc"><i>39</i>&nbsp;            mainPane = loader.load();</b>
+<b class="nc"><i>40</i>&nbsp;            mainPane.getStylesheets().add(getClass().getResource(&quot;/client/view/login.css&quot;).toExternalForm());</b>
+<b class="nc"><i>41</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>42</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>43</i>&nbsp;        }</b>
+<b class="nc"><i>44</i>&nbsp;    }</b>
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    @FXML
+<i>47</i>&nbsp;    public void initialize() {
+<b class="nc"><i>48</i>&nbsp;        System.out.println(&quot;second&quot;);</b>
+<b class="nc"><i>49</i>&nbsp;        System.out.println(box);</b>
+<b class="nc"><i>50</i>&nbsp;        loadPosts();</b>
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;
+<b class="nc"><i>53</i>&nbsp;    }</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    private void loadPosts() {
+<b class="nc"><i>56</i>&nbsp;        ArrayList&lt;Post&gt; posts = controller.getAllPosts();</b>
+<b class="nc"><i>57</i>&nbsp;        for (Post p : posts) {</b>
+<b class="nc"><i>58</i>&nbsp;            if (p.getClass().getSimpleName().equals(&quot;Homework&quot;)) {</b>
+<b class="nc"><i>59</i>&nbsp;                loadHomework((Homework) p);</b>
+<i>60</i>&nbsp;            }
+<b class="nc"><i>61</i>&nbsp;        }</b>
+<b class="nc"><i>62</i>&nbsp;    }</b>
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    private void loadHomework(Homework homework) {
+<b class="nc"><i>65</i>&nbsp;        Text title = new Text(homework.getTitle());</b>
+<b class="nc"><i>66</i>&nbsp;        title.setId(&quot;title&quot;);</b>
+<b class="nc"><i>67</i>&nbsp;        Text content = new Text(homework.getContent());</b>
+<b class="nc"><i>68</i>&nbsp;        content.setId(&quot;content&quot;);</b>
+<b class="nc"><i>69</i>&nbsp;        Text deadline = new Text(homework.getDeadline().toString());</b>
+<b class="nc"><i>70</i>&nbsp;        Text separator = new Text(&quot;\n&quot; + &quot;\n&quot;);</b>
+<b class="nc"><i>71</i>&nbsp;        Text separator1 = new Text(&quot;\n&quot; + &quot;\n&quot; + &quot; &quot;);</b>
+<b class="nc"><i>72</i>&nbsp;        Text separator2 = new Text(&quot;\n&quot; + &quot;\n&quot; + &quot; &quot;);</b>
+<b class="nc"><i>73</i>&nbsp;        Text separator3 = new Text(&quot; &quot;);</b>
+<b class="nc"><i>74</i>&nbsp;        Text separator4 = new Text(&quot; &quot;);</b>
+<i>75</i>&nbsp;
+<b class="nc"><i>76</i>&nbsp;        Button list = new Button(&quot;DONE BY:&quot;);</b>
+<b class="nc"><i>77</i>&nbsp;        list.addEventHandler(MouseEvent.MOUSE_CLICKED, new HomeworkHandlerForTeacher.ListOfHomeworkHandlerTeacher(homework));</b>
+<b class="nc"><i>78</i>&nbsp;        list.getStyleClass().add(&quot;smallButton&quot;);</b>
+<b class="nc"><i>79</i>&nbsp;        Button edit = new Button(&quot;EDIT&quot;);</b>
+<b class="nc"><i>80</i>&nbsp;        edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new HomeworkHandlerForTeacher.EditHomeworkHandlerTeacher(homework));</b>
+<b class="nc"><i>81</i>&nbsp;        edit.getStyleClass().add(&quot;smallButton&quot;);</b>
+<b class="nc"><i>82</i>&nbsp;        Button delete = new Button(&quot;DELETE&quot;);</b>
+<b class="nc"><i>83</i>&nbsp;        delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new HomeworkHandlerForTeacher.DeleteHomeworkHandlerTeacher(homework));</b>
+<b class="nc"><i>84</i>&nbsp;        delete.getStyleClass().add(&quot;smallButton&quot;);</b>
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;
+<b class="nc"><i>87</i>&nbsp;        TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, list, separator3, edit, separator4, delete);</b>
+<b class="nc"><i>88</i>&nbsp;        textFlow.setTextAlignment(TextAlignment.JUSTIFY);</b>
+<b class="nc"><i>89</i>&nbsp;        textFlow.setAccessibleText(homework.getContent());</b>
+<b class="nc"><i>90</i>&nbsp;        textFlow.setPrefWidth(830);</b>
+<i>91</i>&nbsp;
+<b class="nc"><i>92</i>&nbsp;        Pane pane = new Pane() {</b>
+<i>93</i>&nbsp;            @Override
+<i>94</i>&nbsp;            protected void layoutChildren() {
+<b class="nc"><i>95</i>&nbsp;                super.layoutChildren();</b>
+<b class="nc"><i>96</i>&nbsp;                TextFlow textFlow = (TextFlow) getChildren().get(0);</b>
+<b class="nc"><i>97</i>&nbsp;                setMinHeight(textFlow.getHeight() + 5);</b>
+<b class="nc"><i>98</i>&nbsp;                autosize();</b>
+<b class="nc"><i>99</i>&nbsp;            }</b>
+<i>100</i>&nbsp;        };
+<b class="nc"><i>101</i>&nbsp;        pane.getChildren().addAll(textFlow);</b>
+<b class="nc"><i>102</i>&nbsp;        pane.getStyleClass().add(&quot;textPane&quot;);</b>
+<b class="nc"><i>103</i>&nbsp;        addPane(pane);</b>
+<b class="nc"><i>104</i>&nbsp;    }</b>
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;    private void addPane(Pane pane) {
+<b class="nc"><i>107</i>&nbsp;        box.getChildren().add(pane);</b>
+<b class="nc"><i>108</i>&nbsp;    }</b>
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;    public void createHomework() {
+<i>111</i>&nbsp;        try {
+<b class="nc"><i>112</i>&nbsp;            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/client/view/fxml/createHomeworkForTeacher.fxml&quot;));</b>
+<b class="nc"><i>113</i>&nbsp;            mainPane = loader.load();</b>
+<b class="nc"><i>114</i>&nbsp;            mainPane.getStylesheets().add(getClass().getResource(&quot;/client/view/login.css&quot;).toExternalForm());</b>
+<b class="nc"><i>115</i>&nbsp;            stage.getScene().setRoot(mainPane);</b>
+<b class="nc"><i>116</i>&nbsp;            stage.show();</b>
+<i>117</i>&nbsp;
+<b class="nc"><i>118</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>119</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>120</i>&nbsp;        }</b>
+<b class="nc"><i>121</i>&nbsp;    }</b>
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;    public void goBack() {
+<b class="nc"><i>124</i>&nbsp;        stage.getScene().setRoot(mainPane);</b>
+<b class="nc"><i>125</i>&nbsp;        stage.show();</b>
+<b class="nc"><i>126</i>&nbsp;    }</b>
+<i>127</i>&nbsp;
+<b class="nc"><i>128</i>&nbsp;    private class EditHomeworkHandlerTeacher implements EventHandler&lt;Event&gt; {</b>
+<i>129</i>&nbsp;
+<i>130</i>&nbsp;        private Homework homework;
+<i>131</i>&nbsp;
+<b class="nc"><i>132</i>&nbsp;        private EditHomeworkHandlerTeacher(Homework homework) {</b>
+<b class="nc"><i>133</i>&nbsp;            this.homework = homework;</b>
+<b class="nc"><i>134</i>&nbsp;        }</b>
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;        @Override
+<i>137</i>&nbsp;        public void handle(Event event) {
+<i>138</i>&nbsp;            try {
+<b class="nc"><i>139</i>&nbsp;                FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/client/view/fxml/createHomeworkForTeacher.fxml&quot;));</b>
+<b class="nc"><i>140</i>&nbsp;                mainPane = loader.load();</b>
+<b class="nc"><i>141</i>&nbsp;                ((CreateHomeworkHandlerForTeacher) loader.getController()).setHomework(homework);</b>
+<b class="nc"><i>142</i>&nbsp;                mainPane.getStylesheets().add(getClass().getResource(&quot;/client/view/login.css&quot;).toExternalForm());</b>
+<b class="nc"><i>143</i>&nbsp;                stage.getScene().setRoot(mainPane);</b>
+<b class="nc"><i>144</i>&nbsp;                stage.show();</b>
+<b class="nc"><i>145</i>&nbsp;            } catch (IOException e) {</b>
+<b class="nc"><i>146</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>147</i>&nbsp;            }</b>
+<b class="nc"><i>148</i>&nbsp;        }</b>
+<i>149</i>&nbsp;
+<i>150</i>&nbsp;
+<i>151</i>&nbsp;    }
+<i>152</i>&nbsp;
+<b class="nc"><i>153</i>&nbsp;    private class DeleteHomeworkHandlerTeacher implements EventHandler&lt;Event&gt; {</b>
+<i>154</i>&nbsp;
+<i>155</i>&nbsp;        private Homework homework;
+<i>156</i>&nbsp;
+<b class="nc"><i>157</i>&nbsp;        private DeleteHomeworkHandlerTeacher(Homework homework) {</b>
+<b class="nc"><i>158</i>&nbsp;            this.homework = homework;</b>
+<b class="nc"><i>159</i>&nbsp;        }</b>
+<i>160</i>&nbsp;
+<i>161</i>&nbsp;        @Override
+<i>162</i>&nbsp;        public void handle(Event event) {
+<b class="nc"><i>163</i>&nbsp;            controller.deletePost(homework);</b>
+<b class="nc"><i>164</i>&nbsp;            box.getChildren().clear();</b>
+<b class="nc"><i>165</i>&nbsp;            loadPosts();</b>
+<b class="nc"><i>166</i>&nbsp;        }</b>
+<i>167</i>&nbsp;    }
+<i>168</i>&nbsp;
+<b class="nc"><i>169</i>&nbsp;    private class ListOfHomeworkHandlerTeacher implements EventHandler&lt;Event&gt; {</b>
+<i>170</i>&nbsp;
+<i>171</i>&nbsp;        private Homework homework;
+<i>172</i>&nbsp;
+<b class="nc"><i>173</i>&nbsp;        private ListOfHomeworkHandlerTeacher(Homework homework) {</b>
+<b class="nc"><i>174</i>&nbsp;            this.homework = homework;</b>
+<b class="nc"><i>175</i>&nbsp;        }</b>
+<i>176</i>&nbsp;
+<i>177</i>&nbsp;        @Override
+<i>178</i>&nbsp;        public void handle(Event event) {
+<i>179</i>&nbsp;            try {
+<b class="nc"><i>180</i>&nbsp;                FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/client/view/fxml/homeworkRepliesList.fxml&quot;));</b>
+<b class="nc"><i>181</i>&nbsp;                mainPane = loader.load();</b>
+<b class="nc"><i>182</i>&nbsp;                ((HomeworkRepliesListHandler) loader.getController()).setHomework(homework);</b>
+<b class="nc"><i>183</i>&nbsp;                mainPane.getStylesheets().add(getClass().getResource(&quot;/client/view/login.css&quot;).toExternalForm());</b>
+<b class="nc"><i>184</i>&nbsp;                stage.getScene().setRoot(mainPane);</b>
+<b class="nc"><i>185</i>&nbsp;                stage.show();</b>
+<b class="nc"><i>186</i>&nbsp;            } catch (IOException e) {</b>
+<b class="nc"><i>187</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>188</i>&nbsp;            }</b>
+<b class="nc"><i>189</i>&nbsp;        }</b>
+<i>190</i>&nbsp;
+<i>191</i>&nbsp;
+<i>192</i>&nbsp;    }
+<i>193</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-06-07 21:33</div>
+</div>
+</body>
+</html>

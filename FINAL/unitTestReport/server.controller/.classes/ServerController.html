@@ -1,0 +1,259 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ServerController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">server.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ServerController (server.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ServerController</td>
+<td class="coverageStat">
+  <span class="percent">
+    62,5%
+  </span>
+  <span class="absValue">
+    (5/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    42,5%
+  </span>
+  <span class="absValue">
+    (34/ 80)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ServerController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (6/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    43,9%
+  </span>
+  <span class="absValue">
+    (36/ 82)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package server.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import model.ServerModel;
+<i>4</i>&nbsp;import model.communication.*;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;public class ServerController {
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;    private ServerModel model;
+<i>9</i>&nbsp;    private ServerProxy server;
+<i>10</i>&nbsp;
+<b class="fc"><i>11</i>&nbsp;    public ServerController(ServerModel model) {</b>
+<b class="fc"><i>12</i>&nbsp;        this.model = model;</b>
+<b class="fc"><i>13</i>&nbsp;        server = new ServerProxy(this);</b>
+<b class="fc"><i>14</i>&nbsp;        new Thread(() -&gt; server.start()).start();</b>
+<b class="fc"><i>15</i>&nbsp;    }</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    public void closeServer() {
+<b class="fc"><i>18</i>&nbsp;        server.close();</b>
+<b class="fc"><i>19</i>&nbsp;    }</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    synchronized Message handleMessage(Message msg) {
+<i>22</i>&nbsp;        Message response;
+<i>23</i>&nbsp;
+<b class="fc"><i>24</i>&nbsp;        switch (msg.getType()) {</b>
+<i>25</i>&nbsp;            case Auth:
+<b class="nc"><i>26</i>&nbsp;                response = handleAuthentication(msg);</b>
+<b class="nc"><i>27</i>&nbsp;                break;</b>
+<i>28</i>&nbsp;            case ManageUser:
+<b class="fc"><i>29</i>&nbsp;                ManageUser manageUser = msg.getManageUser();</b>
+<b class="fc"><i>30</i>&nbsp;                response = handleManageUser(manageUser);</b>
+<b class="fc"><i>31</i>&nbsp;                break;</b>
+<i>32</i>&nbsp;            case ManageFamily:
+<b class="nc"><i>33</i>&nbsp;                ManageFamily manageFamily = msg.getManageFamily();</b>
+<b class="nc"><i>34</i>&nbsp;                response = handleManageFamily(manageFamily);</b>
+<b class="nc"><i>35</i>&nbsp;                break;</b>
+<i>36</i>&nbsp;            case ManagePost:
+<b class="fc"><i>37</i>&nbsp;                ManagePost managePost = msg.getManagePost();</b>
+<b class="fc"><i>38</i>&nbsp;                response = handleManagePost(managePost);</b>
+<b class="fc"><i>39</i>&nbsp;                break;</b>
+<i>40</i>&nbsp;            case CheckEmail:
+<b class="nc"><i>41</i>&nbsp;                String email = msg.getEmail();</b>
+<b class="nc"><i>42</i>&nbsp;                response = checkEmail(email);</b>
+<b class="nc"><i>43</i>&nbsp;                break;</b>
+<i>44</i>&nbsp;            case ChangePwd:
+<b class="nc"><i>45</i>&nbsp;                ChangePwd change = msg.getChangePwd();</b>
+<b class="nc"><i>46</i>&nbsp;                model.changePwdWithEmail(change.email, change.newPwd);</b>
+<b class="nc"><i>47</i>&nbsp;                response = Message.createSuccessfulResponse();</b>
+<b class="nc"><i>48</i>&nbsp;                break;</b>
+<i>49</i>&nbsp;            default:
+<b class="nc"><i>50</i>&nbsp;                response = Message.createFail();</b>
+<i>51</i>&nbsp;                break;
+<i>52</i>&nbsp;        }
+<b class="fc"><i>53</i>&nbsp;        return response;</b>
+<i>54</i>&nbsp;    }
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    private Message handleManagePost(ManagePost managePost) {
+<i>57</i>&nbsp;        Message response;
+<b class="fc"><i>58</i>&nbsp;        switch (managePost.getAction()) {</b>
+<i>59</i>&nbsp;            case ManagePost.ADD:
+<b class="fc"><i>60</i>&nbsp;                model.addPost(managePost.getPost());</b>
+<b class="fc"><i>61</i>&nbsp;                response = Message.createSuccessfulResponse();</b>
+<b class="fc"><i>62</i>&nbsp;                break;</b>
+<i>63</i>&nbsp;            case ManagePost.DELETE:
+<b class="fc"><i>64</i>&nbsp;                model.deletePost(managePost.getPost());</b>
+<b class="fc"><i>65</i>&nbsp;                response = Message.createSuccessfulResponse();</b>
+<b class="fc"><i>66</i>&nbsp;                break;</b>
+<i>67</i>&nbsp;            case ManagePost.EDIT:
+<b class="fc"><i>68</i>&nbsp;                model.editPost(managePost.getPost());</b>
+<b class="fc"><i>69</i>&nbsp;                response = Message.createSuccessfulResponse();</b>
+<b class="fc"><i>70</i>&nbsp;                break;</b>
+<i>71</i>&nbsp;            default:
+<b class="nc"><i>72</i>&nbsp;                response = Message.createFail();</b>
+<i>73</i>&nbsp;        }
+<b class="fc"><i>74</i>&nbsp;        return response;</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    private Message handleManageFamily(ManageFamily manageFamily) {
+<i>78</i>&nbsp;        Message response;
+<b class="nc"><i>79</i>&nbsp;        switch (manageFamily.getAction()) {</b>
+<i>80</i>&nbsp;            case ManageUser.ADD:
+<b class="nc"><i>81</i>&nbsp;                model.addFamily(manageFamily.getFamily());</b>
+<b class="nc"><i>82</i>&nbsp;                response = Message.createSuccessfulResponse();</b>
+<b class="nc"><i>83</i>&nbsp;                break;</b>
+<i>84</i>&nbsp;            case ManageUser.EDIT:
+<b class="nc"><i>85</i>&nbsp;                model.editFamily(manageFamily.getFamily());</b>
+<b class="nc"><i>86</i>&nbsp;                response = Message.createSuccessfulResponse();</b>
+<b class="nc"><i>87</i>&nbsp;                break;</b>
+<i>88</i>&nbsp;            case ManageUser.DELETE:
+<b class="nc"><i>89</i>&nbsp;                model.deleteFamily(manageFamily.getFamily());</b>
+<b class="nc"><i>90</i>&nbsp;                response = Message.createSuccessfulResponse();</b>
+<b class="nc"><i>91</i>&nbsp;                break;</b>
+<i>92</i>&nbsp;            default:
+<b class="nc"><i>93</i>&nbsp;                response = Message.createFail();</b>
+<i>94</i>&nbsp;                break;
+<i>95</i>&nbsp;        }
+<i>96</i>&nbsp;
+<b class="nc"><i>97</i>&nbsp;        return response;</b>
+<i>98</i>&nbsp;    }
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;    private Message handleManageUser(ManageUser manageUser) {
+<i>101</i>&nbsp;        Message response;
+<b class="fc"><i>102</i>&nbsp;        switch (manageUser.getAction()) {</b>
+<i>103</i>&nbsp;            case ManageUser.ADD:
+<b class="fc"><i>104</i>&nbsp;                model.addUser(manageUser.getUser());</b>
+<b class="fc"><i>105</i>&nbsp;                response = Message.createSuccessfulResponse();</b>
+<b class="fc"><i>106</i>&nbsp;                break;</b>
+<i>107</i>&nbsp;            case ManageUser.EDIT:
+<b class="nc"><i>108</i>&nbsp;                model.editUser(manageUser.getUser());</b>
+<b class="nc"><i>109</i>&nbsp;                response = Message.createSuccessfulResponse();</b>
+<b class="nc"><i>110</i>&nbsp;                break;</b>
+<i>111</i>&nbsp;            case ManageUser.DELETE:
+<b class="fc"><i>112</i>&nbsp;                model.deleteUser(manageUser.getUser());</b>
+<b class="fc"><i>113</i>&nbsp;                response = Message.createSuccessfulResponse();</b>
+<b class="fc"><i>114</i>&nbsp;                break;</b>
+<i>115</i>&nbsp;            default:
+<b class="nc"><i>116</i>&nbsp;                response = Message.createFail();</b>
+<i>117</i>&nbsp;                break;
+<i>118</i>&nbsp;        }
+<b class="fc"><i>119</i>&nbsp;        return response;</b>
+<i>120</i>&nbsp;    }
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;    private Message checkEmail(String email) {
+<b class="nc"><i>123</i>&nbsp;        return model.checkIfEmailExist(email) ? Message.createEmailExist() : Message.createEmailDoesNotExist();</b>
+<i>124</i>&nbsp;    }
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;    private Message handleAuthentication(Message msg) {
+<i>127</i>&nbsp;        WelcomingData data;
+<b class="nc"><i>128</i>&nbsp;        Login login = null;</b>
+<i>129</i>&nbsp;
+<b class="nc"><i>130</i>&nbsp;        LoginStatus status = model.authenticate(msg.getAuth());</b>
+<b class="pc"><i>131</i>&nbsp;        switch (status) {</b>
+<i>132</i>&nbsp;            case SUCCESS:
+<b class="nc"><i>133</i>&nbsp;                data = new WelcomingData();</b>
+<b class="nc"><i>134</i>&nbsp;                data.insertPosts(model.getAllPost());</b>
+<b class="nc"><i>135</i>&nbsp;                data.insertUsers(model.getAllUsers());</b>
+<b class="nc"><i>136</i>&nbsp;                data.insertFamilies(model.getAllFamilies());</b>
+<b class="nc"><i>137</i>&nbsp;                login = new Login(LoginStatus.SUCCESS, data, status.currentUser);</b>
+<b class="nc"><i>138</i>&nbsp;                break;</b>
+<i>139</i>&nbsp;            case FAILURE_LOGIN:
+<b class="nc"><i>140</i>&nbsp;                data = new WelcomingData();</b>
+<b class="nc"><i>141</i>&nbsp;                login = new Login(LoginStatus.FAILURE_LOGIN, data, null);</b>
+<b class="nc"><i>142</i>&nbsp;                break;</b>
+<i>143</i>&nbsp;            case FAILURE_PWD:
+<b class="nc"><i>144</i>&nbsp;                data = new WelcomingData();</b>
+<b class="nc"><i>145</i>&nbsp;                login = new Login(LoginStatus.FAILURE_PWD, data, null);</b>
+<i>146</i>&nbsp;                break;
+<i>147</i>&nbsp;        }
+<b class="nc"><i>148</i>&nbsp;        return Message.createLogin(login);</b>
+<i>149</i>&nbsp;    }
+<i>150</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-06-07 21:33</div>
+</div>
+</body>
+</html>
