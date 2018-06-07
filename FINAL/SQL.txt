@@ -1,0 +1,113 @@
+create domain enteclasses as varchar(10)
+  constraint enteclasses_check check ((VALUE) :: text = ANY
+                                      ((ARRAY ['First' :: character varying, 'Second' :: character varying, 'Third' :: character varying, 'Fourth' :: character varying, 'Fifth' :: character varying, 'Sixth' :: character varying, 'Seventh' :: character varying, 'Eighth' :: character varying]) :: text []));
+
+create domain usertypes as varchar(15)
+  constraint usertypes_check check ((VALUE) :: text = ANY
+                                    ((ARRAY ['Administrator' :: character varying, 'Teacher' :: character varying, 'Student' :: character varying, 'Parent' :: character varying]) :: text []));
+
+create domain emails as varchar(80);
+
+create domain pwds as varchar(64);
+
+create domain dates as timestamp;
+
+create domain classesforhomework as varchar(7) [];
+
+create domain posttypes as varchar(20)
+  constraint posttypes_check check ((VALUE) :: text = ANY
+                                    ((ARRAY ['Homework' :: character varying, 'Announcement' :: character varying, 'Discussion' :: character varying]) :: text []));
+
+create domain ids as varchar(36);
+
+create table enteuser
+(
+  id             ids                   not null
+    constraint enteuser_pkey
+    primary key,
+  usertype       usertypes             not null,
+  email          logins                not null,
+  pwd            pwds                  not null,
+  name           varchar(60)           not null,
+  changepassword boolean default false not null
+);
+
+create table family
+(
+  familyid ids not null
+    constraint family_pkey
+    primary key
+);
+
+create table parent
+(
+  parentid ids not null
+    constraint parent_pkey
+    primary key
+    constraint parent_parentid_fkey
+    references enteuser
+    on update cascade on delete cascade,
+  familyid ids
+    constraint parent_familyid_fkey
+    references family
+    on update cascade
+);
+
+create table student
+(
+  studentid ids not null
+    constraint student_pkey
+    primary key
+    constraint student_studentid_fkey
+    references enteuser
+    on update cascade on delete cascade,
+  familyid  ids
+    constraint student_familyid_fkey
+    references family
+    on update cascade,
+  class     enteclasses
+);
+
+create table post
+(
+  postid     ids          not null
+    constraint post_pkey
+    primary key,
+  type       posttypes    not null,
+  title      varchar(30)  not null,
+  content    varchar(200) not null,
+  authorname varchar(60)  not null,
+  pubdate    dates        not null
+);
+
+create table homework
+(
+  homeworkid            ids     not null
+    constraint homework_pkey
+    primary key
+    constraint homework_homeworkid_fkey
+    references post
+    on delete cascade,
+  noofstudentstodeliver integer not null,
+  deadline              dates,
+  classes               classesforhomework,
+  closed                boolean not null
+);
+
+create table homeworkreply
+(
+  homeworkid ids     not null
+    constraint homeworkreply_homeworkid_fkey
+    references homework
+    on delete cascade,
+  studentid  ids     not null
+    constraint homeworkreply_studentid_fkey
+    references student
+    on delete cascade,
+  handindate dates   not null,
+  content    varchar(1000),
+  late       boolean not null,
+  constraint homeworkreply_pkey
+  primary key (homeworkid, studentid)
+);
+
