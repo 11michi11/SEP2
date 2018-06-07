@@ -13,12 +13,12 @@ public class SendEmail {
 
     public static void generateAndSendEmail(String to,String subject, String emailBody) throws MessagingException {
         // Step1 - prepare mail server properties
-        System.out.println("\n 1st ===> setup Mail Server Properties..");
+       // System.out.println("\n 1st ===> setup Mail Server Properties..");
         Properties mailServerProperties = System.getProperties();
         mailServerProperties.put("mail.smtp.port", "587");
         mailServerProperties.put("mail.smtp.auth", "true");
         mailServerProperties.put("mail.smtp.starttls.enable", "true");
-        System.out.println("Mail Server Properties have been setup successfully..");
+      //  System.out.println("Mail Server Properties have been setup successfully..");
 
         // Step2 - create message
         System.out.println("\n\n 2nd ===> get Mail Session..");
@@ -27,10 +27,10 @@ public class SendEmail {
         generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
         generateMailMessage.setSubject(subject);
         generateMailMessage.setContent(emailBody, "text/html");
-        System.out.println("Mail Session has been created successfully..");
+      //  System.out.println("Mail Session has been created successfully..");
 
         // Step3 - get session
-        System.out.println("\n\n 3rd ===> Get Session and Send mail");
+      //  System.out.println("\n\n 3rd ===> Get Session and Send mail");
         Transport transport = getMailSession.getTransport("smtp");
 
         // Step 4 - connect and send message
@@ -55,9 +55,11 @@ public class SendEmail {
                 + pwd + "<br>Please reset it during next login to the system." +
                 "<br>Regards, eNTe";
         try {
+            System.out.println("Sending change password email to: " + email);
             generateAndSendEmail(email, "Change your password", body);
         } catch (MessagingException e) {
-            e.printStackTrace();
+            System.out.println("Email not send " + e.getMessage());
+           // e.printStackTrace();
         }
     }
 }
