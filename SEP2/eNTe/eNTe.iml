@@ -27,7 +27,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER" level="application" />
+    <orderEntry type="library" exported="" name="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER" level="application" />
     <orderEntry type="module-library">
       <library name="gson-2.8.2.jar">
         <CLASSES>
@@ -72,6 +72,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/javax.mail.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/activation.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
