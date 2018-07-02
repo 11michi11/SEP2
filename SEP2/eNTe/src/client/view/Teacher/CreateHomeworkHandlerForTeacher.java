@@ -43,7 +43,7 @@ public class CreateHomeworkHandlerForTeacher {
         controller = ClientController.getInstance();
         stage = ClientViewManager.getStage();
         System.out.println("HomeworkHandler");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreationForTeacher.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandlerTeacher.fxml"));
         try {
             mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
@@ -88,7 +88,7 @@ public class CreateHomeworkHandlerForTeacher {
         MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
         controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()));
         System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreationForTeacher.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandlerTeacher.fxml"));
         try {
             mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());

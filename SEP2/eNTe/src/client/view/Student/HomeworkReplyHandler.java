@@ -1,4 +1,4 @@
-package client.view.Administrator;
+package client.view.Student;
 
 import java.io.IOException;
 

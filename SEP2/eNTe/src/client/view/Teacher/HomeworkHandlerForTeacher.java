@@ -98,7 +98,7 @@ public class HomeworkHandlerForTeacher {
 
     public void createHomework() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomeworkForTeacher.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomeworkTeacher.fxml"));
             mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
@@ -125,7 +125,7 @@ public class HomeworkHandlerForTeacher {
         @Override
         public void handle(Event event) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomeworkForTeacher.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomeworkTeacher.fxml"));
                 mainPane = loader.load();
                 ((CreateHomeworkHandlerForTeacher) loader.getController()).setHomework(homework);
                 mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
