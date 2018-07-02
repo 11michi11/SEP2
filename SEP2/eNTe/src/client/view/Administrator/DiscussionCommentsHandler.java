@@ -5,7 +5,10 @@ import client.view.ClientViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -79,6 +82,38 @@ public class DiscussionCommentsHandler {
 	private void addPane(Pane pane) {
 		box.getChildren().add(pane);
 
+	}
+
+	public void addComment() {
+		TextArea content = new TextArea();
+		content.setText("Write a content");
+		content.getStyleClass().add("content");
+		Button save = new Button("save");
+		save.getStyleClass().add("smallButton");
+		save.setOnAction(e -> createComment());
+
+		VBox text = new VBox();
+		text.getChildren().addAll(content, save);
+		box.getChildren().add(0, text);
+	}
+
+	private void createComment() {
+		VBox text = (VBox) box.getChildren().get(0);
+		TextArea content = (TextArea) text.getChildren().get(0);
+		controller.addDiscussionComment(content.getText());
+		reload();
+	}
+	private void reload() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionCommentsHandler.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void goBack() {

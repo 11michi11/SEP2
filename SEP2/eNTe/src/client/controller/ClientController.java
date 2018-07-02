@@ -205,4 +205,7 @@ public class ClientController {
     }
 
 
+	public void addDiscussionComment(String text) {
+        //TO DO
+	}
 }
