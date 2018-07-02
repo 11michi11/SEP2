@@ -66,6 +66,7 @@ public class PostHandler {
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(post.getContent());
         textFlow.setPrefWidth(830);
+        textFlow.getStyleClass().add("textPane");
         addPane(textFlow);
     }
 

@@ -50,8 +50,6 @@ public class HomeworkHandlerForTeacher {
         System.out.println("second");
         System.out.println(box);
         loadPosts();
-
-
     }
 
     private void loadPosts() {
@@ -85,24 +83,13 @@ public class HomeworkHandlerForTeacher {
         delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new HomeworkHandlerForTeacher.DeleteHomeworkHandlerTeacher(homework));
         delete.getStyleClass().add("smallButton");
 
-
         TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, list, separator3, edit, separator4, delete);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(homework.getContent());
         textFlow.setPrefWidth(830);
+        textFlow.getStyleClass().add("textPane");
 
-        Pane pane = new Pane() {
-            @Override
-            protected void layoutChildren() {
-                super.layoutChildren();
-                TextFlow textFlow = (TextFlow) getChildren().get(0);
-                setMinHeight(textFlow.getHeight() + 5);
-                autosize();
-            }
-        };
-        pane.getChildren().addAll(textFlow);
-        pane.getStyleClass().add("textPane");
-        addPane(pane);
+        addPane(textFlow);
     }
 
     private void addPane(Pane pane) {

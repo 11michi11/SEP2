@@ -89,20 +89,8 @@ public class HomeworkHandler {
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(homework.getContent());
 		textFlow.setPrefWidth(830);
+		textFlow.getStyleClass().add("textPane");
 
-		//Pane pane = new Pane();
-		//pane.setMinHeight(100);
-//		Pane pane = new Pane() {
-//			@Override
-//			protected void layoutChildren() {
-//				super.layoutChildren();
-//				TextFlow textFlow = (TextFlow) getChildren().get(0);
-//				setMinHeight(textFlow.getHeight() + 5);
-//				//autosize();
-//			}
-//		};
-//		pane.getChildren().addAll(textFlow);
-//		pane.getStyleClass().add("textPane");
 		addPane(textFlow);
 	}
 

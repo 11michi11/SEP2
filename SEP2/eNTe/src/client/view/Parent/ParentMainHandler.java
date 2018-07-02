@@ -1,4 +1,4 @@
-package client.view;
+package client.view.Parent;
 
 import client.controller.ClientController;
 import javafx.fxml.FXML;
@@ -37,20 +37,10 @@ public class ParentMainHandler {
 		TextFlow textFlow = new TextFlow(title, separator, content);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(post.getContent());
-		textFlow.setPrefWidth(842);
+		textFlow.setPrefWidth(830);
+		textFlow.getStyleClass().add("textPane");
 
-		Pane pane = new Pane() {
-			@Override
-			protected void layoutChildren() {
-				super.layoutChildren();
-				TextFlow textFlow = (TextFlow) getChildren().get(0);
-				setMinHeight(textFlow.getHeight()+5);
-				autosize();
-			}
-		};
-		pane.getChildren().add(textFlow);
-		pane.getStyleClass().add("textPane");
-		loadPanes(pane);
+		loadPanes(textFlow);
 
 	}
 

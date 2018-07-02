@@ -102,19 +102,10 @@ public class StudentMainHandler {
         TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, solution);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(homework.getContent());
-        textFlow.setPrefWidth(842);
+        textFlow.setPrefWidth(830);
+	    textFlow.getStyleClass().add("textPane");
 
-		Pane pane = new Pane() {
-			@Override
-			protected void layoutChildren() {
-				super.layoutChildren();
-				TextFlow textFlow = (TextFlow) getChildren().get(0);
-				setMinHeight(textFlow.getHeight() + 5);
-			}
-		};
-		pane.getChildren().addAll(textFlow);
-		pane.getStyleClass().add("textPane");
-		addPane(pane);
+		addPane(textFlow);
     }
 
     private void loadPost(Post post) {
@@ -128,20 +119,10 @@ public class StudentMainHandler {
         TextFlow textFlow = new TextFlow(titleOfPost, separator, contentOfPost);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(post.getContent());
-        textFlow.setPrefWidth(842);
+        textFlow.setPrefWidth(830);
+	    textFlow.getStyleClass().add("textPane");
 
-        Pane postPane = new Pane() {
-            @Override
-            protected void layoutChildren() {
-                super.layoutChildren();
-                TextFlow textFlow = (TextFlow) getChildren().get(0);
-                setMinHeight(textFlow.getHeight() + 5);
-                autosize();
-            }
-        };
-        postPane.getChildren().add(textFlow);
-        postPane.getStyleClass().add("textPane");
-        addPane(postPane);
+        addPane(textFlow);
     }
 
     private class SubmitHomeworkHandler implements EventHandler<Event> {

@@ -110,7 +110,7 @@ public class ClientController {
     }
 
     public void addPost(String title, String content, String selectedValue) {
-        SpecialType specialType = SpecialType.valueOf(selectedValue.toLowerCase());
+        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
         specialType.doAction();
         model.addPost(new Post(title, content, currentUser.getName(), MyDate.now(), specialType));
     }
