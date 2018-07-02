@@ -79,7 +79,7 @@ public class TeacherMainHandler {
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(post.getContent());
         textFlow.setPrefWidth(830);
-        
+
         addPane(textFlow);
     }
 
@@ -87,10 +87,24 @@ public class TeacherMainHandler {
         box.getChildren().add(pane);
     }
 
-    public void homeworkCreation() {
+    public void createHomework() {
         Parent mainPane;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreationForTeacher.fxml"));
+            mainPane = loader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createPost() {
+        Parent mainPane;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createAnnouncementTeacher.fxml"));
             mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
