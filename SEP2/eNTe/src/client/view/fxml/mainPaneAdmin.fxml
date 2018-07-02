@@ -36,7 +36,7 @@
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
-            <Button fx:id="discussion" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="discussion" textAlignment="CENTER" textFill="#729eea">
+            <Button fx:id="discussion" mnemonicParsing="false" onAction="#discussionCreation" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="discussion" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>

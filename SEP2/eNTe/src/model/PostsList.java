@@ -36,10 +36,10 @@ public class PostsList {
                 .orElse(new Homework(Homework.noHomeworkId, "There are no homeworks yet", "", "", MyDate.now(), MyDate.now(), new ArrayList<>(), 0, new ArrayList<>(), false));
     }
 
-//    public Discussion getFirstDiscussion() {
-//        return posts.stream().filter(p -> p instanceof Discussion).map(h -> (Discussion) h).findFirst()
-//                .orElse(new Discussion(Discussion.noDiscussionId, "There are no discussions yet", "", "", MyDate.now()));
-//    }
+    public Discussion getFirstDiscussion() {
+        return posts.stream().filter(p -> p instanceof Discussion).map(h -> (Discussion) h).findFirst()
+                .orElse(new Discussion(Discussion.noDiscussionId, "There are no discussions yet", "", "", MyDate.now()));
+    }
 
     public void deletePost(Post post) {
         posts.remove(post);
@@ -70,4 +70,5 @@ public class PostsList {
         PostsList postsList = (PostsList) o;
         return Objects.equals(posts, postsList.posts);
     }
+
 }

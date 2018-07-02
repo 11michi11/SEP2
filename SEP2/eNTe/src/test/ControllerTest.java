@@ -102,6 +102,11 @@ public class ControllerTest {
         }
 
         @Override
+        public Discussion getDiscussion() {
+            return null;
+        }
+
+        @Override
         public void saveData(WelcomingData data) {
 
         }

@@ -20,7 +20,7 @@ public interface ClientModel {
     void deletePost(Post post);
 
     Homework getHomework();
-    //	Discussion getDiscussion();
+   	Discussion getDiscussion();
 
     void saveData(WelcomingData data);
 

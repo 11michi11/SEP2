@@ -4,6 +4,8 @@ import client.view.ClientView;
 import client.view.Administrator.TeacherDT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import model.*;
 import model.communication.Login;
 import model.communication.Message;
@@ -143,6 +145,10 @@ public class ClientController {
             return false;
     }
 
+    public void addDiscussion(String title, String content) {
+        model.addPost(new Discussion(title, content, currentUser.getName(), MyDate.now()));
+    }
+
     public ArrayList<Family> getFamilies() {
         return model.getAllFamilies();
     }
@@ -197,4 +203,6 @@ public class ClientController {
     public void sendParentalPostEmail() {
         System.out.println("IMPLEMENT SENDING PARENTAL EMAILS");
     }
+
+
 }
