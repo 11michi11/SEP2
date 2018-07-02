@@ -1,14 +1,14 @@
-package client.view;
+package client.view.Administrator;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import client.controller.ClientController;
+import client.view.ClientViewManager;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
@@ -40,7 +40,7 @@ public class HomeworkHandler {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
 		try {
 			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -114,7 +114,7 @@ public class HomeworkHandler {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomework.fxml"));
 			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
 			stage.show();
 
@@ -142,7 +142,7 @@ public class HomeworkHandler {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomework.fxml"));
 				mainPane = loader.load();
 				((CreateHomeworkHandler) loader.getController()).setHomework(homework);
-				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
 				stage.getScene().setRoot(mainPane);
 				stage.show();
 			} catch (IOException e) {
@@ -181,7 +181,7 @@ public class HomeworkHandler {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkRepliesList.fxml"));
 				mainPane = loader.load();
 				((HomeworkRepliesListHandler) loader.getController()).setHomework(homework);
-				mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
 				stage.getScene().setRoot(mainPane);
 				stage.show();
 			} catch (IOException e) {

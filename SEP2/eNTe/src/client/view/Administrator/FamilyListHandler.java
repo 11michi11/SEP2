@@ -1,6 +1,7 @@
-package client.view;
+package client.view.Administrator;
 
 import client.controller.ClientController;
+import client.view.ClientViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,7 +42,7 @@ public class FamilyListHandler {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
         try {
             mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,7 +82,7 @@ public class FamilyListHandler {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createStudent.fxml"));
                 mainPane = loader.load();
                 ((CreateStudentHandler) loader.getController()).setStudent((Student) user);
-                mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                 stage.getScene().setRoot(mainPane);
                 stage.show();
             } catch (IOException e) {
@@ -92,7 +93,7 @@ public class FamilyListHandler {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createParent.fxml"));
                 mainPane = loader.load();
                 ((CreateParentHandler) loader.getController()).setParent((model.Parent) user);
-                mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                 stage.getScene().setRoot(mainPane);
                 stage.show();
             } catch (IOException e) {
@@ -105,7 +106,7 @@ public class FamilyListHandler {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createStudent.fxml"));
             mainPane = loader.load();
             ((CreateStudentHandler) loader.getController()).setFamily(((FamilyDT) familyTable.getSelectionModel().getSelectedItem().getValue()).family);
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
 
@@ -119,7 +120,7 @@ public class FamilyListHandler {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createParent.fxml"));
             mainPane = loader.load();
             ((CreateParentHandler) loader.getController()).setFamily(((FamilyDT) familyTable.getSelectionModel().getSelectedItem().getValue()).family);
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
 

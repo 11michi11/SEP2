@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@../login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.CreateStudentHandler">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.Administrator.CreateStudentHandler">
    <children>
       <ImageView fitHeight="182.0" fitWidth="209.0" layoutX="22.0" layoutY="-3.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../enteLOGO.png" />
+            <Image url="@enteLOGO.png" />
          </image>
       </ImageView>
-      <Label fx:id="userLabel" layoutX="485.0" layoutY="118.0" styleClass="labelMain" stylesheets="@../login.css" text="new student" textFill="#729eea">
+      <Label fx:id="userLabel" layoutX="485.0" layoutY="118.0" styleClass="labelMain" stylesheets="@login.css" text="new student" textFill="#729eea">
          <font>
             <Font name="Gill Sans MT Bold" size="50.0" />
          </font>

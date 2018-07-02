@@ -1,6 +1,8 @@
-package client.view;
+package client.view.Teacher;
 
 import client.controller.ClientController;
+import client.view.ClientViewManager;
+import client.view.Administrator.HomeworkRepliesListHandler;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,7 +39,7 @@ public class HomeworkHandlerForTeacher {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneTeacher.fxml"));
         try {
             mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,7 +113,7 @@ public class HomeworkHandlerForTeacher {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomeworkForTeacher.fxml"));
             mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
 
@@ -139,7 +141,7 @@ public class HomeworkHandlerForTeacher {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomeworkForTeacher.fxml"));
                 mainPane = loader.load();
                 ((CreateHomeworkHandlerForTeacher) loader.getController()).setHomework(homework);
-                mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                 stage.getScene().setRoot(mainPane);
                 stage.show();
             } catch (IOException e) {
@@ -180,7 +182,7 @@ public class HomeworkHandlerForTeacher {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkRepliesList.fxml"));
                 mainPane = loader.load();
                 ((HomeworkRepliesListHandler) loader.getController()).setHomework(homework);
-                mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                 stage.getScene().setRoot(mainPane);
                 stage.show();
             } catch (IOException e) {

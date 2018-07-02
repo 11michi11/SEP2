@@ -1,12 +1,12 @@
-package client.view;
+package client.view.Administrator;
 
 import java.io.IOException;
 
 import client.controller.ClientController;
+import client.view.ClientViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -42,7 +42,7 @@ public class CreateTeacherHandler {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/teacherList.fxml"));
         try {
             mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
         } catch (IOException e) {
             e.printStackTrace();
         }

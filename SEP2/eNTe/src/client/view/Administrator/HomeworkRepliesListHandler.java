@@ -1,6 +1,8 @@
-package client.view;
+package client.view.Administrator;
 
 import client.controller.ClientController;
+import client.view.ClientViewManager;
+import client.view.Teacher.HomeworkReplyTeacherHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,7 +42,7 @@ public class HomeworkRepliesListHandler {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
         try {
             mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,7 +72,7 @@ public class HomeworkRepliesListHandler {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReplyTeacher.fxml"));
             mainPane = loader.load();
             ((HomeworkReplyTeacherHandler) loader.getController()).setReply(reply);
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
         } catch (IOException e) {

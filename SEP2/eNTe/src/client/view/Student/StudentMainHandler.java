@@ -1,9 +1,11 @@
-package client.view;
+package client.view.Student;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import client.controller.ClientController;
+import client.view.ClientViewManager;
+import client.view.Administrator.HomeworkReplyHandler;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -67,7 +69,7 @@ public class StudentMainHandler {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReply.fxml"));
             mainPane = loader.load();
             ((HomeworkReplyHandler) loader.getController()).setHomework(homework);
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
 
@@ -156,7 +158,7 @@ public class StudentMainHandler {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReply.fxml"));
                 Parent mainPane = loader.load();
                 ((HomeworkReplyHandler) loader.getController()).setHomework(homework);
-                mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                 stage.getScene().setRoot(mainPane);
                 stage.show();
             } catch (IOException e) {

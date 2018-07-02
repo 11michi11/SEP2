@@ -9,6 +9,7 @@ public class Post implements Serializable {
     protected String content;
     protected String author;
     protected MyDate pubDate;
+    private SpecialType specialType;
     private String postId;
 
     public Post(String title, String content, String author, MyDate pubDate) {
@@ -17,6 +18,15 @@ public class Post implements Serializable {
         this.content = content;
         this.author = author;
         this.pubDate = pubDate;
+    }
+
+    public Post(String title, String content, String author, MyDate pubDate, SpecialType specialType) {
+        this.postId = UUID.randomUUID().toString();
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.pubDate = pubDate;
+        this.specialType = specialType;
     }
     public Post(String postId, String title, String content, String author, MyDate pubDate) {
         this.postId = postId;

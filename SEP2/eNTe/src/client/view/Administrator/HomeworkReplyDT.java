@@ -1,4 +1,4 @@
-package client.view;
+package client.view.Administrator;
 
 import javafx.beans.property.SimpleStringProperty;
 import model.HomeworkReply;

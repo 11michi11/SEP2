@@ -1,6 +1,7 @@
-package client.view;
+package client.view.Teacher;
 
 import client.controller.ClientController;
+import client.view.ClientViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.ClassNo;
 import model.Homework;
-import model.HomeworkReply;
 import model.MyDate;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateHomeworkHandler {
+public class CreateHomeworkHandlerForTeacher {
     private ClientController controller;
     private Stage stage;
     private Parent mainPane;
@@ -39,14 +39,14 @@ public class CreateHomeworkHandler {
     private Homework homework;
 
 
-    public CreateHomeworkHandler() {
+    public CreateHomeworkHandlerForTeacher() {
         controller = ClientController.getInstance();
         stage = ClientViewManager.getStage();
         System.out.println("HomeworkHandler");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreation.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreationForTeacher.fxml"));
         try {
             mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,25 +72,7 @@ public class CreateHomeworkHandler {
 
     }
 
-    public void addHomework() {
-        checkForNull();
-        LocalDate localDate = deadline.getValue();
-        MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
-        controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()));
-        System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreation.fxml"));
-            mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
-            stage.getScene().setRoot(mainPane);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void checkForNull() {
+    public void checkForNull() {
         if (title.getText() == null || content.getText() == null || deadline.getValue() == null || getClasses() == null || group.getText() == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning Dialog");
@@ -100,7 +82,26 @@ public class CreateHomeworkHandler {
         }
     }
 
+    public void addHomework() {
+        checkForNull();
+        LocalDate localDate = deadline.getValue();
+        MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
+        controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()));
+        System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkCreationForTeacher.fxml"));
+        try {
+            mainPane = loader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private List<ClassNo> getClasses() {
+        return getClassNos(first, second, third, fourth, fifth, sixth, seventh, eight);
+    }
+
+    private static List<ClassNo> getClassNos(CheckBox first, CheckBox second, CheckBox third, CheckBox fourth, CheckBox fifth, CheckBox sixth, CheckBox seventh, CheckBox eight) {
         ArrayList<ClassNo> classes = new ArrayList<>();
         if (first.isSelected())
             classes.add(ClassNo.First);
@@ -126,5 +127,6 @@ public class CreateHomeworkHandler {
         stage.getScene().setRoot(mainPane);
         stage.show();
     }
+
 
 }

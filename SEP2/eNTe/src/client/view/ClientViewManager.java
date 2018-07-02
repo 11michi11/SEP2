@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
@@ -46,7 +45,7 @@ public class ClientViewManager extends Application implements ClientView {
             loader = new FXMLLoader(getClass().getResource("/client/view/fxml/loginPane.fxml"));
             Pane root = loader.load();
             Scene scene = new Scene(root, 1280, 780);
-            scene.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -66,7 +65,7 @@ public class ClientViewManager extends Application implements ClientView {
                     mainPane = loader.load();
                     parentHandler = new ParentMainHandler();
                     loader.setController(parentHandler);
-                    mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+                    mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                     stage.getScene().setRoot(mainPane);
                     stage.show();
                 } catch (IOException e) {
@@ -77,7 +76,7 @@ public class ClientViewManager extends Application implements ClientView {
                 try {
                     loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
                     mainPane = loader.load();
-                    mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+                    mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                     stage.getScene().setRoot(mainPane);
                     stage.show();
                 } catch (IOException e) {
@@ -88,7 +87,7 @@ public class ClientViewManager extends Application implements ClientView {
                 try {
                     loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneStudent.fxml"));
                     mainPane = loader.load();
-                    mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+                    mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                     stage.getScene().setRoot(mainPane);
                     stage.show();
                 } catch (IOException e) {
@@ -99,7 +98,7 @@ public class ClientViewManager extends Application implements ClientView {
                 try {
                     loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneTeacher.fxml"));
                     mainPane = loader.load();
-                    mainPane.getStylesheets().add(getClass().getResource("/client/view/login.css").toExternalForm());
+                    mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                     stage.getScene().setRoot(mainPane);
                     stage.show();
                 } catch (IOException e) {

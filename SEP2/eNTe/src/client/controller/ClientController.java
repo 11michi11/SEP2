@@ -1,7 +1,7 @@
 package client.controller;
 
 import client.view.ClientView;
-import client.view.TeacherDT;
+import client.view.Administrator.TeacherDT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
@@ -109,8 +109,10 @@ public class ClientController {
         model.deleteUser(user);
     }
 
-    public void addPost(String title, String content, String author, MyDate publicationDate) {
-        model.addPost(new Post(title, content, author, publicationDate));
+    public void addPost(String title, String content, String selectedValue) {
+        SpecialType specialType = SpecialType.valueOf(selectedValue.toLowerCase());
+        specialType.doAction();
+        model.addPost(new Post(title, content, currentUser.getName(), MyDate.now(), specialType));
     }
 
     public ArrayList<Post> getAllPosts() {
@@ -186,5 +188,13 @@ public class ClientController {
 
     public boolean showDeleteMessage(String message) {
         return view.showDeleteMessage(message);
+    }
+
+    public void sendImportantPostEmail() {
+        System.out.println("IMPLEMENT SENDING IMPORTANT EMAILS");
+    }
+
+    public void sendParentalPostEmail() {
+        System.out.println("IMPLEMENT SENDING PARENTAL EMAILS");
     }
 }

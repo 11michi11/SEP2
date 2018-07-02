@@ -1,4 +1,4 @@
-package client.view;
+package client.view.Administrator;
 
 public abstract class TableDataType {
 
