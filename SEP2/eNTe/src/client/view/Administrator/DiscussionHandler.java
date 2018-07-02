@@ -2,7 +2,9 @@ package client.view.Administrator;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
-import javafx.event.ActionEvent;
+import client.view.Student.HomeworkReplyHandler;
+import client.view.Student.StudentMainHandler;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -18,7 +21,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import model.Discussion;
-import model.Homework;
 import model.Post;
 
 import java.io.IOException;
@@ -64,18 +66,19 @@ public class DiscussionHandler {
         }
     }
 
-    public void loadDiscussion(Discussion discussion) {
+    private void loadDiscussion(Discussion discussion) {
         Text title = new Text(discussion.getTitle());
         title.setId("title");
         Text content = new Text(discussion.getContent());
         content.setId("content");
-        Button addComment = new Button("add comment");
-        addComment.getStyleClass().add("smallButton");
+        Button showComments = new Button("comments");
+        showComments.getStyleClass().add("smallButton");
+        showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new ShowComments(discussion));
 
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n");
 
-        TextFlow textFlow = new TextFlow(title,separator, content, separator1, addComment);
+        TextFlow textFlow = new TextFlow(title,separator, content, separator1, showComments);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(discussion.getContent());
         textFlow.setPrefWidth(830);
@@ -106,13 +109,12 @@ public class DiscussionHandler {
         box.getChildren().add(0, text);
     }
 
-    public void addDiscussion() {
+    private void addDiscussion() {
         VBox text = (VBox) box.getChildren().get(0);
         TextField title = (TextField) text.getChildren().get(0);
         TextArea content = (TextArea) text.getChildren().get(1);
         controller.addDiscussion(title.getText(), content.getText());
         reloadDiscussion();
-
     }
 
     private void reloadDiscussion() {
@@ -131,5 +133,27 @@ public class DiscussionHandler {
     public void goBack() {
         stage.getScene().setRoot(mainPane);
         stage.show();
+    }
+
+    private class ShowComments implements EventHandler<Event> {
+
+        private Discussion discussion;
+        private ShowComments(Discussion discussion) {
+            this.discussion = discussion;
+        }
+
+        @Override
+        public void handle(Event event) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionCommentsHandler.fxml"));
+                Parent mainPane = loader.load();
+                ((DiscussionCommentsHandler) loader.getController()).setDiscussion(discussion);
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+                stage.getScene().setRoot(mainPane);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

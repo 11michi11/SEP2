@@ -8,12 +8,14 @@ import client.view.ClientViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import model.Discussion;
 import model.Homework;
 import model.Post;
 
@@ -49,6 +51,8 @@ public class AdminMainHandler {
                 case "Post":
                     loadPost(p);
                     break;
+                case "Discussion":
+                    loadDiscussion((Discussion) p);
                 default:
                     break;
             }
@@ -89,6 +93,23 @@ public class AdminMainHandler {
 
         addPane(textFlow);
     }
+
+    private void loadDiscussion(Discussion discussion) {
+        Text title = new Text(discussion.getTitle());
+        title.setId("title");
+        Text content = new Text(discussion.getContent());
+        content.setId("content");
+        Text separator = new Text("\n" + "\n");
+
+        TextFlow textFlow = new TextFlow(title,separator, content);
+        textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+        textFlow.setAccessibleText(discussion.getContent());
+        textFlow.setPrefWidth(830);
+        textFlow.getStyleClass().add("textPane");
+
+        addPane(textFlow);
+    }
+
 
     private void addPane(Pane pane) {
         box.getChildren().add(pane);

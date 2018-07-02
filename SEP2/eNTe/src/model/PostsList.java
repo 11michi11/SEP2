@@ -41,6 +41,8 @@ public class PostsList {
                 .orElse(new Discussion(Discussion.noDiscussionId, "There are no discussions yet", "", "", MyDate.now()));
     }
 
+
+
     public void deletePost(Post post) {
         posts.remove(post);
     }
