@@ -41,8 +41,6 @@ public class PostsList {
                 .orElse(new Discussion(Discussion.noDiscussionId, "There are no discussions yet", "", "", MyDate.now()));
     }
 
-
-
     public void deletePost(Post post) {
         posts.remove(post);
     }
@@ -73,4 +71,12 @@ public class PostsList {
         return Objects.equals(posts, postsList.posts);
     }
 
+    public void addComment(DiscussionComment comment) {
+        //posts.stream().filter(p -> p instanceof Discussion).map(h -> (Discussion) h).
+        for (Post e : posts) {
+            if (e instanceof Discussion)
+                ((Discussion) e).addComment(comment);
+
+        }
+    }
 }

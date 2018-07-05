@@ -113,6 +113,11 @@ public class ClientModelManager implements ClientModel {
         return users.getUserById(id);
     }
 
+    @Override
+    public void addCommentToDiscussion(DiscussionComment comment) {
+        posts.addComment(comment);
+    }
+
     private User getUserByEmail(String email) {
         return users.getUserByEmail(email);
     }

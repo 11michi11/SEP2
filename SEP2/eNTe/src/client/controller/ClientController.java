@@ -206,6 +206,6 @@ public class ClientController {
 
 
 	public void addDiscussionComment(String text) {
-        //TO DO
+        model.addCommentToDiscussion(new DiscussionComment(text, currentUser.getName(), MyDate.now()));
 	}
 }

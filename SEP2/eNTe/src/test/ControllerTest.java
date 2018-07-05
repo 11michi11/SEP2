@@ -177,6 +177,11 @@ public class ControllerTest {
         }
 
         @Override
+        public void addCommentToDiscussion(DiscussionComment comment) {
+
+        }
+
+        @Override
         public void deletePost(Post post) {
 
         }

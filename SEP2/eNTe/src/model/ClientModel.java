@@ -49,4 +49,6 @@ public interface ClientModel {
     ArrayList<Post> getAllPosts();
 
     User getUserById(String id);
+
+	void addCommentToDiscussion(DiscussionComment comment);
 }

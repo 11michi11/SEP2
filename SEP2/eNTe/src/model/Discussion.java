@@ -10,6 +10,7 @@ public class Discussion extends Post {
 
     public Discussion(String title, String content, String author, MyDate pubDate) {
         super(title, content, author, pubDate);
+        comments = new LinkedList<>();
     }
     public Discussion(String title, String content, String author, MyDate pubDate,List<DiscussionComment> comments) {
         super(title, content, author, pubDate);
@@ -26,6 +27,7 @@ public class Discussion extends Post {
 
     public List<DiscussionComment> getComments() {
         return new LinkedList<>(comments);
+
     }
 
     @Override

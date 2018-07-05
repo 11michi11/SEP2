@@ -147,7 +147,7 @@ public class DiscussionHandler {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionCommentsHandler.fxml"));
                 Parent mainPane = loader.load();
-                ((DiscussionCommentsHandler) loader.getController()).setDiscussion(discussion);
+                ((DiscussionCommentsHandler) loader.getController()).loadComments(discussion);
                 mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                 stage.getScene().setRoot(mainPane);
                 stage.show();

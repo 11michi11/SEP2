@@ -4,6 +4,7 @@ import client.controller.ClientController;
 import client.view.ClientViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,6 +23,7 @@ import model.DiscussionComment;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DiscussionCommentsHandler {
 
@@ -49,30 +51,28 @@ public class DiscussionCommentsHandler {
 			e.printStackTrace();
 		}
 	}
+
 	@FXML
 	public void initialize() {
 		System.out.println("second");
 		System.out.println(box);
-		loadComments();
+		//loadComments();
 	}
-	private void loadComments() {
 
-		ArrayList<Post> posts = controller.getAllPosts();
-		for(Post p : posts) {
-			if(p.getClass().getSimpleName().equals("DiscussionComments")) {
-//				loadUserComments((DiscussionComment) p);
-			}
-		}
+	public void loadComments(Discussion discussion) {
+		title.setText(discussion.getTitle());
+		discussion.getComments().forEach(this::loadUserComments);
 	}
 
 	private void loadUserComments(DiscussionComment comment) {
 		Text content = new Text(comment.getContent());
 		content.setId("content");
-		String name = comment.getUser().getName();
+		String name = comment.getUser();
+		Text userName = new Text(name);
 		Text separator = new Text("\n" + "\n");
-		TextFlow textFlow = new TextFlow(title,separator, content);
+		TextFlow textFlow = new TextFlow(content, separator, userName);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-		textFlow.setAccessibleText(discussion.getContent());
+		textFlow.setAccessibleText(comment.getContent());
 		textFlow.setPrefWidth(830);
 		textFlow.getStyleClass().add("textPane");
 
@@ -95,6 +95,7 @@ public class DiscussionCommentsHandler {
 		VBox text = new VBox();
 		text.getChildren().addAll(content, save);
 		box.getChildren().add(0, text);
+		System.out.println(content.getText());
 	}
 
 	private void createComment() {
@@ -103,6 +104,7 @@ public class DiscussionCommentsHandler {
 		controller.addDiscussionComment(content.getText());
 		reload();
 	}
+
 	private void reload() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionCommentsHandler.fxml"));
@@ -120,9 +122,9 @@ public class DiscussionCommentsHandler {
 		stage.getScene().setRoot(mainPane);
 		stage.show();
 	}
-
-	public void setDiscussion(Discussion discussion) {
-		this.discussion = discussion;
-		title.setText(discussion.getTitle());
-	}
+//
+//	public void setDiscussion(Discussion discussion) {
+//		this.discussion = discussion;
+//		title.setText(discussion.getTitle());
+//	}
 }

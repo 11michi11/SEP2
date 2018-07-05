@@ -3,26 +3,36 @@ package model;
 public class DiscussionComment {
 
 	private String content;
-	private User user;
+	private String author;
+	private MyDate date;
+	private String id;
+	public static final String noDiscussionCommnetId = "ThereIsNoDiscussion*****************";
 
-	public DiscussionComment(String content, User user) {
+	public DiscussionComment(String content, String author, MyDate date) {
 		this.content = content;
-		this.user = user;
+		this.author = author;
+		this.date = date;
+	}
+	public DiscussionComment(String id ,String content, String author, MyDate date) {
+		this.content = content;
+		this.author = author;
+		this.date = date;
+		this.id = id;
 	}
 
 	public String getContent() {
 		return content;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUser() {
+		return author;
 	}
 
 	@Override
 	public String toString() {
 		return "DiscussionComment{" +
 				"content='" + content + '\'' +
-				", user=" + user +
+				", author=" + author +
 				'}';
 	}
 
@@ -34,7 +44,7 @@ public class DiscussionComment {
 		DiscussionComment that = (DiscussionComment) o;
 
 		if (content != null ? !content.equals(that.content) : that.content != null) return false;
-		return user != null ? user.equals(that.user) : that.user == null;
+		return author != null ? author.equals(that.author) : that.author == null;
 	}
 
 
