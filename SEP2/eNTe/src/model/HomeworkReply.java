@@ -4,54 +4,58 @@ import java.io.Serializable;
 
 public class HomeworkReply implements Serializable {
 
-	private String content;
-	private Student student;
-	private boolean late;
-	private MyDate handInDate;
+    private String content;
+    private Student student;
+    private boolean late;
+    private MyDate handInDate;
 
-	public HomeworkReply(String content, Student student,boolean late,MyDate handInDate) {
-		this.content = content;
-		this.student = student;
-		this.late = late;
-		this.handInDate = handInDate;
-	}
+    public HomeworkReply(String content, Student student, boolean late, MyDate handInDate) {
+        this.content = content;
+        this.student = student;
+        this.late = late;
+        this.handInDate = handInDate;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public Student getStudent() {
-		return student;
-	}
+    public Student getStudent() {
+        return student;
+    }
 
-	public boolean isLate() {
-		return late;
-	}
+    public boolean isLate() {
+        return late;
+    }
 
-	public MyDate getHandInDate() {
-		return handInDate;
-	}
+    public MyDate getHandInDateObj() {
+        return handInDate;
+    }
 
-	@Override
-	public String toString() {
-		return "HomeworkReply{" +
-				"content='" + content + '\'' +
-				", student=" + student +
-				", late=" + late +
-				", handInDate=" + handInDate +
-				'}';
-	}
+    public String getHandInDate() {
+        return handInDate.toString();
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof HomeworkReply)) return false;
+    @Override
+    public String toString() {
+        return "HomeworkReply{" +
+                "content='" + content + '\'' +
+                ", student=" + student +
+                ", late=" + late +
+                ", handInDate=" + handInDate +
+                '}';
+    }
 
-		HomeworkReply that = (HomeworkReply) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof HomeworkReply)) return false;
 
-		if (late != that.late) return false;
-		if (content != null ? !content.equals(that.content) : that.content != null) return false;
-		if (student != null ? !student.equals(that.student) : that.student != null) return false;
-		return handInDate != null ? handInDate.equals(that.handInDate) : that.handInDate == null;
-	}
+        HomeworkReply that = (HomeworkReply) o;
+
+        if (late != that.late) return false;
+        if (content != null ? !content.equals(that.content) : that.content != null) return false;
+        if (student != null ? !student.equals(that.student) : that.student != null) return false;
+        return handInDate != null ? handInDate.equals(that.handInDate) : that.handInDate == null;
+    }
 }

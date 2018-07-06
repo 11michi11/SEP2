@@ -30,14 +30,10 @@ public class DiscussionCommentsHandler {
 	@FXML
 	private VBox box;
 	@FXML
-	private ImageView ente;
-	@FXML
 	private Label title;
 	private ClientController controller;
 	private Stage stage;
 	private Parent mainPane;
-	private Discussion discussion;
-	private DiscussionComment comment;
 
 	public DiscussionCommentsHandler() {
 		controller = ClientController.getInstance();

@@ -22,8 +22,6 @@ public class TeacherListHandler {
     private TableColumn<TeacherDT, String> nameColumn;
     @FXML
     private TableColumn<TeacherDT, String> emailColumn;
-    @FXML
-    private ImageView ente;
     private ClientController controller;
     private Stage stage;
     private Parent mainPane;

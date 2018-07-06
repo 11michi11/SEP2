@@ -3,6 +3,8 @@ package client.view.Administrator;
 import client.controller.ClientController;
 import client.view.ClientViewManager;
 import client.view.Teacher.HomeworkReplyTeacherHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +18,7 @@ import model.Homework;
 import model.HomeworkReply;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 
 public class HomeworkRepliesListHandler {
@@ -27,7 +30,9 @@ public class HomeworkRepliesListHandler {
     @FXML
     private TableColumn<HomeworkReplyDT, String> classNo;
     @FXML
-    private TableColumn<HomeworkReplyDT, String> handIn;
+    private TableColumn<HomeworkReplyDT, String> handInDate;
+    @FXML
+    private TableColumn<HomeworkReplyDT, Boolean> late;
     @FXML
     private ImageView ente;
     private ClientController controller;
@@ -50,28 +55,13 @@ public class HomeworkRepliesListHandler {
 
     @FXML
     public void initialize() {
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        classNo.setCellValueFactory(new PropertyValueFactory<>("classNo"));
-        handIn.setCellValueFactory(new PropertyValueFactory<>("handIn date"));
 
-        replyList.getColumns().clear();
-        replyList.getColumns().addAll(name, classNo, handIn);
-        replyList.setRowFactory(tv -> {
-            TableRow<HomeworkReplyDT> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    openReply(row.getTableView().getSelectionModel().getSelectedItem().getReply());
-                }
-            });
-            return row;
-        });
     }
 
     private void openReply(HomeworkReply reply) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReplyTeacher.fxml"));
             mainPane = loader.load();
-            ((HomeworkReplyTeacherHandler) loader.getController()).setReply(reply);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
@@ -85,7 +75,24 @@ public class HomeworkRepliesListHandler {
         stage.show();
     }
 
-    public void setHomework(Homework homework) {
-        this.homework = homework;
+    public void loadReplies(Homework homework) {
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        classNo.setCellValueFactory(new PropertyValueFactory<>("classNo"));
+        handInDate.setCellValueFactory(new PropertyValueFactory<>("handInDate"));
+        late.setCellValueFactory(new PropertyValueFactory<>("late"));
+
+        replyList.getColumns().clear();
+        replyList.getColumns().addAll(name, classNo, handInDate, late);
+        replyList.setRowFactory(tv -> {
+            TableRow<HomeworkReplyDT> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    openReply(row.getTableView().getSelectionModel().getSelectedItem().getReply());
+                }
+            });
+            return row;
+        });
+        ObservableList<HomeworkReplyDT> replies = FXCollections.observableArrayList(homework.getReplies().stream().map(HomeworkReplyDT::new).collect(Collectors.toList()));
+        replyList.setItems(replies);
     }
 }

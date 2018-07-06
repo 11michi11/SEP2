@@ -148,7 +148,7 @@ public class DBAdapter implements DBPersistence {
                             sql = "INSERT INTO homeworkreply VALUES ('";
                             sql += homework.getPostId() + "','";
                             sql += e.getStudent().getId() + "','";
-                            sql += MyDate.convertFromMyDateToTimestamp(e.getHandInDate()) + "','";
+                            sql += MyDate.convertFromMyDateToTimestamp(e.getHandInDateObj()) + "','";
                             sql += e.getContent() + "',";
                             sql += e.isLate() + ")";
                             sqlList.add(sql);
@@ -170,7 +170,7 @@ public class DBAdapter implements DBPersistence {
         String sql = "INSERT INTO homeworkreply VALUES ('";
         sql += homeworkId + "','";
         sql += reply.getStudent().getId() + "','";
-        sql += MyDate.convertFromMyDateToTimestamp(reply.getHandInDate()) + "','";
+        sql += MyDate.convertFromMyDateToTimestamp(reply.getHandInDateObj()) + "','";
         sql += reply.getContent() + "',";
         sql += reply.isLate() + ")";
         try {
@@ -250,7 +250,7 @@ public class DBAdapter implements DBPersistence {
                             sql = "INSERT INTO homeworkreply VALUES ('";
                             sql += homework.getPostId() + "','";
                             sql += e.getStudent().getId() + "','";
-                            sql += MyDate.convertFromMyDateToTimestamp(e.getHandInDate()) + "','";
+                            sql += MyDate.convertFromMyDateToTimestamp(e.getHandInDateObj()) + "','";
                             sql += e.getContent() + "',";
                             sql += e.isLate() + ")";
                             sqlList.add(sql);
