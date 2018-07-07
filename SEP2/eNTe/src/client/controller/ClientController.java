@@ -182,6 +182,10 @@ public class ClientController {
         return currentUser.getId();
     }
 
+    public String getCurrentUserType(){
+        return currentUser.getClass().getSimpleName();
+    }
+
     public void resetPwd(String email) {
         if (model.checkEmailForPwdReset(email)) {
             String newPwd = Password.generateEntePassword();

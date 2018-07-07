@@ -3,15 +3,26 @@ package model;
 import utility.Password;
 import utility.SendEmail;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import java.io.Serializable;
 import java.util.UUID;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User implements Serializable {
 
+    @Column(name = "email")
     private String email;
+    @Column(name = "pwd")
     private String pwd;
+    @Column(name = "name")
     private String name;
+    @Column(name = "changepassword")
     private boolean changePassword;
+    @Column(name = "id")
     protected String id;
 
     public User(String name, String email, String pwd) {
