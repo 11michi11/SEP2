@@ -37,19 +37,13 @@ public class CreateHomeworkHandler {
     @FXML
     private CheckBox first, second, third, fourth, fifth, sixth, seventh, eight;
     private Homework homework;
+    private FXMLLoader backLoader;
 
 
     public CreateHomeworkHandler() {
         controller = ClientController.getInstance();
         stage = ClientViewManager.getStage();
         System.out.println("HomeworkListHandler");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
-        try {
-            mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -126,9 +120,19 @@ public class CreateHomeworkHandler {
         return classes;
     }
 
+    public void setBackLoader(FXMLLoader backLoader) {
+        this.backLoader = backLoader;
+    }
+
     public void goBack() {
-        stage.getScene().setRoot(mainPane);
-        stage.show();
+        try {
+            Parent mainPane = backLoader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
