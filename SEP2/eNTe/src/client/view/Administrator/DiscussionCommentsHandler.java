@@ -38,7 +38,7 @@ public class DiscussionCommentsHandler {
 	public DiscussionCommentsHandler() {
 		controller = ClientController.getInstance();
 		stage = ClientViewManager.getStage();
-		System.out.println("DiscussionHandler");
+		System.out.println("DiscussionListHandler");
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
 		try {
 			mainPane = loader.load();

@@ -23,27 +23,18 @@ import model.MyDate;
 import model.Post;
 
 
-public class PostHandler {
+public class AnnouncementListHandler {
 
     @FXML
     private VBox box;
-    @FXML
-    private ImageView ente;
     private ClientController controller;
     private Stage stage;
-    private Parent mainPane;
+    private FXMLLoader backLoader;
 
-    public PostHandler() {
+    public AnnouncementListHandler() {
         controller = ClientController.getInstance();
         stage = ClientViewManager.getStage();
-        System.out.println("PostHandler");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
-        try {
-            mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println("AnnouncementListHandler");
     }
 
     @FXML
@@ -77,7 +68,7 @@ public class PostHandler {
     public void createPost() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createAnnoucement.fxml"));
-            mainPane = loader.load();
+            Parent mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
@@ -87,8 +78,18 @@ public class PostHandler {
         }
     }
 
+    public void setBackLoader(FXMLLoader backLoader) {
+        this.backLoader = backLoader;
+    }
+
     public void goBack() {
-        stage.getScene().setRoot(mainPane);
-        stage.show();
+        try {
+            Parent mainPane = backLoader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

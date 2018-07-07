@@ -8,7 +8,6 @@ import client.view.ClientViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -143,11 +142,12 @@ public class AdminMainHandler {
         }
     }
 
-    public void postCreation() {
+    public void announcementHandler() {
         Parent mainPane;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/postHandler.fxml"));
             mainPane = loader.load();
+            ((AnnouncementListHandler) loader.getController()).setBackLoader(backLoader);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
@@ -157,12 +157,12 @@ public class AdminMainHandler {
         }
     }
 
-    public void homeworkCreation() {
+    public void homeworkHandler() {
         Parent mainPane;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
             mainPane = loader.load();
-            ((HomeworkHandler) loader.getController()).setBackLoader(backLoader);
+            ((HomeworkListHandler) loader.getController()).setBackLoader(backLoader);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
@@ -172,11 +172,12 @@ public class AdminMainHandler {
         }
     }
 
-    public void discussionCreation() {
+    public void discussionHandler() {
         Parent mainPane;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionHandler.fxml"));
             mainPane = loader.load();
+            ((DiscussionListHandler) loader.getController()).setBackLoader(backLoader);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();

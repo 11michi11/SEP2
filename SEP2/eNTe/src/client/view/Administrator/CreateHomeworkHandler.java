@@ -42,7 +42,7 @@ public class CreateHomeworkHandler {
     public CreateHomeworkHandler() {
         controller = ClientController.getInstance();
         stage = ClientViewManager.getStage();
-        System.out.println("HomeworkHandler");
+        System.out.println("HomeworkListHandler");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
         try {
             mainPane = loader.load();

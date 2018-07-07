@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import client.controller.ClientController;
+import client.view.Administrator.HomeworkListHandler;
 import client.view.ClientViewManager;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -25,9 +26,9 @@ import model.Post;
 public class StudentMainHandler {
     @FXML
     private VBox VBox;
-
     private ClientController controller;
     private Stage stage;
+    private FXMLLoader backLoader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneStudent.fxml"));
 
     public StudentMainHandler() {
         controller = ClientController.getInstance();
@@ -122,6 +123,21 @@ public class StudentMainHandler {
 	    textFlow.getStyleClass().add("textPane");
 
         addPane(textFlow);
+    }
+
+    public void homeworkHandler() {
+        Parent mainPane;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
+            mainPane = loader.load();
+            ((HomeworkListHandler) loader.getController()).setBackLoader(backLoader);
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private class SubmitHomeworkHandler implements EventHandler<Event> {
