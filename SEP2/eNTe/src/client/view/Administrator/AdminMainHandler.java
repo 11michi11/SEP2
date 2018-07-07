@@ -23,9 +23,9 @@ public class AdminMainHandler {
 
     @FXML
     private VBox box;
-
     private ClientController controller;
     private Stage stage;
+    private FXMLLoader backLoader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
 
     public AdminMainHandler() {
         controller = ClientController.getInstance();
@@ -162,6 +162,7 @@ public class AdminMainHandler {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
             mainPane = loader.load();
+            ((HomeworkHandler) loader.getController()).setBackLoader(backLoader);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
