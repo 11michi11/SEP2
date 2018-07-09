@@ -1,9 +1,16 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "admin", schema = "test")
+@PrimaryKeyJoinColumn(name = "adminid")
 public class Administrator extends User implements Serializable {
 
+    protected Administrator(){}
     private Administrator(String name, String email) {
         super(name, email);
     }
@@ -73,9 +80,9 @@ public class Administrator extends User implements Serializable {
             Administrator administrator = new Administrator(this.name, this.email);
             if (this.pwd != null)
                 if (encryptPwd)
-                    administrator.setPwd(pwd);
+                    administrator.setPadAndEncrypt(pwd);
                 else
-                    administrator.setPwdNoEncrypt(pwd);
+                    administrator.setPwd(pwd);
                 if(this.id != null)
                     administrator.id = this.id;
             return administrator;

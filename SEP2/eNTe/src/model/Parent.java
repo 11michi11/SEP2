@@ -1,13 +1,21 @@
 package model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name = "parent", schema = "test")
+@PrimaryKeyJoinColumn(name = "parentid")
 public class Parent extends User implements Serializable, IFamily {
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "familyid")
     private Family family;
+
+    protected Parent() {
+    }
 
     private Parent(String name, String email) {
         super(name, email);
@@ -38,6 +46,10 @@ public class Parent extends User implements Serializable, IFamily {
         this.family = family;
     }
 
+    void updateParentFields(Parent newUser) {
+        family = newUser.family;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,12 +61,15 @@ public class Parent extends User implements Serializable, IFamily {
         return family != null ? family.equals(parent.family) : parent.family == null;
     }
 
-    public static NeedName builder() {
-        return new Builder();
+    @Override
+    public String toString() {
+        return "Parent{" +
+                "family=" + family +
+                "} " + super.toString();
     }
 
-    void updateParentFields(Parent newUser) {
-        family = newUser.family;
+    public static NeedName builder() {
+        return new Builder();
     }
 
     public static final class Builder implements NeedName, NeedEmail, CanBeBuild {
@@ -108,9 +123,9 @@ public class Parent extends User implements Serializable, IFamily {
             Parent parent = new Parent(this.name, this.email);
             if (this.pwd != null)
                 if (encryptPwd)
-                    parent.setPwd(pwd);
+                    parent.setPadAndEncrypt(pwd);
                 else
-                    parent.setPwdNoEncrypt(pwd);
+                    parent.setPwd(pwd);
             parent.family = this.family;
             if (this.id != null)
                 parent.id = this.id;

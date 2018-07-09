@@ -148,7 +148,7 @@ public class ClientModelManager implements ClientModel {
     @Override
     public void changePwdWithEmail(String email, String newPwd) {
         User user = getUserByEmail(email);
-        user.setPwd(newPwd);
+        user.setPadAndEncrypt(newPwd);
         server.changePwdWithEmail(email, newPwd);
     }
 

@@ -3,14 +3,12 @@ package model;
 import utility.Password;
 import utility.SendEmail;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
+@Table(name = "enteuser", schema = "test")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User implements Serializable {
 
@@ -22,7 +20,7 @@ public abstract class User implements Serializable {
     private String name;
     @Column(name = "changepassword")
     private boolean changePassword;
-    @Column(name = "id")
+    @Id @Column(name = "id")
     protected String id;
 
     public User(String name, String email, String pwd) {
@@ -33,6 +31,7 @@ public abstract class User implements Serializable {
         changePassword = false;
     }
 
+    public User(){}
     public User(String name, String email) {
         this.name = name;
         this.email = email;
@@ -40,7 +39,7 @@ public abstract class User implements Serializable {
         id = UUID.randomUUID().toString();
         changePassword = true;
         //Uncomment in real system - i don't want spam right now
-        SendEmail.sendPasswordEmail(email, pwd);
+        //SendEmail.sendPasswordEmail(email, pwd);
     }
 
     public User(String name, String email, String pwd, String id) {
@@ -67,18 +66,26 @@ public abstract class User implements Serializable {
         return id;
     }
 
-    public void setPwd(String pwd) {
+    public void setPadAndEncrypt(String pwd) {
         this.pwd = Password.encryptPwd(pwd);
         changePassword = false;
     }
 
-    public void setPwdNoEncrypt(String pwd) {
+    public void setPwd(String pwd) {
         this.pwd = pwd;
         changePassword = false;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void changePassword() {

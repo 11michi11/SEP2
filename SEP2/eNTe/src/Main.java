@@ -1,12 +1,12 @@
-import org.hibernate.HibernateException;
-import org.hibernate.Metamodel;
+import model.User;
+import org.hibernate.*;
 import org.hibernate.query.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.metamodel.EntityType;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -28,6 +28,11 @@ public class Main {
     }
 
     public static void main(final String[] args) throws Exception {
+
+        getAllUsers().forEach(System.out::println);
+    }
+
+    public static void getAll(){
         final Session session = getSession();
         try {
             System.out.println("querying all the managed entities...");
@@ -43,5 +48,19 @@ public class Main {
         } finally {
             session.close();
         }
+    }
+
+    public static List<User> getAllUsers() {
+        Transaction tx = null;
+        try (Session session = ourSessionFactory.openSession()) {
+            tx = session.beginTransaction();
+            List<User> films = session.createQuery("FROM User ").list();
+            tx.commit();
+            return films;
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+        return new LinkedList<>();
     }
 }

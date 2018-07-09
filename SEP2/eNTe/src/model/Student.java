@@ -1,13 +1,24 @@
 package model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "student", schema = "test")
+@PrimaryKeyJoinColumn(name = "studentid")
 public class Student extends User implements Serializable, IFamily {
 
+
+    @Transient
     private String historyOfActivity;
+    @Transient
     private ClassNo classNo;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "familyid")
     private Family family;
 
+    protected Student(){}
     private Student(String name, String email) {
         super(name, email);
     }
@@ -22,6 +33,10 @@ public class Student extends User implements Serializable, IFamily {
 
     public void setClassNo(ClassNo classNo) {
         this.classNo = classNo;
+    }
+
+    public void setClassNo(String classNo) {
+        this.classNo = ClassNo.valueOf(classNo);
     }
 
     public ClassNo getClassNo() {
@@ -128,9 +143,9 @@ public class Student extends User implements Serializable, IFamily {
             Student student = new Student(name, email);
             if (this.pwd != null)
                 if (encryptPwd)
-                    student.setPwd(pwd);
+                    student.setPadAndEncrypt(pwd);
                 else
-                    student.setPwdNoEncrypt(pwd);
+                    student.setPwd(pwd);
             if (this.classNo == null)
                 throw new IllegalStateException("Classs must be specified");
             if (this.id != null)

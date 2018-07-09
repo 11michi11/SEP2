@@ -51,18 +51,15 @@ public class SendEmail {
     }
 
     public static void sendPasswordEmail(String email, String pwd) {
-        //Commented for development
-
-
-//        String body = "This is your temporary password to eNTe system: "
-//                + pwd + "<br>Please reset it during next login to the system." +
-//                "<br>Regards, eNTe";
-//        try {
-//            System.out.println("Sending change password email to: " + email);
-//            generateAndSendEmail(email, "Change your password", body);
-//        } catch (MessagingException e) {
-//            System.out.println("Email not send " + e.getMessage());
-//           // e.printStackTrace();
-//        }
+        String body = "This is your temporary password to eNTe system: "
+                + pwd + "<br>Please reset it during next login to the system." +
+                "<br>Regards, eNTe";
+        try {
+            System.out.println("Sending change password email to: " + email);
+            generateAndSendEmail(email, "Change your password", body);
+        } catch (MessagingException e) {
+            System.out.println("Email not send " + e.getMessage());
+           // e.printStackTrace();
+        }
     }
 }

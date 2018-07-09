@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
 import server.model.persistance.Database;
-import sun.awt.image.ImageWatched;
 
 
 import java.util.ArrayList;
@@ -231,8 +230,8 @@ class DBAdapterTest {
         assertEquals(1, users.getAll().size());
         assertEquals(admin, users.getAll().get(0));
 
-        users.getAll().get(0).setPwdNoEncrypt("AdminPwdNEW");
-        admin.setPwdNoEncrypt("AdminPwdNEW");
+        users.getAll().get(0).setPwd("AdminPwdNEW");
+        admin.setPwd("AdminPwdNEW");
         users.getAll().get(0).setChangePassword(false);
         admin.setChangePassword(false);
         adapter.updateUser(users.getAll().get(0));
@@ -250,9 +249,9 @@ class DBAdapterTest {
         assertEquals(1, users.getAll().size());
         assertEquals(teacher1, users.getAll().get(0));
 
-        users.getAll().get(0).setPwdNoEncrypt("TeacherPwd1NEW");
+        users.getAll().get(0).setPwd("TeacherPwd1NEW");
         users.getAll().get(0).setChangePassword(true);
-        teacher1.setPwdNoEncrypt("TeacherPwd1NEW");
+        teacher1.setPwd("TeacherPwd1NEW");
         teacher1.setChangePassword(true);
         adapter.updateUser(users.getAll().get(0));
         loadUsers(families);
@@ -282,11 +281,11 @@ class DBAdapterTest {
 
         ((Student) users.getAll().get(0)).setClassNo(ClassNo.Second);
         users.getAll().get(0).setChangePassword(false);
-        users.getAll().get(0).setPwdNoEncrypt("StudentPwd1NEW");
+        users.getAll().get(0).setPwd("StudentPwd1NEW");
         ((Student) users.getAll().get(0)).setFamily(f2);
         ((Student) student1).setClassNo(ClassNo.Second);
         student1.setChangePassword(false);
-        student1.setPwdNoEncrypt("StudentPwd1NEW");
+        student1.setPwd("StudentPwd1NEW");
         ((Student) student1).setFamily(f2);
         f1.deleteChild((Student) student1);
 
@@ -319,10 +318,10 @@ class DBAdapterTest {
         assertEquals(2, families.getSize());
 
         users.getAll().get(0).setChangePassword(false);
-        users.getAll().get(0).setPwdNoEncrypt("ParentPwd1NEW");
+        users.getAll().get(0).setPwd("ParentPwd1NEW");
         ((Parent) users.getAll().get(0)).setFamily(f2);
         parent1.setChangePassword(false);
-        parent1.setPwdNoEncrypt("ParentPwd1NEW");
+        parent1.setPwd("ParentPwd1NEW");
         ((Parent) parent1).setFamily(f2);
         f1.deleteParent((Parent) parent1);
 

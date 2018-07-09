@@ -4,8 +4,6 @@ import client.view.ClientView;
 import client.view.Administrator.TeacherDT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import model.*;
 import model.communication.Login;
 import model.communication.Message;
@@ -76,7 +74,7 @@ public class ClientController {
     }
 
     public void changePassword(String pwd) {
-        currentUser.setPwd(pwd);
+        currentUser.setPadAndEncrypt(pwd);
         model.addOrUpdateUser(currentUser);
     }
 
