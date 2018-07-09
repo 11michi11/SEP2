@@ -27,17 +27,12 @@
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
-            <Button fx:id="homework" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="homework" textAlignment="CENTER" textFill="#729eea">
+            <Button fx:id="homework" mnemonicParsing="false" onAction="#homeworkHandler" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="homework" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>
             </Button>
             <Button fx:id="discussion" mnemonicParsing="false" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="discussion" textAlignment="CENTER" textFill="#729eea">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="50.0" />
-               </font>
-            </Button>
-            <Button fx:id="post" mnemonicParsing="false" prefHeight="104.0" prefWidth="372.0" styleClass="menuButton" stylesheets="@login.css" text="post" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>

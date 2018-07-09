@@ -26,29 +26,19 @@ import model.Post;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class DiscussionHandler {
+public class DiscussionListHandler {
 
-    @FXML
-    private Button createPost, editPost;
     @FXML
     private VBox box;
-    @FXML
-    private ImageView ente;
     private ClientController controller;
     private Stage stage;
-    private Parent mainPane;
+    private FXMLLoader backLoader;
 
-    public DiscussionHandler() {
+    public DiscussionListHandler() {
         controller = ClientController.getInstance();
         stage = ClientViewManager.getStage();
-        System.out.println("DiscussionHandler");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
-        try {
-            mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println("DiscussionListHandler");
+
     }
     @FXML
     public void initialize() {
@@ -120,19 +110,28 @@ public class DiscussionHandler {
     private void reloadDiscussion() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionHandler.fxml"));
-            mainPane = loader.load();
+            Parent mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void setBackLoader(FXMLLoader backLoader) {
+        this.backLoader = backLoader;
+    }
+
     public void goBack() {
-        stage.getScene().setRoot(mainPane);
-        stage.show();
+        try {
+            Parent mainPane = backLoader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private class ShowComments implements EventHandler<Event> {

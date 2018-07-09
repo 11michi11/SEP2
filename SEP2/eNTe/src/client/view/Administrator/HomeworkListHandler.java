@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import model.Homework;
 import model.Post;
 
-public class HomeworkHandler {
+public class HomeworkListHandler {
 
     @FXML
     private VBox box;
@@ -33,7 +33,7 @@ public class HomeworkHandler {
     private Stage stage;
     private FXMLLoader backLoader;
 
-    public HomeworkHandler() {
+    public HomeworkListHandler() {
         controller = ClientController.getInstance();
         stage = ClientViewManager.getStage();
     }
@@ -46,7 +46,7 @@ public class HomeworkHandler {
         loadPosts();
     }
 
-    void setBackLoader(FXMLLoader backLoader) {
+    public void setBackLoader(FXMLLoader backLoader) {
         this.backLoader = backLoader;
     }
 
@@ -82,6 +82,7 @@ public class HomeworkHandler {
         Text separator3 = new Text(" ");
         Text separator4 = new Text(" ");
 
+
         Button list = new Button("DONE BY:");
         list.addEventHandler(MouseEvent.MOUSE_CLICKED, new ListOfHomeworkHandler(homework));
         list.getStyleClass().add("smallButton");
@@ -100,6 +101,14 @@ public class HomeworkHandler {
         textFlow.getStyleClass().add("textPane");
 
         addPane(textFlow);
+
+        String userType = controller.getCurrentUserType();
+        if(userType.equals("Parent") || userType.equals("Student")) {
+            list.setVisible(false);
+            edit.setVisible(false);
+            delete.setVisible(false);
+        }
+
     }
 
     private void addPane(Pane pane) {
@@ -110,6 +119,7 @@ public class HomeworkHandler {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomework.fxml"));
             Parent mainPane = loader.load();
+            ((CreateHomeworkHandler) loader.getController()).setBackLoader(loader);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();

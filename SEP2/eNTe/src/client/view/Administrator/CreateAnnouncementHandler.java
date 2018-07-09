@@ -31,7 +31,7 @@ public class CreateAnnouncementHandler {
 	public CreateAnnouncementHandler() {
 		controller = ClientController.getInstance();
 		stage = ClientViewManager.getStage();
-		System.out.println("HomeworkHandler");
+		System.out.println("HomeworkListHandler");
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/postHandler.fxml"));
 		try {
 			mainPane = loader.load();
