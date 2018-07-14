@@ -1,4 +1,4 @@
-package client.view.Student;
+package client.view.managingPosts;
 
 import java.io.IOException;
 

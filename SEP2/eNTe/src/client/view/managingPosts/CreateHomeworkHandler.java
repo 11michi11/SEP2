@@ -1,4 +1,4 @@
-package client.view.Administrator;
+package client.view.managingPosts;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
@@ -22,8 +22,6 @@ public class CreateHomeworkHandler {
     private Stage stage;
     private Parent mainPane;
 
-    @FXML
-    private ImageView ente;
     @FXML
     private TextArea title;
     @FXML

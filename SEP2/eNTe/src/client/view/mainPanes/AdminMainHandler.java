@@ -1,9 +1,12 @@
-package client.view.Administrator;
+package client.view.mainPanes;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import client.controller.ClientController;
+import client.view.managingPosts.AnnouncementListHandler;
+import client.view.managingPosts.DiscussionListHandler;
+import client.view.managingPosts.HomeworkListHandler;
 import client.view.ClientViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

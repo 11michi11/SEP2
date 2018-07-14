@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 public class Post implements Serializable {
@@ -11,6 +12,7 @@ public class Post implements Serializable {
     protected MyDate pubDate;
     private SpecialType specialType;
     private String postId;
+    private List<ClassNo> classes;
 
     public Post(String title, String content, String author, MyDate pubDate) {
         this.postId = UUID.randomUUID().toString();
@@ -20,13 +22,14 @@ public class Post implements Serializable {
         this.pubDate = pubDate;
     }
 
-    public Post(String title, String content, String author, MyDate pubDate, SpecialType specialType) {
+    public Post(String title, String content, String author, MyDate pubDate, SpecialType specialType, List<ClassNo> classes) {
         this.postId = UUID.randomUUID().toString();
         this.title = title;
         this.content = content;
         this.author = author;
         this.pubDate = pubDate;
         this.specialType = specialType;
+        this.classes = classes;
     }
     public Post(String postId, String title, String content, String author, MyDate pubDate) {
         this.postId = postId;
@@ -55,6 +58,8 @@ public class Post implements Serializable {
     public String getPostId() {
         return postId;
     }
+
+    public SpecialType getSpecialType() { return specialType; }
 
     @Override
     public String toString() {

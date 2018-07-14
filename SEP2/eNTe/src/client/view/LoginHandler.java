@@ -1,4 +1,4 @@
-package client.view.Administrator;
+package client.view;
 
 import client.controller.ClientController;
 import javafx.beans.value.ChangeListener;

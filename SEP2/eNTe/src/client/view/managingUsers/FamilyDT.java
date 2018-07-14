@@ -1,6 +1,5 @@
-package client.view.Administrator;
+package client.view.managingUsers;
 
-import client.view.Administrator.TableDataType;
 import model.Family;
 
 public class FamilyDT extends TableDataType {

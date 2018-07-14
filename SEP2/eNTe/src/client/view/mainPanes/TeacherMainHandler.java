@@ -1,9 +1,9 @@
-package client.view.Teacher;
+package client.view.mainPanes;
 
 import client.controller.ClientController;
-import client.view.Administrator.AnnouncementListHandler;
-import client.view.Administrator.DiscussionListHandler;
-import client.view.Administrator.HomeworkListHandler;
+import client.view.managingPosts.AnnouncementListHandler;
+import client.view.managingPosts.DiscussionListHandler;
+import client.view.managingPosts.HomeworkListHandler;
 import client.view.ClientViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

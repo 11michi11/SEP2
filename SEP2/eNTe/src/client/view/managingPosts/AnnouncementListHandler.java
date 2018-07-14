@@ -1,4 +1,4 @@
-package client.view.Administrator;
+package client.view.managingPosts;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class AnnouncementListHandler {
 
     public void createPost() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createAnnoucement.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createAnnouncement.fxml"));
             Parent mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);

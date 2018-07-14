@@ -1,9 +1,7 @@
-package client.view.Administrator;
+package client.view.managingPosts;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
-import client.view.Student.HomeworkReplyHandler;
-import client.view.Student.StudentMainHandler;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;

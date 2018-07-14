@@ -1,10 +1,11 @@
-package client.view.Student;
+package client.view.mainPanes;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import client.controller.ClientController;
-import client.view.Administrator.HomeworkListHandler;
+import client.view.managingPosts.HomeworkReplyHandler;
+import client.view.managingPosts.HomeworkListHandler;
 import client.view.ClientViewManager;
 import javafx.event.Event;
 import javafx.event.EventHandler;

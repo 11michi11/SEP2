@@ -1,4 +1,4 @@
-package client.view.Administrator;
+package client.view.managingUsers;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;

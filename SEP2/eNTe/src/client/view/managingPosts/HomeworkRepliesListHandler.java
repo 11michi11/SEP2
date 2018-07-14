@@ -1,8 +1,7 @@
-package client.view.Administrator;
+package client.view.managingPosts;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
-import client.view.Teacher.HomeworkReplyTeacherHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,8 +32,7 @@ public class HomeworkRepliesListHandler {
     private TableColumn<HomeworkReplyDT, String> handInDate;
     @FXML
     private TableColumn<HomeworkReplyDT, Boolean> late;
-    @FXML
-    private ImageView ente;
+
     private ClientController controller;
     private Stage stage;
     private Parent mainPane;

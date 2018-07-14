@@ -1,4 +1,4 @@
-package client.view.Administrator;
+package client.view.managingUsers;
 
 import javafx.beans.property.SimpleStringProperty;
 import model.Teacher;

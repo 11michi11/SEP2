@@ -1,4 +1,4 @@
-package client.view.Administrator;
+package client.view.managingPosts;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
@@ -100,7 +100,6 @@ public class DiscussionCommentsHandler {
 	private void reload() {
 		box.getChildren().clear();
 		loadComments(discussion);
-
 	}
 
 	public void goBack() {
