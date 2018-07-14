@@ -1,23 +1,38 @@
 package model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name = "family", schema = "test")
 public class Family implements Serializable {
+
+    @Id @Column(name = "familyid")
     private String id;
-    private ArrayList<Student> children = new ArrayList<>();
-    private ArrayList<Parent> parents = new ArrayList<>();
+
+    @OneToMany( mappedBy = "family")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Student> children;
+
+    @OneToMany(mappedBy ="family")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Parent> parents;
 
     public Family() {
         id = UUID.randomUUID().toString();
+        children = new ArrayList<>();
+        parents = new ArrayList<>();
     }
 
     public Family(String id) {
         this.id = id;
+        children = new ArrayList<>();
+        parents = new ArrayList<>();
     }
 
     public void addChild(Student child) {
@@ -62,7 +77,7 @@ public class Family implements Serializable {
         parents.remove(parent);
     }
 
-    public ArrayList<Parent> getParents() {
+    public List<Parent> getParents() {
         return parents;
     }
 
@@ -94,6 +109,18 @@ public class Family implements Serializable {
         id = "removed";//experimental
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setChildren(List<Student> children) {
+        this.children = children;
+    }
+
+    public void setParents(List<Parent> parents) {
+        this.parents = parents;
+    }
+
     @Override
     public boolean equals(Object o) {
 
@@ -122,5 +149,10 @@ public class Family implements Serializable {
         }
 
         return true;
+    }
+
+    @Override
+    public String toString(){
+        return getMembersNames();
     }
 }

@@ -89,7 +89,7 @@ public class ServerModelManager implements ServerModel {
     @Override
     public void changePwdWithEmail(String email, String newPwd) {
         User user = users.getUserByEmail(email);
-        user.setPwd(newPwd);
+        user.setPadAndEncrypt(newPwd);
         user.changePassword();
     }
 

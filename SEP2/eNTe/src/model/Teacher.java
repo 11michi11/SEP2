@@ -1,9 +1,16 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "teacher", schema = "test")
+@PrimaryKeyJoinColumn(name = "teacherid")
 public class Teacher extends User implements Serializable {
 
+    protected Teacher(){}
     private Teacher(String name, String email) {
         super(name, email);
     }
@@ -68,9 +75,9 @@ public class Teacher extends User implements Serializable {
             Teacher teacher = new Teacher(this.name, this.email);
             if (this.pwd != null)
                 if (encryptPwd)
-                    teacher.setPwd(pwd);
+                    teacher.setPadAndEncrypt(pwd);
                 else
-                    teacher.setPwdNoEncrypt(pwd);
+                    teacher.setPwd(pwd);
             if (this.id != null)
                 teacher.id = this.id;
             return teacher;

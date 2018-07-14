@@ -184,7 +184,7 @@ class DBAdapterTestNEW {
     @Test
     void testUpdateAdmin() {
         Administrator admin = (Administrator) users.getUserById("AdminID");
-        admin.setPwdNoEncrypt("AdminPwdNEW");
+        admin.setPwd("AdminPwdNEW");
         admin.setChangePassword(true);
         adapter.updateUser(admin);
     }
@@ -192,7 +192,7 @@ class DBAdapterTestNEW {
     @Test
     void testUpdateTeacher() {
         Teacher teacher = (Teacher) users.getUserById("TeacherID1");
-        teacher.setPwdNoEncrypt("TeacherPwdNEW");
+        teacher.setPwd("TeacherPwdNEW");
         teacher.setChangePassword(true);
         adapter.updateUser(teacher);
     }
@@ -202,7 +202,7 @@ class DBAdapterTestNEW {
         Student student = (Student) users.getUserById("StudentID1");
         student.setFamily(new Family("FamilyIDNEW"));
         student.setClassNo(ClassNo.Second);
-        student.setPwdNoEncrypt("StudentPwdNEW");
+        student.setPwd("StudentPwdNEW");
         student.setChangePassword(true);
         adapter.updateUser(student);
     }
@@ -211,7 +211,7 @@ class DBAdapterTestNEW {
     void testUpdateParent() {
         Parent parent = (Parent) users.getUserById("ParentID1");
         parent.setFamily(new Family("FamilyIDNEW"));
-        parent.setPwdNoEncrypt("ParentPwdNEW");
+        parent.setPwd("ParentPwdNEW");
         parent.setChangePassword(true);
         adapter.updateUser(parent);
     }

@@ -74,7 +74,7 @@ public class ClientController {
     }
 
     public void changePassword(String pwd) {
-        currentUser.setPwd(pwd);
+        currentUser.setPadAndEncrypt(pwd);
         model.addOrUpdateUser(currentUser);
     }
 
