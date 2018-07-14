@@ -8,8 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -80,37 +78,13 @@ public class DiscussionListHandler {
 
 
     public void createDiscussion() {
-        TextField title = new TextField();
-        title.setText("Title");
-        title.setId("title");
-        TextArea content = new TextArea();
-        content.setText("Write a content");
-        content.getStyleClass().add("content");
-        Button save = new Button("save");
-        save.getStyleClass().add("smallButton");
-        save.setOnAction(e -> addDiscussion());
-
-        VBox text = new VBox();
-        text.getChildren().addAll(title, content, save);
-
-        box.getChildren().add(0, text);
-    }
-
-    private void addDiscussion() {
-        VBox text = (VBox) box.getChildren().get(0);
-        TextField title = (TextField) text.getChildren().get(0);
-        TextArea content = (TextArea) text.getChildren().get(1);
-        controller.addDiscussion(title.getText(), content.getText());
-        reloadDiscussion();
-    }
-
-    private void reloadDiscussion() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionHandler.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createDiscussion.fxml"));
             Parent mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

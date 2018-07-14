@@ -13,23 +13,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateAnnouncementHandler {
+public class CreateDiscussionHandler {
 	private ClientController controller;
 	private Stage stage;
 	private Parent mainPane;
-
 	@FXML
 	private TextArea title, content;
 	@FXML
-	private RadioButton parental, important, normal;
+	private RadioButton parental, normal;
 	@FXML
 	private CheckBox first, second, third, fourth, fifth, sixth, seventh, eight;
 
-	public CreateAnnouncementHandler() {
+	public CreateDiscussionHandler() {
 		controller = ClientController.getInstance();
 		stage = ClientViewManager.getStage();
 		System.out.println("HomeworkListHandler");
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/announcementHandler.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionHandler.fxml"));
 		try {
 			mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
@@ -42,44 +41,50 @@ public class CreateAnnouncementHandler {
 	public void initialize() {
 		ToggleGroup group = new ToggleGroup();
 		parental.setToggleGroup(group);
-		important.setToggleGroup(group);
 		normal.setToggleGroup(group);
 		normal.setSelected(true);
 		content.setWrapText(true);
 	}
 
-	public void addAnnouncement() {
+	public void addDiscussion() {
 		checkForNull();
-		controller.addPost(title.getText(), content.getText(), selectedValue(), getClasses());
+		controller.addDiscussion(title.getText(), content.getText(), selectedValue(), getClasses());
 		System.out.println("post added" + title.getText() + content.getText());
-		goToPost();
+		goToDiscussion();
 	}
 
+	private void goToDiscussion() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionHandler.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	private String selectedValue() {
 		String value = null;
-		if (important.isSelected()) {
-			value = important.getText();
-		}
 		if (parental.isSelected()) {
 			value = parental.getText();
 		}
 		if (normal.isSelected()) {
 			value = parental.getText();
 		}
-
 		return value;
 	}
 
 	private void checkForNull() {
 		if (title.getText() == null || content.getText() == null || getClasses() == null || selectedValue() == null) {
-			Alert alert = new Alert(Alert.AlertType.WARNING);
-			alert.setTitle("Warning Dialog");
-			alert.setHeaderText("Look, unfinished selection");
-			alert.setContentText("Please fill everything!");
-			alert.showAndWait();
+		Alert alert = new Alert(Alert.AlertType.WARNING);
+		alert.setTitle("Warning Dialog");
+		alert.setHeaderText("Look, unfinished selection");
+		alert.setContentText("Please fill everything!");
+		alert.showAndWait();
 		}
 	}
-
 	private List<ClassNo> getClasses() {
 		return getClassNos(first, second, third, fourth, fifth, sixth, seventh, eight);
 	}
@@ -104,19 +109,6 @@ public class CreateAnnouncementHandler {
 			classes.add(ClassNo.Eighth);
 
 		return classes;
-	}
-
-	private void goToPost() {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/announcementHandler.fxml"));
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-			stage.getScene().setRoot(mainPane);
-			stage.show();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void goBack() {

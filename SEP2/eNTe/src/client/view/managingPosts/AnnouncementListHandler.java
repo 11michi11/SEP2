@@ -65,7 +65,7 @@ public class AnnouncementListHandler {
         box.getChildren().add(pane);
     }
 
-    public void createPost() {
+    public void createAnnouncement() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createAnnouncement.fxml"));
             Parent mainPane = loader.load();

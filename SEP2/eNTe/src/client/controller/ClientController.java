@@ -143,8 +143,10 @@ public class ClientController {
             return false;
     }
 
-    public void addDiscussion(String title, String content) {
-        model.addPost(new Discussion(title, content, currentUser.getName(), MyDate.now()));
+    public void addDiscussion(String title, String content, String selectedValue, List<ClassNo> classes) {
+        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
+        specialType.doAction();
+        model.addPost(new Discussion(title, content, currentUser.getName(), MyDate.now(), specialType, classes));
     }
 
     public ArrayList<Family> getFamilies() {

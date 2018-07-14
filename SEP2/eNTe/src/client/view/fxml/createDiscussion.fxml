@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.managingPosts.CreateHomeworkHandler">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.managingPosts.CreateDiscussionHandler">
    <children>
       <ImageView fx:id="ente" fitHeight="182.0" fitWidth="209.0" layoutX="22.0" layoutY="-3.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@enteLOGO.png" />
          </image>
       </ImageView>
-      <Button fx:id="save" layoutX="545.0" layoutY="697.0" mnemonicParsing="false" onAction="#addHomework" styleClass="menuButtonSmall" stylesheets="@login.css" text="save" />
+      <Button fx:id="save" layoutX="545.0" layoutY="697.0" mnemonicParsing="false" onAction="#addDiscussion" styleClass="menuButtonSmall" stylesheets="@login.css" text="save" />
       <TextArea fx:id="title" layoutX="36.0" layoutY="195.0" prefHeight="86.0" prefWidth="499.0" promptText="title" />
       <Label layoutX="428.0" layoutY="62.0" prefHeight="71.0" prefWidth="552.0" styleClass="labelMain" stylesheets="@login.css" text="create discussion" />
       <VBox layoutX="1004.0" layoutY="276.0" prefHeight="454.0" prefWidth="267.0">

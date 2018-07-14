@@ -8,8 +8,8 @@ public class Discussion extends Post {
     public static final String noDiscussionId = "ThereIsNoDiscussion*****************";
     private List<DiscussionComment> comments;
 
-    public Discussion(String title, String content, String author, MyDate pubDate) {
-        super(title, content, author, pubDate);
+    public Discussion(String title, String content, String author, MyDate pubDate, SpecialType specialType, List<ClassNo> classes) {
+        super(title, content, author, pubDate, specialType, classes);
         comments = new LinkedList<>();
     }
     public Discussion(String title, String content, String author, MyDate pubDate,List<DiscussionComment> comments) {
