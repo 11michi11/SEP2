@@ -1,7 +1,7 @@
 package client.controller;
 
 import client.view.ClientView;
-import client.view.Administrator.TeacherDT;
+import client.view.managingUsers.TeacherDT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
@@ -109,10 +109,10 @@ public class ClientController {
         model.deleteUser(user);
     }
 
-    public void addPost(String title, String content, String selectedValue) {
+    public void addPost(String title, String content, String selectedValue, List<ClassNo> classes) {
         SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
         specialType.doAction();
-        model.addPost(new Post(title, content, currentUser.getName(), MyDate.now(), specialType));
+        model.addPost(new Post(title, content, currentUser.getName(), MyDate.now(), specialType, classes));
     }
 
     public ArrayList<Post> getAllPosts() {
@@ -143,8 +143,10 @@ public class ClientController {
             return false;
     }
 
-    public void addDiscussion(String title, String content) {
-        model.addPost(new Discussion(title, content, currentUser.getName(), MyDate.now()));
+    public void addDiscussion(String title, String content, String selectedValue, List<ClassNo> classes) {
+        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
+        specialType.doAction();
+        model.addPost(new Discussion(title, content, currentUser.getName(), MyDate.now(), specialType, classes));
     }
 
     public ArrayList<Family> getFamilies() {
@@ -210,4 +212,28 @@ public class ClientController {
 	public void addDiscussionComment(String text) {
         model.addCommentToDiscussion(new DiscussionComment(text, currentUser.getName(), MyDate.now()));
 	}
+
+    public List<Post> getHomeworkForParent() {
+        if (!(currentUser instanceof Parent))
+            throw new IllegalStateException("Current user is not a parent");
+        Parent parent = (Parent) currentUser;
+        List<Post> posts = getAllPosts();
+        List<ClassNo> classes = parent.getFamily().getClasses();
+        List<Post> parentHomework = new ArrayList<>();
+        for (Post p : posts)
+            if (p instanceof Homework && ((Homework) p).getClasses().contains(classes))
+                parentHomework.add(p);
+        return parentHomework;
+    }
+
+    public List<Post> getPostsForParent() {
+        List<Post> posts = getAllPosts();
+        List<Post> parentPosts = new ArrayList<>();
+        for(Post p : posts)
+            if (p.getSpecialType().equals(SpecialType.PARENTAL) || p.getSpecialType().equals(SpecialType.IMPORTANT))
+                parentPosts.add(p);
+        return parentPosts;
+    }
+
+
 }

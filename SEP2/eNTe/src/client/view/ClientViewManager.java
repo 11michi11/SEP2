@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import client.controller.ClientController;
-import client.view.Parent.ParentMainHandler;
+import client.view.mainPanes.ParentMainHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

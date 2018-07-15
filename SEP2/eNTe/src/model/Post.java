@@ -31,6 +31,7 @@ public class Post implements Serializable {
     @Id
     @Column(name = "postid")
     private String postId;
+    private List<ClassNo> classes;
 
     protected Post() {
     }
@@ -43,13 +44,14 @@ public class Post implements Serializable {
         this.pubDate = pubDate;
     }
 
-    public Post(String title, String content, String author, MyDate pubDate, SpecialType specialType) {
+    public Post(String title, String content, String author, MyDate pubDate, SpecialType specialType, List<ClassNo> classes) {
         this.postId = UUID.randomUUID().toString();
         this.title = title;
         this.content = content;
         this.author = author;
         this.pubDate = pubDate;
         this.specialType = specialType;
+        this.classes = classes;
     }
 
     public Post(String postId, String title, String content, String author, MyDate pubDate) {
