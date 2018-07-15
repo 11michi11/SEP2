@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import client.view.GoBackMap;
 import model.Homework;
 import model.Post;
 
@@ -30,7 +31,6 @@ public class HomeworkListHandler {
     private Button createHomework;
     private ClientController controller;
     private Stage stage;
-    private FXMLLoader backLoader;
 
     public HomeworkListHandler() {
         controller = ClientController.getInstance();
@@ -45,11 +45,9 @@ public class HomeworkListHandler {
         loadPosts();
     }
 
-    public void setBackLoader(FXMLLoader backLoader) {
-        this.backLoader = backLoader;
-    }
-
     public void goBack() {
+        String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+        FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
         try {
             Parent mainPane = backLoader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
@@ -61,6 +59,7 @@ public class HomeworkListHandler {
     }
 
     private void loadPosts() {
+        //TODO change to getAllHomework
         ArrayList<Post> posts = controller.getAllPosts();
         for (Post p : posts) {
             if (p.getClass().getSimpleName().equals("Homework")) {

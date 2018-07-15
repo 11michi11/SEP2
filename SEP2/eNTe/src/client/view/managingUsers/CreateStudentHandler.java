@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.GoBackMap;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,10 +25,6 @@ public class CreateStudentHandler {
     private TextField name, email;
     @FXML
     private ChoiceBox<ClassNo> classSelector;
-    @FXML
-    private ImageView ente;
-    private Parent mainPane;
-    private FXMLLoader loader;
     private Family family;
     private Student student;
 
@@ -47,9 +44,9 @@ public class CreateStudentHandler {
         if (student != null)
             id = student.getId();
         controller.addStudent(name.getText(), email.getText(), classSelector.getValue(), family, id);
-        loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
         try {
-            mainPane = loader.load();
+            Parent mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,15 +55,16 @@ public class CreateStudentHandler {
     }
 
     public void goBack() {
-        loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
+        String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+        FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
         try {
-            mainPane = loader.load();
+            Parent mainPane = backLoader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        stage.getScene().setRoot(mainPane);
-        stage.show();
     }
 
     public void setFamily(Family family) {

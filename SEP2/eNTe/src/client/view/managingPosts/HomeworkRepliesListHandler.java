@@ -2,6 +2,7 @@ package client.view.managingPosts;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.GoBackMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,20 +36,12 @@ public class HomeworkRepliesListHandler {
 
     private ClientController controller;
     private Stage stage;
-    private Parent mainPane;
     private Homework homework;
 
     public HomeworkRepliesListHandler() {
         controller = ClientController.getInstance();
         System.out.println("HomeworkRepliesListHandler");
         stage = ClientViewManager.getStage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneAdmin.fxml"));
-        try {
-            mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -59,7 +52,7 @@ public class HomeworkRepliesListHandler {
     private void openReply(HomeworkReply reply) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReplyTeacher.fxml"));
-            mainPane = loader.load();
+            Parent mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
@@ -69,11 +62,19 @@ public class HomeworkRepliesListHandler {
     }
 
     public void goBack() {
-        stage.getScene().setRoot(mainPane);
-        stage.show();
+        String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+        FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
+        try {
+            Parent mainPane = backLoader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void loadReplies(Homework homework) {
+    void loadReplies(Homework homework) {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         classNo.setCellValueFactory(new PropertyValueFactory<>("classNo"));
         handInDate.setCellValueFactory(new PropertyValueFactory<>("handInDate"));

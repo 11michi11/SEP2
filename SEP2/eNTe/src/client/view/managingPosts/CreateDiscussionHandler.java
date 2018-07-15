@@ -2,6 +2,7 @@ package client.view.managingPosts;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.GoBackMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -113,8 +114,16 @@ public class CreateDiscussionHandler {
 	}
 
 	public void goBack() {
-		stage.getScene().setRoot(mainPane);
-		stage.show();
+		String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+		FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
+		try {
+			Parent mainPane = backLoader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

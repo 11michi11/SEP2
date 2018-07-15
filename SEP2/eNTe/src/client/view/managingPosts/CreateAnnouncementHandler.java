@@ -2,6 +2,7 @@ package client.view.managingPosts;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.GoBackMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +17,6 @@ import java.util.List;
 public class CreateAnnouncementHandler {
 	private ClientController controller;
 	private Stage stage;
-	private Parent mainPane;
 
 	@FXML
 	private TextArea title, content;
@@ -28,14 +28,6 @@ public class CreateAnnouncementHandler {
 	public CreateAnnouncementHandler() {
 		controller = ClientController.getInstance();
 		stage = ClientViewManager.getStage();
-		System.out.println("HomeworkListHandler");
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/announcementHandler.fxml"));
-		try {
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@FXML
@@ -109,7 +101,7 @@ public class CreateAnnouncementHandler {
 	private void goToPost() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/announcementHandler.fxml"));
-			mainPane = loader.load();
+			Parent mainPane = loader.load();
 			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
 			stage.getScene().setRoot(mainPane);
 			stage.show();
@@ -120,8 +112,16 @@ public class CreateAnnouncementHandler {
 	}
 
 	public void goBack() {
-		stage.getScene().setRoot(mainPane);
-		stage.show();
+		String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+		FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
+		try {
+			Parent mainPane = backLoader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

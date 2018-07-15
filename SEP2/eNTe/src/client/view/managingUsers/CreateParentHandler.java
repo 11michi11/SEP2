@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.GoBackMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,10 +19,6 @@ public class CreateParentHandler {
 	private Stage stage;
 	@FXML
 	private TextField name, email;
-	@FXML
-	private ImageView ente;
-	private Parent mainPane;
-	private FXMLLoader loader;
 	private Family family;
 	private model.Parent parent;
 	
@@ -29,13 +26,6 @@ public class CreateParentHandler {
 		controller = ClientController.getInstance();
 		System.out.println("CreateParentHandler");
 		stage = ClientViewManager.getStage();
-		loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
-		try {
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void save() {
@@ -47,8 +37,16 @@ public class CreateParentHandler {
 	}
 
 	public void goBack() {
-		stage.getScene().setRoot(mainPane);
-		stage.show();
+		String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+		FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
+		try {
+			Parent mainPane = backLoader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setFamily(Family family) {

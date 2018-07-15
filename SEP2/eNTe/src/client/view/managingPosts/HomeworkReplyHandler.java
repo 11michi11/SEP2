@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import client.view.GoBackMap;
 import model.Homework;
 import model.HomeworkReply;
 
@@ -21,7 +22,6 @@ public class HomeworkReplyHandler {
     private ImageView ente;
     @FXML
     private TextArea area;
-    private Parent mainPane;
     private FXMLLoader loader;
     private Homework homework;
     private HomeworkReply reply;
@@ -30,13 +30,6 @@ public class HomeworkReplyHandler {
         controller = ClientController.getInstance();
         System.out.println("TextAreaForHomeworkHandler");
         stage = ClientViewManager.getStage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneStudent.fxml"));
-        try {
-            mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void submit() {
@@ -45,8 +38,16 @@ public class HomeworkReplyHandler {
     }
 
     public void goBack() {
-        stage.getScene().setRoot(mainPane);
-        stage.show();
+        String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+        FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
+        try {
+            Parent mainPane = backLoader.load();
+            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setReply(HomeworkReply reply) {

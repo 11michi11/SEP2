@@ -131,7 +131,6 @@ public class StudentMainHandler {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
             mainPane = loader.load();
-            ((HomeworkListHandler) loader.getController()).setBackLoader(backLoader);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();

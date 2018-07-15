@@ -2,6 +2,7 @@ package client.view.managingPosts;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.GoBackMap;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -90,11 +91,9 @@ public class DiscussionListHandler {
         }
     }
 
-    public void setBackLoader(FXMLLoader backLoader) {
-        this.backLoader = backLoader;
-    }
-
     public void goBack() {
+        String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+        FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
         try {
             Parent mainPane = backLoader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());

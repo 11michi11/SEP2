@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.GoBackMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,8 +15,6 @@ import model.Teacher;
 
 public class CreateTeacherHandler {
 
-    @FXML
-    private ImageView ente;
     @FXML
     private TextField name, email;
     private ClientController controller;
@@ -39,15 +38,16 @@ public class CreateTeacherHandler {
     }
 
     public void goBack() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/teacherList.fxml"));
+        String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+        FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
         try {
-            mainPane = loader.load();
+            Parent mainPane = backLoader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+            stage.getScene().setRoot(mainPane);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        stage.getScene().setRoot(mainPane);
-        stage.show();
     }
 
     public void setTeacher(Teacher teacher) {

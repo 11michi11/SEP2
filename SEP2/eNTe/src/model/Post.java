@@ -36,6 +36,7 @@ public class Post implements Serializable {
     @Id
     @Column(name = "postid")
     private String postId;
+    @Transient
     private List<ClassNo> classes;
 
     protected Post() {

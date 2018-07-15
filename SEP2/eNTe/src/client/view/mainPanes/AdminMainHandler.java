@@ -150,7 +150,6 @@ public class AdminMainHandler {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/announcementHandler.fxml"));
             mainPane = loader.load();
-            ((AnnouncementListHandler) loader.getController()).setBackLoader(backLoader);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
@@ -165,7 +164,6 @@ public class AdminMainHandler {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
             mainPane = loader.load();
-            ((HomeworkListHandler) loader.getController()).setBackLoader(backLoader);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
@@ -180,7 +178,6 @@ public class AdminMainHandler {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionHandler.fxml"));
             mainPane = loader.load();
-            ((DiscussionListHandler) loader.getController()).setBackLoader(backLoader);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();

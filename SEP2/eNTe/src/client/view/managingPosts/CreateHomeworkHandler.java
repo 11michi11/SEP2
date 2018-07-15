@@ -2,6 +2,7 @@ package client.view.managingPosts;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.GoBackMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +21,6 @@ import java.util.List;
 public class CreateHomeworkHandler {
     private ClientController controller;
     private Stage stage;
-    private Parent mainPane;
 
     @FXML
     private TextArea title;
@@ -72,7 +72,7 @@ public class CreateHomeworkHandler {
         System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
-            mainPane = loader.load();
+            Parent mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
             stage.show();
@@ -123,6 +123,8 @@ public class CreateHomeworkHandler {
     }
 
     public void goBack() {
+        String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+        FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
         try {
             Parent mainPane = backLoader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
