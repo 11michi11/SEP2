@@ -10,5 +10,13 @@
       <user-name>ente</user-name>
       <introspection-schemas>ente:public</introspection-schemas>
     </data-source>
+    <data-source name="hibernate.cfg.xml/Hibernate" uuid="2c548577-e909-41a2-83fe-f861cc79b51c">
+      <database-info product="PostgreSQL" version="9.6.8" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <user-name>ente</user-name>
+      <introspection-schemas>ente:public</introspection-schemas>
+    </data-source>
   </component>
 </project>

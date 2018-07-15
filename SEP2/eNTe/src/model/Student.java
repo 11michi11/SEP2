@@ -11,7 +11,9 @@ public class Student extends User implements Serializable, IFamily {
 
     @Transient
     private String historyOfActivity;
-    @Transient
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "class")
     private ClassNo classNo;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -33,10 +35,6 @@ public class Student extends User implements Serializable, IFamily {
 
     public void setClassNo(ClassNo classNo) {
         this.classNo = classNo;
-    }
-
-    public void setClassNo(String classNo) {
-        this.classNo = ClassNo.valueOf(classNo);
     }
 
     public ClassNo getClassNo() {

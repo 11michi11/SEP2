@@ -1,11 +1,13 @@
 package model;
 
 
+import javax.persistence.Transient;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Homework extends Post {
 
+    @Transient
     public static final String noHomeworkId = "ThereIsNoHomework*******************";
 
     private MyDate deadline;

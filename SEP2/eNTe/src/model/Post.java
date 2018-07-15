@@ -1,16 +1,39 @@
 package model;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
+@Entity
+@Table(name = "post", schema = "test")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Post implements Serializable {
 
+    @Column(name = "title")
     protected String title;
+
+    @Column(name = "content")
     protected String content;
+
+    @Column(name = "authorname")
     protected String author;
+
+    @Transient
     protected MyDate pubDate;
+
+    private Date pubDateDB;
+
+    //@Enumerated(value = EnumType.STRING)
+    @Transient
     private SpecialType specialType;
+
+    @Id
+    @Column(name = "postid")
     private String postId;
+
+    protected Post() {
+    }
 
     public Post(String title, String content, String author, MyDate pubDate) {
         this.postId = UUID.randomUUID().toString();
@@ -28,6 +51,7 @@ public class Post implements Serializable {
         this.pubDate = pubDate;
         this.specialType = specialType;
     }
+
     public Post(String postId, String title, String content, String author, MyDate pubDate) {
         this.postId = postId;
         this.title = title;
@@ -48,12 +72,49 @@ public class Post implements Serializable {
         return author;
     }
 
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Access(AccessType.PROPERTY)
+    @Column(name = "pubdate")
+    public Date getPubDateDB() {
+        return pubDateDB;
+    }
+
     public MyDate getPubDate() {
         return pubDate;
     }
 
     public String getPostId() {
         return postId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPubDateDB(Date pubDate) {
+        this.pubDateDB = pubDate;
+        this.pubDate = new MyDate(pubDate);
+    }
+
+    public void setPubDate(MyDate pubDate) {
+        this.pubDate = pubDate;
+    }
+
+    public void setSpecialType(SpecialType specialType) {
+        this.specialType = specialType;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
     @Override

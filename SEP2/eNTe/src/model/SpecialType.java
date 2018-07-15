@@ -2,7 +2,9 @@ package model;
 
 import client.controller.ClientController;
 
-public enum SpecialType {
+import java.io.Serializable;
+
+public enum SpecialType implements Serializable {
 
 	NORMAL("normal"),
 	IMPORTANT("important"){

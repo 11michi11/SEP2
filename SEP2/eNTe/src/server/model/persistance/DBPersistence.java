@@ -2,13 +2,13 @@ package server.model.persistance;
 
 import model.*;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public interface DBPersistence {
 
-	LinkedList<Family> getFamilies();
-	LinkedList<User> getUsers(FamilyList families);
-	LinkedList<Post> getPosts(UsersList users);
+	List<Family> getFamilies();
+	List<User> getUsers(FamilyList families);
+	List<Post> getPosts(UsersList users);
 	void addFamily(Family family);
 	void addUser(User user);
 	void addPost(Post post);

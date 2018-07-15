@@ -29,21 +29,19 @@ public class HibernateAdapter implements DBPersistence {
     public static void main(final String[] args) throws Exception {
         HibernateAdapter adapter = new HibernateAdapter();
 
-        List<User> allUsers = adapter.getAllUsers();
-        allUsers.forEach(System.out::println);
-        List<Family> allFamilies = adapter.retrieveFamilies(allUsers);
+        List<Post> posts = adapter.getPosts();
+        posts.forEach(System.out::println);
+//        List<User> allUsers = adapter.getAllUsers();
+//        allUsers.forEach(System.out::println);
+//        List<Family> allFamilies = adapter.retrieveFamilies(allUsers);
 
-        User user = Teacher.builder().name("new").email("new").build();
-        adapter.saveOrUpdateUser(user);
-        allUsers = adapter.getAllUsers();
-        allUsers.forEach(System.out::println);
     }
 
 
 
     @Override
-    public LinkedList<Family> getFamilies() {
-        return null;
+    public List<Family> getFamilies() {
+        throw new AssertionError("Not implemented");
     }
 
     //Future getAllFamilies
@@ -57,7 +55,7 @@ public class HibernateAdapter implements DBPersistence {
 
     @Override
     public LinkedList<User> getUsers(FamilyList families) {
-        return null;
+        throw new AssertionError("Not implemented");
     }
 
     //Future getUsers
@@ -75,32 +73,82 @@ public class HibernateAdapter implements DBPersistence {
         return new LinkedList<>();
     }
 
+    //TODO change method signature
     @Override
-    public LinkedList<Post> getPosts(UsersList users) {
-        return null;
+    public List<Post> getPosts(UsersList users) {
+        throw new AssertionError("Method to be deleted");
+    }
+   // @Override
+    public List<Post> getPosts() {
+        Transaction tx = null;
+        try (Session session = ourSessionFactory.openSession()) {
+            tx = session.beginTransaction();
+            List<Post> posts = session.createQuery("FROM Post ").list();
+            tx.commit();
+            return posts;
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
+        return new LinkedList<>();
     }
 
     @Override
     public void addFamily(Family family) {
-
+        addObject(family);
     }
 
     @Override
     public void addUser(User user) {
-
+        addObject(user);
     }
 
     @Override
     public void updateUser(User user) {
-
+        updateObject(user);
     }
 
-    //Two above methods combined in one
-    public void saveOrUpdateUser(User user) {
+    @Override
+    public void addPost(Post post) {
+        addObject(post);
+    }
+
+    //TODO
+    @Override
+    public void addHomeworkReply(String homeworkId, HomeworkReply reply) {
+        throw new AssertionError("Not implemented");
+    }
+
+    @Override
+    public void updatePost(Post post) {
+        updateObject(post);
+    }
+
+    @Override
+    public void updateHomeworkReply(HomeworkReply reply) {
+        updateObject(reply);
+    }
+
+    @Override
+    public void deleteFamily(Family family) {
+        deleteObject(family);
+    }
+
+    @Override
+    public void deleteUser(String id) {
+        //need to change method signature TODO
+    }
+
+    @Override
+    public void deletePost(String postID) {
+        //need to change method signature TODO
+    }
+
+    private void updateObject(Object obj){
         Transaction tx = null;
         try (Session session = ourSessionFactory.openSession()) {
             tx = session.beginTransaction();
-            session.saveOrUpdate(user);
+            session.update(obj);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -108,38 +156,27 @@ public class HibernateAdapter implements DBPersistence {
         }
     }
 
-    @Override
-    public void addPost(Post post) {
-
+    private void addObject(Object obj){
+        Transaction tx = null;
+        try (Session session = ourSessionFactory.openSession()) {
+            tx = session.beginTransaction();
+            session.save(obj);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public void addHomeworkReply(String homeworkId, HomeworkReply reply) {
-
-    }
-
-    @Override
-    public void updatePost(Post post) {
-
-    }
-
-    @Override
-    public void updateHomeworkReply(HomeworkReply reply) {
-
-    }
-
-    @Override
-    public void deleteFamily(Family family) {
-
-    }
-
-    @Override
-    public void deleteUser(String id) {
-
-    }
-
-    @Override
-    public void deletePost(String postID) {
-
+    private void deleteObject(Object obj){
+        Transaction tx = null;
+        try (Session session = ourSessionFactory.openSession()) {
+            tx = session.beginTransaction();
+            session.delete(obj);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        }
     }
 }

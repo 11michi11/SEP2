@@ -11,6 +11,7 @@ import server.model.persistance.Database;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +24,7 @@ class DBAdapterTest {
     private static PostsList posts;
 
     private void loadFamilies() {
-        LinkedList<Family> list = adapter.getFamilies();
+        List<Family> list = adapter.getFamilies();
         FamilyList familiesTemp = new FamilyList();
         for (Family e : list) {
             familiesTemp.addFamily(e);
@@ -32,7 +33,7 @@ class DBAdapterTest {
     }
 
     private void loadUsers(FamilyList families) {
-        LinkedList<User> list = adapter.getUsers(families);
+        List<User> list = adapter.getUsers(families);
         UsersList usersTemp = new UsersList();
         for (User e : list) {
             usersTemp.add(e);
@@ -41,7 +42,7 @@ class DBAdapterTest {
     }
 
     private void loadPosts() {
-        LinkedList<Post> list = adapter.getPosts(users);
+        List<Post> list = adapter.getPosts(users);
         PostsList postsTemp = new PostsList();
         for (Post e : list) {
             postsTemp.add(e);

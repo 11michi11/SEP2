@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class MyDate implements Serializable {
@@ -25,6 +26,15 @@ public class MyDate implements Serializable {
         this.year = now.get(Calendar.YEAR);
         this.month = now.get(Calendar.MONTH) + 1;
         this.day = now.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public MyDate(Date date) {
+        Calendar calendar = toCalendar(date);
+        this.year = calendar.get(Calendar.YEAR);
+        this.month = calendar.get(Calendar.MONTH) + 1;
+        this.day = calendar.get(Calendar.DAY_OF_MONTH);
+        this.hour = calendar.get(Calendar.HOUR_OF_DAY);
+        this.minute = calendar.get(Calendar.MINUTE);
     }
 
     public int getYear() {
@@ -297,6 +307,12 @@ public class MyDate implements Serializable {
 
     public static MyDate now() {
         return new MyDate();
+    }
+
+    public static Calendar toCalendar(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
     }
 
 }
