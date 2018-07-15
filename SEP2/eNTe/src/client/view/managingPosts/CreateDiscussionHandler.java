@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateDiscussionHandler {
+
 	private ClientController controller;
 	private Stage stage;
 	private Parent mainPane;

@@ -3,6 +3,7 @@ package model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +24,10 @@ public class Post implements Serializable {
     protected MyDate pubDate;
 
     private Date pubDateDB;
+
+    public SpecialType getSpecialType() {
+        return specialType;
+    }
 
     //@Enumerated(value = EnumType.STRING)
     @Transient
