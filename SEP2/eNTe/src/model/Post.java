@@ -1,5 +1,7 @@
 package model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +13,10 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Post implements Serializable {
 
+    @Id
+    @Column(name = "postid")
+    private String postId;
+
     @Column(name = "title")
     protected String title;
 
@@ -20,24 +26,12 @@ public class Post implements Serializable {
     @Column(name = "authorname")
     protected String author;
 
-    @Transient
+    @Column(name = "pubdate")
+    @Type(type = "MyDateMapper")
     protected MyDate pubDate;
 
-    private Date pubDateDB;
-
-    public SpecialType getSpecialType() {
-        return specialType;
-    }
-
-    //@Enumerated(value = EnumType.STRING)
-    @Transient
+    @Enumerated(EnumType.STRING)
     private SpecialType specialType;
-
-    @Id
-    @Column(name = "postid")
-    private String postId;
-    @Transient
-    private List<ClassNo> classes;
 
     protected Post() {
     }
@@ -57,7 +51,6 @@ public class Post implements Serializable {
         this.author = author;
         this.pubDate = pubDate;
         this.specialType = specialType;
-        this.classes = classes;
     }
 
     public Post(String postId, String title, String content, String author, MyDate pubDate) {
@@ -72,20 +65,16 @@ public class Post implements Serializable {
         return title;
     }
 
+    public SpecialType getSpecialType() {
+        return specialType;
+    }
+
     public String getContent() {
         return content;
     }
 
     public String getAuthor() {
         return author;
-    }
-
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Access(AccessType.PROPERTY)
-    @Column(name = "pubdate")
-    public Date getPubDateDB() {
-        return pubDateDB;
     }
 
     public MyDate getPubDate() {
@@ -108,11 +97,6 @@ public class Post implements Serializable {
         this.author = author;
     }
 
-    public void setPubDateDB(Date pubDate) {
-        this.pubDateDB = pubDate;
-        this.pubDate = new MyDate(pubDate);
-    }
-
     public void setPubDate(MyDate pubDate) {
         this.pubDate = pubDate;
     }
@@ -128,11 +112,12 @@ public class Post implements Serializable {
     @Override
     public String toString() {
         return "Post{" +
-                "title='" + title + '\'' +
+                "postId='" + postId + '\'' +
+                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", author='" + author + '\'' +
                 ", pubDate=" + pubDate +
-                ", postId='" + postId + '\'' +
+                ", specialType=" + specialType +
                 '}';
     }
 

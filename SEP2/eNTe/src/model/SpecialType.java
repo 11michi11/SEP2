@@ -22,13 +22,16 @@ public enum SpecialType implements Serializable {
 		}
 	};
 
-
-	private String value;
-
 	SpecialType(String value) {
 		this.value = value;
 	}
 
+	private String value;
+
 	public void doAction() {
+	}
+
+	public String getValue() {
+		return value;
 	}
 }

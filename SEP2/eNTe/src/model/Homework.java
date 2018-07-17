@@ -1,20 +1,38 @@
 package model;
 
 
-import javax.persistence.Transient;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
+@Entity
+@Table(name = "homework", schema = "test")
+@PrimaryKeyJoinColumn(name = "homeworkid")
 public class Homework extends Post {
 
     @Transient
     public static final String noHomeworkId = "ThereIsNoHomework*******************";
 
+    @Column(name = "deadline")
+    @Type(type = "MyDateMapper")
     private MyDate deadline;
+
+    @Column(name = "classes")
+    @Type(type = "ClassListMapper")
     private List<ClassNo> classes;
+
+    @Column(name = "noofstudentstodeliver")
     private int numberOfStudentsToDeliver;
+
+    @Transient
     private List<HomeworkReply> replies;
+
+    @Column(name = "closed")
     private boolean closed;
+
+    public Homework(){}
 
     public Homework(String title, String content, String author, MyDate pubDate, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver) {
         super(title, content, author, pubDate);

@@ -32,5 +32,6 @@
         <mapping class="model.Parent"/>
         <mapping class="model.Family"/>
         <mapping class="model.Post"/>
+        <mapping class="model.Homework"/>
     </session-factory>
 </hibernate-configuration>
