@@ -1,15 +1,36 @@
 package model;
 
-import java.io.Serializable;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.UUID;
+
+@Entity
+@Table(name = "homeworkreply", schema = "test")
 public class HomeworkReply implements Serializable {
 
+    @Id @Column(name = "replyid")
+    private String id;
+
+    @Column(name = "content")
     private String content;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "studentid")
     private Student student;
+
+    @Column(name = "late")
     private boolean late;
+
+    @Column(name = "pubdate")
+    @Type(type = "MyDateMapper")
     private MyDate handInDate;
 
+    public HomeworkReply(){}
+
     public HomeworkReply(String content, Student student, boolean late, MyDate handInDate) {
+        this.id = UUID.randomUUID().toString();
         this.content = content;
         this.student = student;
         this.late = late;

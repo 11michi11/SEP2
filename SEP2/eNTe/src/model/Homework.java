@@ -1,6 +1,8 @@
 package model;
 
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -26,7 +28,8 @@ public class Homework extends Post {
     @Column(name = "noofstudentstodeliver")
     private int numberOfStudentsToDeliver;
 
-    @Transient
+    @OneToMany( mappedBy = "homeworkreply")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<HomeworkReply> replies;
 
     @Column(name = "closed")

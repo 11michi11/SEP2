@@ -33,5 +33,6 @@
         <mapping class="model.Family"/>
         <mapping class="model.Post"/>
         <mapping class="model.Homework"/>
+        <mapping class="model.HomeworkReply"/>
     </session-factory>
 </hibernate-configuration>
