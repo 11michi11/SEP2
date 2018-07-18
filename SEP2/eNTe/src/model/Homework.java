@@ -28,7 +28,7 @@ public class Homework extends Post {
     @Column(name = "noofstudentstodeliver")
     private int numberOfStudentsToDeliver;
 
-    @OneToMany( mappedBy = "homeworkreply")
+    @OneToMany( mappedBy = "homeworkid")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<HomeworkReply> replies;
 
@@ -90,7 +90,8 @@ public class Homework extends Post {
     }
 
     public HomeworkReply getStudentReply(String id) {
-    	return replies.stream().filter(r -> r.getStudent().getId().equals(id)).findFirst().orElse(null);
+
+    	return replies.stream().filter(r -> r.getStudentId().equals(id)).findFirst().orElse(null);
     }
 
     @Override
