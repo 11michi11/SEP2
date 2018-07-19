@@ -6,9 +6,12 @@ import model.communication.LoginStatus;
 import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
 import server.model.persistance.Database;
+import server.model.persistance.HibernateAdapter;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class ServerModelManager implements ServerModel {
 
@@ -21,21 +24,17 @@ public class ServerModelManager implements ServerModel {
         posts = new PostsList();
         users = new UsersList();
         families = new FamilyList();
-        try {
-            db = new DBAdapter(new Database("org.postgresql.Driver", "jdbc:postgresql://207.154.237.196:5432/ente", "ente", "ente"));
-            restoreState();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Database connection has not been established");
-        }
+        db = new HibernateAdapter();
+        restoreState();
         Thread dbSynchronize = new Thread(new SynchronizeDatabase());
         dbSynchronize.setDaemon(true);
         dbSynchronize.start();
     }
 
     private void restoreState() {
-        families.addAll(db.getFamilies());
-        users.addAll(db.getUsers(families));
-        posts.addAll(db.getPosts(users));
+        users.addAll(db.getUsers());
+        posts.addAll(db.getPosts());
+        families.addAll(retrieveFamilies(users.getAll()));
     }
 
     @Override
@@ -51,7 +50,7 @@ public class ServerModelManager implements ServerModel {
     @Override
     public void addUser(User user) {
         users.add(user);
-        //  db.addUser(user);
+        db.addUser(user);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class ServerModelManager implements ServerModel {
     @Override
     public void deleteUser(User user) {
         users.delete(user.getId());
-        db.deleteUser(user.getId());
+        db.deleteUser(user);
     }
 
     @Override
@@ -106,6 +105,7 @@ public class ServerModelManager implements ServerModel {
     @Override
     public void deletePost(Post post) {
         posts.deletePost(post);
+        db.deletePost(post);
     }
 
     @Override
@@ -131,27 +131,36 @@ public class ServerModelManager implements ServerModel {
     }
 
     private void updateDb() {
-        List<Family> fList = db.getFamilies();
-        FamilyList familyList = new FamilyList();
-        familyList.addAll(fList);
-        List<List<Family>> famDiff = getFamilyDiff(fList);
-        List<Family> familiesToAdd = famDiff.get(0);
-        List<Family> familiesToUpdate = famDiff.get(1);
-
-        List<User> uList = db.getUsers(familyList);
+        List<User> uList = db.getUsers();
         UsersList usersList = new UsersList();
         usersList.addAll(uList);
         List<List<User>> usersDiff = getUserDiff(uList);
         List<User> usersToAdd = usersDiff.get(0);
         List<User> usersToUpdate = usersDiff.get(1);
 
-        List<List<Post>> postsDiff = getPostDiff(db.getPosts(usersList));
+        List<Family> fList = retrieveFamilies(uList);
+        FamilyList familyList = new FamilyList();
+        familyList.addAll(fList);
+        List<List<Family>> famDiff = getFamilyDiff(fList);
+        List<Family> familiesToAdd = famDiff.get(0);
+        List<Family> familiesToUpdate = famDiff.get(1);
+
+
+        List<List<Post>> postsDiff = getPostDiff(db.getPosts());
         List<Post> postsToAdd = postsDiff.get(0);
         List<Post> postsToUpdate = postsDiff.get(1);
 
         updateFamilies(familiesToAdd, familiesToUpdate);
         updateUsers(usersToAdd, usersToUpdate);
         updatePosts(postsToAdd, postsToUpdate);
+    }
+
+    private List<Family> retrieveFamilies(List<User> users) {
+        Set<Family> families = new HashSet<>();
+        users.stream().filter(user -> user instanceof IFamily)
+                .map(user -> (IFamily) user)
+                .forEach(iFamily -> families.add(iFamily.getFamily()));
+        return new LinkedList<>(families);
     }
 
     private List<List<Post>> getPostDiff(List<Post> dbPosts) {

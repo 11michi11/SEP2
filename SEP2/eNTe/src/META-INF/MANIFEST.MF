@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-HibernateAdapter-Class: client.controller.ClientMain
+server.model.persistance.HibernateAdapter-Class: client.controller.ClientMain
 

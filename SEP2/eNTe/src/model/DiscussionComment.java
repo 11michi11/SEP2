@@ -3,10 +3,11 @@ package model;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "discussioncomments", schema = "test")
-public class DiscussionComment {
+public class DiscussionComment implements Serializable {
 
 	@Column(name = "content")
 	private String content;
