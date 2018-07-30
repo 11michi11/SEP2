@@ -169,11 +169,11 @@ public class HomeworkListHandler {
         }
     }
 
-    private class ListOfHomeworkHandler implements EventHandler<Event> {
+    public class ListOfHomeworkHandler implements EventHandler<Event> {
 
         private Homework homework;
 
-        private ListOfHomeworkHandler(Homework homework) {
+        public ListOfHomeworkHandler(Homework homework) {
             this.homework = homework;
         }
 
