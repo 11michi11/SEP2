@@ -153,6 +153,14 @@ public class ClientController {
         model.addPost(new Discussion(title, content, currentUser.getName(), MyDate.now(), specialType, classes));
     }
 
+    public void addAnnouncement(String title, String content, String selectedValue, List<ClassNo> classes, MyDate expirationDate) {
+        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
+        specialType.doAction();
+        model.addPost(new Announcement(title,content,currentUser.getName(),MyDate.now(),specialType,classes,expirationDate));
+    }
+
+
+
     public ArrayList<Family> getFamilies() {
         return model.getAllFamilies();
     }

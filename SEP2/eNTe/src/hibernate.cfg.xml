@@ -36,5 +36,6 @@
         <mapping class="model.HomeworkReply"/>
         <mapping class="model.Discussion"/>
         <mapping class="model.DiscussionComment"/>
+        <mapping class="model.Announcement"/>
     </session-factory>
 </hibernate-configuration>
