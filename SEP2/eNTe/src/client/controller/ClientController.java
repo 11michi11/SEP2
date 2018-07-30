@@ -28,7 +28,7 @@ public class ClientController {
         return instance;
     }
 
-    public void init(ClientModel model, ClientView view){
+    public void init(ClientModel model, ClientView view) {
         this.model = model;
         model.setController(this);
         this.view = view;
@@ -132,12 +132,12 @@ public class ClientController {
     }
 
     public void submitHomework(Homework homework, String text) {
-        homework.addHomeworkReply(new HomeworkReply(text, (Student)currentUser, homework.isClosed(), MyDate.now()));
+        homework.addHomeworkReply(new HomeworkReply(text, (Student) currentUser, homework.isClosed(), MyDate.now()));
         model.editPost(homework);
     }
 
     public boolean checkHomeworkClass(Homework homework) {
-        if(currentUser instanceof Student)
+        if (currentUser instanceof Student)
             return homework.getClasses().contains(((Student) currentUser).getClassNo());
         else
             return false;
@@ -182,7 +182,7 @@ public class ClientController {
         return currentUser.getId();
     }
 
-    public String getCurrentUserType(){
+    public String getCurrentUserType() {
         return currentUser.getClass().getSimpleName();
     }
 
@@ -209,9 +209,9 @@ public class ClientController {
     }
 
 
-	public void addDiscussionComment(String text) {
+    public void addDiscussionComment(String text) {
         model.addCommentToDiscussion(new DiscussionComment(text, currentUser.getName(), MyDate.now()));
-	}
+    }
 
     public List<Post> getHomeworkForParent() {
         if (!(currentUser instanceof Parent))
@@ -224,6 +224,10 @@ public class ClientController {
             if (p instanceof Homework && ((Homework) p).getClasses().contains(classes))
                 parentHomework.add(p);
         return parentHomework;
+    }
+
+    public String getUserNameById(String userId) {
+        return model.getUserById(userId).getName();
     }
 
 //    public List<Post> getImportantSpecialPostsForParent() {

@@ -83,7 +83,7 @@ public class UsersList {
 				((Teacher)oldUser).updateTeacherFields((Teacher)newUser);
 				break;
 			case "Student":
-				((Student)oldUser).updateStudentFileds((Student)newUser);
+				((Student)oldUser).updateStudentFields((Student)newUser);
 				break;
 			case "Parent":
 				((Parent)oldUser).updateParentFields((Parent)newUser);
