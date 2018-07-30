@@ -143,7 +143,7 @@ public class Student extends User implements Serializable, IFamily {
             Student student = new Student(name, email);
             if (this.pwd != null)
                 if (encryptPwd)
-                    student.setPadAndEncrypt(pwd);
+                    student.setPwdAndEncrypt(pwd);
                 else
                     student.setPwd(pwd);
             if (this.classNo == null)

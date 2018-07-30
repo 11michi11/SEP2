@@ -80,7 +80,7 @@ public class Administrator extends User implements Serializable {
             Administrator administrator = new Administrator(this.name, this.email);
             if (this.pwd != null)
                 if (encryptPwd)
-                    administrator.setPadAndEncrypt(pwd);
+                    administrator.setPwdAndEncrypt(pwd);
                 else
                     administrator.setPwd(pwd);
                 if(this.id != null)

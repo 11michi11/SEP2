@@ -123,7 +123,7 @@ public class Parent extends User implements Serializable, IFamily {
             Parent parent = new Parent(this.name, this.email);
             if (this.pwd != null)
                 if (encryptPwd)
-                    parent.setPadAndEncrypt(pwd);
+                    parent.setPwdAndEncrypt(pwd);
                 else
                     parent.setPwd(pwd);
             parent.family = this.family;

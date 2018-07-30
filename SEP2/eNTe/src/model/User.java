@@ -23,8 +23,15 @@ public abstract class User implements Serializable {
     @Id @Column(name = "id")
     protected String id;
 
-    public User(){}
+    public User(String name, String email, String pwd) {
+        this.name = name;
+        this.email = email;
+        this.pwd = Password.encryptPwd(pwd);
+        id = UUID.randomUUID().toString();
+        changePassword = false;
+    }
 
+    public User(){}
     public User(String name, String email) {
         this.name = name;
         this.email = email;
@@ -35,6 +42,14 @@ public abstract class User implements Serializable {
         //SendEmail.sendPasswordEmail(email, tempPwd);
         this.pwd = Password.encryptPwd(tempPwd);
 
+    }
+
+    public User(String name, String email, String pwd, String id) {
+        this.name = name;
+        this.email = email;
+        this.pwd = pwd;
+        this.id = id;
+        changePassword = false;
     }
 
     public String getName() {
@@ -53,7 +68,7 @@ public abstract class User implements Serializable {
         return id;
     }
 
-    public void setPadAndEncrypt(String pwd) {
+    public void setPwdAndEncrypt(String pwd) {
         this.pwd = Password.encryptPwd(pwd);
         changePassword = false;
     }

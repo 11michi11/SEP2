@@ -75,7 +75,7 @@ public class Teacher extends User implements Serializable {
             Teacher teacher = new Teacher(this.name, this.email);
             if (this.pwd != null)
                 if (encryptPwd)
-                    teacher.setPadAndEncrypt(pwd);
+                    teacher.setPwdAndEncrypt(pwd);
                 else
                     teacher.setPwd(pwd);
             if (this.id != null)

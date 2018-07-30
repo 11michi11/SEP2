@@ -70,8 +70,7 @@ public class ClientModelManager implements ClientModel {
         if (!users.checkIfIdExist(user.getId())) {
             users.add(user);
             server.manageUser(ManageUser.ADD, user);
-        } else {
-            users.updateUser(user);
+        } else {users.updateUser(user);
             server.manageUser(ManageUser.EDIT, user);
         }
     }
@@ -148,7 +147,7 @@ public class ClientModelManager implements ClientModel {
     @Override
     public void changePwdWithEmail(String email, String newPwd) {
         User user = getUserByEmail(email);
-        user.setPadAndEncrypt(newPwd);
+        user.setPwdAndEncrypt(newPwd);
         server.changePwdWithEmail(email, newPwd);
     }
 

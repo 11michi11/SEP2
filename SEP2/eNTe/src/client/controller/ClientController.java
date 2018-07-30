@@ -74,14 +74,16 @@ public class ClientController {
     }
 
     public void changePassword(String pwd) {
-        currentUser.setPadAndEncrypt(pwd);
+        currentUser.setPwdAndEncrypt(pwd);
         model.addOrUpdateUser(currentUser);
     }
 
-    public void addTeacher(String name, String email, String id) {
+    public void addTeacher(String name, String email, String id, String pwd) {
         User user = Teacher.builder().name(name).email(email).build();
         if (id != null)
             user.setId(id);
+        if(pwd != null)
+            user.setPwd(pwd);
         model.addOrUpdateUser(user);
     }
 

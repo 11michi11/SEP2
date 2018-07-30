@@ -3,6 +3,7 @@ package utility;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Scanner;
 
 public class Password {
 	
@@ -46,4 +47,11 @@ public class Password {
 		}
 		return hexString.toString();
 	}
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter pwd to encrypt");
+		System.out.println(Password.encryptPwd(in.nextLine()));
+	}
+
 }

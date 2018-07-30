@@ -34,10 +34,12 @@ public class CreateTeacherHandler {
 		if(checkForNull()) {
 			warningDialog();
 		} else {
-			String id = null;
-			if (teacher != null)
+			String id = null, pwd = null;
+			if (teacher != null) {
 				id = teacher.getId();
-			controller.addTeacher(name.getText(), email.getText(), id);
+				pwd = teacher.getPwd();
+			}
+			controller.addTeacher(name.getText(), email.getText(), id, pwd);
 			goBack();
 		}
 	}

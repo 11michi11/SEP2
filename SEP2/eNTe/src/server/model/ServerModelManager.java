@@ -3,9 +3,7 @@ package server.model;
 import model.*;
 import model.communication.Auth;
 import model.communication.LoginStatus;
-import server.model.persistance.DBAdapter;
 import server.model.persistance.DBPersistence;
-import server.model.persistance.Database;
 import server.model.persistance.HibernateAdapter;
 
 import java.util.HashSet;
@@ -90,7 +88,7 @@ public class ServerModelManager implements ServerModel {
     @Override
     public void changePwdWithEmail(String email, String newPwd) {
         User user = users.getUserByEmail(email);
-        user.setPadAndEncrypt(newPwd);
+        user.setPwdAndEncrypt(newPwd);
         user.changePassword();
     }
 
