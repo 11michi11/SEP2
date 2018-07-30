@@ -57,11 +57,14 @@ public class TeacherListHandler {
     }
 
     public void deleteTeacher() {
-        Teacher teacher = teacherList.getSelectionModel().getSelectedItem().teacher;
-        System.out.println("teacher:" + teacher);
-        controller.deleteUser(teacher);
-        teacherList.getItems().clear();
-        teacherList.setItems(controller.getTeachersForView());
+        boolean flag = controller.showDeleteMessage("user");
+        if (flag) {
+            Teacher teacher = teacherList.getSelectionModel().getSelectedItem().teacher;
+            System.out.println("teacher:" + teacher);
+            controller.deleteUser(teacher);
+//            teacherList.getItems().clear();
+//            teacherList.setItems(controller.getTeachersForView());
+        }
 
     }
 

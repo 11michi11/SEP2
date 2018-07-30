@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import client.controller.ClientController;
+import client.view.managingPosts.DiscussionCommentsHandler;
+import client.view.managingPosts.DiscussionListHandler;
 import client.view.managingPosts.HomeworkReplyHandler;
 import client.view.managingPosts.HomeworkListHandler;
 import client.view.ClientViewManager;
@@ -20,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import model.Discussion;
 import model.Homework;
 import model.HomeworkReply;
 import model.Post;
@@ -58,6 +61,8 @@ public class StudentMainHandler {
 				case "Post":
 					loadPost(p);
 					break;
+                case "Discussion":
+                    loadDiscussion((Discussion) p);
 				default:
 					break;
 			}
@@ -126,6 +131,27 @@ public class StudentMainHandler {
         addPane(textFlow);
     }
 
+    private void loadDiscussion(Discussion discussion) {
+        Text title = new Text(discussion.getTitle());
+        title.setId("title");
+        Text content = new Text(discussion.getContent());
+        content.setId("content");
+        Button showComments = new Button("comments");
+        showComments.getStyleClass().add("smallButton");
+        showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new StudentMainHandler.ShowComments(discussion));
+
+        Text separator = new Text("\n" + "\n");
+        Text separator1 = new Text("\n" + "\n");
+
+        TextFlow textFlow = new TextFlow(title,separator, content, separator1, showComments);
+        textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+        textFlow.setAccessibleText(discussion.getContent());
+        textFlow.setPrefWidth(830);
+        textFlow.getStyleClass().add("textPane");
+
+        addPane(textFlow);
+    }
+
     public void homeworkHandler() {
         Parent mainPane;
         try {
@@ -154,6 +180,28 @@ public class StudentMainHandler {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReply.fxml"));
                 Parent mainPane = loader.load();
                 ((HomeworkReplyHandler) loader.getController()).setHomework(homework);
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+                stage.getScene().setRoot(mainPane);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class ShowComments implements EventHandler<Event> {
+
+        private Discussion discussion;
+        private ShowComments(Discussion discussion) {
+            this.discussion = discussion;
+        }
+
+        @Override
+        public void handle(Event event) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionCommentsHandler.fxml"));
+                Parent mainPane = loader.load();
+                ((DiscussionCommentsHandler) loader.getController()).loadComments(discussion);
                 mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
                 stage.getScene().setRoot(mainPane);
                 stage.show();

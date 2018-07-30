@@ -64,6 +64,7 @@ public class FamilyListHandler {
         if (flag) {
             User user = ((UserDT) familyTable.getSelectionModel().getSelectedItem().getValue()).user;
             controller.deleteUser(user);
+            familyTable.setRoot(dataForTable());
         }
     }
 

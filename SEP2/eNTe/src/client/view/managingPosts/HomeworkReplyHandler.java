@@ -19,10 +19,7 @@ public class HomeworkReplyHandler {
     private ClientController controller;
     private Stage stage;
     @FXML
-    private ImageView ente;
-    @FXML
     private TextArea area;
-    private FXMLLoader loader;
     private Homework homework;
     private HomeworkReply reply;
 
