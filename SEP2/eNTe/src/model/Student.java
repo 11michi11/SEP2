@@ -20,7 +20,9 @@ public class Student extends User implements Serializable, IFamily {
     @JoinColumn(name = "familyid")
     private Family family;
 
-    protected Student(){}
+    protected Student() {
+    }
+
     private Student(String name, String email) {
         super(name, email);
     }
@@ -47,12 +49,12 @@ public class Student extends User implements Serializable, IFamily {
     }
 
     @Override
-    public Family getFamily(){
+    public Family getFamily() {
         return family;
     }
 
     @Override
-    public void setFamily(Family family){
+    public void setFamily(Family family) {
         this.family = family;
     }
 
@@ -72,14 +74,14 @@ public class Student extends User implements Serializable, IFamily {
 
     @Override
     public String toString() {
-        return super.toString()+"\nStudent [historyOfActivity=" + historyOfActivity + ", classNo=" + classNo + ", family=" + family + "]";
+        return super.toString() + "\nStudent [historyOfActivity=" + historyOfActivity + ", classNo=" + classNo + ", family=" + family + "]";
     }
 
     public static StudentNeedName builder() {
         return new Builder();
     }
 
-    public void updateStudentFileds(Student newUser) {
+    public void updateStudentFields(Student newUser) {
         historyOfActivity = newUser.historyOfActivity;
         classNo = newUser.classNo;
         family = newUser.family;

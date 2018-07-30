@@ -51,7 +51,7 @@ public class DiscussionComment implements Serializable {
 		return content;
 	}
 
-	public String getUser() {
+	public String getUserId() {
 		return author;
 	}
 
