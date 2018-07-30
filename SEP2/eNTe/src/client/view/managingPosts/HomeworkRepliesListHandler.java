@@ -74,7 +74,7 @@ public class HomeworkRepliesListHandler {
         }
     }
 
-    void loadReplies(Homework homework) {
+    public void loadReplies(Homework homework) {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         classNo.setCellValueFactory(new PropertyValueFactory<>("classNo"));
         handInDate.setCellValueFactory(new PropertyValueFactory<>("handInDate"));

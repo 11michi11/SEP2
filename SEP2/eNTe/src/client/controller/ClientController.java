@@ -226,14 +226,14 @@ public class ClientController {
         return parentHomework;
     }
 
-    public List<Post> getPostsForParent() {
-        List<Post> posts = getAllPosts();
-        List<Post> parentPosts = new ArrayList<>();
-        for(Post p : posts)
-            if (p.getSpecialType().equals(SpecialType.PARENTAL) || p.getSpecialType().equals(SpecialType.IMPORTANT))
-                parentPosts.add(p);
-        return parentPosts;
-    }
+//    public List<Post> getImportantSpecialPostsForParent() {
+//        List<Post> posts = getAllPosts();
+//        List<Post> parentPosts = new ArrayList<>();
+//        for(Post p : posts)
+//            if (p.getSpecialType().equals(SpecialType.PARENTAL) || p.getSpecialType().equals(SpecialType.IMPORTANT))
+//                parentPosts.add(p);
+//        return parentPosts;
+//    }
 
 
 }
