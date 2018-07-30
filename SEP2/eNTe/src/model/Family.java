@@ -65,7 +65,7 @@ public class Family implements Serializable {
         String parentsNames = parents.stream().map(s -> s.getName() + ", ").collect(Collectors.joining());
         String childrenNames = children.stream().map(s -> s.getName() + ", ").collect(Collectors.joining());
         if (parentsNames.length() + childrenNames.length() > 0)
-            return parentsNames + childrenNames.substring(0, childrenNames.length() - 2);
+            return (parentsNames + childrenNames).substring(0, parentsNames.length() + childrenNames.length() - 2);
         return "";
     }
 
