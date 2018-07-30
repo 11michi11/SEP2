@@ -1,20 +1,41 @@
 package model;
 
 
-import javax.persistence.Transient;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
+@Entity
+@Table(name = "homework", schema = "test")
+@PrimaryKeyJoinColumn(name = "homeworkid")
 public class Homework extends Post {
 
     @Transient
     public static final String noHomeworkId = "ThereIsNoHomework*******************";
 
+    @Column(name = "deadline")
+    @Type(type = "MyDateMapper")
     private MyDate deadline;
+
+    @Column(name = "classes")
+    @Type(type = "ClassListMapper")
     private List<ClassNo> classes;
+
+    @Column(name = "noofstudentstodeliver")
     private int numberOfStudentsToDeliver;
+
+    @OneToMany( mappedBy = "homeworkid")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<HomeworkReply> replies;
+
+    @Column(name = "closed")
     private boolean closed;
+
+    public Homework(){}
 
     public Homework(String title, String content, String author, MyDate pubDate, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver) {
         super(title, content, author, pubDate);
@@ -69,7 +90,8 @@ public class Homework extends Post {
     }
 
     public HomeworkReply getStudentReply(String id) {
-    	return replies.stream().filter(r -> r.getStudent().getId().equals(id)).findFirst().orElse(null);
+
+    	return replies.stream().filter(r -> r.getStudentId().equals(id)).findFirst().orElse(null);
     }
 
     @Override

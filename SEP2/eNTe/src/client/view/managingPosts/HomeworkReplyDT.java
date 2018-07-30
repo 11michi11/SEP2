@@ -11,8 +11,8 @@ public class HomeworkReplyDT {
 	private HomeworkReply reply;
 
 	public HomeworkReplyDT(HomeworkReply reply) {
-		this.name = new SimpleStringProperty(reply.getStudent().getName());
-		this.classNo = new SimpleStringProperty(reply.getStudent().getClassNo().toString());
+		this.name = new SimpleStringProperty(reply.getStudentName());
+		this.classNo = new SimpleStringProperty(reply.getStudentClass().toString());
 		this.handInDate = new SimpleStringProperty(reply.getHandInDate().toString());
 		this.reply = reply;
 	}

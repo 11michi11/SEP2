@@ -34,6 +34,10 @@ public enum ClassNo implements Serializable{
 	public String toString() {
 		return name;
 	}
+
+    public String getValue() {
+		return name;
+    }
 }
 
 

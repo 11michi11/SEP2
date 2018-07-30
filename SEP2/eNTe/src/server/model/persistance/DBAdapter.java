@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
 
-public class DBAdapter implements DBPersistence {
+public class DBAdapter  { //implements DBPersistence
 
     private DBInterface db;
 
@@ -14,7 +14,7 @@ public class DBAdapter implements DBPersistence {
         db = database;
     }
 
-    @Override
+    ////@Override
     public LinkedList<Family> getFamilies() {
         LinkedList<Family> list = new LinkedList<>();
         try {
@@ -30,7 +30,7 @@ public class DBAdapter implements DBPersistence {
         return list;
     }
 
-    @Override
+    ////@Override
     public LinkedList<User> getUsers(FamilyList families) {
         LinkedList<User> users = new LinkedList<>();
 
@@ -47,7 +47,7 @@ public class DBAdapter implements DBPersistence {
         return users;
     }
 
-    @Override
+    ////@Override
     public LinkedList<Post> getPosts(UsersList users) {
 
         LinkedList<Post> posts = new LinkedList<>();
@@ -58,7 +58,7 @@ public class DBAdapter implements DBPersistence {
         return posts;
     }
 
-    @Override
+    //////@Override
     public void addFamily(Family family) {
         try {
             String sql = "INSERT INTO family VALUES ('";
@@ -70,7 +70,7 @@ public class DBAdapter implements DBPersistence {
         }
     }
 
-    @Override
+    //@Override
     public void addUser(User user) {
         try {
             ArrayList<String> sqlList = new ArrayList<>();
@@ -113,7 +113,7 @@ public class DBAdapter implements DBPersistence {
         }
     }
 
-    @Override
+    //@Override
     public void addPost(Post post) {
         try {
             ArrayList<String> sqlList = new ArrayList<>();
@@ -147,7 +147,7 @@ public class DBAdapter implements DBPersistence {
                         for (HomeworkReply e : replies) {
                             sql = "INSERT INTO homeworkreply VALUES ('";
                             sql += homework.getPostId() + "','";
-                            sql += e.getStudent().getId() + "','";
+                            sql += e.getStudentId() + "','";
                             sql += MyDate.convertFromMyDateToTimestamp(e.getHandInDateObj()) + "','";
                             sql += e.getContent() + "',";
                             sql += e.isLate() + ")";
@@ -165,11 +165,11 @@ public class DBAdapter implements DBPersistence {
         }
     }
 
-    @Override
+    //@Override
     public void addHomeworkReply(String homeworkId, HomeworkReply reply) {
         String sql = "INSERT INTO homeworkreply VALUES ('";
         sql += homeworkId + "','";
-        sql += reply.getStudent().getId() + "','";
+        sql += reply.getStudentId() + "','";
         sql += MyDate.convertFromMyDateToTimestamp(reply.getHandInDateObj()) + "','";
         sql += reply.getContent() + "',";
         sql += reply.isLate() + ")";
@@ -180,7 +180,7 @@ public class DBAdapter implements DBPersistence {
         }
     }
 
-    @Override
+    //@Override
     public void updateUser(User user) {
         try {
             ArrayList<String> sqlList = new ArrayList<>();
@@ -218,7 +218,7 @@ public class DBAdapter implements DBPersistence {
         }
     }
 
-    @Override
+    //@Override
     public void updatePost(Post post) {
         try {
             ArrayList<String> sqlList = new ArrayList<>();
@@ -249,7 +249,7 @@ public class DBAdapter implements DBPersistence {
                         for (HomeworkReply e : replies) {
                             sql = "INSERT INTO homeworkreply VALUES ('";
                             sql += homework.getPostId() + "','";
-                            sql += e.getStudent().getId() + "','";
+                            sql += e.getStudentId() + "','";
                             sql += MyDate.convertFromMyDateToTimestamp(e.getHandInDateObj()) + "','";
                             sql += e.getContent() + "',";
                             sql += e.isLate() + ")";
@@ -267,7 +267,7 @@ public class DBAdapter implements DBPersistence {
         }
     }
 
-    @Override
+    //@Override
     public void updateHomeworkReply(HomeworkReply reply) {
 //      for (HomeworkReply e : replies2) {
 //        sql = "UPDATE homeworkreply SET handindate='" + MyDate.convertFromMyDateToTimestamp(e.getHandInDate()) + "',";
@@ -278,7 +278,7 @@ public class DBAdapter implements DBPersistence {
 //      }
     }
 
-    @Override
+    //@Override
     public void deleteFamily(Family family) {
         try {
             String sql = "";
@@ -291,7 +291,7 @@ public class DBAdapter implements DBPersistence {
         }
     }
 
-    @Override
+    //@Override
     public void deleteUser(String id) {
         String sql = "DELETE FROM enteuser WHERE id='" + id + "'";
         try {
@@ -301,7 +301,7 @@ public class DBAdapter implements DBPersistence {
         }
     }
 
-    @Override
+    //@Override
     public void deletePost(String postID) {
         String sql = "DELETE FROM post WHERE postid='" + postID + "'";
         try {

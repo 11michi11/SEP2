@@ -1,3 +1,5 @@
+package server.model.persistance;
+
 import model.*;
 import org.hibernate.*;
 import org.hibernate.query.Query;
@@ -26,40 +28,8 @@ public class HibernateAdapter implements DBPersistence {
         return ourSessionFactory.openSession();
     }
 
-    public static void main(final String[] args) throws Exception {
-        HibernateAdapter adapter = new HibernateAdapter();
-
-        List<Post> posts = adapter.getPosts();
-        posts.forEach(System.out::println);
-//        List<User> allUsers = adapter.getAllUsers();
-//        allUsers.forEach(System.out::println);
-//        List<Family> allFamilies = adapter.retrieveFamilies(allUsers);
-
-    }
-
-
-
     @Override
-    public List<Family> getFamilies() {
-        throw new AssertionError("Not implemented");
-    }
-
-    //Future getAllFamilies
-    public List<Family> retrieveFamilies(List<User> users) {
-        Set<Family> families = new HashSet<>();
-        users.stream().filter(user -> user instanceof IFamily)
-                .map(user -> (IFamily) user)
-                .forEach(iFamily -> families.add(iFamily.getFamily()));
-        return new LinkedList<>(families);
-    }
-
-    @Override
-    public LinkedList<User> getUsers(FamilyList families) {
-        throw new AssertionError("Not implemented");
-    }
-
-    //Future getUsers
-    public List<User> getAllUsers() {
+    public List<User> getUsers() {
         Transaction tx = null;
         try (Session session = ourSessionFactory.openSession()) {
             tx = session.beginTransaction();
@@ -73,12 +43,7 @@ public class HibernateAdapter implements DBPersistence {
         return new LinkedList<>();
     }
 
-    //TODO change method signature
     @Override
-    public List<Post> getPosts(UsersList users) {
-        throw new AssertionError("Method to be deleted");
-    }
-   // @Override
     public List<Post> getPosts() {
         Transaction tx = null;
         try (Session session = ourSessionFactory.openSession()) {
@@ -113,10 +78,9 @@ public class HibernateAdapter implements DBPersistence {
         addObject(post);
     }
 
-    //TODO
     @Override
-    public void addHomeworkReply(String homeworkId, HomeworkReply reply) {
-        throw new AssertionError("Not implemented");
+    public void addHomeworkReply(HomeworkReply reply) {
+        addObject(reply);
     }
 
     @Override
@@ -135,13 +99,13 @@ public class HibernateAdapter implements DBPersistence {
     }
 
     @Override
-    public void deleteUser(String id) {
-        //need to change method signature TODO
+    public void deleteUser(User user) {
+        deleteObject(user);
     }
 
     @Override
-    public void deletePost(String postID) {
-        //need to change method signature TODO
+    public void deletePost(Post post) {
+        deleteObject(post);
     }
 
     private void updateObject(Object obj){
