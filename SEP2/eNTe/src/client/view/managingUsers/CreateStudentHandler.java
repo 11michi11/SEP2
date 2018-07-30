@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -39,7 +40,24 @@ public class CreateStudentHandler {
         classSelector.setItems(FXCollections.observableArrayList(ClassNo.getClasses()));
     }
 
+    private boolean checkForNull() {
+        if(name.getText() == null || email.getText() == null || classSelector.getItems() == null) {
+           return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void warningDialog() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning Dialog");
+        alert.setHeaderText("Look, unfinished selection");
+        alert.setContentText("Please select or fill everything!");
+        alert.showAndWait();
+    }
+
     public void save() {
+        checkForNull();
         String id = null;
         if (student != null)
             id = student.getId();
