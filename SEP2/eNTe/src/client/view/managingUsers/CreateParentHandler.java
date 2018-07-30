@@ -8,6 +8,7 @@ import client.view.GoBackMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -29,11 +30,15 @@ public class CreateParentHandler {
 	}
 
 	public void save() {
-		String id = null;
-		if(parent != null)
-			id = parent.getId();
-		controller.addParent(name.getText(), email.getText(), family, id);
-		goBack();
+		if (checkForNull()) {
+			warningDialog();
+		} else {
+			String id = null;
+			if (parent != null)
+				id = parent.getId();
+			controller.addParent(name.getText(), email.getText(), family, id);
+			goBack();
+		}
 	}
 
 	public void goBack() {
@@ -58,6 +63,22 @@ public class CreateParentHandler {
 		family = parent.getFamily();
 		name.setText(parent.getName());
 		email.setText(parent.getEmail());
+	}
+
+	private boolean checkForNull() {
+		if (name.getText() == null || email.getText() == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void warningDialog() {
+		Alert alert = new Alert(Alert.AlertType.WARNING);
+		alert.setTitle("Warning Dialog");
+		alert.setHeaderText("Look, unfinished selection");
+		alert.setContentText("Please select or fill everything!");
+		alert.showAndWait();
 	}
 
 }

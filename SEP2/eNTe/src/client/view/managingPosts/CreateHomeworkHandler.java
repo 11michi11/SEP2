@@ -65,32 +65,41 @@ public class CreateHomeworkHandler {
     }
 
     public void addHomework() {
-        checkForNull();
-        LocalDate localDate = deadline.getValue();
-        MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
-        controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()));
-        System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
-            Parent mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-            stage.getScene().setRoot(mainPane);
-            stage.show();
+        if(checkForNull()) {
+            warningDialog();
+        } else {
+            LocalDate localDate = deadline.getValue();
+            MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
+            controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()));
+            System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
+                Parent mainPane = loader.load();
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+                stage.getScene().setRoot(mainPane);
+                stage.show();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private boolean checkForNull() {
+        if (title.getText() == null || content.getText() == null || deadline.getValue() == null || getClasses() == null || group.getText() == null) {
+            return true;
+        } else {
+            return false;
         }
     }
 
-    private void checkForNull() {
-        if (title.getText() == null || content.getText() == null || deadline.getValue() == null || getClasses() == null || group.getText() == null) {
+    private void warningDialog() {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning Dialog");
             alert.setHeaderText("Look, unfinished selection");
             alert.setContentText("Please select or fill everything!");
             alert.showAndWait();
         }
-    }
+
 
     private List<ClassNo> getClasses() {
         return getClassNos(first, second, third, fourth, fifth, sixth, seventh, eight);
