@@ -126,7 +126,7 @@ public class ClientModelManager implements ClientModel {
     public void deleteFamily(Family family) {
         family.clear();
         families.deleteFamily(family);
-        server.manageFamily(ManageFamily.ADD, family);
+        server.manageFamily(ManageFamily.DELETE, family);
     }
 
     @Override

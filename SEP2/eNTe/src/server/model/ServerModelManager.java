@@ -73,11 +73,13 @@ public class ServerModelManager implements ServerModel {
     @Override
     public void deleteFamily(Family family) {
         families.deleteFamily(family);
+        db.deleteFamily(family);
     }
 
     @Override
     public void addFamily(Family family) {
         families.addFamily(family);
+        db.addFamily(family);
     }
 
     @Override

@@ -23,31 +23,18 @@ public abstract class User implements Serializable {
     @Id @Column(name = "id")
     protected String id;
 
-    public User(String name, String email, String pwd) {
-        this.name = name;
-        this.email = email;
-        this.pwd = Password.encryptPwd(pwd);
-        id = UUID.randomUUID().toString();
-        changePassword = false;
-    }
-
     public User(){}
+
     public User(String name, String email) {
         this.name = name;
         this.email = email;
-        this.pwd = Password.generateEntePassword();
         id = UUID.randomUUID().toString();
         changePassword = true;
+        String tempPwd = Password.generateEntePassword();
         //Uncomment in real system - i don't want spam right now
-        //SendEmail.sendPasswordEmail(email, pwd);
-    }
+        //SendEmail.sendPasswordEmail(email, tempPwd);
+        this.pwd = Password.encryptPwd(tempPwd);
 
-    public User(String name, String email, String pwd, String id) {
-        this.name = name;
-        this.email = email;
-        this.pwd = pwd;
-        this.id = id;
-        changePassword = false;
     }
 
     public String getName() {
