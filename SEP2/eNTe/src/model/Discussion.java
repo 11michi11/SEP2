@@ -27,8 +27,8 @@ public class Discussion extends Post {
         super(title, content, author, pubDate, specialType, classes);
         comments = new LinkedList<>();
     }
-    public Discussion(String title, String content, String author, MyDate pubDate,List<DiscussionComment> comments) {
-        super(title, content, author, pubDate);
+    public Discussion(String title, String content, String author, MyDate pubDate,List<DiscussionComment> comments, SpecialType specialType) {
+        super(title, content, author, pubDate, specialType);
         this.comments = comments;
     }
 

@@ -100,6 +100,7 @@ public class ServerModelManager implements ServerModel {
     @Override
     public void addPost(Post post) {
         posts.add(post);
+        db.addPost(post);
     }
 
     @Override
@@ -111,6 +112,7 @@ public class ServerModelManager implements ServerModel {
     @Override
     public void editPost(Post post) {
         posts.editPost(post);
+        db.updatePost(post);
     }
 
     @Override
@@ -258,6 +260,4 @@ public class ServerModelManager implements ServerModel {
             }
         }
     }
-
-
 }

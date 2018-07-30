@@ -40,7 +40,7 @@ public class HomeworkCommunicationTest {
         classes.add(ClassNo.First);
         classes.add(ClassNo.Eighth);
         int numberOfStudentsToDeliver = 0;
-        homework = new Homework("Title", "Content", "Author", pubDate, deadLine, classes, numberOfStudentsToDeliver);
+        homework = new Homework("Title", "Content", "Author", pubDate, deadLine, classes, numberOfStudentsToDeliver, SpecialType.NORMAL);
     }
 
     @AfterEach

@@ -42,6 +42,16 @@ public class Post implements Serializable {
         this.content = content;
         this.author = author;
         this.pubDate = pubDate;
+        this.specialType = SpecialType.NORMAL;
+    }
+
+    public Post(String title, String content, String author, MyDate pubDate, SpecialType specialType) {
+        this.postId = UUID.randomUUID().toString();
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.pubDate = pubDate;
+        this.specialType = specialType;
     }
 
     public Post(String title, String content, String author, MyDate pubDate, SpecialType specialType, List<ClassNo> classes) {
@@ -59,6 +69,7 @@ public class Post implements Serializable {
         this.content = content;
         this.author = author;
         this.pubDate = pubDate;
+        specialType = SpecialType.NORMAL;
     }
 
     public String getTitle() {

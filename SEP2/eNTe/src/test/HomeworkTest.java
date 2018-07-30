@@ -13,7 +13,7 @@ public class HomeworkTest {
 	@Test
 	void constructorsTest() {
 		ArrayList<ClassNo> classes = new ArrayList<>();
-		Homework h1 = new Homework("title", "content", "author", MyDate.now(), MyDate.now(), classes, 2);
+		Homework h1 = new Homework("title", "content", "author", MyDate.now(), MyDate.now(), classes, 2, SpecialType.NORMAL);
 		assertEquals("title", h1.getTitle());
 		assertEquals("content", h1.getContent());
 		assertEquals("author", h1.getAuthor());

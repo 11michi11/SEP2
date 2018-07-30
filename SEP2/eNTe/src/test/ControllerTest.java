@@ -57,7 +57,7 @@ public class ControllerTest {
         classes.add(ClassNo.First);
         classes.add(ClassNo.Second);
         int numberOfStudentToDeliver = 1;
-        controller.addHomework("Title", "Content", homeworkDeadline, classes, numberOfStudentToDeliver);
+        controller.addHomework("Title", "Content", homeworkDeadline, classes, numberOfStudentToDeliver, "NORMAL");
     }
 
     class MockClientModelManagerTest implements ClientModel {

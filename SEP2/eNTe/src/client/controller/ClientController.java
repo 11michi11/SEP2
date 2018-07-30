@@ -125,8 +125,10 @@ public class ClientController {
         model.deletePost(post);
     }
 
-    public void addHomework(String title, String content, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver) {
-        model.addPost(new Homework(title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver));
+    public void addHomework(String title, String content, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver, String selectedValue) {
+        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
+        specialType.doAction();
+        model.addPost(new Homework(title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver, specialType));
     }
 
     public void editHomework(String homeworkId, String title, String content, MyDate deadline, List<ClassNo> classes, List<HomeworkReply> replies, int numberOfStudentsToDeliver) {
