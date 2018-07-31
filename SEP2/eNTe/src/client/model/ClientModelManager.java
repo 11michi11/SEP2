@@ -53,6 +53,9 @@ public class ClientModelManager implements ClientModel {
     }
 
     @Override
+    public Announcement getAnnouncement() { return posts.getFirstAnnouncement(); }
+
+    @Override
     public void addPost(Post post) {
         posts.add(post);
         server.managePost(ManagePost.ADD, post);

@@ -107,6 +107,11 @@ public class ControllerTest {
         }
 
         @Override
+        public Announcement getAnnouncement() {
+            return null;
+        }
+
+        @Override
         public void saveData(WelcomingData data) {
 
         }

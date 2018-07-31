@@ -21,6 +21,7 @@ public interface ClientModel {
 
     Homework getHomework();
    	Discussion getDiscussion();
+   	Announcement getAnnouncement();
 
     void saveData(WelcomingData data);
 
