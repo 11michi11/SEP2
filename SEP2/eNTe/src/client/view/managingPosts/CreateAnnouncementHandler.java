@@ -9,8 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.ClassNo;
+import model.MyDate;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class CreateAnnouncementHandler {
 	private RadioButton parental, important, normal;
 	@FXML
 	private CheckBox first, second, third, fourth, fifth, sixth, seventh, eight;
+	@FXML
+	private DatePicker expirationDate;
 
 	public CreateAnnouncementHandler() {
 		controller = ClientController.getInstance();
@@ -41,10 +45,15 @@ public class CreateAnnouncementHandler {
 	}
 
 	public void addAnnouncement() {
-		checkForNull();
-		controller.addPost(title.getText(), content.getText(), selectedValue(), getClasses());
-		System.out.println("post added" + title.getText() + content.getText());
-		goToPost();
+		if (checkForNull()) {
+			warningDialog();
+		} else {
+			LocalDate localDate = expirationDate.getValue();
+			MyDate expiration = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
+			controller.addAnnouncement(title.getText(), content.getText(), selectedValue(), getClasses(), expiration);
+			System.out.println("post added" + title.getText() + content.getText());
+			goToPost();
+		}
 	}
 
 	private String selectedValue() {
@@ -62,14 +71,16 @@ public class CreateAnnouncementHandler {
 		return value;
 	}
 
-	private void checkForNull() {
-		if (title.getText() == null || content.getText() == null || getClasses() == null || selectedValue() == null) {
-			Alert alert = new Alert(Alert.AlertType.WARNING);
-			alert.setTitle("Warning Dialog");
-			alert.setHeaderText("Look, unfinished selection");
-			alert.setContentText("Please fill everything!");
-			alert.showAndWait();
-		}
+	private boolean checkForNull() {
+		return title.getText() == null || content.getText() == null || getClasses().size() == 0 || expirationDate.getValue() == null;
+	}
+
+	private void warningDialog() {
+		Alert alert = new Alert(Alert.AlertType.WARNING);
+		alert.setTitle("Warning Dialog");
+		alert.setHeaderText("Look, unfinished selection");
+		alert.setContentText("Please fill everything!");
+		alert.showAndWait();
 	}
 
 	private List<ClassNo> getClasses() {

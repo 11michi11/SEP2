@@ -91,7 +91,6 @@ public class HomeworkListHandler {
         delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new DeleteHomeworkHandler(homework));
         delete.getStyleClass().add("smallButton");
 
-
         TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, list, separator3, edit, separator4, delete);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(homework.getContent());

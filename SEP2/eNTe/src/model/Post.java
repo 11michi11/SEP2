@@ -11,7 +11,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "post", schema = "test")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Post implements Serializable {
+public abstract class Post implements Serializable {
 
     @Id
     @Column(name = "postid")

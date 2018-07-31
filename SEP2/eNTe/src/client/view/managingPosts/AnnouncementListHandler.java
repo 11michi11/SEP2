@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import client.controller.ClientController;
 import client.view.ClientViewManager;
 import client.view.GoBackMap;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,12 +15,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import model.Announcement;
 import model.Homework;
 import model.MyDate;
 import model.Post;
@@ -39,23 +43,33 @@ public class AnnouncementListHandler {
 
     @FXML
     public void initialize() {
+        loadPosts();
+    }
+
+    private void loadPosts() {
         ArrayList<Post> posts = controller.getAllPosts();
         for(Post p : posts) {
             if(p.getClass().getSimpleName().equals("Post")) {
-                loadPosts(p);
+                loadAnnouncement((Announcement) p);
             }
         }
     }
 
-    private void loadPosts(Post post) {
-        Text title = new Text(post.getTitle());
+    private void loadAnnouncement(Announcement announcement) {
+        Text title = new Text(announcement.getTitle());
         title.setId("title");
-        Text content = new Text(post.getContent());
+        Text content = new Text(announcement.getContent());
         content.setId("content");
         Text separator = new Text("\n" + "\n");
-        TextFlow textFlow = new TextFlow(title, separator, content);
+        Text separator1 = new Text("\n" + "\n" + " ");
+
+        Button delete = new Button("DELETE");
+        delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new AnnouncementListHandler.DeleteAnnouncementHandler(announcement));
+        delete.getStyleClass().add("smallButton");
+
+        TextFlow textFlow = new TextFlow(title, separator, content, separator1, delete);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-        textFlow.setAccessibleText(post.getContent());
+        textFlow.setAccessibleText(announcement.getContent());
         textFlow.setPrefWidth(830);
         textFlow.getStyleClass().add("textPane");
         addPane(textFlow);
@@ -88,6 +102,21 @@ public class AnnouncementListHandler {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    private class DeleteAnnouncementHandler implements EventHandler<Event> {
+
+        private Announcement announcement;
+
+        private DeleteAnnouncementHandler(Announcement announcement) {
+            this.announcement = announcement;
+        }
+
+        @Override
+        public void handle(Event event) {
+            controller.deletePost(announcement);
+            box.getChildren().clear();
+            loadPosts();
         }
     }
 }

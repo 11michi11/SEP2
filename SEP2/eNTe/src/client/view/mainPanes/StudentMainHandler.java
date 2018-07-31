@@ -93,14 +93,14 @@ public class StudentMainHandler {
         Text deadline = new Text(homework.getDeadline().toString());
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n" + " ");
-        Text separator2 = new Text("\n" + "\n" + " ");
+        Text separator2 = new Text("\n" + "\n");
 
         HomeworkReply reply = homework.getStudentReply(controller.getCurrentUserId());
         Button solution;
         if (reply != null)
-            solution = new Button("EDIT SOLUTION");
+            solution = new Button("edit solution");
         else
-            solution = new Button("SUBMIT");
+            solution = new Button("submit");
 
         solution.addEventHandler(MouseEvent.MOUSE_CLICKED, new SubmitHomeworkHandler(homework));
         solution.getStyleClass().add("smallButton");

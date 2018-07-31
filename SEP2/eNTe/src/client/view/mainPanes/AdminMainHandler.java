@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import client.controller.ClientController;
-import client.view.managingPosts.AnnouncementListHandler;
-import client.view.managingPosts.DiscussionListHandler;
-import client.view.managingPosts.HomeworkListHandler;
+import client.view.managingPosts.*;
 import client.view.ClientViewManager;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -62,7 +64,6 @@ public class AdminMainHandler {
     }
 
     private void loadHomework(Homework homework) {
-
         Text title = new Text(homework.getTitle());
         title.setId("title");
         Text content = new Text(homework.getContent());
@@ -70,14 +71,36 @@ public class AdminMainHandler {
         Text deadline = new Text(homework.getDeadline().toString());
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n" + " ");
+        Text separator2 = new Text("\n" + "\n" + " ");
+        Text separator3 = new Text(" ");
+        Text separator4 = new Text(" ");
 
-        TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline);
+
+        Button list = new Button("DONE BY:");
+        list.addEventHandler(MouseEvent.MOUSE_CLICKED, new AdminMainHandler.ListOfHomeworkHandler(homework));
+        list.getStyleClass().add("smallButton");
+        Button edit = new Button("EDIT");
+        edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new AdminMainHandler.EditHomeworkHandler(homework));
+        edit.getStyleClass().add("smallButton");
+        Button delete = new Button("DELETE");
+        delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new AdminMainHandler.DeleteHomeworkHandler(homework));
+        delete.getStyleClass().add("smallButton");
+
+        TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, list, separator3, edit, separator4, delete);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(homework.getContent());
         textFlow.setPrefWidth(830);
         textFlow.getStyleClass().add("textPane");
 
         addPane(textFlow);
+
+        String userType = controller.getCurrentUserType();
+        if(userType.equals("Parent") || userType.equals("Student")) {
+            list.setVisible(false);
+            edit.setVisible(false);
+            delete.setVisible(false);
+        }
+
     }
 
     private void loadPost(Post post) {
@@ -101,9 +124,14 @@ public class AdminMainHandler {
         title.setId("title");
         Text content = new Text(discussion.getContent());
         content.setId("content");
-        Text separator = new Text("\n" + "\n");
+        Button showComments = new Button("COMMENTS");
+        showComments.getStyleClass().add("smallButton");
+        showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new AdminMainHandler.ShowComments(discussion));
 
-        TextFlow textFlow = new TextFlow(title,separator, content);
+        Text separator = new Text("\n" + "\n");
+        Text separator1 = new Text("\n" + "\n" + " ");
+
+        TextFlow textFlow = new TextFlow(title,separator, content, separator1, showComments);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(discussion.getContent());
         textFlow.setPrefWidth(830);
@@ -185,6 +213,94 @@ public class AdminMainHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private class ShowComments implements EventHandler<Event> {
+
+        private Discussion discussion;
+        private ShowComments(Discussion discussion) {
+            this.discussion = discussion;
+        }
+
+        @Override
+        public void handle(Event event) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionCommentsHandler.fxml"));
+                Parent mainPane = loader.load();
+                ((DiscussionCommentsHandler) loader.getController()).loadComments(discussion);
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+                stage.getScene().setRoot(mainPane);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class EditHomeworkHandler implements EventHandler<Event> {
+
+        private Homework homework;
+
+        private EditHomeworkHandler(Homework homework) {
+            this.homework = homework;
+        }
+
+        @Override
+        public void handle(Event event) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createHomework.fxml"));
+                Parent mainPane = loader.load();
+                ((CreateHomeworkHandler) loader.getController()).setHomework(homework);
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+                stage.getScene().setRoot(mainPane);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+    private class DeleteHomeworkHandler implements EventHandler<Event> {
+
+        private Homework homework;
+
+        private DeleteHomeworkHandler(Homework homework) {
+            this.homework = homework;
+        }
+
+        @Override
+        public void handle(Event event) {
+            controller.deletePost(homework);
+            box.getChildren().clear();
+            loadPosts();
+        }
+    }
+
+    public class ListOfHomeworkHandler implements EventHandler<Event> {
+
+        private Homework homework;
+
+        public ListOfHomeworkHandler(Homework homework) {
+            this.homework = homework;
+        }
+
+        @Override
+        public void handle(Event event) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkRepliesList.fxml"));
+                Parent mainPane = loader.load();
+                ((HomeworkRepliesListHandler) loader.getController()).loadReplies(homework);
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+                stage.getScene().setRoot(mainPane);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 }
 

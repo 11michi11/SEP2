@@ -111,12 +111,6 @@ public class ClientController {
         model.deleteUser(user);
     }
 
-    public void addPost(String title, String content, String selectedValue, List<ClassNo> classes) {
-        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
-        specialType.doAction();
-        model.addPost(new Post(title, content, currentUser.getName(), MyDate.now(), specialType, classes));
-    }
-
     public ArrayList<Post> getAllPosts() {
         return model.getAllPosts();
     }

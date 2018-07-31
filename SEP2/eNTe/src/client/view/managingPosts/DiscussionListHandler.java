@@ -43,7 +43,6 @@ public class DiscussionListHandler {
         loadPosts();
     }
     private void loadPosts() {
-
         ArrayList<Post> posts = controller.getAllPosts();
         for(Post p : posts) {
             if(p.getClass().getSimpleName().equals("Discussion")) {
