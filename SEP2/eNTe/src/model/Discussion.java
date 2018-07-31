@@ -3,10 +3,7 @@ package model;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +14,7 @@ public class Discussion extends Post {
 
     public static final String noDiscussionId = "ThereIsNoDiscussion*****************";
 
-    @OneToMany(mappedBy = "discussionid")
+    @OneToMany(mappedBy = "discussionid",  cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<DiscussionComment> comments;
 

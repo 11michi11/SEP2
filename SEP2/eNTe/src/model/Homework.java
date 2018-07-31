@@ -28,7 +28,7 @@ public class Homework extends Post {
     @Column(name = "noofstudentstodeliver")
     private int numberOfStudentsToDeliver;
 
-    @OneToMany( mappedBy = "homeworkid")
+    @OneToMany( mappedBy = "homeworkid",  cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<HomeworkReply> replies;
 
