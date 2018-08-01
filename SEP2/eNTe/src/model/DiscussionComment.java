@@ -31,16 +31,11 @@ public class DiscussionComment implements Serializable {
 
 	public DiscussionComment(){}
 
-	public DiscussionComment(String content, String author, MyDate date) {
+	public DiscussionComment(String content, String author, MyDate date, String discussionid) {
 		this.content = content;
 		this.author = author;
 		this.date = date;
-	}
-	public DiscussionComment(String id ,String content, String author, MyDate date) {
-		this.content = content;
-		this.author = author;
-		this.date = date;
-		this.id = id;
+		this.discussionid = discussionid;
 	}
 
 	public static String getNoDiscussionCommnetId() {

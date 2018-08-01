@@ -58,7 +58,7 @@ public class StudentMainHandler {
 						loadHomework((Homework) p);
 					}
 					break;
-				case "Post":
+				case "Announcement":
 					loadPost(p);
 					break;
                 case "Discussion":

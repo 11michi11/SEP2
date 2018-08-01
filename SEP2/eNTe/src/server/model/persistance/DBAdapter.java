@@ -449,7 +449,7 @@ public class DBAdapter  { //implements DBPersistence
                         replies = new LinkedList<>();
                         previousHomeworkId = homeworkID;
                     }
-                    replies.add(new HomeworkReply(content, student, late, MyDate.convertFromTimestampToMyDate(timestamp)));
+                    replies.add(new HomeworkReply(content, student, late, MyDate.convertFromTimestampToMyDate(timestamp), homeworkID));
                 }
                 map.put(previousHomeworkId, replies);
             }

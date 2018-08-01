@@ -52,7 +52,7 @@ public class AdminMainHandler {
                 case "Homework":
                     loadHomework((Homework) p);
                     break;
-                case "Post":
+                case "Announcement":
                     loadPost(p);
                     break;
                 case "Discussion":

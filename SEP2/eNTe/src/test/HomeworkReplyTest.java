@@ -13,7 +13,7 @@ public class HomeworkReplyTest {
 	@Test
 	void contructorTest() {
 		Student student = Student.builder().name("name").email("email").classNo(ClassNo.First).build();
-		HomeworkReply reply = new HomeworkReply("content", student, true, MyDate.now());
+		HomeworkReply reply = new HomeworkReply("content", student, true, MyDate.now(), "");
 		assertEquals("content", reply.getContent());
 		//assertEquals(student, reply.getStudent());
 		assertEquals(true, reply.isLate());
@@ -24,7 +24,7 @@ public class HomeworkReplyTest {
 	@Test
 	void gettersTest() {
 		Student student = Student.builder().name("name").email("email").classNo(ClassNo.First).build();
-		HomeworkReply reply = new HomeworkReply("content", student, true, MyDate.now());
+		HomeworkReply reply = new HomeworkReply("content", student, true, MyDate.now(), "");
 		assertEquals("content", reply.getContent());
 		//assertEquals(student, reply.getStudent());
 		assertEquals(true, reply.isLate());

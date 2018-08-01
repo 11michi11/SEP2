@@ -46,7 +46,7 @@ public class ParentMainHandler {
 		ArrayList<Post> posts = controller.getAllPosts();
 		for (Post p : posts) {
 			switch (p.getClass().getSimpleName()) {
-				case "Post":
+				case "Announcement":
 					loadPost(p);
 					break;
 				case "Discussion":

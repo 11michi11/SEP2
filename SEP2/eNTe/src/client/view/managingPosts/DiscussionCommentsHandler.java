@@ -94,7 +94,7 @@ public class DiscussionCommentsHandler {
     private void createComment() {
         VBox text = (VBox) box.getChildren().get(0);
         TextArea content = (TextArea) text.getChildren().get(0);
-        controller.addDiscussionComment(content.getText());
+        controller.addDiscussionComment(content.getText(), discussion.getPostId());
         reload();
     }
 

@@ -62,11 +62,11 @@ public class HomeworkTest {
 	void getStudentReplyTest() {
 		Student student = Student.builder().name("name").email("email").classNo(ClassNo.First).id("id").build();
 		ArrayList<HomeworkReply> replies = new ArrayList<>();
-		HomeworkReply reply = new HomeworkReply("content", student, true, MyDate.now());
-		replies.add(reply);
-
 		ArrayList<ClassNo> classes = new ArrayList<>();
 		Homework h = new Homework("id","title", "content", "author", MyDate.now(), MyDate.now(), classes, 2, replies, true);
+
+		HomeworkReply reply = new HomeworkReply("content", student, true, MyDate.now(), h.getPostId());
+		replies.add(reply);
 		assertEquals(reply, h.getStudentReply("id"));
 	}
 

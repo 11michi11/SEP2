@@ -177,7 +177,7 @@ public class ClientController {
     }
 
     public void submitHomework(Homework homework, String text) {
-        homework.addHomeworkReply(new HomeworkReply(text, (Student) currentUser, homework.isClosed(), MyDate.now()));
+        homework.addHomeworkReply(new HomeworkReply(text, (Student) currentUser, homework.isClosed(), MyDate.now(), homework.getPostId()));
         model.editPost(homework);
     }
 
@@ -213,8 +213,8 @@ public class ClientController {
     }
 
 
-    public void addDiscussionComment(String text) {
-        model.addCommentToDiscussion(new DiscussionComment(text, currentUser.getName(), MyDate.now()));
+    public void addDiscussionComment(String text, String discussionid) {
+        model.addCommentToDiscussion(new DiscussionComment(text, currentUser.getId(), MyDate.now(), discussionid));
     }
 
     public List<Post> getHomeworkForParent() {

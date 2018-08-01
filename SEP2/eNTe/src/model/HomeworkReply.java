@@ -39,7 +39,8 @@ public class HomeworkReply implements Serializable {
 
     public HomeworkReply(){}
 
-    public HomeworkReply(String content, Student student, boolean late, MyDate handInDate) {
+    public HomeworkReply(String content, Student student, boolean late, MyDate handInDate, String homeworkid) {
+        this.homeworkid = homeworkid;
         this.id = UUID.randomUUID().toString();
         this.content = content;
         this.late = late;
