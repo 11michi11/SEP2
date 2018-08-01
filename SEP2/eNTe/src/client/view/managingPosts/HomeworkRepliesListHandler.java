@@ -51,7 +51,7 @@ public class HomeworkRepliesListHandler {
 
     private void openReply(HomeworkReply reply) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReplyTeacher.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/ReplyViewHandler.fxml"));
             Parent mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);
