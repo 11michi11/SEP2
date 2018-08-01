@@ -62,8 +62,7 @@ public class TeacherListHandler {
             Teacher teacher = teacherList.getSelectionModel().getSelectedItem().teacher;
             System.out.println("teacher:" + teacher);
             controller.deleteUser(teacher);
-//            teacherList.getItems().clear();
-//            teacherList.setItems(controller.getTeachersForView());
+            teacherList.setItems(controller.getTeachersForView());
         }
 
     }
