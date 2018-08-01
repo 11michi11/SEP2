@@ -86,7 +86,7 @@
             <RadioButton fx:id="parental" mnemonicParsing="false" styleClass="labelSmall" stylesheets="@login.css" text="parental" />
          </children>
       </VBox>
-      <DatePicker fx:id="date" layoutX="761.0" layoutY="224.0" />
+      <DatePicker fx:id="expirationDate" layoutX="761.0" layoutY="224.0" />
       <Label layoutX="773.0" layoutY="190.0" styleClass="labelSmall" stylesheets="@login.css" text="expiration date" />
    </children>
 </Pane>

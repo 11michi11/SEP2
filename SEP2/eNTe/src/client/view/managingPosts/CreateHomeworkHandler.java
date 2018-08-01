@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.ClassNo;
 import model.Homework;
@@ -31,7 +30,7 @@ public class CreateHomeworkHandler {
     @FXML
     private DatePicker deadline;
     @FXML
-    private TextField group;
+    private TextField numberOfStudentsToDeliver;
     @FXML
     private CheckBox first, second, third, fourth, fifth, sixth, seventh, eight;
     private Homework homework;
@@ -58,22 +57,26 @@ public class CreateHomeworkHandler {
         title.setText(homework.getTitle());
         content.setText(homework.getContent());
         deadline.setValue(localDate);
-        group.setText(String.valueOf(homework.getNumberOfStudentsToDeliver()));
+        numberOfStudentsToDeliver.setText(String.valueOf(homework.getNumberOfStudentsToDeliver()));
         hour.setValue(date.getHour());
         minute.setValue(date.getMinute());
 
     }
 
     public void addHomework() {
-        if(checkForNull()) {
+        if (checkForNull()) {
             warningDialog();
         } else {
             LocalDate localDate = deadline.getValue();
             MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
-            //controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()), selectedValue);
-            //TODO add special type for homework
-            controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()), "NORMAL");
-            System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
+
+            if (homework != null) {
+                controller.editHomework(homework.getPostId(),title.getText(), content.getText(), deadlineDate, getClasses(), homework.getReplies(), Integer.valueOf(numberOfStudentsToDeliver.getText()));
+                System.out.println("homework edited" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(numberOfStudentsToDeliver.getText()));
+            } else {
+                controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(numberOfStudentsToDeliver.getText()));
+                System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(numberOfStudentsToDeliver.getText()));
+            }
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkHandler.fxml"));
                 Parent mainPane = loader.load();
@@ -86,21 +89,18 @@ public class CreateHomeworkHandler {
             }
         }
     }
+
     private boolean checkForNull() {
-        if (title.getText() == null || content.getText() == null || deadline.getValue() == null || getClasses() == null || group.getText() == null) {
-            return true;
-        } else {
-            return false;
-        }
+        return title.getText() == null || content.getText() == null || deadline.getValue() == null || getClasses() == null || numberOfStudentsToDeliver.getText() == null;
     }
 
     private void warningDialog() {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setHeaderText("Look, unfinished selection");
-            alert.setContentText("Please select or fill everything!");
-            alert.showAndWait();
-        }
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning Dialog");
+        alert.setHeaderText("Look, unfinished selection");
+        alert.setContentText("Please select or fill everything!");
+        alert.showAndWait();
+    }
 
 
     private List<ClassNo> getClasses() {
