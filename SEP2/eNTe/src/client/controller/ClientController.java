@@ -57,11 +57,11 @@ public class ClientController {
         switch (login.getLoginStatus()) {
             case SUCCESS:
                 currentUser = login.getCurrentUser();
+                WelcomingData data = login.getData();
+                model.saveData(data);
                 if (login.changeLogin()) {
                     view.changePasswordDialog();
                 }
-                WelcomingData data = login.getData();
-                model.saveData(data);
                 view.showPosts(login.getUserType());
                 break;
             case FAILURE_LOGIN:
@@ -111,50 +111,6 @@ public class ClientController {
         model.deleteUser(user);
     }
 
-    public ArrayList<Post> getAllPosts() {
-        return model.getAllPosts();
-    }
-
-    public void deletePost(Post post) {
-        model.deletePost(post);
-    }
-
-    public void addHomework(String title, String content, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver, String selectedValue) {
-        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
-        specialType.doAction();
-        model.addPost(new Homework(title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver, specialType));
-    }
-
-    public void editHomework(String homeworkId, String title, String content, MyDate deadline, List<ClassNo> classes, List<HomeworkReply> replies, int numberOfStudentsToDeliver) {
-        model.editPost(new Homework(homeworkId, title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver, replies, !deadline.isBefore(MyDate.now())));
-    }
-
-    public void submitHomework(Homework homework, String text) {
-        homework.addHomeworkReply(new HomeworkReply(text, (Student) currentUser, homework.isClosed(), MyDate.now()));
-        model.editPost(homework);
-    }
-
-    public boolean checkHomeworkClass(Homework homework) {
-        if (currentUser instanceof Student)
-            return homework.getClasses().contains(((Student) currentUser).getClassNo());
-        else
-            return false;
-    }
-
-    public void addDiscussion(String title, String content, String selectedValue, List<ClassNo> classes) {
-        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
-        specialType.doAction();
-        model.addPost(new Discussion(title, content, currentUser.getName(), MyDate.now(), specialType, classes));
-    }
-
-    public void addAnnouncement(String title, String content, String selectedValue, List<ClassNo> classes, MyDate expirationDate) {
-        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
-        specialType.doAction();
-        model.addPost(new Announcement(title,content,currentUser.getName(),MyDate.now(),specialType,classes,expirationDate));
-    }
-
-
-
     public ArrayList<Family> getFamilies() {
         return model.getAllFamilies();
     }
@@ -200,6 +156,48 @@ public class ClientController {
         } else {
             view.showMessage("Entered email does not exist in the system.\nTry again or contact administrator: enteEmailService@gmail.com");
         }
+    }
+
+    public ArrayList<Post> getAllPosts() {
+        return model.getAllPosts();
+    }
+
+    public void deletePost(Post post) {
+        model.deletePost(post);
+    }
+
+    public void addHomework(String title, String content, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver) {
+        SpecialType specialType = SpecialType.NORMAL;
+        specialType.doAction();
+        model.addPost(new Homework(title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver, specialType));
+    }
+
+    public void editHomework(String homeworkId, String title, String content, MyDate deadline, List<ClassNo> classes, List<HomeworkReply> replies, int numberOfStudentsToDeliver) {
+        model.editPost(new Homework(homeworkId, title, content, currentUser.getName(), MyDate.now(), deadline, classes, numberOfStudentsToDeliver, replies, !deadline.isBefore(MyDate.now())));
+    }
+
+    public void submitHomework(Homework homework, String text) {
+        homework.addHomeworkReply(new HomeworkReply(text, (Student) currentUser, homework.isClosed(), MyDate.now()));
+        model.editPost(homework);
+    }
+
+    public boolean checkHomeworkClass(Homework homework) {
+        if (currentUser instanceof Student)
+            return homework.getClasses().contains(((Student) currentUser).getClassNo());
+        else
+            return false;
+    }
+
+    public void addDiscussion(String title, String content, String selectedValue, List<ClassNo> classes) {
+        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
+        specialType.doAction();
+        model.addPost(new Discussion(title, content, currentUser.getName(), MyDate.now(), specialType, classes));
+    }
+
+    public void addAnnouncement(String title, String content, String selectedValue, List<ClassNo> classes, MyDate expirationDate) {
+        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
+        specialType.doAction();
+        model.addPost(new Announcement(title,content,currentUser.getName(),MyDate.now(),specialType,classes,expirationDate));
     }
 
     public boolean showDeleteMessage(String message) {
