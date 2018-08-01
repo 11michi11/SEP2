@@ -70,8 +70,6 @@ public class CreateHomeworkHandler {
         } else {
             LocalDate localDate = deadline.getValue();
             MyDate deadlineDate = new MyDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
-            //controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()), selectedValue);
-            //TODO add special type for homework
             controller.addHomework(title.getText(), content.getText(), deadlineDate, getClasses(), Integer.valueOf(group.getText()), "NORMAL");
             System.out.println("homework added" + title.getText() + content.getText() + deadlineDate + getClasses() + Integer.valueOf(group.getText()));
             try {
