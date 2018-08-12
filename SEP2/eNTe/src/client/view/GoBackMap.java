@@ -12,7 +12,7 @@ public class GoBackMap {
 
     public static String getLoader(Class context, String currentUserType) {
         String key = context.getSimpleName();
-        if (!simpleNames.contains(context.getSimpleName()))
+        if (!simpleNames.contains(key))
             key += currentUserType;
 
         return map.get(key);
@@ -34,6 +34,7 @@ public class GoBackMap {
         simpleNames.add("CreateTeacherHandler");
         simpleNames.add("CreateDiscussionHandler");
         simpleNames.add("CreateAnnouncementHandler");
+        simpleNames.add("HomeworkRepliesListHandler");
 
         map.put("AdminMainHandler", "/client/view/fxml/loginPane.fxml");
         map.put("TeacherMainHandler", "/client/view/fxml/loginPane.fxml");
@@ -71,5 +72,7 @@ public class GoBackMap {
         map.put("CreateParentHandler", "/client/view/fxml/familyList.fxml");
 
         map.put("CreateTeacherHandler", "/client/view/fxml/teacherList.fxml");
+
+        map.put("ReplyViewHandler", "/client/view/fxml/homeworkRepliesList.fxml");
     }
 }

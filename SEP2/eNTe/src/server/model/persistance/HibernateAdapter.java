@@ -1,14 +1,17 @@
 package server.model.persistance;
 
-import model.*;
-import org.hibernate.*;
-import org.hibernate.query.Query;
+import model.Family;
+import model.HomeworkReply;
+import model.Post;
+import model.User;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import server.model.persistance.DBPersistence;
 
-import javax.persistence.metamodel.EntityType;
-
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class HibernateAdapter implements DBPersistence {
 
