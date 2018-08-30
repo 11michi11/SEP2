@@ -38,6 +38,11 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </TextField>
+            <TextField fx:id="responsibility" opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="responsibility">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="30.0" />
+               </font>
+            </TextField>
          </children>
       </VBox>
       <Button fx:id="saveButton" layoutX="613.0" layoutY="597.0" mnemonicParsing="false" onAction="#save" text="save" textFill="#729eea">
