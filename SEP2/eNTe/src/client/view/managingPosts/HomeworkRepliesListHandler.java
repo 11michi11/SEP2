@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -51,10 +52,13 @@ public class HomeworkRepliesListHandler {
 
     private void openReply(HomeworkReply reply) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/ReplyViewHandler.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/homeworkReplyForTeacherView.fxml"));
             Parent mainPane = loader.load();
+            ((ReplyViewHandler) loader.getController()).setReply(reply);
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-            stage.getScene().setRoot(mainPane);
+            Stage stage = new Stage();
+            stage.setTitle("My New Stage Title");
+            stage.setScene(new Scene(mainPane));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

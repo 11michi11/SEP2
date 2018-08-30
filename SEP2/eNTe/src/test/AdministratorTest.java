@@ -1,14 +1,13 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import utility.Password;
-import org.junit.jupiter.api.Test;
-
 import model.Administrator;
 import model.User;
+import org.junit.jupiter.api.*;
+import utility.Password;
+
+import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class AdministratorTest {
 

@@ -34,19 +34,6 @@ public class ReplyViewHandler {
 		content.setWrapText(true);
 	}
 
-	public void goBack() {
-		String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
-		FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
-		try {
-			Parent mainPane = backLoader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-			stage.getScene().setRoot(mainPane);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void setReply(HomeworkReply reply) {
 		this.reply = reply;
 		content.setText(reply.getContent());
