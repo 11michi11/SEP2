@@ -17,7 +17,7 @@ import model.Teacher;
 public class CreateTeacherHandler {
 
 	@FXML
-	private TextField name, email;
+	private TextField name, email, responsibility;
 	private ClientController controller;
 	private Stage stage;
 	private Parent mainPane;
@@ -39,7 +39,7 @@ public class CreateTeacherHandler {
 				id = teacher.getId();
 				pwd = teacher.getPwd();
 			}
-			controller.addTeacher(name.getText(), email.getText(), id, pwd);
+			controller.addTeacher(name.getText(), email.getText(), responsibility.getText(), id, pwd);
 			goBack();
 		}
 	}

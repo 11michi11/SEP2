@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Teacher extends User implements Serializable {
 
     protected Teacher(){}
-    private Teacher(String name, String email) {
+    private Teacher(String name, String email, String responsibility) {
         super(name, email);
     }
 
@@ -29,12 +29,13 @@ public class Teacher extends User implements Serializable {
         return false;
     }
 
-    public static final class Builder implements TeacherNeedName, TeacherNeedEmail, TeacherCanBeBuild {
+    public static final class Builder implements TeacherNeedName, TeacherNeedEmail, TeacherNeedResponsibility, TeacherCanBeBuild {
 
 
         protected String id;
         private String name;
         private String email;
+        private String responsibility;
         private String pwd;
 
         private boolean encryptPwd;
@@ -46,8 +47,14 @@ public class Teacher extends User implements Serializable {
         }
 
         @Override
-        public TeacherCanBeBuild email(String email) {
+        public TeacherNeedResponsibility email(String email) {
             this.email = email;
+            return this;
+        }
+
+        @Override
+        public TeacherCanBeBuild responsibility(String responsibility) {
+            this.responsibility = responsibility;
             return this;
         }
 
@@ -72,7 +79,7 @@ public class Teacher extends User implements Serializable {
 
         @Override
         public Teacher build() {
-            Teacher teacher = new Teacher(this.name, this.email);
+            Teacher teacher = new Teacher(this.name, this.email, this.responsibility);
             if (this.pwd != null)
                 if (encryptPwd)
                     teacher.setPwdAndEncrypt(pwd);
@@ -82,6 +89,9 @@ public class Teacher extends User implements Serializable {
                 teacher.id = this.id;
             return teacher;
         }
+
+
+
     }
 
     public interface TeacherNeedName {
@@ -89,7 +99,12 @@ public class Teacher extends User implements Serializable {
     }
 
     public interface TeacherNeedEmail {
-        TeacherCanBeBuild email(String name);
+        TeacherNeedResponsibility email(String name);
+    }
+
+
+    public interface TeacherNeedResponsibility {
+        TeacherCanBeBuild responsibility(String responsibility);
     }
 
     public interface TeacherCanBeBuild {

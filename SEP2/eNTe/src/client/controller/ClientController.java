@@ -78,8 +78,8 @@ public class ClientController {
         model.addOrUpdateUser(currentUser);
     }
 
-    public void addTeacher(String name, String email, String id, String pwd) {
-        User user = Teacher.builder().name(name).email(email).build();
+    public void addTeacher(String name, String email, String responsibility, String id, String pwd) {
+        User user = Teacher.builder().name(name).email(email).responsibility(responsibility).build();
         if (id != null)
             user.setId(id);
         if(pwd != null)
