@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="ente@207.154.237.196">
-  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.8">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.11">
     <root id="1">
       <ServerVersion>9.6.8</ServerVersion>
     </root>
@@ -392,6 +392,7 @@
     </table>
     <routine id="77" parent="30" name="log_family_func">
       <ObjectId>25122</ObjectId>
+      <SourceTextLength>529</SourceTextLength>
       <StateNumber>2150</StateNumber>
       <VolatilityKind>volatile</VolatilityKind>
       <ResultsDefinition>trigger</ResultsDefinition>
@@ -401,6 +402,7 @@
     </routine>
     <routine id="78" parent="30" name="log_student_func">
       <ObjectId>25132</ObjectId>
+      <SourceTextLength>695</SourceTextLength>
       <StateNumber>2172</StateNumber>
       <VolatilityKind>volatile</VolatilityKind>
       <ResultsDefinition>trigger</ResultsDefinition>
@@ -410,6 +412,7 @@
     </routine>
     <routine id="79" parent="30" name="log_user_func">
       <ObjectId>25112</ObjectId>
+      <SourceTextLength>945</SourceTextLength>
       <StateNumber>2143</StateNumber>
       <VolatilityKind>volatile</VolatilityKind>
       <ResultsDefinition>trigger</ResultsDefinition>
