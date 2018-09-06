@@ -23,7 +23,7 @@ class UsersListTest {
 	@Test
 	void testAuthenticate() {		
 		Auth auth = new Auth("email", "pwd");
-		Teacher teacher = Teacher.builder().name("name").email( "email").pwdEncrypt( "pwd").build();
+		Teacher teacher = Teacher.builder().name("name").email( "email").responsibility("").pwdEncrypt( "pwd").build();
 		users.add(teacher);
 		
 		assertEquals(LoginStatus.SUCCESS, users.authenticate(auth));
@@ -38,7 +38,7 @@ class UsersListTest {
 	
 	@Test
 	void testGetUserByLogin() {
-		Teacher teacher = Teacher.builder().name("name").email( "email").pwdEncrypt( "pwd").build();
+		Teacher teacher = Teacher.builder().name("name").email( "email").responsibility("").pwdEncrypt( "pwd").build();
 		users.add(teacher);
 		
 		assertEquals(teacher, users.getUserByEmail("email"));
@@ -46,7 +46,7 @@ class UsersListTest {
 	
 	@Test
 	void testGetUserById() {
-		Teacher teacher = Teacher.builder().name("name").email( "email").pwdEncrypt( "pwd").id("id").build();
+		Teacher teacher = Teacher.builder().name("name").email( "email").responsibility("").pwdEncrypt( "pwd").id("id").build();
 		users.add(teacher);
 		
 		assertEquals(teacher, users.getUserById("id"));
@@ -54,7 +54,7 @@ class UsersListTest {
 	
 	@Test
 	void testAddDeleteContains() {
-		Teacher teacher = Teacher.builder().name("name").email( "email").pwdEncrypt( "pwd").id("id").build();
+		Teacher teacher = Teacher.builder().name("name").email( "email").responsibility("").pwdEncrypt( "pwd").id("id").build();
 		users.add(teacher);
 		
 		assertEquals(true, users.contains(teacher));
@@ -65,7 +65,7 @@ class UsersListTest {
 	
 	@Test
 	void getAll() {
-		Teacher teacher = Teacher.builder().name("name").email( "email").pwdEncrypt( "pwd").build();
+		Teacher teacher = Teacher.builder().name("name").email( "email").responsibility("").pwdEncrypt( "pwd").build();
 		Administrator admin = Administrator.builder().name("name").email( "email").pwdEncrypt( "pwd").build();
 		Parent parent = Parent.builder().name("name").email( "email").pwdEncrypt( "pwd").build();
 		Student student =  Student.builder().name("name").email("email").classNo(ClassNo.First).build();
