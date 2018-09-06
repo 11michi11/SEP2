@@ -10,9 +10,11 @@ import java.io.Serializable;
 @PrimaryKeyJoinColumn(name = "teacherid")
 public class Teacher extends User implements Serializable {
 
+    private String responsibility;
     protected Teacher(){}
     private Teacher(String name, String email, String responsibility) {
         super(name, email);
+        this.responsibility = responsibility;
     }
 
     public static TeacherNeedName builder() {
@@ -22,12 +24,21 @@ public class Teacher extends User implements Serializable {
     void updateTeacherFields(Teacher newUser) {
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Teacher)
-            return super.equals(obj);
-        return false;
+    public String getResponsibility() {
+        return responsibility;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Teacher)) return false;
+        if (!super.equals(o)) return false;
+
+        Teacher teacher = (Teacher) o;
+
+        return responsibility != null ? responsibility.equals(teacher.responsibility) : teacher.responsibility == null;
+    }
+
 
     public static final class Builder implements TeacherNeedName, TeacherNeedEmail, TeacherNeedResponsibility, TeacherCanBeBuild {
 

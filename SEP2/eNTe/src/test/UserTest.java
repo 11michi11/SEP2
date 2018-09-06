@@ -17,7 +17,7 @@ class UserTest {
 
 	@Test
 	void userUUIDTest() {
-		User user = Teacher.builder().name("name").email("email").pwdEncrypt("pwd").build();
+		User user = Teacher.builder().name("name").email("email").responsibility("").pwdEncrypt("pwd").build();
 		try{
 		    UUID uuid = UUID.fromString(user.getId());
 		} catch (IllegalArgumentException exception){
@@ -27,7 +27,7 @@ class UserTest {
 	
 	@Test
 	void equalsTest() {
-		User user1 = Teacher.builder().name("name").email("email").id("id").pwd("pwd").build();
+		User user1 = Teacher.builder().name("name").email("email").responsibility("").id("id").pwd("pwd").build();
 		User user2 = Administrator.builder().name("name").email("email").id("id").pwd("pwd").build();
 		User user3 = Administrator.builder().name("anotherName").email("email").id("id").pwd("pwd").build();
 		User user4 = Administrator.builder().name("name").email("anotherEmail").id("id").pwd("pwd").build();
@@ -46,9 +46,10 @@ class UserTest {
 
 	@Test
 	void gettersTest() {
-		User user = Teacher.builder().name("name").email("email").pwdEncrypt("pwd").id("id").build();
+		User user = Teacher.builder().name("name").email("email").responsibility("").pwdEncrypt("pwd").id("id").build();
 		assertEquals("name", user.getName());
 		assertEquals("email", user.getEmail());
+		assertEquals("", ((Teacher) user).getResponsibility());
 		assertEquals(Password.encryptPwd("pwd"), user.getPwd());
 		assertEquals("id", user.getId());
 	}
@@ -56,7 +57,7 @@ class UserTest {
 	
 	@Test
 	void testToString() {
-		User user1 = Teacher.builder().name("name").email("email").pwdEncrypt("pwd").id("id").build();
+		User user1 = Teacher.builder().name("name").email("email").responsibility("").pwdEncrypt("pwd").id("id").build();
 		assertEquals("User [email=email, pwd=" + Password.encryptPwd("pwd") + ", name=name, id=id]", user1.toString());
 	}
 
