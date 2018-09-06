@@ -84,7 +84,7 @@ public class ClientController {
         Teacher user = Teacher.builder().name(name).email(email).responsibility(responsibility).build();
         if (id != null)
             user.setId(id);
-        if(pwd != null)
+        if (pwd != null)
             user.setPwd(pwd);
         model.addOrUpdateUser(user);
     }
@@ -93,16 +93,16 @@ public class ClientController {
         Student student = Student.builder().name(name).email(email).classNo(classs).family(family).build();
         if (id != null)
             student.setId(id);
-        if(pwd != null)
+        if (pwd != null)
             student.setPwd(pwd);
         model.addOrUpdateUser(student);
     }
 
-    public void addParent(String name, String email, Family family, String id,String pwd) {
+    public void addParent(String name, String email, Family family, String id, String pwd) {
         Parent parent = Parent.builder().name(name).email(email).family(family).build();
         if (id != null)
             parent.setId(id);
-        if(pwd != null)
+        if (pwd != null)
             parent.setPwd(pwd);
         model.addOrUpdateUser(parent);
     }
@@ -200,10 +200,26 @@ public class ClientController {
         model.addPost(new Discussion(title, content, currentUser.getName(), MyDate.now(), specialType, classes));
     }
 
+    public void addDiscussionComment(String text, String discussionid) {
+        model.addCommentToDiscussion(new DiscussionComment(text, currentUser.getId(), MyDate.now(), discussionid));
+    }
+
+//    public void editDiscussion(String postId, String title, String content, String selectedValue, List<ClassNo> classes) {
+//        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
+//        specialType.doAction();
+//        model.editPost(new Discussion(postId, title, content, getCurrentUserName(), specialType, MyDate.now(), classes));
+//    }
+
     public void addAnnouncement(String title, String content, String selectedValue, List<ClassNo> classes, MyDate expirationDate) {
         SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
         specialType.doAction();
-        model.addPost(new Announcement(title,content,currentUser.getName(),MyDate.now(),specialType,classes,expirationDate));
+        model.addPost(new Announcement(title, content, currentUser.getName(), MyDate.now(), specialType, classes, expirationDate));
+    }
+
+    public void editAnnouncement(String postId, String title, String content, String selectedValue, List<ClassNo> classes, MyDate expiration) {
+        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
+        specialType.doAction();
+        model.editPost(new Announcement(postId, title, content, getCurrentUserName(), MyDate.now(), specialType, classes, expiration));
     }
 
     public boolean showDeleteMessage(String message) {
@@ -218,9 +234,6 @@ public class ClientController {
         System.out.println("IMPLEMENT SENDING PARENTAL EMAILS");
     }
 
-    public void addDiscussionComment(String text, String discussionid) {
-        model.addCommentToDiscussion(new DiscussionComment(text, currentUser.getId(), MyDate.now(), discussionid));
-    }
 
     public List<Post> getHomeworkForParent() {
         if (!(currentUser instanceof Parent))
@@ -238,6 +251,7 @@ public class ClientController {
     public String getUserNameById(String userId) {
         return model.getUserById(userId).getName();
     }
+
 
 //    public List<Post> getImportantSpecialPostsForParent() {
 //        List<Post> posts = getAllPosts();

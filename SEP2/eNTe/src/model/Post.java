@@ -68,14 +68,14 @@ public abstract class Post implements Serializable {
         this.classes = classes;
     }
 
-    public Post(String postId, String title, String content, String author, MyDate pubDate,  List<ClassNo> classes) {
+    public Post(String postId, String title, String content, String author, MyDate pubDate,SpecialType specialType,  List<ClassNo> classes) {
         this.postId = postId;
         this.title = title;
         this.content = content;
         this.author = author;
         this.pubDate = pubDate;
         this.classes = classes;
-        specialType = SpecialType.NORMAL;
+        this.specialType = specialType;
     }
 
     public String getTitle() {

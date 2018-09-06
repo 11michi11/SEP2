@@ -24,8 +24,9 @@ public class Announcement extends Post{
         this.expirationDate = expirationDate;
     }
 
-    public Announcement(String postId, String title, String content, String author, MyDate pubDate,List<ClassNo>  classes) {
-        super(postId, title, content, author, pubDate, classes);
+    public Announcement(String postId, String title, String content, String author, MyDate pubDate, SpecialType specialType, List<ClassNo> classes, MyDate expirationDate) {
+        super(postId, title, content, author, pubDate, specialType, classes);
+        this.expirationDate = expirationDate;
     }
 
     public MyDate getExpirationDate() {

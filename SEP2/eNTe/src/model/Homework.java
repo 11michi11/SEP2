@@ -42,7 +42,7 @@ public class Homework extends Post {
     }
 
     public Homework(String postId, String title, String content, String author, MyDate pubDate, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver, List<HomeworkReply> replies, boolean closed) {
-        super(postId, title, content, author, pubDate, classes);
+        super(postId, title, content, author, pubDate, SpecialType.NORMAL, classes);
         this.deadline = deadline;
         this.numberOfStudentsToDeliver = numberOfStudentsToDeliver;
         this.closed = closed;
