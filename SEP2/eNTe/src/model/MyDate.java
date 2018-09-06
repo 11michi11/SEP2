@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class MyDate implements Serializable {
+public class MyDate implements Serializable, Comparable<MyDate>  {
 
     private int year;
     private int month;
@@ -26,6 +26,8 @@ public class MyDate implements Serializable {
         this.year = now.get(Calendar.YEAR);
         this.month = now.get(Calendar.MONTH) + 1;
         this.day = now.get(Calendar.DAY_OF_MONTH);
+        this.hour = now.get(Calendar.HOUR_OF_DAY);
+        this.minute = now.get(Calendar.MINUTE);
     }
 
     public MyDate(Date date) {
@@ -315,4 +317,10 @@ public class MyDate implements Serializable {
         return cal;
     }
 
+    public int compareTo(MyDate other) {
+        if(this.equals(other))
+            return 0;
+        else
+            return this.isBefore(other) ? -1 : 1;
+    }
 }
