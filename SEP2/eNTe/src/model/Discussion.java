@@ -29,8 +29,8 @@ public class Discussion extends Post {
         this.comments = comments;
     }
 
-    public Discussion(String postId, String title, String content, String author, MyDate pubDate) {
-        super(postId, title, content, author, pubDate);
+    public Discussion(String postId, String title, String content, String author, MyDate pubDate, List<ClassNo> classes) {
+        super(postId, title, content, author, pubDate, classes);
     }
 
     public void addComment(DiscussionComment comment) {

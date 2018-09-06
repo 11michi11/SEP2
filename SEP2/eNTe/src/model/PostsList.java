@@ -38,12 +38,12 @@ public class PostsList {
 
     public Discussion getFirstDiscussion() {
         return posts.stream().filter(p -> p instanceof Discussion).map(h -> (Discussion) h).findFirst()
-                .orElse(new Discussion(Discussion.noDiscussionId, "There are no discussions yet", "", "", MyDate.now()));
+                .orElse(new Discussion(Discussion.noDiscussionId, "There are no discussions yet", "", "", MyDate.now(), new ArrayList<>()));
     }
 
     public Announcement getFirstAnnouncement() {
         return posts.stream().filter(p -> p instanceof Announcement).map(h -> (Announcement) h).findFirst()
-                .orElse(new Announcement(Announcement.noAnnouncementId, "There are no announcements yet", "", "", MyDate.now()));
+                .orElse(new Announcement(Announcement.noAnnouncementId, "There are no announcements yet", "", "", MyDate.now(), new ArrayList<>()));
     }
 
     public void deletePost(Post post) {

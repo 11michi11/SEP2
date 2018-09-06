@@ -32,7 +32,9 @@ public abstract class Post implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private SpecialType specialType;
-    
+
+    @Column(name = "classes")
+    @Type(type = "ClassListMapper")
     private List<ClassNo> classes;
 
     protected Post() {
@@ -66,12 +68,13 @@ public abstract class Post implements Serializable {
         this.classes = classes;
     }
 
-    public Post(String postId, String title, String content, String author, MyDate pubDate) {
+    public Post(String postId, String title, String content, String author, MyDate pubDate,  List<ClassNo> classes) {
         this.postId = postId;
         this.title = title;
         this.content = content;
         this.author = author;
         this.pubDate = pubDate;
+        this.classes = classes;
         specialType = SpecialType.NORMAL;
     }
 
@@ -125,11 +128,22 @@ public abstract class Post implements Serializable {
         this.postId = postId;
     }
 
+    public String getClassesAsString() {
+        StringBuilder string = new StringBuilder("{");
+        for (ClassNo e:classes) {
+            string.append(e.toString()).append(",");
+        }
+        string = new StringBuilder(string.substring(0, string.length() - 1));
+        string.append("}");
+        return string.toString();
+    }
+
     @Override
     public String toString() {
         return "Post{" +
                 "postId='" + postId + '\'' +
                 ", title='" + title + '\'' +
+                ", classes=" + classes +
                 ", content='" + content + '\'' +
                 ", author='" + author + '\'' +
                 ", pubDate=" + pubDate +
@@ -147,6 +161,7 @@ public abstract class Post implements Serializable {
         if (title != null ? !title.equals(post.title) : post.title != null) return false;
         if (content != null ? !content.equals(post.content) : post.content != null) return false;
         if (author != null ? !author.equals(post.author) : post.author != null) return false;
+        if (classes != null ? !classes.equals(post.classes) : post.classes != null) return false;
         if (pubDate != null ? !pubDate.equals(post.pubDate) : post.pubDate != null) return false;
         return postId != null ? postId.equals(post.postId) : post.postId == null;
     }

@@ -21,10 +21,6 @@ public class Homework extends Post {
     @Type(type = "MyDateMapper")
     private MyDate deadline;
 
-    @Column(name = "classes")
-    @Type(type = "ClassListMapper")
-    private List<ClassNo> classes;
-
     @Column(name = "noofstudentstodeliver")
     private int numberOfStudentsToDeliver;
 
@@ -38,18 +34,16 @@ public class Homework extends Post {
     public Homework(){}
 
     public Homework(String title, String content, String author, MyDate pubDate, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver, SpecialType specialType) {
-        super(title, content, author, pubDate, specialType);
+        super(title, content, author, pubDate, specialType, classes);
         this.deadline = deadline;
-        this.classes = classes;
         this.numberOfStudentsToDeliver = numberOfStudentsToDeliver;
         replies = new LinkedList<>();
         closed = false;
     }
 
     public Homework(String postId, String title, String content, String author, MyDate pubDate, MyDate deadline, List<ClassNo> classes, int numberOfStudentsToDeliver, List<HomeworkReply> replies, boolean closed) {
-        super(postId, title, content, author, pubDate);
+        super(postId, title, content, author, pubDate, classes);
         this.deadline = deadline;
-        this.classes = classes;
         this.numberOfStudentsToDeliver = numberOfStudentsToDeliver;
         this.closed = closed;
         this.replies = replies;
@@ -65,20 +59,6 @@ public class Homework extends Post {
 
     public MyDate getDeadline() {
         return deadline;
-    }
-
-    public List<ClassNo> getClasses() {
-        return classes;
-    }
-
-    public String getClassesAsString() {
-        String string = "{";
-        for (ClassNo e:classes) {
-          string += e.toString()+",";
-        }
-        string = string.substring(0,string.length()-1);
-        string += "}";
-        return string;
     }
 
     public int getNumberOfStudentsToDeliver() {
@@ -105,7 +85,6 @@ public class Homework extends Post {
         if (numberOfStudentsToDeliver != homework.numberOfStudentsToDeliver) return false;
         if (closed != homework.closed) return false;
         if (deadline != null ? !deadline.equals(homework.deadline) : homework.deadline != null) return false;
-        if (classes != null ? !classes.equals(homework.classes) : homework.classes != null) return false;
         return replies != null ? replies.equals(homework.replies) : homework.replies == null;
     }
 
@@ -113,7 +92,6 @@ public class Homework extends Post {
     public String toString() {
         return "Homework{" +
                 "deadline=" + deadline +
-                ", classes=" + classes +
                 ", numberOfStudentsToDeliver=" + numberOfStudentsToDeliver +
                 ", replies=" + replies +
                 ", closed=" + closed +
