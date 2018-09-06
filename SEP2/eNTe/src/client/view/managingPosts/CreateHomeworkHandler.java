@@ -60,6 +60,23 @@ public class CreateHomeworkHandler {
         numberOfStudentsToDeliver.setText(String.valueOf(homework.getNumberOfStudentsToDeliver()));
         hour.setValue(date.getHour());
         minute.setValue(date.getMinute());
+        List<ClassNo> classesNumbers= homework.getClasses();
+        if (classesNumbers.contains(ClassNo.First))
+            first.setSelected(true);
+        if(classesNumbers.contains(ClassNo.Second))
+            second.setSelected(true);
+        if(classesNumbers.contains(ClassNo.Third))
+            third.setSelected(true);
+        if(classesNumbers.contains(ClassNo.Fourth))
+            fourth.setSelected(true);
+        if(classesNumbers.contains(ClassNo.Fifth))
+            fifth.setSelected(true);
+        if(classesNumbers.contains(ClassNo.Sixth))
+            sixth.setSelected(true);
+        if(classesNumbers.contains(ClassNo.Seventh))
+            seventh.setSelected(true);
+        if(classesNumbers.contains(ClassNo.Eighth))
+            eight.setSelected(true);
 
     }
 

@@ -155,8 +155,23 @@ public class CreateAnnouncementHandler {
 		MyDate date = announcement.getExpirationDate();
 		LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
 		expirationDate.setValue(localDate);
-
-
+		List<ClassNo> classesNumbers= announcement.getClasses();
+		if (classesNumbers.contains(ClassNo.First))
+			first.setSelected(true);
+		if(classesNumbers.contains(ClassNo.Second))
+			second.setSelected(true);
+		if(classesNumbers.contains(ClassNo.Third))
+			third.setSelected(true);
+		if(classesNumbers.contains(ClassNo.Fourth))
+			fourth.setSelected(true);
+		if(classesNumbers.contains(ClassNo.Fifth))
+			fifth.setSelected(true);
+		if(classesNumbers.contains(ClassNo.Sixth))
+			sixth.setSelected(true);
+		if(classesNumbers.contains(ClassNo.Seventh))
+			seventh.setSelected(true);
+		if(classesNumbers.contains(ClassNo.Eighth))
+			eight.setSelected(true);
 	}
 
 }
