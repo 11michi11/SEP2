@@ -15,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -22,10 +24,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import model.Discussion;
-import model.Homework;
-import model.HomeworkReply;
-import model.Post;
+import model.*;
 
 public class StudentMainHandler {
     @FXML
@@ -59,7 +58,7 @@ public class StudentMainHandler {
 					}
 					break;
 				case "Announcement":
-					loadPost(p);
+					loadAnnouncement((Announcement) p);
 					break;
                 case "Discussion":
                     loadDiscussion((Discussion) p);
@@ -94,6 +93,10 @@ public class StudentMainHandler {
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n" + " ");
         Text separator2 = new Text("\n" + "\n");
+        Image img = new Image("/client/view/fxml/homeworkIcon.png");
+        ImageView imageView = new ImageView(img);
+        imageView.setFitHeight(30);
+        imageView.setFitWidth(30);
 
         HomeworkReply reply = homework.getStudentReply(controller.getCurrentUserId());
         Button solution;
@@ -105,7 +108,7 @@ public class StudentMainHandler {
         solution.addEventHandler(MouseEvent.MOUSE_CLICKED, new SubmitHomeworkHandler(homework));
         solution.getStyleClass().add("smallButton");
 
-        TextFlow textFlow = new TextFlow(title, separator, content, separator1, deadline, separator2, solution);
+        TextFlow textFlow = new TextFlow(imageView, separator, content, separator1, deadline, separator2, solution);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(homework.getContent());
         textFlow.setPrefWidth(830);
@@ -114,21 +117,30 @@ public class StudentMainHandler {
 		addPane(textFlow);
     }
 
-    private void loadPost(Post post) {
-
-        Text titleOfPost = new Text(post.getTitle());
-        titleOfPost.setId("title");
-        Text contentOfPost = new Text(post.getContent());
-        contentOfPost.setId("content");
+    private void loadAnnouncement(Announcement announcement) {
+        Text title = new Text(announcement.getTitle());
+        title.setId("title");
+        Text content = new Text(announcement.getContent());
+        content.setId("content");
         Text separator = new Text("\n" + "\n");
 
-        TextFlow textFlow = new TextFlow(titleOfPost, separator, contentOfPost);
+        Image img = new Image("/client/view/fxml/importantIcon.png");
+        ImageView imageView = new ImageView(img);
+        imageView.setFitHeight(25);
+        imageView.setFitWidth(25);
+
+        TextFlow textFlow;
+        if (announcement.getSpecialType().toString().toLowerCase().equals("important")) {
+            textFlow = new TextFlow(imageView,title, separator, content); }
+        else {textFlow = new TextFlow(title, separator, content); }
+
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-        textFlow.setAccessibleText(post.getContent());
+        textFlow.setAccessibleText(announcement.getContent());
         textFlow.setPrefWidth(830);
-	    textFlow.getStyleClass().add("textPane");
+        textFlow.getStyleClass().add("textPane");
 
         addPane(textFlow);
+
     }
 
     private void loadDiscussion(Discussion discussion) {
@@ -139,11 +151,15 @@ public class StudentMainHandler {
         Button showComments = new Button("comments");
         showComments.getStyleClass().add("smallButton");
         showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new StudentMainHandler.ShowComments(discussion));
+        Image img = new Image("/client/view/fxml/discussionIcon.png");
+        ImageView imageView = new ImageView(img);
+        imageView.setFitHeight(35);
+        imageView.setFitWidth(35);
 
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n");
 
-        TextFlow textFlow = new TextFlow(title,separator, content, separator1, showComments);
+        TextFlow textFlow = new TextFlow(imageView,title,separator, content, separator1, showComments);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(discussion.getContent());
         textFlow.setPrefWidth(830);

@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -60,10 +62,15 @@ public class DiscussionListHandler {
         showComments.getStyleClass().add("smallButton");
         showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new ShowComments(discussion));
 
+        Image img = new Image("/client/view/fxml/discussionIcon.png");
+        ImageView imageView = new ImageView(img);
+        imageView.setFitHeight(35);
+        imageView.setFitWidth(35);
+
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n");
 
-        TextFlow textFlow = new TextFlow(title,separator, content, separator1, showComments);
+        TextFlow textFlow = new TextFlow(imageView, title,separator, content, separator1, showComments);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(discussion.getContent());
         textFlow.setPrefWidth(830);
