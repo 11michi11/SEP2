@@ -63,10 +63,15 @@ public class AnnouncementListHandler {
 		content.setId("content");
 		Text separator = new Text("\n" + "\n");
 		Text separator1 = new Text("\n" + "\n" + " ");
+		Text separator2 = new Text(" ");
 
 		Button delete = new Button("DELETE");
 		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new AnnouncementListHandler.DeleteAnnouncementHandler(announcement));
 		delete.getStyleClass().add("smallButton");
+
+		Button edit = new Button("EDIT");
+		edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new AnnouncementListHandler.EditAnnouncementHandler(announcement));
+		edit.getStyleClass().add("smallButton");
 
 		Image img = new Image("/client/view/fxml/annIcon.png");
 		ImageView imageView = new ImageView(img);
@@ -85,13 +90,13 @@ public class AnnouncementListHandler {
 		TextFlow textFlow;
 		switch (announcement.getSpecialType().toString().toLowerCase()) {
 			case "important":
-				textFlow = new TextFlow(importantView, imageView, title, separator, content, separator1, delete);
+				textFlow = new TextFlow(importantView, imageView, title, separator, content, separator1, delete, separator2, edit);
 				break;
 			case "parental":
-				textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, delete);
+				textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, delete, separator2, edit);
 				break;
 			default:
-				textFlow = new TextFlow(imageView, title, separator, content, separator1, delete);
+				textFlow = new TextFlow(imageView, title, separator, content, separator1, delete, separator2, edit);
 				break;
 		}
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
@@ -144,6 +149,29 @@ public class AnnouncementListHandler {
 			controller.deletePost(announcement);
 			box.getChildren().clear();
 			loadPosts();
+		}
+	}
+
+	private class EditAnnouncementHandler implements EventHandler<Event> {
+
+		private Announcement announcement;
+
+		private EditAnnouncementHandler(Announcement announcement) {
+			this.announcement = announcement;
+		}
+
+		@Override
+		public void handle(Event event) {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createAnnouncement.fxml"));
+				Parent mainPane = loader.load();
+				((CreateAnnouncementHandler) loader.getController()).setAnnouncement(announcement);
+				mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+				stage.getScene().setRoot(mainPane);
+				stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

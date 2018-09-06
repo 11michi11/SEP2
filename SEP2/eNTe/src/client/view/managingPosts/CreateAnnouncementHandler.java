@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Announcement;
 import model.ClassNo;
 import model.MyDate;
 
@@ -28,6 +29,7 @@ public class CreateAnnouncementHandler {
 	private CheckBox first, second, third, fourth, fifth, sixth, seventh, eight;
 	@FXML
 	private DatePicker expirationDate;
+	private Announcement announcement;
 
 	public CreateAnnouncementHandler() {
 		controller = ClientController.getInstance();
@@ -133,6 +135,27 @@ public class CreateAnnouncementHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setAnnouncement(Announcement announcement) {
+		this.announcement = announcement;
+		title.setText(announcement.getTitle());
+		content.setText(announcement.getContent());
+		switch (announcement.getSpecialType().toString().toLowerCase()) {
+			case "parental":
+				parental.setSelected(true);
+				break;
+			case "important":
+				important.setSelected(true);
+				break;
+			case "normal":
+				normal.setSelected(true);
+				break;
+		}
+		MyDate date = announcement.getExpirationDate();
+		LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+		expirationDate.setValue(localDate);
+
 	}
 
 }
