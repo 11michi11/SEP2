@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -62,12 +63,20 @@ public class AnnouncementListHandler {
         content.setId("content");
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n" + " ");
+        Image img = new Image("/client/view/fxml/importantIcon.png");
 
         Button delete = new Button("DELETE");
         delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new AnnouncementListHandler.DeleteAnnouncementHandler(announcement));
         delete.getStyleClass().add("smallButton");
 
-        TextFlow textFlow = new TextFlow(title, separator, content, separator1, delete);
+        ImageView imageView = new ImageView(img);
+        imageView.setFitHeight(25);
+        imageView.setFitWidth(25);
+        TextFlow textFlow;
+        if (announcement.getSpecialType().toString().toLowerCase().equals("important")) {
+        textFlow = new TextFlow(imageView,title, separator, content, separator1, delete); }
+        else {textFlow = new TextFlow(title, separator, content, separator1, delete); }
+
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(announcement.getContent());
         textFlow.setPrefWidth(830);

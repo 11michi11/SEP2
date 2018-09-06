@@ -29,6 +29,14 @@
 	/*-fx-background-color: #c1c1c1;*/
 	-fx-border-color: #8c8c8c;
 }
+
+/*.importantPane{*/
+	/*-fx-border-color: #cc0000;*/
+	/*-fx-border-width: 3px;*/
+	/*-fx-background-color: white;*/
+	/*!*-fx-opacity: 0.5;*!*/
+
+/*}*/
 #title{
 	-fx-font-size: 30px;
 	-fx-font-family: "Gill Sans MT";
