@@ -33,10 +33,12 @@ public class CreateParentHandler {
 		if (checkForNull()) {
 			warningDialog();
 		} else {
-			String id = null;
+			String id = null, pwd = null;
 			if (parent != null)
 				id = parent.getId();
-			controller.addParent(name.getText(), email.getText(), family, id);
+			if (parent != null)
+				pwd = parent.getPwd();
+			controller.addParent(name.getText(), email.getText(), family, id, pwd);
 			goBack();
 		}
 	}

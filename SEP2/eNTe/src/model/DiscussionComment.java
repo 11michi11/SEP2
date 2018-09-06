@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table(name = "discussioncomments", schema = "test")
@@ -36,6 +37,7 @@ public class DiscussionComment implements Serializable {
 		this.author = author;
 		this.date = date;
 		this.discussionid = discussionid;
+		this.id = UUID.randomUUID().toString();
 	}
 
 	public static String getNoDiscussionCommnetId() {
