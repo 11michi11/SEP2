@@ -137,7 +137,7 @@ public class TeacherMainHandler {
     public void announcementHandler() {
         Parent mainPane;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createAnnouncement.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/announcementHandler.fxml"));
             mainPane = loader.load();
             mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
             stage.getScene().setRoot(mainPane);

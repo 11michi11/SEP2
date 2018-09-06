@@ -76,12 +76,14 @@ public class PostsList {
         return Objects.equals(posts, postsList.posts);
     }
 
-    public void addComment(DiscussionComment comment) {
-        //posts.stream().filter(p -> p instanceof Discussion).map(h -> (Discussion) h).
+    public Discussion addComment(DiscussionComment comment) {
         for (Post e : posts) {
             if (e instanceof Discussion)
-                ((Discussion) e).addComment(comment);
-
+                if(e.getPostId().equals(comment.getDiscussionid())){
+                    ((Discussion) e).addComment(comment);
+                    return (Discussion) e;
+                }
         }
+        return null;
     }
 }

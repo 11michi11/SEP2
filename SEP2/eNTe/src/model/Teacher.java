@@ -24,6 +24,7 @@ public class Teacher extends User implements Serializable {
     }
 
     void updateTeacherFields(Teacher newUser) {
+        this.responsibility = newUser.responsibility;
     }
 
     public String getResponsibility() {

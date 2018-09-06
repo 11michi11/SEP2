@@ -117,7 +117,9 @@ public class ClientModelManager implements ClientModel {
 
     @Override
     public void addCommentToDiscussion(DiscussionComment comment) {
-        posts.addComment(comment);
+        Discussion discussion = posts.addComment(comment);
+        if(discussion != null)
+            server.managePost(ManagePost.EDIT, discussion);
     }
 
     private User getUserByEmail(String email) {

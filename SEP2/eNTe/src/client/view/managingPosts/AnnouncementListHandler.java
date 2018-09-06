@@ -49,7 +49,7 @@ public class AnnouncementListHandler {
     private void loadPosts() {
         ArrayList<Post> posts = controller.getAllPosts();
         for(Post p : posts) {
-            if(p.getClass().getSimpleName().equals("Post")) {
+            if(p.getClass().getSimpleName().equals("Announcement")) {
                 loadAnnouncement((Announcement) p);
             }
         }
