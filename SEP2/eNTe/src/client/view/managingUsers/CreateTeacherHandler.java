@@ -75,7 +75,7 @@ public class CreateTeacherHandler {
 		Alert alert = new Alert(Alert.AlertType.WARNING);
 		alert.setTitle("Warning Dialog");
 		alert.setHeaderText("Look, unfinished selection");
-		alert.setContentText("Please select or fill everything!");
+		alert.setContentText("Fill out everything, please");
 		alert.showAndWait();
 	}
 

@@ -52,26 +52,29 @@ public class CreateStudentHandler {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning Dialog");
         alert.setHeaderText("Look, unfinished selection");
-        alert.setContentText("Please select or fill everything!");
+        alert.setContentText("Fill out everything, please");
         alert.showAndWait();
     }
 
     public void save() {
-        checkForNull();
-        String id = null, pwd = null;
-        if (student != null)
-            id = student.getId();
-        if (student != null)
-            pwd = student.getPwd();
-        controller.addStudent(name.getText(), email.getText(), classSelector.getValue(), family, id, pwd);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
-        try {
-            Parent mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (checkForNull()) {
+            warningDialog();
+        } else {
+            String id = null, pwd = null;
+            if (student != null)
+                id = student.getId();
+            if (student != null)
+                pwd = student.getPwd();
+            controller.addStudent(name.getText(), email.getText(), classSelector.getValue(), family, id, pwd);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
+            try {
+                Parent mainPane = loader.load();
+                mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            goBack();
         }
-        goBack();
     }
 
     public void goBack() {

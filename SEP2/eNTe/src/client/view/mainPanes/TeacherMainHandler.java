@@ -70,18 +70,29 @@ public class TeacherMainHandler {
         title.setId("title");
         Text content = new Text(discussion.getContent());
         content.setId("content");
-        Button showComments = new Button("comments");
+        Button showComments = new Button("COMMENTS");
         showComments.getStyleClass().add("smallButton");
         showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new TeacherMainHandler.ShowComments(discussion));
+
         Image img = new Image("/client/view/fxml/discussionIcon.png");
         ImageView imageView = new ImageView(img);
         imageView.setFitHeight(35);
         imageView.setFitWidth(35);
 
-        Text separator = new Text("\n" + "\n");
-        Text separator1 = new Text("\n" + "\n");
+        Image imgParental = new Image("/client/view/fxml/pIcon.png");
+        ImageView parentalView = new ImageView(imgParental);
+        parentalView.setFitHeight(15);
+        parentalView.setFitWidth(15);
 
-        TextFlow textFlow = new TextFlow(imageView,title,separator, content, separator1, showComments);
+        Text separator = new Text("\n" + "\n");
+        Text separator1 = new Text("\n" + "\n" + " ");
+
+        TextFlow textFlow;
+        if (discussion.getSpecialType().toString().toLowerCase().equals("parental")) {
+            textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, showComments);
+        } else {
+            textFlow = new TextFlow(imageView, title, separator, content, separator1, showComments);
+        }
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(discussion.getContent());
         textFlow.setPrefWidth(830);
@@ -124,14 +135,32 @@ public class TeacherMainHandler {
         delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new TeacherMainHandler.DeleteAnnouncementHandler(announcement));
         delete.getStyleClass().add("smallButton");
 
-        Image img = new Image("/client/view/fxml/importantIcon.png");
+        Image img = new Image("/client/view/fxml/annIcon.png");
         ImageView imageView = new ImageView(img);
-        imageView.setFitHeight(25);
-        imageView.setFitWidth(25);
+        imageView.setFitHeight(30);
+        imageView.setFitWidth(30);
+
+        Image imgParental = new Image("/client/view/fxml/pIcon.png");
+        ImageView parentalView = new ImageView(imgParental);
+        parentalView.setFitHeight(15);
+        parentalView.setFitWidth(15);
+
+        Image imgImportant = new Image("/client/view/fxml/importantIcon.png");
+        ImageView importantView = new ImageView(imgImportant);
+        importantView.setFitHeight(25);
+        importantView.setFitWidth(25);
         TextFlow textFlow;
-        if (announcement.getSpecialType().toString().toLowerCase().equals("important")) {
-            textFlow = new TextFlow(imageView,title, separator, content, separator1, delete); }
-        else {textFlow = new TextFlow(title, separator, content, separator1, delete); }
+        switch (announcement.getSpecialType().toString().toLowerCase()) {
+            case "important":
+                textFlow = new TextFlow(importantView, imageView, title, separator, content, separator1, delete);
+                break;
+            case "parental":
+                textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, delete);
+                break;
+            default:
+                textFlow = new TextFlow(imageView, title, separator, content, separator1, delete);
+                break;
+        }
 
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(announcement.getContent());

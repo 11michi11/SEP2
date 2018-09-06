@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -67,15 +68,32 @@ public class ParentMainHandler {
 		content.setId("content");
 		Text separator = new Text("\n" + "\n");
 
-		Image img = new Image("/client/view/fxml/importantIcon.png");
+		Image img = new Image("/client/view/fxml/annIcon.png");
 		ImageView imageView = new ImageView(img);
-		imageView.setFitHeight(25);
-		imageView.setFitWidth(25);
+		imageView.setFitHeight(30);
+		imageView.setFitWidth(30);
 
+		Image imgParental = new Image("/client/view/fxml/pIcon.png");
+		ImageView parentalView = new ImageView(imgParental);
+		parentalView.setFitHeight(15);
+		parentalView.setFitWidth(15);
+
+		Image imgImportant = new Image("/client/view/fxml/importantIcon.png");
+		ImageView importantView = new ImageView(imgImportant);
+		importantView.setFitHeight(25);
+		importantView.setFitWidth(25);
 		TextFlow textFlow;
-		if (announcement.getSpecialType().toString().toLowerCase().equals("important")) {
-			textFlow = new TextFlow(imageView,title, separator, content); }
-		else {textFlow = new TextFlow(title, separator, content); }
+		switch (announcement.getSpecialType().toString().toLowerCase()) {
+			case "important":
+				textFlow = new TextFlow(importantView, imageView, title, separator, content);
+				break;
+			case "parental":
+				textFlow = new TextFlow(imageView, parentalView, title, separator, content);
+				break;
+			default:
+				textFlow = new TextFlow(imageView, title, separator, content);
+				break;
+		}
 
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(announcement.getContent());
@@ -94,15 +112,25 @@ public class ParentMainHandler {
 		Button showComments = new Button("comments");
 		showComments.getStyleClass().add("smallButton");
 		showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new ParentMainHandler.ShowComments(discussion));
+		Text separator = new Text("\n" + "\n");
+		Text separator1 = new Text("\n" + "\n");
+
 		Image img = new Image("/client/view/fxml/discussionIcon.png");
 		ImageView imageView = new ImageView(img);
 		imageView.setFitHeight(35);
 		imageView.setFitWidth(35);
 
-		Text separator = new Text("\n" + "\n");
-		Text separator1 = new Text("\n" + "\n");
+		Image imgParental = new Image("/client/view/fxml/pIcon.png");
+		ImageView parentalView = new ImageView(imgParental);
+		parentalView.setFitHeight(15);
+		parentalView.setFitWidth(15);
 
-		TextFlow textFlow = new TextFlow(imageView,title,separator, content, separator1, showComments);
+		TextFlow textFlow;
+		if (discussion.getSpecialType().toString().toLowerCase().equals("parental")) {
+			textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, showComments);
+		} else {
+			textFlow = new TextFlow(imageView, title, separator, content, separator1, showComments);
+		}
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(discussion.getContent());
 		textFlow.setPrefWidth(830);
@@ -113,6 +141,20 @@ public class ParentMainHandler {
 
 	private void addPane(Pane pane) {
 		box.getChildren().add(pane);
+	}
+
+	public void discussionHandler() {
+		Parent mainPane;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionHandler.fxml"));
+			mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private class ShowComments implements EventHandler<Event> {
