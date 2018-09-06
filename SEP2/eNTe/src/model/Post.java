@@ -32,6 +32,8 @@ public abstract class Post implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private SpecialType specialType;
+    
+    private List<ClassNo> classes;
 
     protected Post() {
     }
@@ -61,6 +63,7 @@ public abstract class Post implements Serializable {
         this.author = author;
         this.pubDate = pubDate;
         this.specialType = specialType;
+        this.classes = classes;
     }
 
     public Post(String postId, String title, String content, String author, MyDate pubDate) {
@@ -95,6 +98,8 @@ public abstract class Post implements Serializable {
     public String getPostId() {
         return postId;
     }
+
+    public List<ClassNo> getClasses() {return classes;}
 
     public void setTitle(String title) {
         this.title = title;

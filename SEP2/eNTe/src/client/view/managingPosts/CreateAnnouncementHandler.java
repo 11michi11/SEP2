@@ -156,6 +156,7 @@ public class CreateAnnouncementHandler {
 		LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
 		expirationDate.setValue(localDate);
 
+
 	}
 
 }
