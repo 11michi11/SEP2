@@ -27,7 +27,10 @@
 
 .textPane{
 	/*-fx-background-color: #c1c1c1;*/
-	-fx-border-color: #8c8c8c;
+	-fx-border-color: white white #565656 white;
+	-fx-border-width: 2px;
+	-fx-padding: 0 0 10 0;
+
 }
 
 /*.importantPane{*/

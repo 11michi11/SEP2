@@ -61,16 +61,25 @@ public class DiscussionListHandler {
         Button showComments = new Button("comments");
         showComments.getStyleClass().add("smallButton");
         showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new ShowComments(discussion));
+        Text separator = new Text("\n" + "\n");
+        Text separator1 = new Text("\n" + "\n");
 
         Image img = new Image("/client/view/fxml/discussionIcon.png");
         ImageView imageView = new ImageView(img);
         imageView.setFitHeight(35);
         imageView.setFitWidth(35);
 
-        Text separator = new Text("\n" + "\n");
-        Text separator1 = new Text("\n" + "\n");
+        Image imgParental = new Image("/client/view/fxml/pIcon.png");
+        ImageView parentalView = new ImageView(imgParental);
+        parentalView.setFitHeight(15);
+        parentalView.setFitWidth(15);
 
-        TextFlow textFlow = new TextFlow(imageView, title,separator, content, separator1, showComments);
+        TextFlow textFlow;
+        if (discussion.getSpecialType().toString().toLowerCase().equals("parental")) {
+            textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, showComments);
+        } else {
+            textFlow = new TextFlow(imageView, title, separator, content, separator1, showComments);
+        }
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(discussion.getContent());
         textFlow.setPrefWidth(830);

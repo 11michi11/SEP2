@@ -124,15 +124,19 @@ public class StudentMainHandler {
         content.setId("content");
         Text separator = new Text("\n" + "\n");
 
-        Image img = new Image("/client/view/fxml/importantIcon.png");
+        Image img = new Image("/client/view/fxml/annIcon.png");
         ImageView imageView = new ImageView(img);
-        imageView.setFitHeight(25);
-        imageView.setFitWidth(25);
+        imageView.setFitHeight(30);
+        imageView.setFitWidth(30);
 
+        Image imgImportant = new Image("/client/view/fxml/importantIcon.png");
+        ImageView importantView = new ImageView(imgImportant);
+        importantView.setFitHeight(25);
+        importantView.setFitWidth(25);
         TextFlow textFlow;
         if (announcement.getSpecialType().toString().toLowerCase().equals("important")) {
-            textFlow = new TextFlow(imageView,title, separator, content); }
-        else {textFlow = new TextFlow(title, separator, content); }
+            textFlow = new TextFlow(importantView, imageView,title, separator, content); }
+        else {textFlow = new TextFlow(imageView,title, separator, content); }
 
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(announcement.getContent());

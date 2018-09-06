@@ -31,101 +31,119 @@ import model.Post;
 
 public class AnnouncementListHandler {
 
-    @FXML
-    private VBox box;
-    private ClientController controller;
-    private Stage stage;
+	@FXML
+	private VBox box;
+	private ClientController controller;
+	private Stage stage;
 
-    public AnnouncementListHandler() {
-        controller = ClientController.getInstance();
-        stage = ClientViewManager.getStage();
-        System.out.println("AnnouncementListHandler");
-    }
+	public AnnouncementListHandler() {
+		controller = ClientController.getInstance();
+		stage = ClientViewManager.getStage();
+		System.out.println("AnnouncementListHandler");
+	}
 
-    @FXML
-    public void initialize() {
-        loadPosts();
-    }
+	@FXML
+	public void initialize() {
+		loadPosts();
+	}
 
-    private void loadPosts() {
-        ArrayList<Post> posts = controller.getAllPosts();
-        for(Post p : posts) {
-            if(p.getClass().getSimpleName().equals("Announcement")) {
-                loadAnnouncement((Announcement) p);
-            }
-        }
-    }
+	private void loadPosts() {
+		ArrayList<Post> posts = controller.getAllPosts();
+		for (Post p : posts) {
+			if (p.getClass().getSimpleName().equals("Announcement")) {
+				loadAnnouncement((Announcement) p);
+			}
+		}
+	}
 
-    private void loadAnnouncement(Announcement announcement) {
-        Text title = new Text(announcement.getTitle());
-        title.setId("title");
-        Text content = new Text(announcement.getContent());
-        content.setId("content");
-        Text separator = new Text("\n" + "\n");
-        Text separator1 = new Text("\n" + "\n" + " ");
-        Image img = new Image("/client/view/fxml/importantIcon.png");
+	private void loadAnnouncement(Announcement announcement) {
+		Text title = new Text(announcement.getTitle());
+		title.setId("title");
+		Text content = new Text(announcement.getContent());
+		content.setId("content");
+		Text separator = new Text("\n" + "\n");
+		Text separator1 = new Text("\n" + "\n" + " ");
 
-        Button delete = new Button("DELETE");
-        delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new AnnouncementListHandler.DeleteAnnouncementHandler(announcement));
-        delete.getStyleClass().add("smallButton");
+		Button delete = new Button("DELETE");
+		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new AnnouncementListHandler.DeleteAnnouncementHandler(announcement));
+		delete.getStyleClass().add("smallButton");
 
-        ImageView imageView = new ImageView(img);
-        imageView.setFitHeight(25);
-        imageView.setFitWidth(25);
-        TextFlow textFlow;
-        if (announcement.getSpecialType().toString().toLowerCase().equals("important")) {
-        textFlow = new TextFlow(imageView,title, separator, content, separator1, delete); }
-        else {textFlow = new TextFlow(title, separator, content, separator1, delete); }
+		Image img = new Image("/client/view/fxml/annIcon.png");
+		ImageView imageView = new ImageView(img);
+		imageView.setFitHeight(30);
+		imageView.setFitWidth(30);
 
-        textFlow.setTextAlignment(TextAlignment.JUSTIFY);
-        textFlow.setAccessibleText(announcement.getContent());
-        textFlow.setPrefWidth(830);
-        textFlow.getStyleClass().add("textPane");
-        addPane(textFlow);
-    }
+		Image imgParental = new Image("/client/view/fxml/pIcon.png");
+		ImageView parentalView = new ImageView(imgParental);
+		parentalView.setFitHeight(15);
+		parentalView.setFitWidth(15);
 
-    private void addPane(Pane pane) {
-        box.getChildren().add(pane);
-    }
+		Image imgImportant = new Image("/client/view/fxml/importantIcon.png");
+		ImageView importantView = new ImageView(imgImportant);
+		importantView.setFitHeight(25);
+		importantView.setFitWidth(25);
+		TextFlow textFlow;
+		switch (announcement.getSpecialType().toString().toLowerCase()) {
+			case "important":
+				textFlow = new TextFlow(importantView, imageView, title, separator, content, separator1, delete);
+				break;
+			case "parental":
+				textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, delete);
+				break;
+			default:
+				textFlow = new TextFlow(imageView, title, separator, content, separator1, delete);
+				break;
+		}
+		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+		textFlow.setAccessibleText(announcement.getContent());
+		textFlow.setPrefWidth(830);
+		textFlow.getStyleClass().add("textPane");
+		addPane(textFlow);
+	}
 
-    public void createAnnouncement() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createAnnouncement.fxml"));
-            Parent mainPane = loader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-            stage.getScene().setRoot(mainPane);
-            stage.show();
+	private void addPane(Pane pane) {
+		box.getChildren().add(pane);
+	}
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	public void createAnnouncement() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/createAnnouncement.fxml"));
+			Parent mainPane = loader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
 
-    public void goBack() {
-        String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
-        FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
-        try {
-            Parent mainPane = backLoader.load();
-            mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-            stage.getScene().setRoot(mainPane);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    private class DeleteAnnouncementHandler implements EventHandler<Event> {
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-        private Announcement announcement;
+	public void goBack() {
+		String path = GoBackMap.getLoader(this.getClass(), controller.getCurrentUserType());
+		FXMLLoader backLoader = new FXMLLoader(getClass().getResource(path));
+		try {
+			Parent mainPane = backLoader.load();
+			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
+			stage.getScene().setRoot(mainPane);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-        private DeleteAnnouncementHandler(Announcement announcement) {
-            this.announcement = announcement;
-        }
+	private class DeleteAnnouncementHandler implements EventHandler<Event> {
 
-        @Override
-        public void handle(Event event) {
-            controller.deletePost(announcement);
-            box.getChildren().clear();
-            loadPosts();
-        }
-    }
+		private Announcement announcement;
+
+		private DeleteAnnouncementHandler(Announcement announcement) {
+			this.announcement = announcement;
+		}
+
+		@Override
+		public void handle(Event event) {
+			controller.deletePost(announcement);
+			box.getChildren().clear();
+			loadPosts();
+		}
+	}
 }
