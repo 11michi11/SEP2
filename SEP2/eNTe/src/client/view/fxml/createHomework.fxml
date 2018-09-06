@@ -21,7 +21,7 @@
             <Image url="@enteLOGO.png" />
          </image>
       </ImageView>
-      <Button fx:id="save" layoutX="545.0" layoutY="697.0" onAction="#addHomework" mnemonicParsing="false" styleClass="menuButtonSmall" stylesheets="@login.css" text="save" />
+      <Button fx:id="save" layoutX="545.0" layoutY="697.0" mnemonicParsing="false" onAction="#addHomework" styleClass="menuButtonSmall" stylesheets="@login.css" text="save" />
       <TextArea fx:id="title" layoutX="36.0" layoutY="195.0" prefHeight="71.0" prefWidth="471.0" promptText="title" />
       <Label layoutX="405.0" layoutY="62.0" prefHeight="71.0" prefWidth="552.0" styleClass="labelMain" stylesheets="@login.css" text="create homework" />
       <VBox layoutX="953.0" layoutY="198.0" prefHeight="494.0" prefWidth="267.0">
@@ -77,7 +77,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </CheckBox>
-            <CheckBox fx:id="eight" mnemonicParsing="false" styleClass="labelSmall" stylesheets="@login.css" text="eight" />
+            <CheckBox fx:id="eight" mnemonicParsing="false" styleClass="labelSmall" stylesheets="@login.css" text="eighth" />
          </children>
          <padding>
             <Insets bottom="10.0" />
