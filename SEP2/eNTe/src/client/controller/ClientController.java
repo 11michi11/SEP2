@@ -12,6 +12,8 @@ import utility.Password;
 import utility.SendEmail;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -161,7 +163,9 @@ public class ClientController {
     }
 
     public ArrayList<Post> getAllPosts() {
-        return model.getAllPosts();
+        ArrayList<Post> allPosts = model.getAllPosts();
+        allPosts.sort(Collections.reverseOrder(Comparator.comparing(Post::getPubDate)));
+        return allPosts;
     }
 
     public void deletePost(Post post) {
@@ -213,7 +217,6 @@ public class ClientController {
     public void sendParentalPostEmail() {
         System.out.println("IMPLEMENT SENDING PARENTAL EMAILS");
     }
-
 
     public void addDiscussionComment(String text, String discussionid) {
         model.addCommentToDiscussion(new DiscussionComment(text, currentUser.getId(), MyDate.now(), discussionid));
