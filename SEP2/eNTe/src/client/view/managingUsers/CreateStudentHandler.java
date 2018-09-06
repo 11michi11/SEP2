@@ -58,10 +58,12 @@ public class CreateStudentHandler {
 
     public void save() {
         checkForNull();
-        String id = null;
+        String id = null, pwd = null;
         if (student != null)
             id = student.getId();
-        controller.addStudent(name.getText(), email.getText(), classSelector.getValue(), family, id);
+        if (student != null)
+            pwd = student.getPwd();
+        controller.addStudent(name.getText(), email.getText(), classSelector.getValue(), family, id, pwd);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/familyList.fxml"));
         try {
             Parent mainPane = loader.load();

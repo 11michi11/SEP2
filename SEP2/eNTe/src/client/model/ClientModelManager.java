@@ -53,7 +53,9 @@ public class ClientModelManager implements ClientModel {
     }
 
     @Override
-    public Announcement getAnnouncement() { return posts.getFirstAnnouncement(); }
+    public Announcement getAnnouncement() {
+        return posts.getFirstAnnouncement();
+    }
 
     @Override
     public void addPost(Post post) {
@@ -72,8 +74,13 @@ public class ClientModelManager implements ClientModel {
     public void addOrUpdateUser(User user) {
         if (!users.checkIfIdExist(user.getId())) {
             users.add(user);
+            if(user instanceof  Student)
+                ((Student) user).getFamily().addChild((Student) user);
+            if(user instanceof  Parent)
+                ((Parent) user).getFamily().addParent((Parent) user);
             server.manageUser(ManageUser.ADD, user);
-        } else {users.updateUser(user);
+        } else {
+            users.updateUser(user);
             server.manageUser(ManageUser.EDIT, user);
         }
     }
@@ -118,7 +125,7 @@ public class ClientModelManager implements ClientModel {
     @Override
     public void addCommentToDiscussion(DiscussionComment comment) {
         Discussion discussion = posts.addComment(comment);
-        if(discussion != null)
+        if (discussion != null)
             server.managePost(ManagePost.EDIT, discussion);
     }
 

@@ -79,7 +79,7 @@ public class ClientController {
     }
 
     public void addTeacher(String name, String email, String responsibility, String id, String pwd) {
-        User user = Teacher.builder().name(name).email(email).responsibility(responsibility).build();
+        Teacher user = Teacher.builder().name(name).email(email).responsibility(responsibility).build();
         if (id != null)
             user.setId(id);
         if(pwd != null)
@@ -87,20 +87,22 @@ public class ClientController {
         model.addOrUpdateUser(user);
     }
 
-    public void addStudent(String name, String email, ClassNo classs, Family family, String id) {
+    public void addStudent(String name, String email, ClassNo classs, Family family, String id, String pwd) {
         Student student = Student.builder().name(name).email(email).classNo(classs).family(family).build();
         if (id != null)
             student.setId(id);
+        if(pwd != null)
+            student.setPwd(pwd);
         model.addOrUpdateUser(student);
-        family.addChild(student);
     }
 
-    public void addParent(String name, String email, Family family, String id) {
+    public void addParent(String name, String email, Family family, String id,String pwd) {
         Parent parent = Parent.builder().name(name).email(email).family(family).build();
         if (id != null)
             parent.setId(id);
+        if(pwd != null)
+            parent.setPwd(pwd);
         model.addOrUpdateUser(parent);
-        family.addParent(parent);
     }
 
     public void deleteUser(String id) {
