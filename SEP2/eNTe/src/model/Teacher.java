@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 @PrimaryKeyJoinColumn(name = "teacherid")
 public class Teacher extends User implements Serializable {
 
+    @Column(name = "responsibility")
     private String responsibility;
     protected Teacher(){}
     private Teacher(String name, String email, String responsibility) {
