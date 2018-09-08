@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import client.controller.ClientController;
+import client.view.IconImage;
 import client.view.managingPosts.DiscussionCommentsHandler;
 import client.view.managingPosts.DiscussionListHandler;
 import client.view.managingPosts.HomeworkReplyHandler;
@@ -25,6 +26,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import model.*;
+
+import javax.swing.*;
 
 public class StudentMainHandler {
     @FXML
@@ -93,10 +96,6 @@ public class StudentMainHandler {
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n" + " ");
         Text separator2 = new Text("\n" + "\n");
-        Image img = new Image("/client/view/fxml/homeworkIcon.png");
-        ImageView imageView = new ImageView(img);
-        imageView.setFitHeight(30);
-        imageView.setFitWidth(30);
 
         HomeworkReply reply = homework.getStudentReply(controller.getCurrentUserId());
         Button solution;
@@ -108,7 +107,7 @@ public class StudentMainHandler {
         solution.addEventHandler(MouseEvent.MOUSE_CLICKED, new SubmitHomeworkHandler(homework));
         solution.getStyleClass().add("smallButton");
 
-        TextFlow textFlow = new TextFlow(imageView, separator, content, separator1, deadline, separator2, solution);
+        TextFlow textFlow = new TextFlow(IconImage.getHomIcon(), separator, content, separator1, deadline, separator2, solution);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(homework.getContent());
         textFlow.setPrefWidth(830);
@@ -124,19 +123,10 @@ public class StudentMainHandler {
         content.setId("content");
         Text separator = new Text("\n" + "\n");
 
-        Image img = new Image("/client/view/fxml/annIcon.png");
-        ImageView imageView = new ImageView(img);
-        imageView.setFitHeight(30);
-        imageView.setFitWidth(30);
-
-        Image imgImportant = new Image("/client/view/fxml/importantIcon.png");
-        ImageView importantView = new ImageView(imgImportant);
-        importantView.setFitHeight(25);
-        importantView.setFitWidth(25);
         TextFlow textFlow;
         if (announcement.getSpecialType().toString().toLowerCase().equals("important")) {
-            textFlow = new TextFlow(importantView, imageView,title, separator, content); }
-        else {textFlow = new TextFlow(imageView,title, separator, content); }
+            textFlow = new TextFlow(IconImage.getImpIcon(), IconImage.getAnnIcon(),title, separator, content); }
+        else {textFlow = new TextFlow(IconImage.getAnnIcon(),title, separator, content); }
 
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(announcement.getContent());
@@ -155,15 +145,11 @@ public class StudentMainHandler {
         Button showComments = new Button("comments");
         showComments.getStyleClass().add("smallButton");
         showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new StudentMainHandler.ShowComments(discussion));
-        Image img = new Image("/client/view/fxml/discussionIcon.png");
-        ImageView imageView = new ImageView(img);
-        imageView.setFitHeight(35);
-        imageView.setFitWidth(35);
 
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n");
 
-        TextFlow textFlow = new TextFlow(imageView,title,separator, content, separator1, showComments);
+        TextFlow textFlow = new TextFlow(IconImage.getDisIcon(),title,separator, content, separator1, showComments);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(discussion.getContent());
         textFlow.setPrefWidth(830);

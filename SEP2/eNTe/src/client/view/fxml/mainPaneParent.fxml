@@ -27,7 +27,7 @@
       </ScrollPane>
       <VBox layoutX="912.0" layoutY="152.0" prefHeight="278.0" prefWidth="358.0">
          <children>
-            <Button fx:id="discussion" mnemonicParsing="false" onAction="#discussionHandler" prefHeight="104.0" prefWidth="364.0" styleClass="menuButton" text="discussion" textAlignment="CENTER" textFill="#729eea">
+            <Button fx:id="discussion" mnemonicParsing="false" prefHeight="104.0" prefWidth="364.0" styleClass="menuButton" text="discussion" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>

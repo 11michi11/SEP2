@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.IconImage;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -81,10 +82,6 @@ public class HomeworkListHandler {
         Text separator2 = new Text("\n" + "\n" + " ");
         Text separator3 = new Text(" ");
         Text separator4 = new Text(" ");
-        Image img = new Image("/client/view/fxml/homeworkIcon.png");
-        ImageView imageView = new ImageView(img);
-        imageView.setFitHeight(30);
-        imageView.setFitWidth(30);
 
         Button list = new Button("DONE BY:");
         list.addEventHandler(MouseEvent.MOUSE_CLICKED, new ListOfHomeworkHandler(homework));
@@ -96,7 +93,7 @@ public class HomeworkListHandler {
         delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new DeleteHomeworkHandler(homework));
         delete.getStyleClass().add("smallButton");
 
-        TextFlow textFlow = new TextFlow(imageView, title, separator, content, separator1, deadline, separator2, list, separator3, edit, separator4, delete);
+        TextFlow textFlow = new TextFlow(IconImage.getHomIcon(), title, separator, content, separator1, deadline, separator2, list, separator3, edit, separator4, delete);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(homework.getContent());
         textFlow.setPrefWidth(830);

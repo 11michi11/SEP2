@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import client.controller.ClientController;
 import client.view.ClientViewManager;
 import client.view.GoBackMap;
+import client.view.IconImage;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -73,30 +74,16 @@ public class AnnouncementListHandler {
 		edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new AnnouncementListHandler.EditAnnouncementHandler(announcement));
 		edit.getStyleClass().add("smallButton");
 
-		Image img = new Image("/client/view/fxml/annIcon.png");
-		ImageView imageView = new ImageView(img);
-		imageView.setFitHeight(30);
-		imageView.setFitWidth(30);
-
-		Image imgParental = new Image("/client/view/fxml/pIcon.png");
-		ImageView parentalView = new ImageView(imgParental);
-		parentalView.setFitHeight(15);
-		parentalView.setFitWidth(15);
-
-		Image imgImportant = new Image("/client/view/fxml/importantIcon.png");
-		ImageView importantView = new ImageView(imgImportant);
-		importantView.setFitHeight(25);
-		importantView.setFitWidth(25);
 		TextFlow textFlow;
 		switch (announcement.getSpecialType().toString().toLowerCase()) {
 			case "important":
-				textFlow = new TextFlow(importantView, imageView, title, separator, content, separator1, delete, separator2, edit);
+				textFlow = new TextFlow(IconImage.getImpIcon(), IconImage.getAnnIcon(), title, separator, content, separator1, delete, separator2, edit);
 				break;
 			case "parental":
-				textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, delete, separator2, edit);
+				textFlow = new TextFlow(IconImage.getAnnIcon(), IconImage.getParIcon(), title, separator, content, separator1, delete, separator2, edit);
 				break;
 			default:
-				textFlow = new TextFlow(imageView, title, separator, content, separator1, delete, separator2, edit);
+				textFlow = new TextFlow(IconImage.getAnnIcon(), title, separator, content, separator1, delete, separator2, edit);
 				break;
 		}
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);

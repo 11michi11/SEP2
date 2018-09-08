@@ -3,6 +3,7 @@ package client.view.managingPosts;
 import client.controller.ClientController;
 import client.view.ClientViewManager;
 import client.view.GoBackMap;
+import client.view.IconImage;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -64,21 +65,11 @@ public class DiscussionListHandler {
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n");
 
-        Image img = new Image("/client/view/fxml/discussionIcon.png");
-        ImageView imageView = new ImageView(img);
-        imageView.setFitHeight(35);
-        imageView.setFitWidth(35);
-
-        Image imgParental = new Image("/client/view/fxml/pIcon.png");
-        ImageView parentalView = new ImageView(imgParental);
-        parentalView.setFitHeight(15);
-        parentalView.setFitWidth(15);
-
         TextFlow textFlow;
         if (discussion.getSpecialType().toString().toLowerCase().equals("parental")) {
-            textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, showComments);
+            textFlow = new TextFlow(IconImage.getDisIcon(), IconImage.getParIcon(), title, separator, content, separator1, showComments);
         } else {
-            textFlow = new TextFlow(imageView, title, separator, content, separator1, showComments);
+            textFlow = new TextFlow(IconImage.getDisIcon(), title, separator, content, separator1, showComments);
         }
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(discussion.getContent());

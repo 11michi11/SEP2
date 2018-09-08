@@ -2,6 +2,7 @@ package client.view.mainPanes;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.IconImage;
 import client.view.managingPosts.DiscussionCommentsHandler;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -20,6 +21,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import model.*;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -85,13 +87,13 @@ public class ParentMainHandler {
 		TextFlow textFlow;
 		switch (announcement.getSpecialType().toString().toLowerCase()) {
 			case "important":
-				textFlow = new TextFlow(importantView, imageView, title, separator, content);
+				textFlow = new TextFlow(IconImage.getImpIcon(), IconImage.getAnnIcon(), title, separator, content);
 				break;
 			case "parental":
-				textFlow = new TextFlow(imageView, parentalView, title, separator, content);
+				textFlow = new TextFlow(IconImage.getAnnIcon(), IconImage.getParIcon(), title, separator, content);
 				break;
 			default:
-				textFlow = new TextFlow(imageView, title, separator, content);
+				textFlow = new TextFlow(IconImage.getAnnIcon(), title, separator, content);
 				break;
 		}
 
@@ -115,21 +117,11 @@ public class ParentMainHandler {
 		Text separator = new Text("\n" + "\n");
 		Text separator1 = new Text("\n" + "\n");
 
-		Image img = new Image("/client/view/fxml/discussionIcon.png");
-		ImageView imageView = new ImageView(img);
-		imageView.setFitHeight(35);
-		imageView.setFitWidth(35);
-
-		Image imgParental = new Image("/client/view/fxml/pIcon.png");
-		ImageView parentalView = new ImageView(imgParental);
-		parentalView.setFitHeight(15);
-		parentalView.setFitWidth(15);
-
 		TextFlow textFlow;
 		if (discussion.getSpecialType().toString().toLowerCase().equals("parental")) {
-			textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, showComments);
+			textFlow = new TextFlow(IconImage.getDisIcon(), IconImage.getParIcon(), title, separator, content, separator1, showComments);
 		} else {
-			textFlow = new TextFlow(imageView, title, separator, content, separator1, showComments);
+			textFlow = new TextFlow(IconImage.getDisIcon(), title, separator, content, separator1, showComments);
 		}
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(discussion.getContent());
@@ -141,20 +133,6 @@ public class ParentMainHandler {
 
 	private void addPane(Pane pane) {
 		box.getChildren().add(pane);
-	}
-
-	public void discussionHandler() {
-		Parent mainPane;
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionHandler.fxml"));
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-			stage.getScene().setRoot(mainPane);
-			stage.show();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private class ShowComments implements EventHandler<Event> {

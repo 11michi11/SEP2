@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import client.controller.ClientController;
+import client.view.IconImage;
 import client.view.managingPosts.*;
 import client.view.ClientViewManager;
 import javafx.event.Event;
@@ -25,6 +26,8 @@ import model.Announcement;
 import model.Discussion;
 import model.Homework;
 import model.Post;
+
+import javax.swing.*;
 
 public class AdminMainHandler {
 
@@ -77,11 +80,6 @@ public class AdminMainHandler {
 		Text separator2 = new Text("\n" + "\n" + " ");
 		Text separator3 = new Text(" ");
 		Text separator4 = new Text(" ");
-		Image img = new Image("/client/view/fxml/homeworkIcon.png");
-		ImageView imageView = new ImageView(img);
-		imageView.setFitHeight(30);
-		imageView.setFitWidth(30);
-
 
 		Button list = new Button("DONE BY:");
 		list.addEventHandler(MouseEvent.MOUSE_CLICKED, new AdminMainHandler.ListOfHomeworkHandler(homework));
@@ -93,7 +91,7 @@ public class AdminMainHandler {
 		delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new AdminMainHandler.DeleteHomeworkHandler(homework));
 		delete.getStyleClass().add("smallButton");
 
-		TextFlow textFlow = new TextFlow(imageView, title, separator, content, separator1, deadline, separator2, list, separator3, edit, separator4, delete);
+		TextFlow textFlow = new TextFlow(IconImage.getHomIcon(), title, separator, content, separator1, deadline, separator2, list, separator3, edit, separator4, delete);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(homework.getContent());
 		textFlow.setPrefWidth(830);
@@ -127,30 +125,16 @@ public class AdminMainHandler {
 		edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new AdminMainHandler.EditAnnouncementHandler(announcement));
 		edit.getStyleClass().add("smallButton");
 
-		Image img = new Image("/client/view/fxml/annIcon.png");
-		ImageView imageView = new ImageView(img);
-		imageView.setFitHeight(30);
-		imageView.setFitWidth(30);
-
-		Image imgParental = new Image("/client/view/fxml/pIcon.png");
-		ImageView parentalView = new ImageView(imgParental);
-		parentalView.setFitHeight(15);
-		parentalView.setFitWidth(15);
-
-		Image imgImportant = new Image("/client/view/fxml/importantIcon.png");
-		ImageView importantView = new ImageView(imgImportant);
-		importantView.setFitHeight(25);
-		importantView.setFitWidth(25);
 		TextFlow textFlow;
 		switch (announcement.getSpecialType().toString().toLowerCase()) {
 			case "important":
-				textFlow = new TextFlow(importantView, imageView, title, separator, content, separator1, delete, separator2, edit);
+				textFlow = new TextFlow(IconImage.getImpIcon(), IconImage.getAnnIcon(), title, separator, content, separator1, delete, separator2, edit);
 				break;
 			case "parental":
-				textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, delete, separator2, edit);
+				textFlow = new TextFlow(IconImage.getAnnIcon(), IconImage.getParIcon(), title, separator, content, separator1, delete, separator2, edit);
 				break;
 			default:
-				textFlow = new TextFlow(imageView, title, separator, content, separator1, delete, separator2, edit);
+				textFlow = new TextFlow(IconImage.getAnnIcon(), title, separator, content, separator1, delete, separator2, edit);
 				break;
 		}
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
@@ -169,24 +153,14 @@ public class AdminMainHandler {
 		showComments.getStyleClass().add("smallButton");
 		showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new AdminMainHandler.ShowComments(discussion));
 
-		Image img = new Image("/client/view/fxml/discussionIcon.png");
-		ImageView imageView = new ImageView(img);
-		imageView.setFitHeight(35);
-		imageView.setFitWidth(35);
-
-		Image imgParental = new Image("/client/view/fxml/pIcon.png");
-		ImageView parentalView = new ImageView(imgParental);
-		parentalView.setFitHeight(15);
-		parentalView.setFitWidth(15);
-
 		Text separator = new Text("\n" + "\n");
 		Text separator1 = new Text("\n" + "\n" + " ");
 
 		TextFlow textFlow;
 		if (discussion.getSpecialType().toString().toLowerCase().equals("parental")) {
-			textFlow = new TextFlow(imageView, parentalView, title, separator, content, separator1, showComments);
+			textFlow = new TextFlow(IconImage.getDisIcon(), IconImage.getParIcon(), title, separator, content, separator1, showComments);
 		} else {
-			textFlow = new TextFlow(imageView, title, separator, content, separator1, showComments);
+			textFlow = new TextFlow(IconImage.getDisIcon(), title, separator, content, separator1, showComments);
 		}
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(discussion.getContent());
@@ -195,7 +169,6 @@ public class AdminMainHandler {
 
 		addPane(textFlow);
 	}
-
 
 	private void addPane(Pane pane) {
 		box.getChildren().add(pane);
