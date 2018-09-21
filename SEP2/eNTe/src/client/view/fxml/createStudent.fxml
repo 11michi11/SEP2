@@ -25,7 +25,7 @@
       </Label>
       <VBox fx:id="textBox" layoutX="427.0" layoutY="225.0" prefHeight="305.0" prefWidth="474.0">
          <children>
-            <TextField fx:id="name" opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="name and surname">
+            <TextField fx:id="name" opacity="0.5" prefHeight="65.0" prefWidth="465.0" promptText="name and surname">
                <font>
                   <Font name="Gill Sans MT Bold" size="30.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="email" opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="e-mail">
+            <TextField fx:id="email" opacity="0.5" prefHeight="65.0" prefWidth="465.0" promptText="e-mail">
                <font>
                   <Font name="Gill Sans MT Bold" size="30.0" />
                </font>
@@ -51,7 +51,7 @@
             </ChoiceBox>
          </children>
       </VBox>
-      <Button fx:id="saveButton" layoutX="613.0" layoutY="584.0" onAction="#save" mnemonicParsing="false" text="save" textFill="#729eea">
+      <Button fx:id="saveButton" layoutX="613.0" layoutY="584.0" mnemonicParsing="false" onAction="#save" text="save" textFill="#729eea">
          <font>
             <Font name="Gill Sans MT Bold" size="30.0" />
          </font>

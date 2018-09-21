@@ -20,7 +20,6 @@ public class CreateTeacherHandler {
 	private TextField name, email, responsibility;
 	private ClientController controller;
 	private Stage stage;
-	private Parent mainPane;
 	private Teacher teacher;
 
 	public CreateTeacherHandler() {
@@ -31,6 +30,7 @@ public class CreateTeacherHandler {
 	}
 
 	public void save() {
+		checkForNull();
 		if(checkForNull()) {
 			warningDialog();
 		} else {
@@ -64,11 +64,7 @@ public class CreateTeacherHandler {
 	}
 
 	private boolean checkForNull() {
-		if (name.getText() == null || email.getText() == null) {
-		return true;
-		} else {
-			return false;
-		}
+		return name.getText().equals("") || email.getText().equals("") || responsibility.getText().equals("");
 	}
 
 	private void warningDialog() {

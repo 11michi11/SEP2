@@ -24,7 +24,7 @@
       </Label>
       <VBox fx:id="textBox" layoutX="427.0" layoutY="206.0" prefHeight="263.0" prefWidth="474.0">
          <children>
-            <TextField fx:id="name" opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="name and surname">
+            <TextField fx:id="name" opacity="0.5" prefHeight="65.0" prefWidth="465.0" promptText="name and surname">
                <font>
                   <Font name="Gill Sans MT Bold" size="30.0" />
                </font>
@@ -35,7 +35,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="email" opacity="0.5" prefHeight="65.0" prefWidth="465.0" text="e-mail">
+            <TextField fx:id="email" opacity="0.5" prefHeight="65.0" prefWidth="465.0" promptText="e-mail">
                <font>
                   <Font name="Gill Sans MT Bold" size="30.0" />
                </font>

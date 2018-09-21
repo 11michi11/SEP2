@@ -20,6 +20,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import model.Discussion;
+import model.Homework;
 import model.Post;
 
 import java.io.IOException;
@@ -59,17 +60,21 @@ public class DiscussionListHandler {
         title.setId("title");
         Text content = new Text(discussion.getContent());
         content.setId("content");
-        Button showComments = new Button("comments");
+        Button showComments = new Button("COMMENTS");
         showComments.getStyleClass().add("smallButton");
         showComments.addEventHandler(MouseEvent.MOUSE_CLICKED, new ShowComments(discussion));
+        Button delete = new Button("DELETE");
+        delete.getStyleClass().add("smallButton");
+        delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new DeleteDiscussionHandler(discussion));
         Text separator = new Text("\n" + "\n");
         Text separator1 = new Text("\n" + "\n");
+        Text separator2 = new Text(" ");
 
         TextFlow textFlow;
         if (discussion.getSpecialType().toString().toLowerCase().equals("parental")) {
-            textFlow = new TextFlow(IconImage.getDisIcon(), IconImage.getParIcon(), title, separator, content, separator1, showComments);
+            textFlow = new TextFlow(IconImage.getDisIcon(), IconImage.getParIcon(), title, separator, content, separator1, showComments, separator2, delete);
         } else {
-            textFlow = new TextFlow(IconImage.getDisIcon(), title, separator, content, separator1, showComments);
+            textFlow = new TextFlow(IconImage.getDisIcon(), title, separator, content, separator1, showComments, separator2, delete);
         }
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(discussion.getContent());
@@ -129,6 +134,22 @@ public class DiscussionListHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private class DeleteDiscussionHandler implements EventHandler<Event> {
+
+        private Discussion discussion;
+
+        private DeleteDiscussionHandler(Discussion discussion) {
+            this.discussion = discussion;
+        }
+
+        @Override
+        public void handle(Event event) {
+            controller.deletePost(discussion);
+            box.getChildren().clear();
+            loadPosts();
         }
     }
 }

@@ -20,14 +20,9 @@
             <VBox id="box" fx:id="VBox" prefHeight="883.0" prefWidth="842.0" />
          </content>
       </ScrollPane>
-      <VBox layoutX="891.0" layoutY="120.0" prefHeight="641.0" prefWidth="369.0">
+      <VBox layoutX="891.0" layoutY="132.0" prefHeight="629.0" prefWidth="369.0">
          <children>
-            <Button fx:id="myProfile" mnemonicParsing="false" prefHeight="104.0" prefWidth="370.0" styleClass="menuButton" stylesheets="@login.css" text="my profile" textAlignment="CENTER" textFill="#729eea">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="50.0" />
-               </font>
-            </Button>
-            <Button fx:id="homework" mnemonicParsing="false" onAction="#homeworkHandler" prefHeight="104.0" prefWidth="385.0" styleClass="menuButton" stylesheets="@login.css" text="homework" textAlignment="CENTER" textFill="#729eea">
+            <Button fx:id="homework" mnemonicParsing="false" onAction="#homeworkHandler" prefHeight="104.0" prefWidth="370.0" styleClass="menuButton" stylesheets="@login.css" text="homework" textAlignment="CENTER" textFill="#729eea">
                <font>
                   <Font name="Gill Sans MT Bold" size="50.0" />
                </font>

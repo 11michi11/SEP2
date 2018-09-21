@@ -81,6 +81,7 @@ public class CreateHomeworkHandler {
     }
 
     public void addHomework() {
+        checkForNull();
         if (checkForNull()) {
             warningDialog();
         } else {
@@ -108,7 +109,7 @@ public class CreateHomeworkHandler {
     }
 
     private boolean checkForNull() {
-        return title.getText() == null || content.getText() == null || deadline.getValue() == null || getClasses() == null || numberOfStudentsToDeliver.getText() == null;
+        return title.getText().equals("") || content.getText().equals("") || deadline.getValue() == null || getClasses() == null || numberOfStudentsToDeliver.getText().equals("");
     }
 
     private void warningDialog() {

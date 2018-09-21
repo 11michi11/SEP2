@@ -68,11 +68,7 @@ public class CreateParentHandler {
 	}
 
 	private boolean checkForNull() {
-		if (name.getText() == null || email.getText() == null) {
-			return true;
-		} else {
-			return false;
-		}
+		return name.getText().equals("") || email.getText().equals("");
 	}
 
 	private void warningDialog() {

@@ -30,13 +30,6 @@ public class CreateDiscussionHandler {
 		controller = ClientController.getInstance();
 		stage = ClientViewManager.getStage();
 		System.out.println("HomeworkListHandler");
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionHandler.fxml"));
-		try {
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@FXML
@@ -50,23 +43,15 @@ public class CreateDiscussionHandler {
 
 	public void addDiscussion() {
 		checkForNull();
-		controller.addDiscussion(title.getText(), content.getText(), selectedValue(), getClasses());
-		System.out.println("post added" + title.getText() + content.getText());
-		goToDiscussion();
-	}
-
-	private void goToDiscussion() {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/discussionHandler.fxml"));
-			mainPane = loader.load();
-			mainPane.getStylesheets().add(getClass().getResource("/client/view/fxml/login.css").toExternalForm());
-			stage.getScene().setRoot(mainPane);
-			stage.show();
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(checkForNull()) {
+			warningMessage();
+		} else {
+			controller.addDiscussion(title.getText(), content.getText(), selectedValue(), getClasses());
+			System.out.println("post added" + title.getText() + content.getText());
+			goBack();
 		}
 	}
+
 	private String selectedValue() {
 		String value = null;
 		if (parental.isSelected()) {
@@ -78,14 +63,16 @@ public class CreateDiscussionHandler {
 		return value;
 	}
 
-	private void checkForNull() {
-		if (title.getText() == null || content.getText() == null || getClasses() == null || selectedValue() == null) {
+	private boolean checkForNull() {
+		return (title.getText().equals("") || content.getText().equals("") || getClasses() == null || selectedValue() == null);
+	}
+
+	private void warningMessage() {
 		Alert alert = new Alert(Alert.AlertType.WARNING);
 		alert.setTitle("Warning Dialog");
 		alert.setHeaderText("Look, unfinished selection");
 		alert.setContentText("Fill out everything, please");
 		alert.showAndWait();
-		}
 	}
 	private List<ClassNo> getClasses() {
 		return getClassNos(first, second, third, fourth, fifth, sixth, seventh, eight);

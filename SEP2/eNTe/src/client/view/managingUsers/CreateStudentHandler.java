@@ -41,11 +41,7 @@ public class CreateStudentHandler {
     }
 
     private boolean checkForNull() {
-        if(name.getText() == null || email.getText() == null || classSelector.getItems() == null) {
-           return true;
-        } else {
-            return false;
-        }
+        return name.getText().equals("") || email.getText().equals("") || classSelector.getItems() == null;
     }
 
     private void warningDialog() {

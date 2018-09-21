@@ -22,6 +22,8 @@ public class TeacherListHandler {
     private TableColumn<TeacherDT, String> nameColumn;
     @FXML
     private TableColumn<TeacherDT, String> emailColumn;
+    @FXML
+    private TableColumn<TeacherDT, String> responsibilityColumn;
     private ClientController controller;
     private Stage stage;
     private Parent mainPane;
@@ -37,8 +39,9 @@ public class TeacherListHandler {
     public void initialize() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        responsibilityColumn.setCellValueFactory(new PropertyValueFactory<>("responsibility"));
         teacherList.getColumns().clear();
-        teacherList.getColumns().addAll(nameColumn, emailColumn);
+        teacherList.getColumns().addAll(nameColumn, emailColumn, responsibilityColumn);
         teacherList.setItems(controller.getTeachersForView());
 
     }

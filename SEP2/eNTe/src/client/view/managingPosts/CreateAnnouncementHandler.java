@@ -47,6 +47,7 @@ public class CreateAnnouncementHandler {
     }
 
     public void addAnnouncement() {
+        checkForNull();
         if (checkForNull()) {
             warningDialog();
         } else {
@@ -79,7 +80,7 @@ public class CreateAnnouncementHandler {
     }
 
     private boolean checkForNull() {
-        return title.getText() == null || content.getText() == null || getClasses().size() == 0 || expirationDate.getValue() == null;
+        return title.getText().equals("") || content.getText().equals("") || getClasses().size() == 0 || expirationDate.getValue() == null;
     }
 
     private void warningDialog() {

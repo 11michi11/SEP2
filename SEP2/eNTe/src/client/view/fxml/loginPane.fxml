@@ -17,8 +17,14 @@
             <Image url="@enteLOGO.png" />
          </image>
       </ImageView>
-      <PasswordField id="passwordField" fx:id="passwordField" layoutX="493.0" layoutY="528.0" opacity="0.5" prefHeight="60.0" prefWidth="306.0" />
-      <TextField id="loginField" fx:id="loginField" alignment="TOP_CENTER" layoutX="493.0" layoutY="452.0" opacity="0.5" prefHeight="60.0" prefWidth="306.0" stylesheets="@login.css" text="username">
+      <PasswordField id="passwordField" fx:id="passwordField" alignment="CENTER" layoutX="493.0" layoutY="528.0" prefHeight="60.0" prefWidth="306.0" promptText="password">
+         <font>
+            <Font name="Gill Sans MT Italic" size="25.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect></PasswordField>
+      <TextField id="loginField" fx:id="loginField" alignment="CENTER" layoutX="493.0" layoutY="452.0" prefHeight="60.0" prefWidth="306.0" promptText="username" stylesheets="@login.css">
          <font>
             <Font name="Gill Sans MT Italic" size="25.0" />
          </font>

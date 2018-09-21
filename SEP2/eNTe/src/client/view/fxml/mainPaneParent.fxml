@@ -34,14 +34,5 @@
             </Button>
          </children>
       </VBox>
-      <ScrollPane layoutX="923.0" layoutY="469.0" prefHeight="269.0" prefWidth="327.0">
-         <content>
-            <VBox prefHeight="556.0" prefWidth="311.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="92.0" prefWidth="352.0" styleClass="menuButtonSmall" stylesheets="@login.css" text="Dominika" />
-               </children>
-            </VBox>
-         </content>
-      </ScrollPane>
    </children>
 </Pane>
