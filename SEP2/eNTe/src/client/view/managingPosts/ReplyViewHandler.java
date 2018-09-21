@@ -19,19 +19,16 @@ public class ReplyViewHandler {
 
 	@FXML
 	private TextArea content;
-	private ClientController controller;
-	private Stage stage;
 	private HomeworkReply reply;
 
 	public ReplyViewHandler() {
-		controller = ClientController.getInstance();
 		System.out.println("ReplyViewHandler");
-		stage = ClientViewManager.getStage();
 	}
 
 	@FXML
 	public void initialize() {
 		content.setWrapText(true);
+		content.setEditable(false);
 	}
 
 	public void setReply(HomeworkReply reply) {

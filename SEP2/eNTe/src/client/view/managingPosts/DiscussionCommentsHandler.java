@@ -6,6 +6,7 @@ import client.view.GoBackMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -94,8 +95,19 @@ public class DiscussionCommentsHandler {
     private void createComment() {
         VBox text = (VBox) box.getChildren().get(0);
         TextArea content = (TextArea) text.getChildren().get(0);
+        if (content.getText().equals("")) {
+            warningDialog();
+        } else {
         controller.addDiscussionComment(content.getText(), discussion.getPostId());
         reload();
+        }
+    }
+    private void warningDialog() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning Dialog");
+        alert.setHeaderText("Look, unfinished selection");
+        alert.setContentText("Empty comment can not be added");
+        alert.showAndWait();
     }
 
     private void reload() {
