@@ -190,8 +190,13 @@ public class ClientController {
     public boolean checkHomeworkClass(Homework homework) {
         if (currentUser instanceof Student)
             return homework.getClasses().contains(((Student) currentUser).getClassNo());
-        else
-            return false;
+        else if (currentUser instanceof Parent) {
+            for (ClassNo e:((Parent) currentUser).getFamily().getClasses()) {
+                if (homework.getClasses().contains(e))
+                    return true;
+            }
+        }
+        return false;
     }
 
     public void addDiscussion(String title, String content, String selectedValue, List<ClassNo> classes) {

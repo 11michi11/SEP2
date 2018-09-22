@@ -50,6 +50,11 @@ public class ParentMainHandler {
 		ArrayList<Post> posts = controller.getAllPosts();
 		for (Post p : posts) {
 			switch (p.getClass().getSimpleName()) {
+				case "Homework":
+					if (controller.checkHomeworkClass((Homework) p)) {
+						loadHomework((Homework) p);
+					}
+					break;
 				case "Announcement":
 					loadAnnouncement((Announcement) p);
 					break;
