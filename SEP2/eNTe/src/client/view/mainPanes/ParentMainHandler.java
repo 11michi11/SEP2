@@ -8,6 +8,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -24,6 +25,7 @@ import model.*;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParentMainHandler {
 
@@ -57,9 +59,6 @@ public class ParentMainHandler {
 					break;
 			}
 		}
-
-
-
 
 	}
 
@@ -125,6 +124,22 @@ public class ParentMainHandler {
 		}
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(discussion.getContent());
+		textFlow.setPrefWidth(830);
+		textFlow.getStyleClass().add("textPane");
+
+		addPane(textFlow);
+	}
+
+	private void loadHomework(Homework homework) {
+		Text title = new Text(homework.getTitle());
+		title.setId("title");
+		Text content = new Text(homework.getContent());
+		content.setId("content");
+		Text separator = new Text("\n" + "\n");
+
+		TextFlow textFlow = new TextFlow(IconImage.getHomIcon(), separator, content);
+		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+		textFlow.setAccessibleText(homework.getContent());
 		textFlow.setPrefWidth(830);
 		textFlow.getStyleClass().add("textPane");
 
