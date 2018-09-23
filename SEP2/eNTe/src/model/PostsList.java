@@ -10,15 +10,6 @@ public class PostsList {
         posts = new LinkedList<>();
     }
 
-    public Post getNextPost() {
-        //i don't like this method :/
-        return posts.removeFirst();
-    }
-
-    public Post getFirstPost() {
-        return posts.getFirst();
-    }
-
     public void add(Post post) {
         posts.add(post);
     }
@@ -33,7 +24,7 @@ public class PostsList {
 
     public Homework getFirstHomework() {
         return posts.stream().filter(p -> p instanceof Homework).map(h -> (Homework) h).findFirst()
-                .orElse(new Homework(Homework.noHomeworkId, "There are no homeworks yet", "", "", MyDate.now(), MyDate.now(), new ArrayList<>(), 0, new ArrayList<>(), false));
+                .orElse(new Homework(Homework.noHomeworkId, "There is no homework yet", "", "", MyDate.now(), MyDate.now(), new ArrayList<>(), 0, new ArrayList<>(), false));
     }
 
     public Discussion getFirstDiscussion() {

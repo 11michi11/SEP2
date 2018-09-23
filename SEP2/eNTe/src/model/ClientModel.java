@@ -13,15 +13,9 @@ public interface ClientModel {
 
     void addPost(Post post);
 
-    Post getPost();
-
     void editPost(Post post);
 
     void deletePost(Post post);
-
-    Homework getHomework();
-   	Discussion getDiscussion();
-   	Announcement getAnnouncement();
 
     void saveData(WelcomingData data);
 
@@ -52,4 +46,6 @@ public interface ClientModel {
     User getUserById(String id);
 
 	void addCommentToDiscussion(DiscussionComment comment);
+
+    void requestUpdate();
 }

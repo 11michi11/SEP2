@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ServerModel {
 
-	Post getPost();
 	void addPost(Post post);
 	void deletePost(Post post);
 	void editPost(Post post);

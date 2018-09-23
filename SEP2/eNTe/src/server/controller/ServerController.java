@@ -46,6 +46,14 @@ public class ServerController {
                 model.changePwdWithEmail(change.email, change.newPwd);
                 response = Message.createSuccessfulResponse();
                 break;
+            case RequestUpdate:
+                WelcomingData data = new WelcomingData();
+                data.insertPosts(model.getAllPost());
+                data.insertUsers(model.getAllUsers());
+                data.insertFamilies(model.getAllFamilies());
+
+                response = Message.createUpdate(data);
+                break;
             default:
                 response = Message.createFail();
                 break;

@@ -106,4 +106,15 @@ public class ClientProxy {
 		}
 
     }
+
+	public WelcomingData requestUpdate() {
+		Message msg = Message.createRequestUpdate(), response = null;
+		try {
+			response = sendMessage(msg);
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		assert response != null;
+		return response.getUpdate().getData();
+	}
 }
