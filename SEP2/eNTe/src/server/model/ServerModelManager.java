@@ -36,11 +36,6 @@ public class ServerModelManager implements ServerModel {
     }
 
     @Override
-    public Post getPost() {
-        return posts.getFirstPost();
-    }
-
-    @Override
     public LoginStatus authenticate(Auth auth) {
         return users.authenticate(auth);
     }

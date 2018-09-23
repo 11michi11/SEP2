@@ -65,6 +65,9 @@ public class ClientController {
                     view.changePasswordDialog();
                 }
                 view.showPosts(login.getUserType());
+                Thread updater = new Thread(new ModelUpdater());
+                updater.setDaemon(true);
+                updater.start();
                 break;
             case FAILURE_LOGIN:
                 view.showMessage("Wrong user name, try again.");
@@ -198,7 +201,7 @@ public class ClientController {
         if (currentUser instanceof Student)
             return homework.getClasses().contains(((Student) currentUser).getClassNo());
         else if (currentUser instanceof Parent) {
-            for (ClassNo e:((Parent) currentUser).getFamily().getClasses()) {
+            for (ClassNo e : ((Parent) currentUser).getFamily().getClasses()) {
                 if (homework.getClasses().contains(e))
                     return true;
             }
@@ -274,5 +277,23 @@ public class ClientController {
 //        return parentPosts;
 //    }
 
+
+    private class ModelUpdater implements Runnable {
+
+        @Override
+        public void run() {
+            System.out.println("waiting to preform update request");
+            try {
+                while (true) {
+                    Thread.sleep(1000 * 60);
+                    System.out.println("Performing model update");
+                    model.requestUpdate();
+                    System.out.println("Done");
+                }
+            } catch (InterruptedException e) {
+                System.out.println("Updating interrupted");
+            }
+        }
+    }
 
 }

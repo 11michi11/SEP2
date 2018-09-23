@@ -19,6 +19,7 @@
             </VBox>
       </content>
    </ScrollPane>
-   <Label fx:id="title" layoutX="272.0" layoutY="69.0" prefHeight="126.0" prefWidth="953.0" styleClass="labelSmall" stylesheets="@login.css" text="discussion title" />
+   <Label fx:id="title" layoutX="272.0" layoutY="69.0" prefHeight="126.0" prefWidth="945.0" styleClass="labelSmall" stylesheets="@login.css" text="discussion title" />
    <Button fx:id="add" layoutX="524.0" layoutY="705.0" mnemonicParsing="false" onAction="#addComment" styleClass="smallButton" stylesheets="@login.css" text="add comment" />
+   <Button fx:id="reload" layoutX="5.0" layoutY="683.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="226.0" styleClass="menuButtonSmall" stylesheets="@login.css" text="reload" textAlignment="CENTER" textFill="#729eea" />
 </Pane>

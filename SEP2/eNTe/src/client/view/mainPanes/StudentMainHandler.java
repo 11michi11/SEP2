@@ -107,7 +107,7 @@ public class StudentMainHandler {
         solution.addEventHandler(MouseEvent.MOUSE_CLICKED, new SubmitHomeworkHandler(homework));
         solution.getStyleClass().add("smallButton");
 
-        TextFlow textFlow = new TextFlow(IconImage.getHomIcon(), separator, content, separator1, deadline, separator2, solution);
+        TextFlow textFlow = new TextFlow(IconImage.getHomIcon(), title, separator, content, separator1, deadline, separator2, solution);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
         textFlow.setAccessibleText(homework.getContent());
         textFlow.setPrefWidth(830);

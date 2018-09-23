@@ -92,26 +92,6 @@ public class ControllerTest {
         }
 
         @Override
-        public Post getPost() {
-            return null;
-        }
-
-        @Override
-        public Homework getHomework() {
-            return null;
-        }
-
-        @Override
-        public Discussion getDiscussion() {
-            return null;
-        }
-
-        @Override
-        public Announcement getAnnouncement() {
-            return null;
-        }
-
-        @Override
         public void saveData(WelcomingData data) {
 
         }
@@ -183,6 +163,11 @@ public class ControllerTest {
 
         @Override
         public void addCommentToDiscussion(DiscussionComment comment) {
+
+        }
+
+        @Override
+        public void requestUpdate() {
 
         }
 

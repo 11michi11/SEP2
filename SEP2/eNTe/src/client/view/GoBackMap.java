@@ -63,7 +63,7 @@ public class GoBackMap {
 
         map.put("HomeworkRepliesListHandler", "/client/view/fxml/homeworkHandler.fxml");
         map.put("CreateHomeworkHandler", "/client/view/fxml/homeworkHandler.fxml");
-        map.put("HomeworkReplyHandler", "/client/view/fxml/homeworkHandler.fxml");
+        map.put("HomeworkReplyHandler", "/client/view/fxml/mainPaneStudent.fxml");
 
         map.put("FamilyListHandler", "/client/view/fxml/mainPaneAdmin.fxml");
         map.put("TeacherListHandler", "/client/view/fxml/mainPaneAdmin.fxml");
