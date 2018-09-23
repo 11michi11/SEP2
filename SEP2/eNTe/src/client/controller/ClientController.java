@@ -183,7 +183,14 @@ public class ClientController {
     }
 
     public void submitHomework(Homework homework, String text) {
-        homework.addHomeworkReply(new HomeworkReply(text, (Student) currentUser, homework.isClosed(), MyDate.now(), homework.getPostId()));
+        int index = homework.indexOfStudentReply(currentUser.getId());
+        if (index != -1) {
+            homework.getReplies().get(index).setContent(text);
+            homework.getReplies().get(index).setHandInDate(MyDate.now());
+        }
+        else {
+            homework.addHomeworkReply(new HomeworkReply(text, (Student) currentUser, homework.isClosed(), MyDate.now(), homework.getPostId()));
+        }
         model.editPost(homework);
     }
 

@@ -129,4 +129,12 @@ public class HomeworkReply implements Serializable {
         result = 31 * result + (handInDate != null ? handInDate.hashCode() : 0);
         return result;
     }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setHandInDate(MyDate handInDate) {
+        this.handInDate = handInDate;
+    }
 }

@@ -53,6 +53,15 @@ public class Homework extends Post {
         replies.add(reply);
     }
 
+    public int indexOfStudentReply (String studentID) {
+        for (int i = 0; i < replies.size(); i++) {
+            if (replies.get(i).getStudentId().equals(studentID)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public List<HomeworkReply> getReplies() {
         return new LinkedList<>(replies);
     }
