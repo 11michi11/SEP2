@@ -38,26 +38,6 @@ public class ClientModelManager implements ClientModel {
     }
 
     @Override
-    public Post getPost() {
-        return posts.getFirstPost();
-    }
-
-    @Override
-    public Homework getHomework() {
-        return posts.getFirstHomework();
-    }
-
-    @Override
-    public Discussion getDiscussion() {
-        return posts.getFirstDiscussion();
-    }
-
-    @Override
-    public Announcement getAnnouncement() {
-        return posts.getFirstAnnouncement();
-    }
-
-    @Override
     public void addPost(Post post) {
         posts.add(post);
         server.managePost(ManagePost.ADD, post);
@@ -129,6 +109,8 @@ public class ClientModelManager implements ClientModel {
             server.managePost(ManagePost.EDIT, discussion);
     }
 
+
+
     private User getUserByEmail(String email) {
         return users.getUserByEmail(email);
     }
@@ -178,6 +160,19 @@ public class ClientModelManager implements ClientModel {
     public void editPost(Post post) {
         posts.editPost(post);
         server.managePost(ManagePost.EDIT, post);
+    }
+
+    @Override
+    public void requestUpdate() {
+        WelcomingData data = server.requestUpdate();
+        clearLists();
+        saveData(data);
+    }
+
+    private void clearLists(){
+        posts.clear();
+        families.clear();
+        users.clear();
     }
 
 }

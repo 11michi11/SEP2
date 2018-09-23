@@ -27,4 +27,8 @@ public class FamiliesList {
     public void addAll(List<Family> families) {
         this.families.addAll(families);
     }
+
+    public void clear() {
+        families.clear();
+    }
 }
