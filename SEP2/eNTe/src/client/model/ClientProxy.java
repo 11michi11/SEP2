@@ -32,6 +32,11 @@ public class ClientProxy {
 	}
 
 	private void showErrorNotConnected() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		Alert alert = new Alert(Alert.AlertType.ERROR);
 		alert.setTitle("Connection error");
 		alert.setContentText("Couldn't connect to the server, try again later");
