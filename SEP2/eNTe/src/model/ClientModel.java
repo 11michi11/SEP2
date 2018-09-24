@@ -9,6 +9,8 @@ import model.communication.WelcomingData;
 
 public interface ClientModel {
 
+    void startServer();
+
     void setController(ClientController controller);
 
     void addPost(Post post);

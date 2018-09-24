@@ -35,7 +35,8 @@ public class ClientController {
         model.setController(this);
         this.view = view;
         view.setController(this);
-        this.view.startView();
+        new Thread(()->this.view.startView()).start();
+        model.startServer();
     }
 
     public void login(String email, String pwd) {
@@ -219,11 +220,6 @@ public class ClientController {
         model.addCommentToDiscussion(new DiscussionComment(text, currentUser.getId(), MyDate.now(), discussionid));
     }
 
-//    public void editDiscussion(String postId, String title, String content, String selectedValue, List<ClassNo> classes) {
-//        SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
-//        specialType.doAction();
-//        model.editPost(new Discussion(postId, title, content, getCurrentUserName(), specialType, MyDate.now(), classes));
-//    }
 
     public void addAnnouncement(String title, String content, String selectedValue, List<ClassNo> classes, MyDate expirationDate) {
         SpecialType specialType = SpecialType.valueOf(selectedValue.toUpperCase());
@@ -266,16 +262,6 @@ public class ClientController {
     public String getUserNameById(String userId) {
         return model.getUserById(userId).getName();
     }
-
-
-//    public List<Post> getImportantSpecialPostsForParent() {
-//        List<Post> posts = getAllPosts();
-//        List<Post> parentPosts = new ArrayList<>();
-//        for(Post p : posts)
-//            if (p.getSpecialType().equals(SpecialType.PARENTAL) || p.getSpecialType().equals(SpecialType.IMPORTANT))
-//                parentPosts.add(p);
-//        return parentPosts;
-//    }
 
 
     private class ModelUpdater implements Runnable {

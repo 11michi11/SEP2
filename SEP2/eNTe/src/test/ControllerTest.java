@@ -63,6 +63,11 @@ public class ControllerTest {
     class MockClientModelManagerTest implements ClientModel {
 
         @Override
+        public void startServer() {
+
+        }
+
+        @Override
         public void setController(ClientController controller) {
 
         }

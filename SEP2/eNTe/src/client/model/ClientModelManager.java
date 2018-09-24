@@ -21,6 +21,9 @@ public class ClientModelManager implements ClientModel {
         users = new UsersList();
         server = new ClientProxy();
         families = new FamiliesList();
+    }
+
+    public void startServer(){
         server.startConnection("localhost", 7777);
     }
 

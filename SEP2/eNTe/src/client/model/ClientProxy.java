@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import model.Family;
 import model.Post;
 import model.User;
@@ -25,7 +27,16 @@ public class ClientProxy {
 			in = new ObjectInputStream(client.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
+			Platform.runLater(this::showErrorNotConnected);
 		}
+	}
+
+	private void showErrorNotConnected() {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("Connection error");
+		alert.setContentText("Couldn't connect to the server, try again later");
+		alert.showAndWait();
+		System.exit(0);
 	}
 
 	public Message sendMessage(Message msg) throws IOException, ClassNotFoundException {
