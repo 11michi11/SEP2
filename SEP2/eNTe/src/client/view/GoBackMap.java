@@ -24,7 +24,6 @@ public class GoBackMap {
         simpleNames.add("StudentMainHandler");
         simpleNames.add("ParentMainHandler");
 
-        simpleNames.add("DiscussionCommentsHandler");
         simpleNames.add("CreateHomeworkHandler");
         simpleNames.add("HomeworkReplyHandler");
         simpleNames.add("FamilyListHandler");
@@ -56,7 +55,11 @@ public class GoBackMap {
         map.put("DiscussionListHandlerStudent", "/client/view/fxml/mainPaneStudent.fxml");
         map.put("DiscussionListHandlerParent", "/client/view/fxml/mainPaneParent.fxml");
 
-        map.put("DiscussionCommentsHandler", "/client/view/fxml/discussionHandler.fxml");
+        map.put("DiscussionCommentsHandlerAdministrator", "/client/view/fxml/discussionHandler.fxml");
+        map.put("DiscussionCommentsHandlerTeacher", "/client/view/fxml/discussionHandler.fxml");
+        map.put("DiscussionCommentsHandlerStudent", "/client/view/fxml/mainPaneStudent.fxml");
+        map.put("DiscussionCommentsHandlerParent", "/client/view/fxml/mainPaneParent.fxml");
+
         map.put("CreateDiscussionHandler", "/client/view/fxml/discussionHandler.fxml");
 
         map.put("CreateAnnouncementHandler", "/client/view/fxml/announcementHandler.fxml");
