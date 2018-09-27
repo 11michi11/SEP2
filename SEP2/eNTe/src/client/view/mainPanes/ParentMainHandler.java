@@ -2,6 +2,7 @@ package client.view.mainPanes;
 
 import client.controller.ClientController;
 import client.view.ClientViewManager;
+import client.view.Contact;
 import client.view.IconImage;
 import client.view.managingPosts.DiscussionCommentsHandler;
 import javafx.event.Event;
@@ -33,7 +34,6 @@ public class ParentMainHandler {
 	private VBox box;
 	private ClientController controller;
 	private Stage stage;
-	private FXMLLoader backLoader = new FXMLLoader(getClass().getResource("/client/view/fxml/mainPaneParent.fxml"));
 
 	public ParentMainHandler() {
 		controller = ClientController.getInstance();
@@ -44,6 +44,15 @@ public class ParentMainHandler {
 	@FXML
 	public void initialize() {
 		loadPosts();
+	}
+
+	public void reload() {
+		box.getChildren().clear();
+		loadPosts();
+	}
+
+	public void contactMessage() {
+		Contact.ContactMessage();
 	}
 
 	public void loadPosts() {

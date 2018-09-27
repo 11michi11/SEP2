@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import client.controller.ClientController;
+import client.view.Contact;
 import client.view.IconImage;
 import client.view.managingPosts.DiscussionCommentsHandler;
 import client.view.managingPosts.DiscussionListHandler;
@@ -48,6 +49,15 @@ public class StudentMainHandler {
 
     private void addPane(Pane pane) {
         VBox.getChildren().add(pane);
+    }
+
+    public void reload() {
+        VBox.getChildren().clear();
+        loadPosts();
+    }
+
+    public void contactMessage() {
+        Contact.ContactMessage();
     }
 
 

@@ -50,6 +50,10 @@ public class AdminMainHandler {
 		loadPosts();
 
 	}
+	public void reload() {
+		box.getChildren().clear();
+		loadPosts();
+	}
 
 	private void loadPosts() {
 		ArrayList<Post> posts = controller.getAllPosts();

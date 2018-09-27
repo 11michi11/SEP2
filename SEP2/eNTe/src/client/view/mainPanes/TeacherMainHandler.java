@@ -45,6 +45,11 @@ public class TeacherMainHandler {
         loadPosts();
     }
 
+    public void reload() {
+        box.getChildren().clear();
+        loadPosts();
+    }
+
     private void loadPosts() {
         ArrayList<Post> posts = controller.getAllPosts();
         for (Post p : posts) {

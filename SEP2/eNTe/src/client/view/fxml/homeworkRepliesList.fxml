@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.managingPosts.HomeworkRepliesListHandler">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1280.0" styleClass="menuPane" stylesheets="@login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.managingPosts.HomeworkRepliesListHandler">
    <children>
       <ImageView fitHeight="182.0" fitWidth="209.0" layoutX="22.0" layoutY="-3.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -22,9 +22,9 @@
       </Label>
       <TableView fx:id="replyList" layoutX="66.0" layoutY="190.0" prefHeight="544.0" prefWidth="1108.0">
         <columns>
-          <TableColumn fx:id="name" prefWidth="299.0" />
-          <TableColumn fx:id="classNo" prefWidth="368.0" />
-            <TableColumn fx:id="handInDate" prefWidth="375.0" />
+          <TableColumn fx:id="name" prefWidth="299.0" text="name" />
+          <TableColumn fx:id="classNo" prefWidth="368.0" text="classNo" />
+            <TableColumn fx:id="handInDate" prefWidth="375.0" text="date" />
             <TableColumn fx:id="late" prefWidth="63.0" />
         </columns>
       </TableView>
