@@ -26,7 +26,8 @@
       </ScrollPane>
       <VBox layoutX="912.0" layoutY="152.0" prefHeight="278.0" prefWidth="358.0">
          <children>
-            <Button fx:id="reload" mnemonicParsing="false" prefHeight="110.0" prefWidth="387.0" onAction="#reload" styleClass="menuButton" stylesheets="@login.css" text="reload" textFill="#729eea" />
+            <Button fx:id="reload" mnemonicParsing="false" onAction="#reload" prefHeight="110.0" prefWidth="387.0" styleClass="menuButton" stylesheets="@login.css" text="reload" textFill="#729eea" />
+            <Button fx:id="contact" mnemonicParsing="false" onAction="#contactMessage" prefHeight="110.0" prefWidth="387.0" styleClass="menuButton" stylesheets="@login.css" text="contact" textFill="#729eea" />
          </children></VBox>
    </children>
 </Pane>
