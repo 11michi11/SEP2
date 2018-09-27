@@ -50,6 +50,11 @@ public class StudentMainHandler {
         VBox.getChildren().add(pane);
     }
 
+    public void reload() {
+        VBox.getChildren().clear();
+        loadPosts();
+    }
+
 
 	private void loadPosts() {
 		ArrayList<Post> posts = controller.getAllPosts();

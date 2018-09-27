@@ -21,7 +21,7 @@
       </ScrollPane>
       <VBox layoutX="891.0" layoutY="132.0" prefHeight="629.0" prefWidth="369.0">
          <children>
-            <Button fx:id="reload" mnemonicParsing="false" prefHeight="110.0" prefWidth="387.0" styleClass="menuButton" stylesheets="@login.css" text="reload" textFill="#729eea" />
+            <Button fx:id="reload" mnemonicParsing="false" prefHeight="110.0" onAction="#reload" prefWidth="387.0" styleClass="menuButton" stylesheets="@login.css" text="reload" textFill="#729eea" />
          </children></VBox>
    </children>
 </Pane>

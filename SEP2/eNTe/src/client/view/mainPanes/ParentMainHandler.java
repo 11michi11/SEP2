@@ -46,6 +46,11 @@ public class ParentMainHandler {
 		loadPosts();
 	}
 
+	public void reload() {
+		box.getChildren().clear();
+		loadPosts();
+	}
+
 	public void loadPosts() {
 		ArrayList<Post> posts = controller.getAllPosts();
 		for (Post p : posts) {

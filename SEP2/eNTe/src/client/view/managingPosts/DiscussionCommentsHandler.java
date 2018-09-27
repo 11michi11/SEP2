@@ -52,6 +52,7 @@ public class DiscussionCommentsHandler {
         //loadComments();
     }
 
+
     public void loadComments(Discussion discussion) {
         this.discussion = discussion;
         title.setText(discussion.getTitle());
@@ -110,7 +111,7 @@ public class DiscussionCommentsHandler {
         alert.showAndWait();
     }
 
-    private void reload() {
+    public void reload() {
         box.getChildren().clear();
         loadComments(discussion);
     }
