@@ -112,8 +112,6 @@ public class ClientModelManager implements ClientModel {
             server.managePost(ManagePost.EDIT, discussion);
     }
 
-
-
     private User getUserByEmail(String email) {
         return users.getUserByEmail(email);
     }

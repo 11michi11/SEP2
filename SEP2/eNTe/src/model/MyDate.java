@@ -199,7 +199,7 @@ public class MyDate implements Serializable, Comparable<MyDate>  {
             stepForwardOneDay();
     }
 
-    public void stepForwardOneDay() {
+    public MyDate stepForwardOneDay() {
         if((this.day + 1) > numberOfDaysInMonth()) {
             if((this.month + 1) > 12) {
                 this.day = 1;
@@ -212,6 +212,7 @@ public class MyDate implements Serializable, Comparable<MyDate>  {
         }else {
             this.day++;
         }
+        return this;
     }
 
     public static int convertToMonthNumber(String monthName) {
@@ -264,7 +265,7 @@ public class MyDate implements Serializable, Comparable<MyDate>  {
             if (other.month < this.month)
                 return false;
             else {
-                return other.month >= this.month || other.day >= this.day;
+                return other.month == this.month && other.day < this.day;
             }
         }
     }

@@ -19,7 +19,15 @@ public class PostsList {
     }
 
     public ArrayList<Post> getAll() {
-        return new ArrayList<>(posts);
+        ArrayList<Post> posts = new ArrayList<>();
+        this.posts.forEach(post -> {
+            if(post instanceof Announcement) {
+                if (((Announcement) post).getExpirationDate().stepForwardOneDay().isBefore(MyDate.now()))
+                    posts.add(post);
+            }else
+                 posts.add(post);
+        });
+        return posts;
     }
 
     public Homework getFirstHomework() {
