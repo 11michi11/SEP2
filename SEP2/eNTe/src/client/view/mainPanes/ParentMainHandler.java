@@ -151,7 +151,7 @@ public class ParentMainHandler {
 		content.setId("content");
 		Text separator = new Text("\n" + "\n");
 
-		TextFlow textFlow = new TextFlow(IconImage.getHomIcon(), separator, content);
+		TextFlow textFlow = new TextFlow(IconImage.getHomIcon(), title, separator, content);
 		textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 		textFlow.setAccessibleText(homework.getContent());
 		textFlow.setPrefWidth(830);
