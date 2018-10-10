@@ -38,10 +38,9 @@ public abstract class User implements Serializable {
         id = UUID.randomUUID().toString();
         changePassword = true;
         String tempPwd = Password.generateEntePassword();
-        //Uncomment in real system - i don't want spam right now
-        //SendEmail.sendPasswordEmail(email, tempPwd);
+//       Senfing email with pwd
+        SendEmail.sendPasswordEmail(email, tempPwd);
         this.pwd = Password.encryptPwd(tempPwd);
-
     }
 
     public User(String name, String email, String pwd, String id) {

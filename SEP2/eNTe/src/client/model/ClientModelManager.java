@@ -24,7 +24,7 @@ public class ClientModelManager implements ClientModel {
     }
 
     public void startServer(){
-        server.startConnection("localhost", 7777);
+        server.startConnection("104.248.140.79", 7777);
     }
 
     public void closeServer() {
